@@ -36,7 +36,7 @@ public class TestClass {
 		//driver.findElement(By.id("Password")).sendKeys(prop.getproperty("password"));
 		driver.findElement(By.id("Password")).sendKeys("retry2");
 		driver.findElement(By.cssSelector("span.btn2 > b")).click();
-		Assert.assertTrue(isElementPresent(By.linkText("выход")));
+		Assert.assertTrue(isElementPresent(By.linkText("РІС‹С…РѕРґ")));
 		System.out.println("End @Test");
 	}
 
