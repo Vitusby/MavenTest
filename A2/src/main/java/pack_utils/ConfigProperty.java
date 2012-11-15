@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class ConfigProperty
 {
-	//gdfg
+	//gdfgvxczvxcv
 	private Properties PROP;
 	
 	public void loadProp()
