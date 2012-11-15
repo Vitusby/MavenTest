@@ -5,6 +5,7 @@ import java.util.Properties;
 
 public class ConfigProperty
 {
+	//gdfg
 	private Properties PROP;
 	
 	public void loadProp()
