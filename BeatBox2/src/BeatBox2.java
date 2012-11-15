@@ -7,6 +7,7 @@ import javax.swing.*;
 
 public class BeatBox2
 {
+	//dsfsdfsd
 	ArrayList<JCheckBox> arraylistCheckBox;
 	JFrame mainFrame;
 	JPanel mainPanel;
