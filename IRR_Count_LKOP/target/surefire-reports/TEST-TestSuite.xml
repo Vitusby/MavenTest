@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="272.312" errors="0" skipped="0" tests="1" name="TestSuite">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="JOB_NAME" value="IrrCount"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="NUMBER_OF_PROCESSORS" value="2"/>
+    <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+    <property name="JENKINS_HOME" value="D:\Program Files\Jenkins"/>
+    <property name="HUDSON_SERVER_COOKIE" value="9d69f3db9c1636b6b5338ec6e23f7349"/>
+    <property name="os.name" value="Windows XP"/>
+    <property name="sun.boot.class.path" value="D:\Program Files\Java\jdk1.7.0\jre\lib\resources.jar;D:\Program Files\Java\jdk1.7.0\jre\lib\rt.jar;D:\Program Files\Java\jdk1.7.0\jre\lib\sunrsasign.jar;D:\Program Files\Java\jdk1.7.0\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.7.0\jre\lib\jce.jar;D:\Program Files\Java\jdk1.7.0\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.7.0\jre\classes"/>
+    <property name="EXECUTOR_NUMBER" value="0"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.PSC1"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="NODE_LABELS" value="master"/>
+    <property name="TEMP" value="D:\WINDOWS.0\TEMP"/>
+    <property name="java.runtime.version" value="1.7.0-b147"/>
+    <property name="user.name" value="SYSTEM"/>
+    <property name="ProgramFiles" value="D:\Program Files"/>
+    <property name="user.language" value="ru"/>
+    <property name="maven.interceptor.override" value="D:\Program Files\Jenkins\plugins\maven-plugin\WEB-INF\lib\maven2.1-interceptor-1.2.jar"/>
+    <property name="QAPHOOKS_INIDIR" value="D:\Program Files\Silk\SilkTest\"/>
+    <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.7.0\jre\bin"/>
+    <property name="java.version" value="1.7.0"/>
+    <property name="PROCESSOR_LEVEL" value="6"/>
+    <property name="user.timezone" value="Europe/Minsk"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="NODE_NAME" value="master"/>
+    <property name="java.endorsed.dirs" value="D:\Program Files\Java\jdk1.7.0\jre\lib\endorsed"/>
+    <property name="BUILD_ID" value="2012-12-04_21-55-19"/>
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
+    <property name="sun.jnu.encoding" value="Cp1251"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="51.0"/>
+    <property name="user.country" value="RU"/>
+    <property name="SILK_CONFIG_PATH" value="D:\Program Files\Borland\SilkMeter\cfg"/>
+    <property name="ALLUSERSPROFILE" value="D:\Documents and Settings\All Users.WINDOWS.0"/>
+    <property name="java.home" value="D:\Program Files\Java\jdk1.7.0\jre"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="os.version" value="5.1"/>
+    <property name="TMP" value="D:\WINDOWS.0\TEMP"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.version" value="21.0-b17"/>
+    <property name="user.variant" value=""/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="FP_NO_HOST_CHECK" value="NO"/>
+    <property name="JAVA_HOME" value="D:\Program Files\Java\jdk1.7.0"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="CommonProgramFiles" value="D:\Program Files\Common Files"/>
+    <property name="ComSpec" value="D:\WINDOWS.0\system32\cmd.exe"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="COMPUTERNAME" value="MICROSOF-700290"/>
+    <property name="user.script" value=""/>
+    <property name="maven.interceptor" value="D:\Program Files\Jenkins\plugins\maven-plugin\WEB-INF\lib\maven-interceptor-1.2.jar"/>
+    <property name="user.home" value="D:\Documents and Settings\Admin"/>
+    <property name="BUILD_TAG" value="jenkins-IrrCount-2"/>
+    <property name="JENKINS_SERVER_COOKIE" value="9d69f3db9c1636b6b5338ec6e23f7349"/>
+    <property name="HUDSON_URL" value="http://127.0.0.1:8080/"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="USERPROFILE" value="D:\Documents and Settings\LocalService"/>
+    <property name="CLASSPATH" value=""/>
+    <property name="java.library.path" value="D:\Program Files\Java\jdk1.7.0\bin;D:\WINDOWS.0\Sun\Java\bin;D:\WINDOWS.0\system32;D:\WINDOWS.0;D:\Program Files\maven/bin;D:\Program Files\Java\jdk1.7.0/bin;D:\Program Files\NVIDIA Corporation\PhysX\Common;D:\WINDOWS.0\system32;D:\WINDOWS.0;D:\WINDOWS.0\System32\Wbem;D:\Program Files\ATI Technologies\ATI.ACE\Core-Static;D:\Program Files\Silk\SilkTest;D:\Program Files\Silk\SilkTest\ng\gui;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;D:\WINDOWS.0\system32\WindowsPowerShell\v1.0;."/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="D:\Program Files\maven"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.java.command" value="hudson.maven.agent.Main D:\Program Files\maven D:\Program Files\Jenkins\war\WEB-INF\lib\remoting-2.17.jar D:\Program Files\Jenkins\plugins\maven-plugin\WEB-INF\lib\maven-interceptor-1.2.jar 6378 D:\Program Files\Jenkins\plugins\maven-plugin\WEB-INF\lib\maven2.1-interceptor-1.2.jar"/>
+    <property name="java.class.path" value="D:\Program Files\Jenkins\plugins\maven-plugin\WEB-INF\lib\maven-agent-1.2.jar;D:\Program Files\maven\boot\classworlds-1.1.jar"/>
+    <property name="Path" value="D:\Program Files\NVIDIA Corporation\PhysX\Common;D:\WINDOWS.0\system32;D:\WINDOWS.0;D:\WINDOWS.0\System32\Wbem;D:\Program Files\ATI Technologies\ATI.ACE\Core-Static;D:\Program Files\Silk\SilkTest;D:\Program Files\Silk\SilkTest\ng\gui;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;D:\WINDOWS.0\system32\WindowsPowerShell\v1.0"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PROCESSOR_ARCHITECTURE" value="x86"/>
+    <property name="PATH+JDK" value="D:\Program Files\Java\jdk1.7.0/bin"/>
+    <property name="PROCESSOR_IDENTIFIER" value="x86 Family 6 Model 23 Stepping 10, GenuineIntel"/>
+    <property name="java.vm.specification.version" value="1.7"/>
+    <property name="sun.os.patch.level" value="Service Pack 3"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="M2_HOME" value="D:\Program Files\maven"/>
+    <property name="java.io.tmpdir" value="D:\WINDOWS.0\TEMP\"/>
+    <property name="OS" value="Windows_NT"/>
+    <property name="HUDSON_HOME" value="D:\Program Files\Jenkins"/>
+    <property name="PATH+MAVEN" value="D:\Program Files\maven/bin"/>
+    <property name="BUILD_URL" value="http://127.0.0.1:8080/job/IrrCount/2/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="os.arch" value="x86"/>
+    <property name="SystemRoot" value="D:\WINDOWS.0"/>
+    <property name="java.ext.dirs" value="D:\Program Files\Java\jdk1.7.0\jre\lib\ext;D:\WINDOWS.0\Sun\Java\lib\ext"/>
+    <property name="user.dir" value="E:\eclipseworkplace\IRR_Count_LKOP"/>
+    <property name="JOB_URL" value="http://127.0.0.1:8080/job/IrrCount/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="MAVEN_HOME" value="D:\Program Files\maven"/>
+    <property name="VS100COMNTOOLS" value="D:\Program Files\Microsoft Visual Studio 10.0\Common7\Tools\"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+    <property name="BUILD_NUMBER" value="2"/>
+    <property name="BASE" value="D:\Program Files\Jenkins"/>
+    <property name="JENKINS_URL" value="http://127.0.0.1:8080/"/>
+    <property name="PROCESSOR_REVISION" value="170a"/>
+    <property name="windir" value="D:\WINDOWS.0"/>
+    <property name="file.encoding" value="Cp1251"/>
+    <property name="SystemDrive" value="D:"/>
+    <property name="WORKSPACE" value="D:\Program Files\Jenkins\jobs\IrrCount\workspace"/>
+    <property name="java.specification.version" value="1.7"/>
+  </properties>
+  <testcase time="272.312" classname="pack_test.TestCount" name="TestStart"/>
+</testsuite>

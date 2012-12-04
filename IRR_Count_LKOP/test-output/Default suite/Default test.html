@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Nov 13 17:56:36 MSK 2012</td>
+<td>Started on:</td><td>Tue Dec 04 21:58:29 FET 2012</td>
 </tr>
-<tr><td>Total time:</td><td>86 seconds (86871 ms)</td>
+<tr><td>Total time:</td><td>48 seconds (48672 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,12 +76,12 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='pack_test.TestCount.TestStart()'><b>TestStart</b><br>Test class: pack_test.TestCount</td>
-<td><div><pre>org.openqa.selenium.ElementNotVisibleException: Element is not currently visible and so may not be interacted with
-Command duration or timeout: 10.06 seconds
+<td><div><pre>org.openqa.selenium.interactions.MoveTargetOutOfBoundsException: Element cannot be scrolled into view:[object HTMLDivElement]
+Command duration or timeout: 47 milliseconds
 Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 21:09:54&apos;
 System info: os.name: &apos;Windows XP&apos;, os.arch: &apos;x86&apos;, os.version: &apos;5.1&apos;, java.version: &apos;1.7.0_03&apos;
 Driver info: driver.version: RemoteWebDriver
-Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
+Session ID: 5793a28c-5b9f-4944-b2d0-66ecfb868ff5
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -91,14 +91,17 @@ Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:498)
 	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:244)
 	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:77)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:41)
-	at $Proxy8.click(Unknown Source)
-	at pack_page.Page_Stargate.OpenFormCreatePremium(Page_Stargate.java:198)
-	at pack_test.TestCount.TestStart(TestCount.java:41)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement$1.invoke(EventFiringWebDriver.java:327)
+	at $Proxy11.click(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.click(EventFiringWebDriver.java:340)
+	at pack_page.Page_Stargate.SetOtherImageDiv(Page_Stargate.java:330)
+	at pack_page.Page_Stargate.SetDropDownList(Page_Stargate.java:350)
+	at pack_page.Page_Stargate.InputDataToElement(Page_Stargate.java:404)
+	at pack_page.Page_Stargate.InputDataAuto(Page_Stargate.java:261)
+	at pack_test.TestCount.TestStart(TestCount.java:62)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -123,21 +126,13 @@ Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-Caused by: org.openqa.selenium.remote.ErrorHandler$UnknownServerException: Element is not currently visible and so may not be interacted with
-Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 21:09:54&apos;
-System info: os.name: &apos;Windows XP&apos;, os.arch: &apos;x86&apos;, os.version: &apos;5.1&apos;, java.version: &apos;1.7.0_03&apos;
-Driver info: driver.version: unknown
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:5908)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10110)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10131)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:399)
-</pre></div><a href='#' onClick='toggleBox("stack-trace10053653", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace10053653'><pre>org.openqa.selenium.ElementNotVisibleException: Element is not currently visible and so may not be interacted with
-Command duration or timeout: 10.06 seconds
+</pre></div><a href='#' onClick='toggleBox("stack-trace9294387", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace9294387'><pre>org.openqa.selenium.interactions.MoveTargetOutOfBoundsException: Element cannot be scrolled into view:[object HTMLDivElement]
+Command duration or timeout: 47 milliseconds
 Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 21:09:54&apos;
 System info: os.name: &apos;Windows XP&apos;, os.arch: &apos;x86&apos;, os.version: &apos;5.1&apos;, java.version: &apos;1.7.0_03&apos;
 Driver info: driver.version: RemoteWebDriver
-Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
+Session ID: 5793a28c-5b9f-4944-b2d0-66ecfb868ff5
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -147,14 +142,17 @@ Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:498)
 	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:244)
 	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:77)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:601)
-	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:41)
-	at $Proxy8.click(Unknown Source)
-	at pack_page.Page_Stargate.OpenFormCreatePremium(Page_Stargate.java:198)
-	at pack_test.TestCount.TestStart(TestCount.java:41)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement$1.invoke(EventFiringWebDriver.java:327)
+	at $Proxy11.click(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$EventFiringWebElement.click(EventFiringWebDriver.java:340)
+	at pack_page.Page_Stargate.SetOtherImageDiv(Page_Stargate.java:330)
+	at pack_page.Page_Stargate.SetDropDownList(Page_Stargate.java:350)
+	at pack_page.Page_Stargate.InputDataToElement(Page_Stargate.java:404)
+	at pack_page.Page_Stargate.InputDataAuto(Page_Stargate.java:261)
+	at pack_test.TestCount.TestStart(TestCount.java:62)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -179,17 +177,9 @@ Session ID: 487713af-9c03-4a27-ae15-c2b8b697e73f
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-Caused by: org.openqa.selenium.remote.ErrorHandler$UnknownServerException: Element is not currently visible and so may not be interacted with
-Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 21:09:54&apos;
-System info: os.name: &apos;Windows XP&apos;, os.arch: &apos;x86&apos;, os.version: &apos;5.1&apos;, java.version: &apos;1.7.0_03&apos;
-Driver info: driver.version: unknown
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:5908)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10110)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10131)
-	at &lt;anonymous class&gt;.&lt;anonymous method&gt;(file:///C:/DOCUME~1/dsobol/LOCALS~1/Temp/anonymous7778242850239683831webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:399)
 </pre></div></td>
-<td>86</td>
-<td>pack_test.TestCount@d26e27</td></tr>
+<td>48</td>
+<td>pack_test.TestCount@1e152b7</td></tr>
 </table><p>
 </body>
 </html>

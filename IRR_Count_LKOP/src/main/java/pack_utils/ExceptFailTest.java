@@ -1,6 +1,6 @@
 package pack_utils;
 
-public class ExceptFailTest extends Exception
+public class ExceptFailTest extends Throwable
 {
 	private static final long serialVersionUID = 1L;
 	
