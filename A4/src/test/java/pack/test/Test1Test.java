@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 
 
@@ -15,11 +16,12 @@ class Proper
 	static
 	{
 		prop = new Properties();
+		URL url = ClassLoader.getSystemResource("p.properties"); // получаем  урл проперти файла
 		try
 		{
-			prop.load(ClassLoader.getSystemResourceAsStream("A4/src/test/java/p.properties"));
+			prop.load(url.openStream()); // грузим данные из файла в проперти
 		}
-		catch(IOException exc){exc.printStackTrace(); System.out.println("Dont Work");}
+		catch(IOException exc){exc.printStackTrace();} System.out.println("Dont Work");
 	}
 	
 	public static String GetProperty(String sKey)
@@ -34,7 +36,7 @@ public class Test1Test {
   @Test
   public void TestStart()
   {
-	  System.out.println("Star Test");
+	  System.out.println("Start Test");
 	  WebDriver driver = new FirefoxDriver();
 	  driver.get(Proper.GetProperty("url"));
 	  driver.quit();
