@@ -12,8 +12,8 @@ public class TestTest {
 	  String s = Proper.GetProperty("url");
 	  	System.out.println("Start Test");
 		WebDriver driver = new FirefoxDriver();
-		driver.get(s);
-		driver.quit();
+		//driver.get(s);
+		//driver.quit();
 		System.out.println("Close Test");
   }
 }
