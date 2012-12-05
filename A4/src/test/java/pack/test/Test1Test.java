@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Properties;
 
 
-class Proper
+/*class Proper
 {
 	protected static Properties prop;
 	static
@@ -31,15 +31,28 @@ class Proper
 	}
 }
 
-
+*/
 public class Test1Test {
 
   @Test
   public void TestStart()
   {
-	  System.out.println("Start Test");
+	  
+	  	System.out.println("Start Test");
+	  
+	  	Properties prop;
+	  	prop = new Properties();
+		URL url = ClassLoader.getSystemResource("p.properties"); // получаем  урл проперти файла
+		try
+		{
+			System.out.println(url.getPath());
+			prop.load(url.openStream()); // грузим данные из файла в проперти
+		}
+		catch(IOException exc){exc.printStackTrace(); System.out.println("Dont Work");}
+	  
+	  
 	  WebDriver driver = new FirefoxDriver();
-	  driver.get(Proper.GetProperty("url"));
+	  driver.get(prop.getProperty("url"));
 	  driver.quit();
 	  System.out.println("Close Test");
   }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="15.36" errors="0" skipped="0" tests="1" name="TestSuite">
+<testsuite failures="0" time="17.968" errors="0" skipped="0" tests="1" name="TestSuite">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.7.0_03\jre\bin"/>
@@ -26,7 +26,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows XP"/>
-    <property name="classworlds.conf" value="E:\eclipseworkplace\.metadata\.plugins\org.eclipse.m2e.core\launches\m2conf5867139636340749890.tmp"/>
+    <property name="classworlds.conf" value="E:\eclipseworkplace\.metadata\.plugins\org.eclipse.m2e.core\launches\m2conf5787299550067690118.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1251"/>
     <property name="java.library.path" value="D:\Program Files\Java\jdk1.7.0_03\bin;D:\WINDOWS.0\Sun\Java\bin;D:\WINDOWS.0\system32;D:\WINDOWS.0;D:/Program Files/Java/jre7/bin/client;D:/Program Files/Java/jre7/bin;D:/Program Files/Java/jre7/lib/i386;D:\Program Files\NVIDIA Corporation\PhysX\Common;D:\WINDOWS.0\system32;D:\WINDOWS.0;D:\WINDOWS.0\System32\Wbem;D:\Program Files\ATI Technologies\ATI.ACE\Core-Static;D:\Program Files\Silk\SilkTest;D:\Program Files\Silk\SilkTest\ng\gui;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;D:\WINDOWS.0\system32\WindowsPowerShell\v1.0;D:\Program Files\Git\cmd;D:\Program Files\OpenVPN\bin;D:\Program Files\maven\\bin;%JAVA_HOME\bin%;E:\Soft\eclipse;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -60,5 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="15.36" classname="pack.test.Test1Test" name="TestStart"/>
+  <testcase time="17.968" classname="pack.test.Test1Test" name="TestStart"/>
 </testsuite>
