@@ -19,9 +19,10 @@ class Proper
 		URL url = ClassLoader.getSystemResource("p.properties"); // получаем  урл проперти файла
 		try
 		{
+			System.out.println(url.getPath());
 			prop.load(url.openStream()); // грузим данные из файла в проперти
 		}
-		catch(IOException exc){exc.printStackTrace();} System.out.println("Dont Work");
+		catch(IOException exc){exc.printStackTrace(); System.out.println("Dont Work");}
 	}
 	
 	public static String GetProperty(String sKey)
