@@ -13,6 +13,7 @@ public class Proper
 		try
 		{
 			prop.load(ClassLoader.getSystemResourceAsStream("r1.properties"));
+			System.out.println(prop.toString());
 		}
 		catch(IOException exc){exc.printStackTrace(); System.out.println("Don't work ");}
 	}
