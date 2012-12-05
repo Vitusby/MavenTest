@@ -42,6 +42,7 @@ public class Test1Test {
 	  
 	  	Properties prop;
 	  	prop = new Properties();
+	  //	URL url = new URL();
 		URL url = ClassLoader.getSystemResource("p.properties"); // получаем  урл проперти файла
 		try
 		{
