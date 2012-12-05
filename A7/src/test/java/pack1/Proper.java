@@ -14,7 +14,7 @@ public class Proper
 		{
 			prop.load(ClassLoader.getSystemResourceAsStream("r1.properties"));
 		}
-		catch(IOException exc){exc.printStackTrace(); System.out.println("Не удалось загрузить файл конфигурации");}
+		catch(IOException exc){exc.printStackTrace(); System.out.println("Don't work ");}
 	}
 	
 	public static String GetProperty(String sKey)
