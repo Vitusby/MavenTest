@@ -28,7 +28,8 @@ public class WriterLog
 			throw new ExceptFailTest("Не удалось создать файл лога");
 		}
 		System.out.println("Создаем файл лога");
-		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><title>Log_Result</title></head><body>");
+		//charset=utf-8
+		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;\"><title>Log_Result</title></head><body>");
 		WriteString(0, "<style> pre {margin:0;padding:0; font-family:arial; font: arial 18px/16px;} </style>");
 	}
 	
@@ -52,7 +53,7 @@ public class WriterLog
 		catch(IOException exc)
 		{
 			System.out.println("Не удалось записать в файл лога: "+sMessage);
-			throw new ExceptFailTest("Не удалось записать в файл лога: "+sMessage);
+			throw new ExceptFailTest("Не удалось записать в файл лога: "+sMessage);
 		}
 	}
 	

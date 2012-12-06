@@ -35,7 +35,7 @@ public class TestCount extends TestConstruct
 	};
 	
 	@AfterTest
-	public void aftTest() throws ExceptFailTest
+	public void aftTest()
 	{
 		System.out.println("Start @AfterTest");
 		System.out.println("End @AfterTest");
@@ -126,8 +126,15 @@ public class TestCount extends TestConstruct
 			System.out.println("Тест завершен успешно");
 			wLog.WriteString(1, "Тест завершен успешно");
 		}
+		catch(Exception exc)
+		{
+			System.out.println("Что то случилось непредвиденное");
+			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
+			throw new ExceptFailTest(exc.toString());
+		}
 		finally
 		{
+			CaptureScreenshot();
 			wLog.CloseFile();
 			driver.quit();
 		}

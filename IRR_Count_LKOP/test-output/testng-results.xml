@@ -2,32 +2,21 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="656332" started-at="2012-12-07T11:30:29Z" finished-at="2012-12-07T11:41:25Z">
+  <suite name="Default suite" duration-ms="377015" started-at="2012-12-06T23:44:59Z" finished-at="2012-12-06T23:51:16Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="656332" started-at="2012-12-07T11:30:29Z" finished-at="2012-12-07T11:41:25Z">
+    <test name="Default test" duration-ms="377015" started-at="2012-12-06T23:44:59Z" finished-at="2012-12-06T23:51:16Z">
       <class name="pack_test.TestCount">
-        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@16cbc11]" name="befTest" is-config="true" duration-ms="20" started-at="2012-12-07T22:30:29Z" finished-at="2012-12-07T22:30:29Z">
+        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@3476a7]" name="befTest" is-config="true" duration-ms="15" started-at="2012-12-07T02:44:59Z" finished-at="2012-12-07T02:44:59Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- befTest -->
-        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@16cbc11]" name="TestStart" duration-ms="656264" started-at="2012-12-07T22:30:29Z" finished-at="2012-12-07T22:41:25Z">
-          <exception class="org.openqa.selenium.remote.UnreachableBrowserException">
-            <message>
-              <![CDATA[Error communicating with the remote browser. It may have died.
-Build info: version: '2.26.0', revision: '18041', time: '2012-11-01 19:34:01'
-System info: os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.7.0'
-Driver info: driver.version: RemoteWebDriver]]>
-            </message>
+        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@3476a7]" name="TestStart" duration-ms="362703" started-at="2012-12-07T02:44:59Z" finished-at="2012-12-07T02:51:02Z">
+          <exception class="pack_utils.ExceptFailTest">
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.remote.UnreachableBrowserException: Error communicating with the remote browser. It may have died.
-Build info: version: '2.26.0', revision: '18041', time: '2012-11-01 19:34:01'
-System info: os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.7.0'
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:526)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:535)
-	at org.openqa.selenium.remote.RemoteWebDriver.quit(RemoteWebDriver.java:405)
-	at pack_test.TestCount.TestStart(TestCount.java:132)
+              <![CDATA[Тест провален, причина Значение счетчика "Все статусы" 2 не равно количеству отображаемых объявлений 1.
+	at pack_page.Page_IrrPrivateOffice.CheckCountAndVisibleAdvert(Page_IrrPrivateOffice.java:337)
+	at pack_test.TestCount.TestStart(TestCount.java:121)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -52,38 +41,13 @@ Driver info: driver.version: RemoteWebDriver
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:7056 refused
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:190)
-	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:151)
-	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:125)
-	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:640)
-	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:479)
-	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:906)
-	at org.openqa.selenium.remote.HttpCommandExecutor.fallBackExecute(HttpCommandExecutor.java:329)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:300)
-	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.execute(NewProfileExtensionConnection.java:133)
-	at org.openqa.selenium.firefox.FirefoxDriver$LazyCommandExecutor.execute(FirefoxDriver.java:353)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:505)
-	... 27 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:75)
-	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:337)
-	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:198)
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:180)
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:157)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:391)
-	at java.net.Socket.connect(Socket.java:579)
-	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:127)
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)
-	... 37 more
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.remote.UnreachableBrowserException -->
+          </exception> <!-- pack_utils.ExceptFailTest -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestStart -->
-        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@16cbc11]" name="aftTest" is-config="true" duration-ms="2" started-at="2012-12-07T22:41:25Z" finished-at="2012-12-07T22:41:25Z">
+        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@3476a7]" name="aftTest" is-config="true" duration-ms="15" started-at="2012-12-07T02:51:16Z" finished-at="2012-12-07T02:51:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- aftTest -->

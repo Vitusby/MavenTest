@@ -1,9 +1,11 @@
 eclipse.preferences.version=1
+encoding//src/main/java/pack_page=UTF-8
 encoding//src/main/java/pack_page/Page.java=UTF-8
 encoding//src/main/java/pack_page/Page_IrrMain.java=UTF-8
 encoding//src/main/java/pack_page/Page_IrrPrivateOffice.java=UTF-8
 encoding//src/main/java/pack_page/Page_LoginStargate.java=UTF-8
 encoding//src/main/java/pack_page/Page_Stargate.java=UTF-8
+encoding//src/main/java/pack_utils=UTF-8
 encoding//src/main/java/pack_utils/ExceptFailTest.java=UTF-8
 encoding//src/main/java/pack_utils/HM.java=UTF-8
 encoding//src/main/java/pack_utils/ListNameWebElement.java=UTF-8
