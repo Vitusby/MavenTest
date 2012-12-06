@@ -19,15 +19,15 @@ public class WriterLog
 		}
 		catch(NullPointerException exc)
 		{
-			System.out.println("Не удалось создать файл лога");
-			throw new ExceptFailTest("Не удалось создать файл лога");
+			System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
+			throw new ExceptFailTest("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
 		}
 		catch(IOException exc)
 		{
-			System.out.println("Не удалось создать файл лога");
-			throw new ExceptFailTest("Не удалось создать файл лога");
+			System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
+			throw new ExceptFailTest("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
 		}
-		System.out.println("Создаем файл лога");
+		System.out.println("РЎРѕР·РґР°РµРј С„Р°Р№Р» Р»РѕРіР°");
 		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;\"><title>Log_Result</title></head><body>");
 		WriteString(0, "<style> pre {margin:0;padding:0; font-family:arial; font: arial 18px/16px;} </style>");
 	}
@@ -51,17 +51,17 @@ public class WriterLog
 		}
 		catch(IOException exc)
 		{
-			System.out.println("Не удалось записать в лог строку: "+sMessage);
-			throw new ExceptFailTest("Не удалось записать в лог строку: "+sMessage);
+			System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РїРёСЃР°С‚СЊ РІ Р»РѕРі СЃС‚СЂРѕРєСѓ: "+sMessage);
+			throw new ExceptFailTest("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РїРёСЃР°С‚СЊ РІ Р»РѕРі СЃС‚СЂРѕРєСѓ: "+sMessage);
 		}
 	}
 	
 	public void CloseFile() throws ExceptFailTest
 	{
 		WriteString(0, "</body></html>");
-		System.out.println("Закрываем файл лога");
+		System.out.println("Р—Р°РєСЂС‹РІР°РµРј С„Р°Р№Р» Р»РѕРіР°");
 		try {fw.close();} 
-		catch (IOException exc){System.out.println("Не удалось закрыть файл");}
+		catch (IOException exc){System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РєСЂС‹С‚СЊ С„Р°Р№Р»");}
 	}
 	
 	/*
@@ -74,23 +74,23 @@ public class WriterLog
 		}
 		catch(NullPointerException exc)
 		{
-			System.out.println("Не удалось создать файл лога"); 
+			System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°"); 
 			try
 			{
-				throw new ExceptFailTest("Не удалось создать файл лога");
+				throw new ExceptFailTest("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
 			}
 			catch (ExceptFailTest e1) {throw new RuntimeException(e1);}
 		}
 		catch(IOException exc)
 		{
-			System.out.println("Не удалось создать файл лога");
+			System.out.println("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
 			try
 			{
-				throw new ExceptFailTest("Не удалось создать файл лога");
+				throw new ExceptFailTest("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» Р»РѕРіР°");
 			}
 			catch (ExceptFailTest e2) {throw new RuntimeException(e2);}
 		}
-		System.out.println("Создаем файл лога");
+		System.out.println("РЎРѕР·РґР°РµРј С„Р°Р№Р» Р»РѕРіР°");
 	}
 	*/
 }
