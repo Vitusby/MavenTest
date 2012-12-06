@@ -1,0 +1,54 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 16.071 sec <<< FAILURE!
+TestStart(pack_test.TestCount)  Time elapsed: 10.541 sec  <<< FAILURE!
+org.openqa.selenium.InvalidSelectorException: The given selector //a[@class='x-tree-node-anchor']/span[contains(text(),јвто и мото')] is either invalid or does not result in a WebElement. The following error occurred:
+[InvalidSelectorError] Unable to locate an element with the xpath expression //a[@class='x-tree-node-anchor']/span[contains(text(),јвто и мото')] because of the following error:
+[Exception... "The expression is not a legal expression."  code: "12" nsresult: "0x805b0033 (SyntaxError)"  location: "file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/driver_component.js Line: 2776"]
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: '2.25.0', revision: '17482', time: '2012-07-18 22:18:01'
+System info: os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.7.0'
+Driver info: driver.version: EventFiringWebDriver
+Session ID: 2b86a926-415e-4558-be39-197ac4e2aeb9
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:188)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:145)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:498)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:268)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:353)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:343)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:260)
+	at sun.reflect.GeneratedMethodAccessor6.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:101)
+	at $Proxy7.findElement(Unknown Source)
+	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:180)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:59)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:34)
+	at $Proxy9.getCoordinates(Unknown Source)
+	at org.openqa.selenium.interactions.internal.MouseAction.getActionLocation(MouseAction.java:40)
+	at org.openqa.selenium.interactions.internal.MouseAction.moveToLocation(MouseAction.java:47)
+	at org.openqa.selenium.interactions.DoubleClickAction.perform(DoubleClickAction.java:36)
+	at org.openqa.selenium.interactions.CompositeAction.perform(CompositeAction.java:31)
+	at pack_page.Page.DoubleClickElement(Page.java:172)
+	at pack_page.Page_Stargate.OpenFormCreateAdvertAuto(Page_Stargate.java:159)
+	at pack_test.TestCount.TestStart(TestCount.java:61)
+Caused by: org.openqa.selenium.remote.ErrorHandler$UnknownServerException: The given selector //a[@class='x-tree-node-anchor']/span[contains(text(),јвто и мото')] is either invalid or does not result in a WebElement. The following error occurred:
+[InvalidSelectorError] Unable to locate an element with the xpath expression //a[@class='x-tree-node-anchor']/span[contains(text(),јвто и мото')] because of the following error:
+[Exception... "The expression is not a legal expression."  code: "12" nsresult: "0x805b0033 (SyntaxError)"  location: "file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/driver_component.js Line: 2776"]
+Build info: version: '2.25.0', revision: '17482', time: '2012-07-18 22:18:01'
+System info: os.name: 'Windows 7', os.arch: 'x86', os.version: '6.1', java.version: '1.7.0'
+Driver info: driver.version: unknown
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/driver_component.js:6582)
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/driver_component.js:6611)
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/driver_component.js:6615)
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10131)
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10136)
+	at <anonymous class>.<anonymous method>(file:///C:/Windows/TEMP/anonymous3870395526119844890webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js:10074)
+
