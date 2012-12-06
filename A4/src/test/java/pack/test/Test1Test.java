@@ -9,8 +9,10 @@ public class Test1Test {
   @Test
   public void TestStart()
   {
+	  System.out.println("Star Test");
 	  WebDriver driver = new FirefoxDriver();
 	  driver.get("http://open.by");
 	  driver.quit();
+	  System.out.println("Close Test");
   }
 }
