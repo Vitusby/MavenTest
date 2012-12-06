@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="58320" started-at="2012-12-06T13:15:19Z" finished-at="2012-12-06T13:16:17Z">
+  <suite name="Suite" duration-ms="39884" started-at="2012-12-06T13:34:30Z" finished-at="2012-12-06T13:35:10Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="58320" started-at="2012-12-06T13:15:19Z" finished-at="2012-12-06T13:16:17Z">
+    <test name="Test" duration-ms="39884" started-at="2012-12-06T13:34:30Z" finished-at="2012-12-06T13:35:10Z">
       <class name="pack_test.TestCount">
-        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@b6e204]" name="befTest" is-config="true" duration-ms="16" started-at="2012-12-07T00:15:19Z" finished-at="2012-12-07T00:15:19Z">
+        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@13227f6]" name="befTest" is-config="true" duration-ms="16" started-at="2012-12-07T00:34:30Z" finished-at="2012-12-07T00:34:30Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- befTest -->
-        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@b6e204]" name="TestStart" duration-ms="58289" started-at="2012-12-07T00:15:19Z" finished-at="2012-12-07T00:16:17Z">
+        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@13227f6]" name="TestStart" duration-ms="39852" started-at="2012-12-07T00:34:30Z" finished-at="2012-12-07T00:35:10Z">
           <exception class="org.openqa.selenium.remote.UnreachableBrowserException">
             <message>
               <![CDATA[Error communicating with the remote browser. It may have died.
@@ -92,7 +92,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestStart -->
-        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@b6e204]" name="aftTest" is-config="true" duration-ms="0" started-at="2012-12-07T00:16:17Z" finished-at="2012-12-07T00:16:17Z">
+        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@13227f6]" name="aftTest" is-config="true" duration-ms="0" started-at="2012-12-07T00:35:10Z" finished-at="2012-12-07T00:35:10Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- aftTest -->

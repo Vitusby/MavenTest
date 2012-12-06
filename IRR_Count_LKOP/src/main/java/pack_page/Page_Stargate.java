@@ -13,95 +13,95 @@ import org.openqa.selenium.support.FindBy;
 import pack_utils.ExceptFailTest;
 import pack_utils.Proper;
 
-// конфиг с данными для объявок надо сделать
-// логатор
+//РєРѕРЅС„РёРі СЃ РґР°РЅРЅС‹РјРё РґР»СЏ РѕР±СЉСЏРІРѕРє РЅР°РґРѕ СЃРґРµР»Р°С‚СЊ
+//Р»РѕРіР°С‚РѕСЂ
 
 public class Page_Stargate extends Page
 {
 	@FindBy(xpath="//a[@href='/stargate/?logout=true']")
 	private WebElement wLinkLogout;
-	// Блок Навигация
-	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/']") // Ссылка Объявления
+	// Р‘Р»РѕРє РќР°РІРёРіР°С†РёСЏ
+	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/']") // РЎСЃС‹Р»РєР° РћР±СЉСЏРІР»РµРЅРёСЏ
 	private WebElement wAdvert;
-	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'Каталог объявлений')]") // Создать объявление
+	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'РљР°С‚Р°Р»РѕРі РѕР±СЉСЏРІР»РµРЅРёР№')]") // РЎРѕР·РґР°С‚СЊ РѕР±СЉСЏРІР»РµРЅРёРµ
 	private WebElement wCatalogAdvert;
-	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'Создать премиум')]") // Создать премиум
+	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'РЎРѕР·РґР°С‚СЊ РїСЂРµРјРёСѓРј')]") // РЎРѕР·РґР°С‚СЊ РїСЂРµРјРёСѓРј
 	private WebElement wCreatePremium;
 	@SuppressWarnings("unused")
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]")
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'РљР°С‚РµРіРѕСЂРёРё РєР°С‚Р°Р»РѕРіР°')]")
 	private WebElement wCategoryCatalog;
 	
-	// Авто
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]")
+	// пїЅпїЅпїЅпїЅ
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),РђРІС‚Рѕ Рё РјРѕС‚Рѕ')]")
 	private WebElement wAutoMain;
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Легковые автомобили')]")
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Р›РµРіРєРѕРІС‹Рµ Р°РІС‚РѕРјРѕР±РёР»Рё')]")
 	private WebElement wEasyCar;		
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Автомобили с пробегом')]")
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wEasyCarOld;
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'авто с пробегом')]")
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wEasyCarOld_1;
 	
-	// Отдам даром
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]")
+	// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wTakeFree;
-	@FindBy(xpath="//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]")
+	@FindBy(xpath="//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wTakeFree_1;
 	
-	@FindBy(xpath="//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]") // кнопка Создать для обычных объявлений
+	@FindBy(xpath="//button[@class='x-btn-text icon-plus' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]") // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	private WebElement wButtonCreateAdvert;
 	
-	//	окно выбора региона
-	@FindBy(xpath="//span[@class='x-window-header-text' and contains(text(),'Редактирование')]")
+	//	пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	@FindBy(xpath="//span[@class='x-window-header-text' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wTitledWindowRegion;
 	@FindBy(xpath="//fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]")
 	private WebElement wFieldWindowRegion;
-	@FindBy(xpath="//div[@class='x-window-footer']//button[contains(text(),'Сохранить')]")
+	@FindBy(xpath="//div[@class='x-window-footer']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wButtonSaveWindowRegion;
 	
-	//  Кнопка сохранить премиум
-	@FindBy(xpath="//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'Сохранить')]")
+	//  пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	@FindBy(xpath="//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wButtonSavePremium;
-	//  Кнопка сохранить обычное объявление
-	@FindBy(xpath="//div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]")
+	//  пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	@FindBy(xpath="//div[@class='x-tab-panel-footer']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wButtonSaveAdvert;
-	// Кнопка на попап окне
+	// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	@FindBy(xpath="//div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]")
 	private WebElement wButtonWindowPopup;
 	
 	/*
-	 div[@id='propspanel']/div/div/div/div[2]/div/div/div/div[2]/div  / дальше тот /div[1,2,3,4,5 и т д]/ в котором наша строка 
-	 потом /table/tbody/tr/td[3]/
+	 div[@id='propspanel']/div/div/div/div[2]/div/div/div/div[2]/div  / пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ /div[1,2,3,4,5 пїЅ пїЅ пїЅ]/ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
+	 пїЅпїЅпїЅпїЅпїЅ /table/tbody/tr/td[3]/
 	 	 
-	 td[@class='x-grid3-col x-grid3-cell x-grid3-td-value x-grid3-cell-last  x-grid3-cell-selected'] путь к диву ввода
+	 td[@class='x-grid3-col x-grid3-cell x-grid3-td-value x-grid3-cell-last  x-grid3-cell-selected'] пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	 */
 		
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleRegion;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст объявления')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivDescription;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Цена')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitlePrice;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Валюта')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleCurrency;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleOwnerAdvert;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Марка')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleMake;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Модель')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleModel;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Год выпуска')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleYear;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип кузова')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleTypeOfBody;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип трансмиссии')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleTypeOfTransmission;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Статус модерации')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivStatusOfModer;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivActionOfAdvet;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Заголовок')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivTitleTitle;
-	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст')]")
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ')]")
 	private WebElement wDivText;
 	
 	public Page_Stargate(WebDriver driver){super(driver);}
@@ -112,10 +112,10 @@ public class Page_Stargate extends Page
 	{
 		
 		OpenListPremium();
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]");
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wTakeFree);
-		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wTakeFree_1);
 		Sleep(2000);
 	}
@@ -124,85 +124,85 @@ public class Page_Stargate extends Page
 	{
 		
 		OpenListAdvert();
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wTakeFree);
-		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wTakeFree_1);
-		CheckElementPresent(1, "//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]");
+		CheckElementPresent(1, "//button[@class='x-btn-text icon-plus' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		CheckCssElement("color","rgba(68, 68, 68, 1)",wButtonCreateAdvert);
 		wButtonCreateAdvert.click();
-		CheckElementPresent(1,"//div[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//div[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(2000);
 	}
 	
 	public void OpenFormCreatePremiumAuto() throws ExceptFailTest
 	{
 		OpenListPremium();
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]");
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wAutoMain);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Легковые автомобили')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCar);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Автомобили с пробегом')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCarOld);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'авто с пробегом')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCarOld_1);
-		//CheckElementPresent(1,"//div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]");
+		//CheckElementPresent(1,"//div[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(2000);
 	}
 	
 	public void OpenFormCreateAdvertAuto() throws ExceptFailTest
 	{
 		OpenListAdvert();
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]");
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wAutoMain);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Легковые автомобили')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCar);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Автомобили с пробегом')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCarOld);
-		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'авто с пробегом')]");
+		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		DoubleClickElement(wEasyCarOld_1);
-		CheckElementPresent(1, "//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]");
+		CheckElementPresent(1, "//button[@class='x-btn-text icon-plus' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		CheckCssElement("color","rgba(68, 68, 68, 1)",wButtonCreateAdvert);
 		wButtonCreateAdvert.click();
-		CheckElementPresent(1,"//div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]");
+		CheckElementPresent(1,"//div[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(2000);
 	}
 		
 	public void InputDataFree() throws ExceptFailTest
 	{
-		wLog.WriteString(1, "Создаем объявление в рубрике \"Отдам даром\"");
-		System.out.println("Создаем объявление в рубрике \"Отдам даром\"");
-		wLog.WriteString(1, "Вводим регион");
-		System.out.println("Вводим регион");
-		InputDataToElement(wDivTitleRegion, "region" , "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ\"");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ\"");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleRegion, "region" , "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим заголовок");
-		System.out.println("Вводим заголовок");
-		InputDataToElement(wDivTitleTitle, "title", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Заголовок')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleTitle, "title", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим текст объявления");
-		System.out.println("Вводим текст объявления");
-		InputDataToElement(wDivText, "textAdvert", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivText, "textAdvert", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим email владельца объявления");
-		System.out.println("Вводим email владельца объявления");
-		InputDataToElement(wDivTitleOwnerAdvert, "email", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ email пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ email пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleOwnerAdvert, "email", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(200);
-		wLog.WriteString(1, "Вводим статус активности объявления");
-		System.out.println("Вводим статус активности объявления");
-		InputDataToElement(wDivActionOfAdvet, "actionOfAdvet", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivActionOfAdvet, "actionOfAdvet", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим статус модерации объявления");
-		System.out.println("Вводим статус модерации объявления");
-		InputDataToElement(wDivStatusOfModer, "statusOfModer", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Статус модерации')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivStatusOfModer, "statusOfModer", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Сохраняем введенные данные");
-		System.out.println("Сохраняем введенные данные");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 		{
-			CheckElementPresent(1,"//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'Сохранить')]");
+			CheckElementPresent(1,"//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 			ScrollToElement(wButtonSavePremium);
 			wButtonSavePremium.click();
 			CheckElementPresent(1,"//div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]");
@@ -210,76 +210,76 @@ public class Page_Stargate extends Page
 		}
 		else
 		{
-			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]");
+			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 			wButtonSaveAdvert.click();	
 		}
 		Sleep(1500);
-		wLog.WriteString(1, "Проверяем создано ли объявление");
-		System.out.println("Проверяем создано ли объявление");
-		if(driver.findElement(By.xpath("//div[contains(text(),'Отдам даром')]")).isDisplayed())
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		if(driver.findElement(By.xpath("//div[contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ')]")).isDisplayed())
 		{
-			wLog.WriteString(2, "Объявление в рубрику \"Отдам даром\" не подано");
-			System.out.println("Объявление в рубрику \"Отдам даром\" не подано");
-			throw new ExceptFailTest("Объявление в рубрику \"Отдам даром\" не подано");
+			wLog.WriteString(2, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+			throw new ExceptFailTest("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		}
-		wLog.WriteString(1, "Объявление создано");
-		System.out.println("Объявление создано");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		wLinkLogout.click();
 		
 	}
 	
 	public void InputDataAuto() throws ExceptFailTest
 	{
-		wLog.WriteString(1, "Создаем объявление в рубрике \"Авто с пробегом\"");
-		System.out.println("Создаем объявление в рубрике \"Авто с пробегом\"");
-		wLog.WriteString(1, "Вводим регион");
-		System.out.println("Вводим регион");
-		InputDataToElement(wDivTitleRegion, "region", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\"");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\"");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleRegion, "region", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим текст объявления");
-		System.out.println("Вводим текст объявления");
-		InputDataToElement(wDivDescription, "textAdvert", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст объявления')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivDescription, "textAdvert", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим ценy");
-		System.out.println("Вводим цену");
-		InputDataToElement(wDivTitlePrice, "price", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Цена')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅy");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitlePrice, "price", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим валюту");
-		System.out.println("Вводим валюту");
-		InputDataToElement(wDivTitleCurrency, "currency", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Валюта')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleCurrency, "currency", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(200);
-		wLog.WriteString(1, "Вводим email владельца объявления");
-		System.out.println("Вводим email владельца объявления");
-		InputDataToElement(wDivTitleOwnerAdvert, "email", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ email пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ email пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleOwnerAdvert, "email", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(200);
-		wLog.WriteString(1, "Вводим марку");
-		System.out.println("Вводим марку");
-		InputDataToElement(wDivTitleMake, "make", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Марка')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleMake, "make", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим модель");
-		System.out.println("Вводим модель");
-		InputDataToElement(wDivTitleModel, "model", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Модель')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleModel, "model", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим год выпуска");
-		System.out.println("Вводим год выпуска");
-		InputDataToElement(wDivTitleYear, "year", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Год выпуска')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleYear, "year", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим тип кузова");
-		System.out.println("Вводим тип кузова");
-		InputDataToElement(wDivTitleTypeOfBody, "typeOfBody", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип кузова')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleTypeOfBody, "typeOfBody", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим тип трансмиссии");
-		System.out.println("Вводим тип трансмиссии");
-		InputDataToElement(wDivTitleTypeOfTransmission, "typeOfTransmission", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип трансмиссии')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivTitleTypeOfTransmission, "typeOfTransmission", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 		Sleep(100);
-		wLog.WriteString(1, "Вводим статус активности объявления");
-		System.out.println("Вводим статус активности объявления");
-		InputDataToElement(wDivActionOfAdvet, "actionOfAdvet", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
-		wLog.WriteString(1, "Сохраняем введенные данны");
-		System.out.println("Сохраняем введенные данные");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		InputDataToElement(wDivActionOfAdvet, "actionOfAdvet", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 		{
-			CheckElementPresent(1,"//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'Сохранить')]");
+			CheckElementPresent(1,"//div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 			ScrollToElement(wButtonSavePremium);
 			wButtonSavePremium.click();
 			CheckElementPresent(1,"//div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]");
@@ -287,64 +287,64 @@ public class Page_Stargate extends Page
 		}
 		else
 		{
-			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]");
+			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
 			wButtonSaveAdvert.click();
 		}
 		Sleep(2000);
-		wLog.WriteString(1, "Проверяем создано ли объявление");
-		System.out.println("Проверяем создано ли объявление");
-		if(driver.findElement(By.xpath("//div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]")).isDisplayed())
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		if(driver.findElement(By.xpath("//div[contains(text(),'пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]")).isDisplayed())
 		{
-			wLog.WriteString(2, "Объявление в рубрику \"Автомобили с пробегом\" не подано");
-			System.out.println("Объявление в рубрику \"Автомобили с пробегом\" не подано");
-			throw new ExceptFailTest("Объявление в рубрику \"Автомобили с пробегом\" не подано");
+			wLog.WriteString(2, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
+			throw new ExceptFailTest("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ \"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		}
-		wLog.WriteString(1, "Объявление создано");
-		System.out.println("Объявление создано");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		driver.get(driver.getCurrentUrl());
 	}
 	    
-	// ввод региона
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	private void SetRegion(String sNameRegion) throws ExceptFailTest
 	{
-		//System.out.println("Для региона");
-		String sRegion = Proper.GetProperty(sNameRegion); // получили значени из файла конфига назание региона
-		String s1 = "//div[contains(text(),'"+sRegion+"  (')]"; // получили xpath выпадающео списка региона 
-		CheckElementPresent(1,"//fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]"); // проверяем что поле ввоа региона существует
+		//System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		String sRegion = Proper.GetProperty(sNameRegion); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		String s1 = "//div[contains(text(),'"+sRegion+"  (')]"; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xpath пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
+		CheckElementPresent(1,"//fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		wFieldWindowRegion.sendKeys(sRegion);
-		CheckElementPresent(1,s1); // проверяем что появился выпадающий список с регионами
-		WebElement wListSaveWindowRegion = driver.findElement(By.xpath(s1)); // получаем его значение 
-		wListSaveWindowRegion.click(); // выбираем его
-		CheckElementPresent(1,"//div[@class='x-window-footer']//button[contains(text(),'Сохранить')]"); //проверяем что есть кнопка сохранить 
-		wButtonSaveWindowRegion.click(); // сохраняем
+		CheckElementPresent(1,s1); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		WebElement wListSaveWindowRegion = driver.findElement(By.xpath(s1)); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
+		wListSaveWindowRegion.click(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+		CheckElementPresent(1,"//div[@class='x-window-footer']//button[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]"); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
+		wButtonSaveWindowRegion.click(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	}
 	
-	// ввод других значении в элементе img
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ img
 	private void SetOtherImageDiv(String sNameField) throws ExceptFailTest
 	{
-		//System.out.println("Для остальных");
-		String sDataField = Proper.GetProperty(sNameField); // получили значение из файла конфига для ввода
-		String s1 = "//div[@class='x-combo-list-inner']/div[contains(text(),'"+sDataField+"')]"; // получили xpath значения в выпадающем списке со значениями
-		CheckElementPresent(1,s1); // проверяем что появился выпадающий список со значением нужным
-		WebElement wListElement = driver.findElement(By.xpath(s1)); // получаем элемент со значением
+		//System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		String sDataField = Proper.GetProperty(sNameField); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+		String s1 = "//div[@class='x-combo-list-inner']/div[contains(text(),'"+sDataField+"')]"; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ xpath пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		CheckElementPresent(1,s1); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+		WebElement wListElement = driver.findElement(By.xpath(s1)); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		wListElement.click();
 	}
 	
-	// ввод значений если элемент ввода img
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ img
 	private void SetDropDownList(WebElement wElement, String sNameField) throws ExceptFailTest
 	{
-		//System.out.println("Сработал SetDropDownList");
-		try  // проверям если выпадающий список еще не открыт 
+		//System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SetDropDownList");
+		try  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 
 		{
-			String sDataField = Proper.GetProperty(sNameField); // получили значение из файла конфига для ввода
+			String sDataField = Proper.GetProperty(sNameField); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			String s1 = "//div[@class='x-combo-list-inner']/div[contains(text(),'"+sDataField+"')]"; 
-			if(!driver.findElement(By.xpath(s1)).isDisplayed())  // и элемент который надо выбрать не отображается
-				wElement.click(); // нажимаем что бы список отобразился
+			if(!driver.findElement(By.xpath(s1)).isDisplayed())  // пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+				wElement.click(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		}
-		catch(NoSuchElementException exc){wElement.click();} // иначе если его нет жмем
+		catch(NoSuchElementException exc){wElement.click();} // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-		if(wTitledWindowRegion.isDisplayed()) // если открывается окно выбора регионов (у него заголовок "Редактировать")
-			SetRegion(sNameField); // вводим регион
+		if(wTitledWindowRegion.isDisplayed()) // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
+			SetRegion(sNameField); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		else
 		{
 			SetOtherImageDiv(sNameField);
@@ -353,26 +353,26 @@ public class Page_Stargate extends Page
 	
 	private void SetInput(WebElement wElement, String sNameField)
 	{
-		//System.out.println("Сработал SetInput");
+		//System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SetInput");
 		String sDataField = Proper.GetProperty(sNameField);
 		wElement.clear();
 		wElement.sendKeys(sDataField);
 		
 	}
 	
-	// ввод значений если элемент ввода textarea
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ textarea
 	private void SetTextArea(WebElement wElement, String sNameField)
 	{
-		//System.out.println("Сработал SetTextArea");
+		//System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SetTextArea");
 		String sDataField = Proper.GetProperty(sNameField);
 		wElement.clear();
 		wElement.sendKeys(sDataField);	
 	}
 	
-	// ввод значений если элемент ввода select
+	// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ select
 	private void SetSelect(WebElement wElement, String sNameField)
 	{
-		//System.out.println("Сработал SetSelect");
+		//System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SetSelect");
 		String sDataField = Proper.GetProperty(sNameField);
 		List<WebElement> allOptions = wElement.findElements(By.tagName("option"));
 		for(WebElement wE : allOptions)
@@ -385,17 +385,17 @@ public class Page_Stargate extends Page
 	private void InputDataToElement(WebElement wElement, String sNameField , String sPath) throws ExceptFailTest
 	{  	
 		CheckElementPresent(1, sPath);
-		ScrollToElement(wElement); //скролим к заголовку нужного  поля
-		wElement.click(); //выделяем его
-		KeyPress(wElement, Keys.ARROW_RIGHT, 1); // переходим на соседнюю строку (в ней элементы ввода) 
-		CheckElementPresent(1,"//td[contains(@class,'x-grid3-cell-selected')]"); // проверяем что wTdSecondFields доступен
-		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]")); // вторая строка от заголовка (поле где вводим)
+		ScrollToElement(wElement); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅ
+		wElement.click(); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+		KeyPress(wElement, Keys.ARROW_RIGHT, 1); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ) 
+		CheckElementPresent(1,"//td[contains(@class,'x-grid3-cell-selected')]"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ wTdSecondFields пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]")); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 			wTdSecondFields.click();
 		else DoubleClickElement(wTdSecondFields);
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-		// проверяем какой элемент появился в строке для ввода
-		try // проверка наличия активного выпадающего списка img
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+		try // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ img
 		{
 			WebElement wImageArrow = driver.findElement(By.xpath("//div[contains(@class,'x-trigger-wrap-focus')]/img")); 
 			if(wImageArrow.isDisplayed())										
@@ -405,9 +405,9 @@ public class Page_Stargate extends Page
 				return;
 			}
 		}
-		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного дроплиста картинки");*/}
+		catch(NoSuchElementException exc){/*System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");*/}
 		
-		try // проверка наличия активного инпута
+		try // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		{
 			WebElement wInput = driver.findElement(By.xpath("//input[contains(@class,'x-form-focus')]"));
 			if(wInput.isDisplayed())										
@@ -417,9 +417,9 @@ public class Page_Stargate extends Page
 				return;
 			}
 		}
-		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного инпута");*/}
+		catch(NoSuchElementException exc){/*System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");*/}
 		
-		try // проверка наличия активного селекта
+		try // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		{
 			WebElement wSelect = driver.findElement(By.xpath("//select[contains(@class,'x-form-focus')]"));
 			if(wSelect.isDisplayed())
@@ -429,9 +429,9 @@ public class Page_Stargate extends Page
 				return;
 			}
 		}
-		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного селекта");*/}
+		catch(NoSuchElementException exc){/*System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");*/}
 		
-		try // проверка наличия активного текстареа
+		try // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		{
 			WebElement wArea = driver.findElement(By.xpath("//textarea[contains(@class, 'x-form-focus')]"));
 			if(wArea.isDisplayed())
@@ -441,42 +441,42 @@ public class Page_Stargate extends Page
 				return;
 			}
 		}
-		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного текстареа");*/}
+		catch(NoSuchElementException exc){/*System.out.println("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");*/}
 	}
 
 	@Override
 	public void OpenPage(){}
 	
-	private void OpenListAdvert() throws ExceptFailTest  //Открытие листинга выбора рубрики добавления обычного объявления
+	private void OpenListAdvert() throws ExceptFailTest  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	{
 		Sleep(1000);
-		wLog.WriteString(1, "Проверяем вошли ли");
-		System.out.println("Проверяем вошли ли");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ");
 		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/']");
-		wLog.WriteString(1, "Вошли");
-		System.out.println("Вошли");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅ");
 		wAdvert.click();
 		Sleep(1000);
-		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'Каталог объявлений')]");
-		wLog.WriteString(1, "Открываем форму создания объявления");
-		System.out.println("Открываем форму создания объявления");
+		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		wCatalogAdvert.click();
 		Sleep(1000);
 	}
 	
-	private void OpenListPremium() throws ExceptFailTest//Открытие листинга выбора рубрики добавления премиум объявления
+	private void OpenListPremium() throws ExceptFailTest//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	{
 		Sleep(1000);
-		wLog.WriteString(1, "Проверяем вошли ли");
-		System.out.println("Проверяем вошли ли");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ");
 		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/']");
-		wLog.WriteString(1, "Вошли");
-		System.out.println("Вошли");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅ");
 		wAdvert.click();
 		Sleep(1000);
-		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/premium/']//span[contains(text(),'Создать премиум')]");
-		wLog.WriteString(1, "Открываем форму создания премиума");
-		System.out.println("Открываем форму создания премиума");
+		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/premium/']//span[contains(text(),'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')]");
+		wLog.WriteString(1, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		wCreatePremium.click();
 		Sleep(1000);
 	}
