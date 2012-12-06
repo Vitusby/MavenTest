@@ -37,14 +37,14 @@ public class Page_LoginStargate extends Page
 		sUrlStargate = Proper.GetProperty("urlStargate");
 		driver.get(sUrlStargate);
 		driver.manage().window().maximize();
-		System.out.println("Открываем страницу "+sUrlStargate);
-		wLog.WriteString(1, "Открываем страницу "+sUrlStargate);
+		System.out.println("РћС‚РєСЂС‹РІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ "+sUrlStargate);
+		wLog.WriteString(1, "РћС‚РєСЂС‹РІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ "+sUrlStargate);
 	}
 
 	public void CheckElements() throws ExceptFailTest
 	{
-		wLog.WriteString(1, "Авторизуемся");
-		System.out.println("Авторизуемся");
+		wLog.WriteString(1, "РђРІС‚РѕСЂРёР·СѓРµРјСЃСЏ");
+		System.out.println("РђРІС‚РѕСЂРёР·СѓРµРјСЃСЏ");
 		CheckElementPresent(2,"ext-comp-1003");
 		CheckElementPresent(2,"ext-comp-1004");
 		CheckElementPresent(2,"ext-gen31");
@@ -54,20 +54,20 @@ public class Page_LoginStargate extends Page
 	{
 		inputLogin.clear();
 		inputLogin.sendKeys(Proper.GetProperty("login"));
-		wLog.WriteString(1, "Вводим логин");
-		System.out.println("Вводим логин");
+		wLog.WriteString(1, "Р’РІРѕРґРёРј Р»РѕРіРёРЅ");
+		System.out.println("Р’РІРѕРґРёРј Р»РѕРіРёРЅ");
 		inputPassword.clear();
 		inputPassword.sendKeys(Proper.GetProperty("password"));
-		wLog.WriteString(1, "Вводим пароль");
-		System.out.println("Вводим пароль");
+		wLog.WriteString(1, "Р’РІРѕРґРёРј РїР°СЂРѕР»СЊ");
+		System.out.println("Р’РІРѕРґРёРј РїР°СЂРѕР»СЊ");
 	}
 	
 	public Page_Stargate EnterStargate() throws ExceptFailTest
 	{
 		CheckAtributeElement("class", "x-btn-wrap x-btn ", tableButton);
 		buttonEnter.click();
-		wLog.WriteString(1, "Нажимаем войти");
-		System.out.println("Нажимаем войти");
+		wLog.WriteString(1, "РќР°Р¶РёРјР°РµРј РІРѕР№С‚Рё");
+		System.out.println("РќР°Р¶РёРјР°РµРј РІРѕР№С‚Рё");
 		return PageFactory.initElements(driver, Page_Stargate.class);
 	}
 	
