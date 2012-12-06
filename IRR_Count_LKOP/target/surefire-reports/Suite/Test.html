@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Dec 07 00:34:30 MAGT 2012</td>
+<td>Started on:</td><td>Fri Dec 07 01:31:25 MAGT 2012</td>
 </tr>
-<tr><td>Total time:</td><td>39 seconds (39884 ms)</td>
+<tr><td>Total time:</td><td>20 seconds (20380 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,14 +76,11 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='pack_test.TestCount.TestStart()'><b>TestStart</b><br>Test class: pack_test.TestCount</td>
-<td><div><pre>org.openqa.selenium.remote.UnreachableBrowserException: Error communicating with the remote browser. It may have died.
-Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 22:18:01&apos;
-System info: os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0&apos;
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:493)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:502)
-	at org.openqa.selenium.remote.RemoteWebDriver.quit(RemoteWebDriver.java:372)
-	at pack_test.TestCount.TestStart(TestCount.java:131)
+<td><div><pre>Тест провален, причина Элемент //a[@href=&apos;/stargate/workspace/admanagement/catalog/&apos;]/span[contains(text(),&apos;??????? ??????????&apos;)] не найден
+	at pack_page.Page.CheckElementPresent(Page.java:142)
+	at pack_page.Page_Stargate.OpenListAdvert(Page_Stargate.java:460)
+	at pack_page.Page_Stargate.OpenFormCreateAdvertAuto(Page_Stargate.java:156)
+	at pack_test.TestCount.TestStart(TestCount.java:61)
 	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:178)
 	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:92)
 	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:96)
@@ -92,40 +89,12 @@ Driver info: driver.version: RemoteWebDriver
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:7055 refused
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:158)
-	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:149)
-	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:121)
-	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:573)
-	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:425)
-	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:820)
-	at org.openqa.selenium.remote.HttpCommandExecutor.fallBackExecute(HttpCommandExecutor.java:319)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:297)
-	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.execute(NewProfileExtensionConnection.java:136)
-	at org.openqa.selenium.firefox.FirefoxDriver$LazyCommandExecutor.execute(FirefoxDriver.java:357)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:472)
-	... 36 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:75)
-	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:337)
-	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:198)
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:180)
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:157)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:391)
-	at java.net.Socket.connect(Socket.java:579)
-	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:148)
-	... 46 more
-... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace18373172", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace18373172'><pre>org.openqa.selenium.remote.UnreachableBrowserException: Error communicating with the remote browser. It may have died.
-Build info: version: &apos;2.25.0&apos;, revision: &apos;17482&apos;, time: &apos;2012-07-18 22:18:01&apos;
-System info: os.name: &apos;Windows 7&apos;, os.arch: &apos;x86&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.7.0&apos;
-Driver info: driver.version: RemoteWebDriver
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:493)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:502)
-	at org.openqa.selenium.remote.RemoteWebDriver.quit(RemoteWebDriver.java:372)
-	at pack_test.TestCount.TestStart(TestCount.java:131)
+... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace32453161", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace32453161'><pre>Тест провален, причина Элемент //a[@href=&apos;/stargate/workspace/admanagement/catalog/&apos;]/span[contains(text(),&apos;??????? ??????????&apos;)] не найден
+	at pack_page.Page.CheckElementPresent(Page.java:142)
+	at pack_page.Page_Stargate.OpenListAdvert(Page_Stargate.java:460)
+	at pack_page.Page_Stargate.OpenFormCreateAdvertAuto(Page_Stargate.java:156)
+	at pack_test.TestCount.TestStart(TestCount.java:61)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -159,34 +128,9 @@ Driver info: driver.version: RemoteWebDriver
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-Caused by: org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:7055 refused
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:158)
-	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:149)
-	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:121)
-	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:573)
-	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:425)
-	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:820)
-	at org.openqa.selenium.remote.HttpCommandExecutor.fallBackExecute(HttpCommandExecutor.java:319)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:297)
-	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.execute(NewProfileExtensionConnection.java:136)
-	at org.openqa.selenium.firefox.FirefoxDriver$LazyCommandExecutor.execute(FirefoxDriver.java:357)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:472)
-	... 36 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:75)
-	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:337)
-	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:198)
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:180)
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:157)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:391)
-	at java.net.Socket.connect(Socket.java:579)
-	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
-	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:148)
-	... 46 more
 </pre></div></td>
-<td>39</td>
-<td>pack_test.TestCount@13227f6</td></tr>
+<td>20</td>
+<td>pack_test.TestCount@1a498e3</td></tr>
 </table><p>
 </body>
 </html>

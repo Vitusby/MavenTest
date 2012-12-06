@@ -447,36 +447,36 @@ public class Page_Stargate extends Page
 	@Override
 	public void OpenPage(){}
 	
-	private void OpenListAdvert() throws ExceptFailTest  //�������� �������� ������ ������� ���������� �������� ����������
+	private void OpenListAdvert() throws ExceptFailTest //Открытие листинга выбора рубрики добавления обычного объявления
 	{
 		Sleep(1000);
-		wLog.WriteString(1, "��������� ����� ��");
-		System.out.println("��������� ����� ��");
+		wLog.WriteString(1, "Проверяем вошли ли");
+		System.out.println("Проверяем вошли ли");
 		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/']");
-		wLog.WriteString(1, "�����");
-		System.out.println("�����");
+		wLog.WriteString(1, "Вошли");
+		System.out.println("Вошли");
 		wAdvert.click();
 		Sleep(1000);
-		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'������� ����������')]");
-		wLog.WriteString(1, "��������� ����� �������� ����������");
-		System.out.println("��������� ����� �������� ����������");
+		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'Каталог объявлений')]");
+		wLog.WriteString(1, "Открываем форму создания объявления");
+		System.out.println("Открываем форму создания объявления");
 		wCatalogAdvert.click();
 		Sleep(1000);
 	}
 	
-	private void OpenListPremium() throws ExceptFailTest//�������� �������� ������ ������� ���������� ������� ����������
+	private void OpenListPremium() throws ExceptFailTest//Открытие листинга выбора рубрики добавления премиум объявления
 	{
 		Sleep(1000);
-		wLog.WriteString(1, "��������� ����� ��");
-		System.out.println("��������� ����� ��");
+		wLog.WriteString(1, "Проверяем вошли ли");
+		System.out.println("Проверяем вошли ли");
 		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/']");
-		wLog.WriteString(1, "�����");
-		System.out.println("�����");
+		wLog.WriteString(1, "Вошли");
+		System.out.println("Вошли");
 		wAdvert.click();
 		Sleep(1000);
-		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/premium/']//span[contains(text(),'������� �������')]");
-		wLog.WriteString(1, "��������� ����� �������� ��������");
-		System.out.println("��������� ����� �������� ��������");
+		CheckElementPresent(1,"//a[@href='/stargate/workspace/admanagement/premium/']//span[contains(text(),'Создать премиум')]");
+		wLog.WriteString(1, "Открываем форму создания премиума");
+		System.out.println("Открываем форму создания премиума");
 		wCreatePremium.click();
 		Sleep(1000);
 	}
