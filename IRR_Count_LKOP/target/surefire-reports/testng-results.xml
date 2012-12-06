@@ -2,22 +2,21 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="20380" started-at="2012-12-06T14:31:25Z" finished-at="2012-12-06T14:31:46Z">
+  <suite name="Suite" duration-ms="22551" started-at="2012-12-06T14:36:44Z" finished-at="2012-12-06T14:37:07Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="20380" started-at="2012-12-06T14:31:25Z" finished-at="2012-12-06T14:31:46Z">
+    <test name="Test" duration-ms="22551" started-at="2012-12-06T14:36:44Z" finished-at="2012-12-06T14:37:07Z">
       <class name="pack_test.TestCount">
-        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@1a498e3]" name="befTest" is-config="true" duration-ms="15" started-at="2012-12-07T01:31:25Z" finished-at="2012-12-07T01:31:25Z">
+        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@1451db0]" name="befTest" is-config="true" duration-ms="0" started-at="2012-12-07T01:36:44Z" finished-at="2012-12-07T01:36:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- befTest -->
-        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@1a498e3]" name="TestStart" duration-ms="20365" started-at="2012-12-07T01:31:25Z" finished-at="2012-12-07T01:31:46Z">
+        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@1451db0]" name="TestStart" duration-ms="22519" started-at="2012-12-07T01:36:44Z" finished-at="2012-12-07T01:37:07Z">
           <exception class="pack_utils.ExceptFailTest">
             <full-stacktrace>
-              <![CDATA[Тест провален, причина Элемент //a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'������� ����������')] не найден
+              <![CDATA[Тест провален, причина Элемент //a[@class='x-tree-node-anchor']/span[contains(text(),'��������� ��������')] не найден
 	at pack_page.Page.CheckElementPresent(Page.java:142)
-	at pack_page.Page_Stargate.OpenListAdvert(Page_Stargate.java:460)
-	at pack_page.Page_Stargate.OpenFormCreateAdvertAuto(Page_Stargate.java:156)
+	at pack_page.Page_Stargate.OpenFormCreateAdvertAuto(Page_Stargate.java:157)
 	at pack_test.TestCount.TestStart(TestCount.java:61)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
@@ -58,7 +57,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestStart -->
-        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@1a498e3]" name="aftTest" is-config="true" duration-ms="0" started-at="2012-12-07T01:31:46Z" finished-at="2012-12-07T01:31:46Z">
+        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@1451db0]" name="aftTest" is-config="true" duration-ms="0" started-at="2012-12-07T01:37:07Z" finished-at="2012-12-07T01:37:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- aftTest -->
