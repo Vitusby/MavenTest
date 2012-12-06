@@ -47,12 +47,12 @@ public class HM<K,V>
 	private Set<Entry<K,V>> s;
 
 	
-	public HM() //конструктор 1
+	public HM() 
 	{
 		hm=new HashMap<K, V>();
 	}
 	
-	public HM(K masK[], V masV[]) //конструктор 2
+	public HM(K masK[], V masV[]) 
 	{
 		hm = new HashMap<K, V>();
 		int i = masK.length;

@@ -63,34 +63,4 @@ public class WriterLog
 		try {fw.close();} 
 		catch (IOException exc){System.out.println("Не удалось закрыть файл лога");}
 	}
-	
-	/*
-	public WriterLog(String sPath)
-	{
-		try
-		{
-			file = new File(sPath); 
-			fw = new FileWriter(file);
-		}
-		catch(NullPointerException exc)
-		{
-			System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°"); 
-			try
-			{
-				throw new ExceptFailTest("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-			}
-			catch (ExceptFailTest e1) {throw new RuntimeException(e1);}
-		}
-		catch(IOException exc)
-		{
-			System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-			try
-			{
-				throw new ExceptFailTest("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-			}
-			catch (ExceptFailTest e2) {throw new RuntimeException(e2);}
-		}
-		System.out.println("Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-	}
-	*/
 }

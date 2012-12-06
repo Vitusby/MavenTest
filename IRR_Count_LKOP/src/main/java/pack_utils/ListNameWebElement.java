@@ -42,7 +42,7 @@ public class ListNameWebElement
 
 	
 	
-/*	class HM  // внутренний класс
+/*	class HM  
 	{
 	
 		private HashMap<String, String> hm =new HashMap<String, String>();
