@@ -41,14 +41,14 @@ public abstract class Page
 		this.wLog = wLog;
 	}
 	
-	// Метод открытия страницы
+	// РњРµС‚РѕРґ РѕС‚РєСЂС‹С‚РёСЏ СЃС‚СЂР°РЅРёС†С‹
 	public abstract void OpenPage() throws ExceptFailTest;
 	
-	// Метод проверки что у элемента есть атрибут с искомым значением (применять когда у элемента входе какого либо действия 
-	// изменятся значение атрибута)
-	// sAtribute - искомый атрибут ( к примеру class)
-	// sFindAtribute - значение атрибута
-	// wElement - элемент у которого мы ожидаем найти это значение
+	// РњРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё С‡С‚Рѕ Сѓ СЌР»РµРјРµРЅС‚Р° РµСЃС‚СЊ Р°С‚СЂРёР±СѓС‚ СЃ РёСЃРєРѕРјС‹Рј Р·РЅР°С‡РµРЅРёРµРј (РїСЂРёРјРµРЅСЏС‚СЊ РєРѕРіРґР° Сѓ СЌР»РµРјРµРЅС‚Р° РІС…РѕРґРµ РєР°РєРѕРіРѕ Р»РёР±Рѕ РґРµР№СЃС‚РІРёСЏ 
+	// РёР·РјРµРЅСЏС‚СЃСЏ Р·РЅР°С‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°)
+	// sAtribute - РёСЃРєРѕРјС‹Р№ Р°С‚СЂРёР±СѓС‚ ( Рє РїСЂРёРјРµСЂСѓ class)
+	// sFindAtribute - Р·РЅР°С‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р°
+	// wElement - СЌР»РµРјРµРЅС‚ Сѓ РєРѕС‚РѕСЂРѕРіРѕ РјС‹ РѕР¶РёРґР°РµРј РЅР°Р№С‚Рё СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ
 	public void CheckAtributeElement(final String sAtribute, final String sFindAtribute, final WebElement wElement) throws ExceptFailTest
 	{
 		Boolean bFlag = false;
@@ -64,10 +64,10 @@ public abstract class Page
 					}
 								  	  );
 		}
-		catch(TimeoutException exc){System.out.println("Элемент c атрибутом "+sFindAtribute+" не найден");}
+		catch(TimeoutException exc){System.out.println("Р­Р»РµРјРµРЅС‚ c Р°С‚СЂРёР±СѓС‚РѕРј "+sFindAtribute+" РЅРµ РЅР°Р№РґРµРЅ");}
 		if(!bFlag)
 		{
-			throw new ExceptFailTest("Элемент c атрибутом "+sFindAtribute+" не найден");
+			throw new ExceptFailTest("Р­Р»РµРјРµРЅС‚ c Р°С‚СЂРёР±СѓС‚РѕРј "+sFindAtribute+" РЅРµ РЅР°Р№РґРµРЅ");
 		}
 		//else System.out.println("OKKKKKK");
 			
@@ -88,16 +88,16 @@ public abstract class Page
 					}
 								  	  );
 		}
-		catch(TimeoutException exc){System.out.println("Элемент c CSS "+sFindCssAtributeValue+" не найден");}
+		catch(TimeoutException exc){System.out.println("Р­Р»РµРјРµРЅС‚ c CSS "+sFindCssAtributeValue+" РЅРµ РЅР°Р№РґРµРЅ");}
 		if(!bFlag)
 		{
-			throw new ExceptFailTest("Элемент c CSS "+sFindCssAtributeValue+" не найден");
+			throw new ExceptFailTest("Р­Р»РµРјРµРЅС‚ c CSS "+sFindCssAtributeValue+" РЅРµ РЅР°Р№РґРµРЅ");
 		}
 		//else System.out.println("OKKKKKK2");
 			
 	}
 	
-	// Метод проверки существования элемента
+	// РњРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ СЌР»РµРјРµРЅС‚Р°
 	public void CheckElementPresent (final int nKey, final String sLocator) throws ExceptFailTest
 	{
 		WebElement wElement = null;
@@ -135,56 +135,56 @@ public abstract class Page
 				}								
 											  );
 		}
-		catch(TimeoutException exc){System.out.println("Элемент "+sLocator+" не найден");}
+		catch(TimeoutException exc){System.out.println("Р­Р»РµРјРµРЅС‚ "+sLocator+" РЅРµ РЅР°Р№РґРµРЅ");}
 		
 		if(wElement == null)
 		{
-			throw new ExceptFailTest("Элемент "+sLocator+" не найден");
+			throw new ExceptFailTest("Р­Р»РµРјРµРЅС‚ "+sLocator+" РЅРµ РЅР°Р№РґРµРЅ");
 		}
 	}
 	
-	// Метод проверки что элемент кликабелен и доступен // доработать на все элементы и на ексептион
+	// РњРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё С‡С‚Рѕ СЌР»РµРјРµРЅС‚ РєР»РёРєР°Р±РµР»РµРЅ Рё РґРѕСЃС‚СѓРїРµРЅ // РґРѕСЂР°Р±РѕС‚Р°С‚СЊ РЅР° РІСЃРµ СЌР»РµРјРµРЅС‚С‹ Рё РЅР° РµРєСЃРµРїС‚РёРѕРЅ
 	public void CheckElementEnabled (String sLocator) throws ExceptFailTest 
 	{
 		WebElement wElement = null;
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(sLocator)));
 		if(wElement==null)
-			throw new ExceptFailTest("Элемент "+sLocator+" найден, но не доступен");
+			throw new ExceptFailTest("Р­Р»РµРјРµРЅС‚ "+sLocator+" РЅР°Р№РґРµРЅ, РЅРѕ РЅРµ РґРѕСЃС‚СѓРїРµРЅ");
 		System.out.println(wElement.getText());
 			
 	}
 	
-	// Метод остановки процесса i количество миллисекунд
+	// РњРµС‚РѕРґ РѕСЃС‚Р°РЅРѕРІРєРё РїСЂРѕС†РµСЃСЃР° i РєРѕР»РёС‡РµСЃС‚РІРѕ РјРёР»Р»РёСЃРµРєСѓРЅРґ
 	public void Sleep(int i)
 	{
 		try{Thread.sleep(i);}catch(InterruptedException exc){exc.printStackTrace();}
 	}
 	
-	// Метод даблклика по элементу
+	// РњРµС‚РѕРґ РґР°Р±Р»РєР»РёРєР° РїРѕ СЌР»РµРјРµРЅС‚Сѓ
 	public void DoubleClickElement(WebElement wElement) 
 	{
 		Actions builder;
 		Action dClick;
 		builder = new Actions(driver);
-		builder.doubleClick(wElement); // создали последовательность действий
-		dClick = builder.build(); // получили само действие
-		dClick.perform(); // выполнили действие
+		builder.doubleClick(wElement); // СЃРѕР·РґР°Р»Рё РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РґРµР№СЃС‚РІРёР№
+		dClick = builder.build(); // РїРѕР»СѓС‡РёР»Рё СЃР°РјРѕ РґРµР№СЃС‚РІРёРµ
+		dClick.perform(); // РІС‹РїРѕР»РЅРёР»Рё РґРµР№СЃС‚РІРёРµ
 	}
 	
-	// Метод клика по элементу (если не работает обычный click)
+	// РњРµС‚РѕРґ РєР»РёРєР° РїРѕ СЌР»РµРјРµРЅС‚Сѓ (РµСЃР»Рё РЅРµ СЂР°Р±РѕС‚Р°РµС‚ РѕР±С‹С‡РЅС‹Р№ click)
 	public void ClickElement(WebElement wElement) 
 	{
 		System.out.println(wElement.getLocation());
 		Actions builder;
 		Action cClick;
 		builder = new Actions(driver);
-		builder.click(wElement); // создали последовательность действий
-		cClick = builder.build(); // получили само действие
-		cClick.perform(); // выполнили действие
+		builder.click(wElement); 
+		cClick = builder.build();
+		cClick.perform();
 	}
 	
-	// Метод нажатия клавиши 
+	// РњРµС‚РѕРґ РЅР°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€Рё
 	public void KeyPress(WebElement wElement, Keys key,  int n)
 	{
 		for(int i=0; i<n; i++)
@@ -194,7 +194,7 @@ public abstract class Page
 		}	
 	}
 
-	// Скролл к элементу
+	// РЎРєСЂРѕР»Р» Рє СЌР»РµРјРµРЅС‚Сѓ
 	public void ScrollToElement(WebElement wElement)
 	{
 		
@@ -202,7 +202,7 @@ public abstract class Page
 	}
 	
 	
-	// снятие скриншота
+	// СЃРЅСЏС‚РёРµ СЃРєСЂРёРЅС€РѕС‚Р°
 	public void CaptureScreenshot(String name)
 	{
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -216,7 +216,7 @@ public abstract class Page
         catch (IOException e) {}
     }
 	
-	public void TakeScreenShotMethod() // надо доработать до снимка части экрана и подсвечивать что не так
+	public void TakeScreenShotMethod()// РЅР°РґРѕ РґРѕСЂР°Р±РѕС‚Р°С‚СЊ РґРѕ СЃРЅРёРјРєР° С‡Р°СЃС‚Рё СЌРєСЂР°РЅР° Рё РїРѕРґСЃРІРµС‡РёРІР°С‚СЊ С‡С‚Рѕ РЅРµ С‚Р°Рє
 	{
 	    try{
 	        Thread.sleep(2000);

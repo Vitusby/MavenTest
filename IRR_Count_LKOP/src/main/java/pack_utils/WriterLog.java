@@ -19,13 +19,13 @@ public class WriterLog
 		}
 		catch(NullPointerException exc)
 		{
-			System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-			throw new ExceptFailTest("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
+			System.out.println("Не удалось создать файл лога");
+			throw new ExceptFailTest("Не удалось создать файл лога");
 		}
 		catch(IOException exc)
 		{
-			System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
-			throw new ExceptFailTest("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ ÑÐ¾Ð·Ð´Ð°ÑÑ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
+			System.out.println("Не удалось создать файл лога");
+			throw new ExceptFailTest("Не удалось создать файл лога");
 		}
 		System.out.println("Создаем файл лога");
 		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;\"><title>Log_Result</title></head><body>");
@@ -51,17 +51,17 @@ public class WriterLog
 		}
 		catch(IOException exc)
 		{
-			System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ Ð·Ð°Ð¿Ð¸ÑÐ°ÑÑ Ð² Ð»Ð¾Ð³ ÑÑÑÐ¾ÐºÑ: "+sMessage);
-			throw new ExceptFailTest("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ Ð·Ð°Ð¿Ð¸ÑÐ°ÑÑ Ð² Ð»Ð¾Ð³ ÑÑÑÐ¾ÐºÑ: "+sMessage);
+			System.out.println("Не удалось записать в файл лога: "+sMessage);
+			throw new ExceptFailTest("Не удалось записать в файл лога: "+sMessage);
 		}
 	}
 	
 	public void CloseFile() throws ExceptFailTest
 	{
 		WriteString(0, "</body></html>");
-		System.out.println("ÐÐ°ÐºÑÑÐ²Ð°ÐµÐ¼ ÑÐ°Ð¹Ð» Ð»Ð¾Ð³Ð°");
+		System.out.println("Закрываем файл лога");
 		try {fw.close();} 
-		catch (IOException exc){System.out.println("ÐÐµ ÑÐ´Ð°Ð»Ð¾ÑÑ Ð·Ð°ÐºÑÑÑÑ ÑÐ°Ð¹Ð»");}
+		catch (IOException exc){System.out.println("Не удалось закрыть файл лога");}
 	}
 	
 	/*
