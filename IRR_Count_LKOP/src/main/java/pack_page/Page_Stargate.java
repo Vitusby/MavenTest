@@ -32,7 +32,7 @@ public class Page_Stargate extends Page
 	private WebElement wCategoryCatalog;
 	
 	// Авто
-	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),Авто и мото')]")
+	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]")
 	private WebElement wAutoMain;
 	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Легковые автомобили')]")
 	private WebElement wEasyCar;		
