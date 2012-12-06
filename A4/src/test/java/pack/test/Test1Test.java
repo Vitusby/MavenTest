@@ -17,7 +17,7 @@ class Proper
 		prop = new Properties();
 		try
 		{
-			prop.load(ClassLoader.getSystemResourceAsStream("p.properties"));
+			prop.load(ClassLoader.getSystemResourceAsStream("A4/src/test/java/p.properties"));
 		}
 		catch(IOException exc){exc.printStackTrace(); System.out.println("Dont Work");}
 	}
