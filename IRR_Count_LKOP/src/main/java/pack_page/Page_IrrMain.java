@@ -49,8 +49,8 @@ public class Page_IrrMain extends Page
 		driver.navigate().to(sUrlIRR);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		wLog.WriteString(1, "Открываем страницу "+sUrlIRR);
-		System.out.println("Открываем страницу "+sUrlIRR);
+		wLog.WriteString(1, "РћС‚РєСЂС‹РІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ "+sUrlIRR);
+		System.out.println("РћС‚РєСЂС‹РІР°РµРј СЃС‚СЂР°РЅРёС†Сѓ "+sUrlIRR);
 	}
 	
 	public void OpenFormAuthorization() throws ExceptFailTest
@@ -59,14 +59,14 @@ public class Page_IrrMain extends Page
 		CheckElementPresent(1,"//div[@class='popupRegions']");
 		if(wWindowSelectOfRegion.isDisplayed())
 		{
-			wLog.WriteString(1, "Закрываем окно выбора регионов");
-			System.out.println("Закрываем окно выбора регионов");
+			wLog.WriteString(1, "Р—Р°РєСЂС‹РІР°РµРј РѕРєРЅРѕ РІС‹Р±РѕСЂР° СЂРµРіРёРѕРЅРѕРІ");
+			System.out.println("Р—Р°РєСЂС‹РІР°РµРј РѕРєРЅРѕ РІС‹Р±РѕСЂР° СЂРµРіРёРѕРЅРѕРІ");
 			CheckElementPresent(1,"//div[@class='button-style btn-a']/a");
 			wOkButtonWindowSelectOfRegion.click();
 		}
 		CheckElementPresent(2, "a_login");
-		wLog.WriteString(1,"Открываем форму авторизации");
-		System.out.println("Открываем форму авторизации");
+		wLog.WriteString(1,"РћС‚РєСЂС‹РІР°РµРј С„РѕСЂРјСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё");
+		System.out.println("РћС‚РєСЂС‹РІР°РµРј С„РѕСЂРјСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё");
 		wLinkEnter.click();
 		
 	}
@@ -74,23 +74,23 @@ public class Page_IrrMain extends Page
 	public Page_IrrPrivateOffice LoginOn() throws ExceptFailTest
 	{
 		Sleep(1000);
-		wLog.WriteString(1, "Вводим логин");
-		System.out.println("Вводим логин");
+		wLog.WriteString(1, "Р’РІРѕРґРёРј Р»РѕРіРёРЅ");
+		System.out.println("Р’РІРѕРґРёРј Р»РѕРіРёРЅ");
 		CheckElementPresent(1, "//div[@id='popup-wrap']//input[@class='login']");
 		wFieldLoginForm.sendKeys(Proper.GetProperty("loginIRR"));
-		wLog.WriteString(1, "Вводим пароль");
-		System.out.println("Вводим пароль");
+		wLog.WriteString(1, "Р’РІРѕРґРёРј РїР°СЂРѕР»СЊ");
+		System.out.println("Р’РІРѕРґРёРј РїР°СЂРѕР»СЊ");
 		CheckElementPresent(1, "//div[@id='popup-wrap']//input[@name='password']");
 		wFieldPasswordForm.sendKeys(Proper.GetProperty("passwordIRR"));	
 		CheckElementPresent(1, "//div[@id='popup-wrap']//a[@class='loginFormSubmit']");
 		wButtonEnterForm.click();
-		wLog.WriteString(1, "Нажимаем войти");
-		System.out.println("Нажимаем войти");
+		wLog.WriteString(1, "РќР°Р¶РёРјР°РµРј РІРѕР№С‚Рё");
+		System.out.println("РќР°Р¶РёРјР°РµРј РІРѕР№С‚Рё");
 		Sleep(1000);
 		CheckElementPresent(1, "//a[@id='load_user_ads_counter']/span[2]");
 		wLinkPrivateOffice.click();
-		wLog.WriteString(1, "Переходим в личный кабинет");
-		System.out.println("Переходим в личный кабинет");
+		wLog.WriteString(1, "РџРµСЂРµС…РѕРґРёРј РІ Р»РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚");
+		System.out.println("РџРµСЂРµС…РѕРґРёРј РІ Р»РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚");
 		Sleep(1000);
 		CheckElementPresent(1,"//div[@id='block_links_lk']/ul/li/a");	
 		wLinkMyAdverts.click();
@@ -114,7 +114,7 @@ public class Page_IrrMain extends Page
 		//this.KeyPress(wButtonEnterForm, Keys.ENTER, 1);
 		//Sleep(2000);
 		System.out.println("dfdfgd1");
-		CheckElementPresent(2, "passport_userInfo"); // проверяем что авторизовалиcь есть имя 
+		CheckElementPresent(2, "passport_userInfo"); // РїСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ Р°РІС‚РѕСЂРёР·РѕРІР°Р»РёcСЊ РµСЃС‚СЊ РёРјСЏ 
 		System.out.println("dfdfgd2");
 		System.out.println("dfdfgd3");
 		
@@ -132,8 +132,8 @@ public class Page_IrrMain extends Page
 		Action cClick;
 		builder = new Actions(driver);
 		builder.click();
-		//builder.moveToElement(wLinkPrivateOffice2, 5, 25).click(); // создали последовательность действий
-		cClick = builder.build(); // получили само действие
+		//builder.moveToElement(wLinkPrivateOffice2, 5, 25).click(); // СЃРѕР·РґР°Р»Рё РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ РґРµР№СЃС‚РІРёР№
+		cClick = builder.build(); // РїРѕР»СѓС‡РёР»Рё СЃР°РјРѕ РґРµР№СЃС‚РІРёРµ
 		cClick.perform();
 		//System.out.println(wLinkPrivateOffice2.getText());
 		//System.out.println(wLinkPrivateOffice2.getLocation());
