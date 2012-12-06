@@ -12,6 +12,6 @@ public class ExceptFailTest extends Throwable
 	
 	public String toString()
 	{
-		return "Тест провален, причина "+sMessageText;
+		return "РўРµСЃС‚ РїСЂРѕРІР°Р»РµРЅ, РїСЂРёС‡РёРЅР° "+sMessageText;
 	}
 }

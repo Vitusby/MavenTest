@@ -52,7 +52,7 @@ public class ListenerThatHiglilightsElements extends AbstractWebDriverEventListe
 
     public void afterFindBy(By by, WebElement element,WebDriver driver)
     {
-    	//System.out.println("Выполняется подсветка"+ driver.findElement(by).getText());
+    	//System.out.println("Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ РїРѕРґСЃРІРµС‚РєР°"+ driver.findElement(by).getText());
     	//flash2(by, driver);
     }
     
@@ -75,12 +75,12 @@ public class ListenerThatHiglilightsElements extends AbstractWebDriverEventListe
 				return;
 			if(lastFindBy.toString().equals("By.xpath: //textarea[contains(@class, 'x-form-focus')]"))
 				return;
-			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Бийск')]"))
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Р‘РёР№СЃРє')]"))
 				return;
-			System.out.println("Элемент "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" не найден");
+			System.out.println("Р­Р»РµРјРµРЅС‚ "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" РЅРµ РЅР°Р№РґРµРЅ");
 			try
 			{
-				wLog.WriteString(2, "Элемент "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" не найден. ");
+				wLog.WriteString(2, "Р­Р»РµРјРµРЅС‚ "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" РЅРµ РЅР°Р№РґРµРЅ. ");
 			}
 			catch (ExceptFailTest e)
 			{

@@ -20,9 +20,9 @@ public class TestCount extends TestConstruct
 	Page_Stargate pageStargate;
 	Page_IrrMain pageIrr = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
 	Page_IrrPrivateOffice pageIrrPrOf;
-	HM<String, Integer> clStatusAdvert; //храним статус
-	HM<String, Integer> clStatusAdvertCategory; //храним категории
-	WriterLog wLog;// лог файла
+	HM<String, Integer> clStatusAdvert; // РЎС‚Р°С‚СѓСЃ
+	HM<String, Integer> clStatusAdvertCategory; //РљР°С‚РµРіРѕСЂРёРё
+	WriterLog wLog;//Р›РѕРі
 	
 	@BeforeTest
 	public void befTest() throws ExceptFailTest
@@ -48,7 +48,7 @@ public class TestCount extends TestConstruct
 		System.out.println("Start @Test");
 		try
 		{
-			pageLoginStargate.GetWriterLog(wLog); // передали лог
+			pageLoginStargate.GetWriterLog(wLog); // РѕС‚РґР°Р»Рё Р»РѕРі
 			pageLoginStargate.OpenPage();
 			pageLoginStargate.CheckElements();
 			pageLoginStargate.TypeLoginPassword();
@@ -121,9 +121,9 @@ public class TestCount extends TestConstruct
 			pageIrrPrOf.CheckCountAndVisibleAdvert();
 			pageIrrPrOf.CheckCurrentCategory();
 			
-			pageIrrPrOf.CheckOldAndNewStatus(3);  //хранить в переменной количество добавленных объявлений
+			pageIrrPrOf.CheckOldAndNewStatus(3);  
 			pageIrrPrOf.CheckOldAndNewCategory(2);
-			wLog.WriteString(1, "Тест завершен успешно");
+			wLog.WriteString(1, "РўРµСЃС‚ Р·Р°РІРµСЂС€РµРЅ СѓСЃРїРµС€РЅРѕ");
 		}
 		finally
 		{
