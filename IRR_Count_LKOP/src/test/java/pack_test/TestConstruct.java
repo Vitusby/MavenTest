@@ -44,7 +44,7 @@ public class TestConstruct
 		
 		if(driver==null)
 		{
-			driver = new FirefoxDriver(/*GetFireFoxProfile()*/);
+			driver = new FirefoxDriver(GetFireFoxProfile());
 			lthe = new ListenerThatHiglilightsElements("#FFFF00", 1, 250, TimeUnit.MILLISECONDS);
 			//driver = new FirefoxDriver();
 			if(Proper.GetProperty("lightElement").equals("yes"))
