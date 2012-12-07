@@ -13,7 +13,7 @@ public class Page_LoginStargate extends Page
 	
 	String sUrlStargate="";
 	
-	@FindBy(id="ext-comp-1003")             
+	@FindBy(id="ext-comp-1003d")             
 	private WebElement inputLogin;
 	
 	@FindBy(id="ext-comp-1004")
@@ -45,7 +45,7 @@ public class Page_LoginStargate extends Page
 	{
 		wLog.WriteString(1, "Авторизуемся");
 		System.out.println("Авторизуемся");
-		CheckElementPresent(2,"ext-comp-1003");
+		CheckElementPresent(2,"ext-comp-1003d");
 		CheckElementPresent(2,"ext-comp-1004");
 		CheckElementPresent(2,"ext-gen31");
 	}
