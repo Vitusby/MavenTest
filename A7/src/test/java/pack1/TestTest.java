@@ -9,11 +9,12 @@ public class TestTest {
   @Test
   public void Test()
   {
-	  //String s = Proper.GetProperty("url");
+	  	String s = Proper.GetProperty("url");
+	  	System.out.println(s);
 	  	System.out.println("Start Test");
 		WebDriver driver = new FirefoxDriver();
-		//driver.get(s);
-		//driver.quit();
+		driver.get(s);
+		driver.quit();
 		System.out.println("Close Test");
   }
 }
