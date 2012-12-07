@@ -66,7 +66,7 @@ public class Page_IrrPrivateOffice extends Page
 	{
 		clStatusAdvert = clInStatusAdvert;
 		clCategoryAdvert = clInStatusAdvertCategory;
-		wLog.WriteString(1, "ЗНАЧЕНИЕ СТАТУСА ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
+		wLog.WriteString(1, "Test");
 		System.out.println("ЗНАЧЕНИЕ СТАТУСА ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
 		clStatusAdvert.PrintKeyAndValue(wLog);
 		wLog.WriteString(1, "ЗНАЧЕНИЯ КАТЕГОРИЙ ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
