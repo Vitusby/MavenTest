@@ -12,6 +12,7 @@ public class ExceptFailTest extends Throwable
 	
 	public String toString()
 	{
+		System.out.println(sMessageText);
 		return "Тест провален, причина "+sMessageText;
 	}
 }
