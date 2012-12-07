@@ -213,7 +213,7 @@ public class Page_Stargate extends Page
 			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]");
 			wButtonSaveAdvert.click();	
 		}
-		Sleep(1500);
+		Sleep(2000);
 		wLog.WriteString(1, "Проверяем создано ли объявление");
 		System.out.println("Проверяем создано ли объявление");
 		if(driver.findElement(By.xpath("//div[contains(text(),'Отдам даром')]")).isDisplayed())
@@ -290,7 +290,7 @@ public class Page_Stargate extends Page
 			CheckElementPresent(1,"//div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]");
 			wButtonSaveAdvert.click();
 		}
-		Sleep(1500);
+		Sleep(2000);
 		wLog.WriteString(1, "Проверяем создано ли объявление");
 		System.out.println("Проверяем создано ли объявление");
 		if(driver.findElement(By.xpath("//div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]")).isDisplayed())
