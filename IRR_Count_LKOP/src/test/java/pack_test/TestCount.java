@@ -29,7 +29,7 @@ public class TestCount extends TestConstruct
 	{
 		System.out.println("Start @BeforeTest");
 		wLog = new WriterLog();
-		wLog.SetUpWriterLog("src\\Log_Result.html");
+		wLog.SetUpWriterLog("Log_Result.html");
 		lthe.GetWritterLog(wLog);
 		System.out.println("End @BeforeTest");
 	};
