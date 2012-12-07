@@ -1,4 +1,4 @@
-By.id: ext-comp-1003d&Поле ввода логина stargate
+By.id: ext-comp-1003&Поле ввода логина stargate
 By.id: ext-comp-1004&Поле ввода пароля stargate
 By.id: ext-gen31&Кнопка войти stargate
 By.xpath: //div[contains(@class,'x-trigger-wrap-focus')]/img&Выпадающий список IMG
