@@ -123,6 +123,7 @@ public class TestCount extends TestConstruct
 			
 			pageIrrPrOf.CheckOldAndNewStatus(3);  
 			pageIrrPrOf.CheckOldAndNewCategory(2);
+			System.out.println("Тест завершен успешно");
 			wLog.WriteString(1, "Тест завершен успешно");
 		}
 		finally
