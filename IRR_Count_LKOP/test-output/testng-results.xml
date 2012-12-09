@@ -2,19 +2,19 @@
 <testng-results skipped="0" failed="1" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="377015" started-at="2012-12-06T23:44:59Z" finished-at="2012-12-06T23:51:16Z">
+  <suite name="Default suite" duration-ms="212608" started-at="2012-12-09T14:16:32Z" finished-at="2012-12-09T14:20:05Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="377015" started-at="2012-12-06T23:44:59Z" finished-at="2012-12-06T23:51:16Z">
+    <test name="Default test" duration-ms="212608" started-at="2012-12-09T14:16:32Z" finished-at="2012-12-09T14:20:05Z">
       <class name="pack_test.TestCount">
-        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@3476a7]" name="befTest" is-config="true" duration-ms="15" started-at="2012-12-07T02:44:59Z" finished-at="2012-12-07T02:44:59Z">
+        <test-method status="PASS" signature="befTest()[pri:0, instance:pack_test.TestCount@754c30]" name="befTest" is-config="true" duration-ms="7" started-at="2012-12-10T01:16:32Z" finished-at="2012-12-10T01:16:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- befTest -->
-        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@3476a7]" name="TestStart" duration-ms="362703" started-at="2012-12-07T02:44:59Z" finished-at="2012-12-07T02:51:02Z">
+        <test-method status="FAIL" signature="TestStart()[pri:0, instance:pack_test.TestCount@754c30]" name="TestStart" duration-ms="212585" started-at="2012-12-10T01:16:32Z" finished-at="2012-12-10T01:20:05Z">
           <exception class="pack_utils.ExceptFailTest">
             <full-stacktrace>
-              <![CDATA[Тест провален, причина Значение счетчика "Все статусы" 2 не равно количеству отображаемых объявлений 1.
+              <![CDATA[Тест провален, причина Значение счетчика "Все статусы" 1 не равно количеству отображаемых объявлений 2.
 	at pack_page.Page_IrrPrivateOffice.CheckCountAndVisibleAdvert(Page_IrrPrivateOffice.java:337)
 	at pack_test.TestCount.TestStart(TestCount.java:121)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -47,7 +47,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestStart -->
-        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@3476a7]" name="aftTest" is-config="true" duration-ms="15" started-at="2012-12-07T02:51:16Z" finished-at="2012-12-07T02:51:16Z">
+        <test-method status="PASS" signature="aftTest()[pri:0, instance:pack_test.TestCount@754c30]" name="aftTest" is-config="true" duration-ms="0" started-at="2012-12-10T01:20:05Z" finished-at="2012-12-10T01:20:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- aftTest -->
