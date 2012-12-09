@@ -29,6 +29,9 @@
          <suiteXmlFiles>
            <suiteXmlFile>testng.xml</suiteXmlFile>
          </suiteXmlFiles>
+         <systemPropertyVariables>
+           <url>http://tut.by</url>
+         </systemPropertyVariables>
        </configuration>
       </plugin>
     </plugins>
