@@ -30,7 +30,7 @@
            <suiteXmlFile>testng.xml</suiteXmlFile>
          </suiteXmlFiles>
          <systemPropertyVariables>
-           <url>http://tut.by</url>
+           <url>${url}</url>
          </systemPropertyVariables>
        </configuration>
       </plugin>
