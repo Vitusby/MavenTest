@@ -44,7 +44,7 @@ public class Page_Stargate extends Page
 	// Отдам даром
 	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]")
 	private WebElement wTakeFree;
-	@FindBy(xpath="//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]")
+	@FindBy(xpath="//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[24]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]")
 	private WebElement wTakeFree_1;
 	
 	@FindBy(xpath="//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]")  // кнопка Создать для обычных объявлений
@@ -115,7 +115,7 @@ public class Page_Stargate extends Page
 		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]");
 		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
 		DoubleClickElement(wTakeFree);
-		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[24]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
 		DoubleClickElement(wTakeFree_1);
 		Sleep(2000);
 	}
@@ -126,7 +126,7 @@ public class Page_Stargate extends Page
 		OpenListAdvert();
 		CheckElementPresent(1,"//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
 		DoubleClickElement(wTakeFree);
-		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
+		CheckElementPresent(1,"//ul[@class='x-tree-root-ct x-tree-lines']//ul/li[24]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'Отдам даром')]");
 		DoubleClickElement(wTakeFree_1);
 		CheckElementPresent(1, "//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]");
 		CheckCssElement("color","rgba(68, 68, 68, 1)",wButtonCreateAdvert);

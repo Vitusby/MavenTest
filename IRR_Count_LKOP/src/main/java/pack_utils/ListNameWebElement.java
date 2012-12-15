@@ -19,11 +19,14 @@ public class ListNameWebElement
 			File f = new File("src/main/resources/NameElements.txt");
 			FileReader fr = new FileReader(f);
 			BufferedReader br= new BufferedReader(fr);
+			
 			while ((s=br.readLine()) != null)
 			{
 				String s1[] = s.split("&");
 				objHM.SetValue(s1[0], s1[1]);
 			}
+			
+			objHM.SetS();
 		}
 		catch (FileNotFoundException e) {e.printStackTrace();} 
 		catch (IOException e){e.printStackTrace();}

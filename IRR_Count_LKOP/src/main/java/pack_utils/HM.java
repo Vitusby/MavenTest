@@ -63,6 +63,11 @@ public class HM<K,V>
 		s = hm.entrySet();
 	}
 	
+	public void SetS()
+	{
+		s = hm.entrySet();
+	}
+	
 	public void PrintKeyAndValue()
 	{
 		
