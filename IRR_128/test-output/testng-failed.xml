@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="none">
+  <parameter name="sPassword" value="555555"/>
+  <parameter name="sLogin" value="dsobol"/>
+  <parameter name="sUrl" value="http://irr.ru/stargate/"/>
+  <test name="Test(failed)" parallel="none">
+    <parameter name="sPassword" value="555555"/>
+    <parameter name="sLogin" value="dsobol"/>
+    <parameter name="sUrl" value="http://irr.ru/stargate/"/>
+    <classes>
+      <class name="pack_test.Test_128">
+        <methods>
+          <include name="TestAfter"/>
+          <include name="TestStart" invocation-numbers="0"/>
+          <include name="TestBefore"/>
+        </methods>
+      </class> <!-- pack_test.Test_128 -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
