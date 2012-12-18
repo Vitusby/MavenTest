@@ -49,7 +49,14 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div")
 	private WebElement wTextLinkAutoUsed;
 	
+	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div")
+	private WebElement wTextLinkRealEstate;
 	
+	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div")
+	private WebElement wTextLinkRealEstateApartaments;
+	
+	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div")
+	private WebElement wTextLinkRealEstateApartamentsSecondary;
 	
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div")
 	private WebElement wTextLinkTakeFree;
@@ -108,14 +115,29 @@ public class Page_IrrPrivateOffice extends Page
 		iMas3[6] = (int)AllAdvertListing - (int)NotActoveAdvertListing;
 		iMas3[7] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
 		
-		// проверяем что есть элемнет с текстом это для руьбрик и подрубрик
+		// Для рубрики Авто и мото
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div", sMas3[8]))
+			iMas3[8] = ParseStringToInt(wTextLinkAutoAndMoto.getText(),"Не удалось перевести значение счетчика \"Авто и мото\" в число в блоке \"Категори\"");
+		else iMas3[8] = -99999;
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div", sMas3[9]))
+			iMas3[9] = ParseStringToInt(wTextLinkEasyAuto.getText(),"Не удалось перевести значение счетчика \"Легковые автомобили\" в число в блоке \"Категори\"");
+		else iMas3[9] = -99999;
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div", sMas3[10]))
+			iMas3[10] = ParseStringToInt(wTextLinkAutoUsed.getText(),"Не удалось перевести значение счетчика \"Автомобили с пробегом\" в число в блоке \"Категори\"");
+		else iMas3[10] = -99999;
+		// Для рубрики Недвижимость
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div", sMas3[11]))
+			iMas3[11] = ParseStringToInt(wTextLinkRealEstate.getText(),"Не удалось перевести значение счетчика \"Недвижимость\" в число в блоке \"Категори\"");
+		else iMas3[11] = -99999;
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div", sMas3[12]))
+			iMas3[12] = ParseStringToInt(wTextLinkRealEstateApartaments.getText(),"Не удалось перевести значение счетчика \"Квартиры. Продажа\" в число в блоке \"Категори\"");
+		else iMas3[12] = -99999;
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div", sMas3[13]))
+			iMas3[13] = ParseStringToInt(wTextLinkRealEstateApartamentsSecondary.getText(),"Не удалось перевести значение счетчика \"Вторичный рынок\" в число в блоке \"Категори\"");
+		else iMas3[13] = -99999;
 		
 		
-		
-		
-		
-		//
-		for(int i=0; i<8; i++)
+		for(int i=0; i<iMas3.length; i++)
 			System.out.println(sMas3[i]+": "+iMas3[i]);
 		}
 	
