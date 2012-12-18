@@ -1,10 +1,15 @@
 package pack_page;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import pack_utils.ExceptFailTest;
 import pack_utils.HM;
 import pack_utils.Proper;
@@ -44,6 +49,8 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div")
 	private WebElement wTextLinkAutoUsed;
 	
+	
+	
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div")
 	private WebElement wTextLinkTakeFree;
 	
@@ -67,9 +74,11 @@ public class Page_IrrPrivateOffice extends Page
 	private Integer iMas2[] = new Integer[3];
 	
 	private HM<String, Integer> clsStatusAndCategory;
-	private String sMas3[] = {"Мои объявления", "Все статусы", "Активные", "Снятые с размещения", "Все категории", "Авто и мото",
-			"Легковые автомобили", "Автомобили с пробегом", "Недвижимость", "Квартиры. Продажа", "Вторичный рынок"};
-	private Integer iMas3[] = new Integer[11];
+	private String sMas3[] = {"Мои объявления", "Все статусы", "Активные", "Снятые с размещения","Все листинг","Неактивные листинг",
+			"Активные листинг","Все категории", "Авто и мото","Легковые автомобили", "Автомобили с пробегом",
+			"Недвижимость", "Квартиры. Продажа", "Вторичный рынок"};
+	
+	private Integer iMas3[] = new Integer[14];
 	
 	public Page_IrrPrivateOffice(WebDriver driver){super(driver);}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -79,22 +88,57 @@ public class Page_IrrPrivateOffice extends Page
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик корличества объявлений
 		Sleep(1000);
 		String s[] = wLinkMyAdverts.getText().split("\n");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a"); // мои объявления
 		CheckElementPresent(1, "//div[@id='minWidth']//li[@class='all'][1]/div[2]"); // все сатусы
-		CheckElementPresent(1,  "//div[@id='minWidth']//li[2]/a/div"); // активные
-		CheckElementPresent(1,  "//div[@id='minWidth']//li[3]/a/div"); // неактивные
+		CheckElementPresent(1, "//div[@id='minWidth']//li[2]/a/div"); // активные
+		CheckElementPresent(1, "//div[@id='minWidth']//li[3]/a/div"); // неактивные
+		CheckElementPresent(1, "//div[@class='b-blockInf'][2]//li[@class='all']/div[2]"); // все категории
 		
 		iMas3[0]=ParseStringToInt(s[0], "Не удалось перевести значение количества объявлений в число");
 		iMas3[1]=ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
 		iMas3[2]=ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
-		iMas3[3]=ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");
-	
-		for(int i=0; i<4; i++)
+		iMas3[3]=ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");		
+		long AllAdvertListing = (Long) js.executeScript("return document.getElementsByClassName(\"rowsButton\").length;"); // получили количество отображаемых объявлений все статусы(активно неактивно)
+		long NotActoveAdvertListing = (Long)js.executeScript("return document.getElementsByClassName(\"wrButton\").length");  // неактивные отображаемые , есть кнопка разместить
+		iMas3[4] = (int)AllAdvertListing;
+		iMas3[5] = (int)NotActoveAdvertListing;
+		iMas3[6] = (int)AllAdvertListing - (int)NotActoveAdvertListing;
+		iMas3[7] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
+		
+		// проверяем что есть элемнет с текстом это для руьбрик и подрубрик
+		
+		
+		
+		
+		
+		//
+		for(int i=0; i<8; i++)
 			System.out.println(sMas3[i]+": "+iMas3[i]);
 		}
 	
+	private boolean CheckLink(final String sLocator, String sName)
+	{
+		WebElement wElement = null;
+		WebDriverWait wWaitDriver = new WebDriverWait(driver, 10);
+		try
+		{
+			wElement = wWaitDriver.until(new ExpectedCondition<WebElement>()
+					{
+				public WebElement apply(WebDriver wd)
+				{
+					return  wd.findElement(By.xpath(sLocator));
+				}
+					}								
+										);
+		}
+		catch(TimeoutException exc){System.out.println("Ссылка "+sName+" не найдена");}
+		if(wElement == null)
+			return false;
+		else return true;
+	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void GetStatusForLastLogin(HM<String, Integer> clInStatusAdvert, HM<String, Integer> clInStatusAdvertCategory) throws ExceptFailTest
 	{
@@ -273,9 +317,9 @@ public class Page_IrrPrivateOffice extends Page
 		CheckElementPresent(1,  "//div[@id='minWidth']//li[2]/a/div");
 		CheckElementPresent(1,  "//div[@id='minWidth']//li[3]/a/div");
 		
-		iMas[0]=ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
-		iMas[1]=ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
-		iMas[2]=ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");
+		iMas[0] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
+		iMas[1] = ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
+		iMas[2] = ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");
 		
 		clStatusAdvert = new HM<String,Integer>(sMas, iMas);
 		wLog.WriteString(1, "ЗНАЧЕНИЯ ТЕКУЩЕГО СТАТУСА:");

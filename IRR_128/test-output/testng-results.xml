@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="15840" started-at="2012-12-18T13:12:12Z" finished-at="2012-12-18T13:12:28Z">
+  <suite name="Suite" duration-ms="32529" started-at="2012-12-18T14:25:42Z" finished-at="2012-12-18T14:26:15Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="15840" started-at="2012-12-18T13:12:12Z" finished-at="2012-12-18T13:12:28Z">
+    <test name="Test" duration-ms="32529" started-at="2012-12-18T14:25:42Z" finished-at="2012-12-18T14:26:15Z">
       <class name="pack_test.Test_128">
-        <test-method status="PASS" signature="TestBefore()[pri:0, instance:pack_test.Test_128@11c5367]" name="TestBefore" is-config="true" duration-ms="12" started-at="2012-12-19T00:12:12Z" finished-at="2012-12-19T00:12:12Z">
+        <test-method status="PASS" signature="TestBefore()[pri:0, instance:pack_test.Test_128@11f965c]" name="TestBefore" is-config="true" duration-ms="8" started-at="2012-12-19T01:25:42Z" finished-at="2012-12-19T01:25:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestBefore -->
-        <test-method status="PASS" signature="TestStart(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:pack_test.Test_128@11c5367]" name="TestStart" duration-ms="15808" started-at="2012-12-19T00:12:12Z" finished-at="2012-12-19T00:12:28Z">
+        <test-method status="PASS" signature="TestStart(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:pack_test.Test_128@11f965c]" name="TestStart" duration-ms="32508" started-at="2012-12-19T01:25:42Z" finished-at="2012-12-19T01:26:15Z">
           <params>
             <param index="0">
               <value>
@@ -32,7 +32,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestStart -->
-        <test-method status="PASS" signature="TestAfter()[pri:0, instance:pack_test.Test_128@11c5367]" name="TestAfter" is-config="true" duration-ms="0" started-at="2012-12-19T00:12:28Z" finished-at="2012-12-19T00:12:28Z">
+        <test-method status="PASS" signature="TestAfter()[pri:0, instance:pack_test.Test_128@11f965c]" name="TestAfter" is-config="true" duration-ms="0" started-at="2012-12-19T01:26:15Z" finished-at="2012-12-19T01:26:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestAfter -->
