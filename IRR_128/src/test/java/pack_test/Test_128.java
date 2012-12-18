@@ -39,7 +39,7 @@ public class Test_128 extends TestConstruct
 	}
 	
 	
-	@Test
+	@Test(invocationCount = 1)
 	@Parameters({ "sUrl", "sLogin", "sPassword" })
 	public void TestStart(String sUrl, String sLogin, String sPassword) throws ExceptFailTest
 	{
@@ -53,7 +53,10 @@ public class Test_128 extends TestConstruct
 			pageIrr.OpenFormAuthorization();
 			pageIrrPrOf = pageIrr.LoginOn("login_1");
 			pageIrrPrOf.GetWriterLog(wLog);	
-			pageIrrPrOf.GetCurrentStatus();
+			
+			pageIrrPrOf.GetStatusAndCategory();
+			
+			/*pageIrrPrOf.GetCurrentStatus();
 			pageIrrPrOf.DeleteAllAdvert();
 			pageIrrPrOf.CheckCountAndVisibleAdvert();
 			pageIrrPrOf.CheckOldAndNewStatus(2);
@@ -68,7 +71,7 @@ public class Test_128 extends TestConstruct
 			pageStargate.GetWriterLog(wLog);
 			pageStargate.OpenFormCreateAdvertAuto();
 			pageStargate.InputDataAuto();
-			
+			*/
 		}
 		catch(Exception exc)
 		{
@@ -79,7 +82,7 @@ public class Test_128 extends TestConstruct
 		finally
 		{
 			//CaptureScreenshot();
-			wLog.CloseFile();
+			//wLog.CloseFile();
 			//driver.quit();
 		}
 		System.out.println("End @Test");

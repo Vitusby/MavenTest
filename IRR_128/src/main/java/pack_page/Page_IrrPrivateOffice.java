@@ -47,6 +47,12 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div")
 	private WebElement wTextLinkTakeFree;
 	
+	@FindBy(xpath="//a[@id='load_user_ads_counter']/span[2]")
+	private WebElement wLinkPrivateOffice;
+	
+	@FindBy(xpath="//div[@id='block_links_lk']/ul/li/a")
+	private WebElement wLinkMyAdverts; 
+	
 	@FindBy(id="logout")
 	private WebElement wLinkLogout;
 	
@@ -60,8 +66,36 @@ public class Page_IrrPrivateOffice extends Page
 	private String sMas2[] = {"Все категории","Авто и мото","Отдам даром"};
 	private Integer iMas2[] = new Integer[3];
 	
+	private HM<String, Integer> clsStatusAndCategory;
+	private String sMas3[] = {"Мои объявления", "Все статусы", "Активные", "Снятые с размещения", "Все категории", "Авто и мото",
+			"Легковые автомобили", "Автомобили с пробегом", "Недвижимость", "Квартиры. Продажа", "Вторичный рынок"};
+	private Integer iMas3[] = new Integer[11];
+	
 	public Page_IrrPrivateOffice(WebDriver driver){super(driver);}
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public void GetStatusAndCategory() throws ExceptFailTest
+	{
+		wLinkPrivateOffice.click();
+		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик корличества объявлений
+		Sleep(1000);
+		String s[] = wLinkMyAdverts.getText().split("\n");
+		
+		
+		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a"); // мои объявления
+		CheckElementPresent(1, "//div[@id='minWidth']//li[@class='all'][1]/div[2]"); // все сатусы
+		CheckElementPresent(1,  "//div[@id='minWidth']//li[2]/a/div"); // активные
+		CheckElementPresent(1,  "//div[@id='minWidth']//li[3]/a/div"); // неактивные
+		
+		iMas3[0]=ParseStringToInt(s[0], "Не удалось перевести значение количества объявлений в число");
+		iMas3[1]=ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
+		iMas3[2]=ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
+		iMas3[3]=ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");
+	
+		for(int i=0; i<4; i++)
+			System.out.println(sMas3[i]+": "+iMas3[i]);
+		}
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void GetStatusForLastLogin(HM<String, Integer> clInStatusAdvert, HM<String, Integer> clInStatusAdvertCategory) throws ExceptFailTest
 	{
 		clStatusAdvert = clInStatusAdvert;
