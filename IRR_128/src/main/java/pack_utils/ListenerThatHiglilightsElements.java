@@ -78,6 +78,8 @@ public class ListenerThatHiglilightsElements extends AbstractWebDriverEventListe
 				return;
 			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Бийск')]"))
 				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Амурск')]"))
+				return;
 			try
 			{
 				System.out.println("Элемент "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" не найден");

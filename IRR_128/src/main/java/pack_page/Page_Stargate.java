@@ -27,9 +27,29 @@ public class Page_Stargate extends Page
 	@SuppressWarnings("unused")
 	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'Создать премиум')]") // Создать премиум
 	private WebElement wCreatePremium;
+	@FindBy(xpath="//a[@href='/stargate/workspace/admanagement/find/']/span[contains(text(),'Найти объявления')]") // Найти объявление
+	private WebElement wFindAdvert;
 	@SuppressWarnings("unused")
 	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Категории каталога')]")
 	private WebElement wCategoryCatalog;
+	
+	//форма поиска
+	//заголовок поле ID
+	@FindBy(xpath = "//label[@class='x-form-item-label' and contains(text(),'ID:')]")
+	private WebElement wTitleId;
+	//кнопка искать
+	@FindBy(xpath="//button[@class='x-btn-text' and contains(text(),'Искать')]")
+	private WebElement wButtonSearch;
+	//крестик разворота данных о найденном объявлении
+	@FindBy(xpath ="//td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']")
+	private WebElement wDivCrossAdvert;
+	// Вкладка свойства
+	@FindBy(xpath="//span[@class='x-tab-strip-text ' and contains(text(),'Свойства')]")
+	private WebElement wTabProperties;
+	//кнопка Сохранить
+	@FindBy(xpath="//button[@class='x-btn-text' and contains(text(),'Сохранить')]")
+	private WebElement wButtonSaveFind;
+
 	
 	// Авто
 	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]")
@@ -41,8 +61,8 @@ public class Page_Stargate extends Page
 	@FindBy(xpath="//a[@class='x-tree-node-anchor']/span[contains(text(),'авто с пробегом')]")
 	private WebElement wEasyCarOld_1;
 	
-	
-	@FindBy(xpath="//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]")  // кнопка Создать для обычных объявлений
+	// кнопка Создать для обычных объявлений
+	@FindBy(xpath="//button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]")
 	private WebElement wButtonCreateAdvert;
 	
 	//	окно выбора региона
@@ -63,7 +83,7 @@ public class Page_Stargate extends Page
 	@FindBy(xpath="//div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]")
 	private WebElement wButtonWindowPopup;
 		
-	// Авто
+	// Авто (а так же найденное объявление)
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]")
 	private WebElement wDivTitleRegion;
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст объявления')]")
@@ -89,9 +109,183 @@ public class Page_Stargate extends Page
 	private WebElement wDivStatusOfModer;
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]")
 	private WebElement wDivActionOfAdvet;
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Перенести в рубрику')]")
+	private WebElement wDivChangeOfRubric;
+	// Недвижимость (а так же найденное объявление)
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Комнат в квартире')]")
+	private WebElement wDivRoomsInFlat;
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Общая площадь')]")
+	private WebElement wDivSquare;
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Этаж')]")
+	private WebElement wDivFloor;
 	
 	
 	public Page_Stargate(WebDriver driver){super(driver);}
+	
+	// открытие формы поиска
+	public void OpenFindForm() throws ExceptFailTest
+	{
+		Sleep(1000);
+		wLog.WriteString(1, "Проверяем вошли ли");
+		print("Проверяем вошли ли");
+		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/']");
+		wLog.WriteString(1, "Вошли");
+		print("Вошли");
+		wAdvert.click();
+		Sleep(1000);
+		CheckElementPresent(1, "//a[@href='/stargate/workspace/admanagement/find/']/span[contains(text(),'Найти объявления')]");
+		wLog.WriteString(1, "Открываем форму поиска объявления");
+		print("Открываем форму поиска объявления");
+		wFindAdvert.click();
+		Sleep(1000);
+	}
+	
+	// Поиск объявления по ID в поле формы поиска
+	public void FindAdvert(String sData) throws ExceptFailTest
+	{
+		Sleep(100);
+		print("Ищем объявление через форму поиска");
+		wLog.WriteString(1, "Ищем объявление через форму поиска");
+		print("Вводим ID объявления: " + sData);
+		wLog.WriteString(1, "Вводим ID объявления: " + sData);
+		InputDataToElementFormFind(wTitleId, sData, "//label[@class='x-form-item-label' and contains(text(),'ID:')]");
+		print("Нажимаем кнопку Искать");
+		wLog.WriteString(1, "Нажимаем кнопку Искать");
+		CheckElementPresent(1, "//button[@class='x-btn-text' and contains(text(),'Искать')]");
+		wButtonSearch.click();
+		print("Проверяем найдено ли объявление");
+		wLog.WriteString(1, "Проверяем найдено ли объявление");
+		CheckElementPresent(1, "//td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']");
+		print("Объявление найдено, разворачиваем его");
+		wLog.WriteString(1, "Объявление найдено, разворачиваем его");
+		DoubleClickElement(wDivCrossAdvert);
+		print("Проверяем развернуто ли объявление");
+		wLog.WriteString(1, "Проверяем развернуто ли объявление");
+		CheckElementPresent(1, "//span[@class='x-tab-strip-text ' and contains(text(),'Свойства')]");
+		print("Объявление развернуто");
+		wLog.WriteString(1, "Объявление развернуто");
+		
+	}
+	
+	// изменение данных
+	public void ChangeDataForAdvert(String sRegion, String sUser, String sStatus, String sCategory, int nKey) throws ExceptFailTest
+	{
+		ChangeRegionForAdvert(sRegion);
+		ChangeUserForAdvert(sUser);
+		ChangeStatusForAdvert(sStatus);
+		AddDataForAdvertCarsOrRealt(nKey);
+		ChangeCategoryForAdvert(sCategory);
+		SaveChangeForFormFind();	
+	}
+	
+	// изменение данных для конкретных полей объявления
+	// изменение пользователя
+	private void ChangeUserForAdvert(String sUser) throws ExceptFailTest
+	{
+		print("Изменяем пользователя");
+		wLog.WriteString(1, "Изменяем пользователя");
+		InputDataToElement(wDivTitleOwnerAdvert, sUser, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		print("Новое значение: " + Proper.GetProperty(sUser));
+		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sUser));
+	}
+	
+	private void ChangeCategoryForAdvert(String sCategory) throws ExceptFailTest 
+	{
+		print("Изменяем рубрику(категорию) объявления");
+		wLog.WriteString(1, "Изменяем рубрику(категорию) объявления");
+		InputDataToElement(wDivChangeOfRubric, sCategory, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Перенести в рубрику')]");
+		print("Новое значение: " + Proper.GetProperty(sCategory));
+		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sCategory));
+	}
+
+	private void ChangeRegionForAdvert(String sRegion) throws ExceptFailTest 
+	{
+		print("Изменяем регион объявления");
+		wLog.WriteString(1, "Изменяем регион объявления");
+		InputDataToElement(wDivTitleRegion, sRegion, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
+		print("Новое значение: " + Proper.GetProperty(sRegion));
+		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sRegion));
+	}
+	
+	private void ChangeStatusForAdvert(String sStatus) throws ExceptFailTest 
+	{
+		print("Изменяем статус объявления");
+		wLog.WriteString(1, "Изменяем статус объявления");
+		InputDataToElement(wDivActionOfAdvet, sStatus, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
+		print("Новое значение: " + Proper.GetProperty(sStatus));
+		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sStatus));
+	}
+
+	// сохранение изменений
+	private void SaveChangeForFormFind() throws ExceptFailTest
+	{
+		print("Сохраняем изменения");
+		wLog.WriteString(1, "Сохраняем изменения");
+		CheckElementPresent(1, "//button[@class='x-btn-text' and contains(text(),'Сохранить')]");
+		wButtonSaveFind.click();
+		Sleep(2000);
+		if(wTabProperties.isDisplayed())
+		{
+			print("Изменения не сохраненны");
+			wLog.WriteString(2, "Изменения не сохраненны");
+			throw new ExceptFailTest("Изменения не сохраненны");
+		}
+		print("Изменения сохраненны");
+		wLog.WriteString(1, "Изменения сохраненны");	
+	}
+	
+	// добавление данных для объяления авто (когда меняем рубрику)
+	private void AddDataForAdvertCarsOrRealt(int nKey) throws ExceptFailTest
+	{
+		if(nKey == 0)
+		{
+			Sleep(100);
+			print("Вводим марку");
+			wLog.WriteString(1, "Вводим марку");
+			InputDataToElement(wDivTitleMake, "make", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Марка')]");
+			Sleep(100);
+			print("Вводим модель");
+			wLog.WriteString(1, "Вводим модель");
+			InputDataToElement(wDivTitleModel, "model", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Модель')]");
+			Sleep(100);
+			print("Вводим год выпуска");
+			wLog.WriteString(1, "Вводим год выпуска");
+			InputDataToElement(wDivTitleYear, "year", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Год выпуска')]");
+			Sleep(100);
+			print("Вводим тип кузова");
+			wLog.WriteString(1, "Вводим тип кузова");
+			InputDataToElement(wDivTitleTypeOfBody, "typeOfBody", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип кузова')]");
+			Sleep(100);
+			print("Вводим тип трансмиссии");
+			wLog.WriteString(1, "Вводим тип трансмиссии");
+			InputDataToElement(wDivTitleTypeOfTransmission, "typeOfTransmission", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип трансмиссии')]");
+			Sleep(100);
+		}
+		if(nKey == 1)
+		{
+			Sleep(100);
+			print("Вводим количество комнат в квартире");
+			wLog.WriteString(1, "Вводим количество комнат в квартире");
+			InputDataToElement(wDivRoomsInFlat, "roomsOfFlat", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Комнат в квартире')]");
+			Sleep(100);
+			print("Вводим общую площадь");
+			wLog.WriteString(1, "Вводим общую площадь");
+			InputDataToElement(wDivSquare, "square", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Общая площадь')]");
+			Sleep(100);
+			print("Вводим этаж");
+			wLog.WriteString(1, "Вводим этаж");
+			InputDataToElement(wDivFloor, "floor", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Этаж')]");
+			Sleep(100);
+		}
+	}
+	
+	// ввод данных при поиске объявления в форме поиска
+	private void InputDataToElementFormFind(WebElement wElement, String sData, String sPath) throws ExceptFailTest
+	{
+		CheckElementPresent(1, sPath);
+		wElement.click();
+		CheckElementForInputFind(sData);
+	}
 	
 	public void OpenFormCreateAdvertAuto() throws ExceptFailTest
 	{
@@ -195,6 +389,9 @@ public class Page_Stargate extends Page
 		String sRegion = Proper.GetProperty(sNameRegion); // получили значени из файла конфига назание региона
 		String s1 = "//div[contains(text(),'"+sRegion+"  (')]"; // получили xpath выпадающео списка региона 
 		CheckElementPresent(1,"//fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]"); // проверяем что поле ввоа региона существует
+		if(!wFieldWindowRegion.getText().equals(""))
+			print("Текущее значение региона: "+wFieldWindowRegion.getText());
+		wFieldWindowRegion.clear();
 		wFieldWindowRegion.sendKeys(sRegion);
 		CheckElementPresent(1,s1); // проверяем что появился выпадающий список с регионами
 		WebElement wListSaveWindowRegion = driver.findElement(By.xpath(s1)); // получаем его значение 
@@ -226,13 +423,14 @@ public class Page_Stargate extends Page
 				wElement.click(); // нажимаем что бы список отобразился
 		}
 		catch(NoSuchElementException exc){wElement.click();} // иначе если его нет жмем
-
+		
 		if(wTitledWindowRegion.isDisplayed()) // если открывается окно выбора регионов (у него заголовок "Редактировать")
-			SetRegion(sNameField); // вводим регион
-		else
-		{
-			SetOtherImageDiv(sNameField);
-		}
+			{
+				SetRegion(sNameField); // вводим регион
+				return;
+			}
+		SetOtherImageDiv(sNameField);
+
 	}
 	
 	// ввод значений если элемент ввода input
@@ -242,7 +440,6 @@ public class Page_Stargate extends Page
 		String sDataField = Proper.GetProperty(sNameField);
 		wElement.clear();
 		wElement.sendKeys(sDataField);
-		
 	}
 	
 	// ввод значений если элемент ввода textarea
@@ -266,7 +463,8 @@ public class Page_Stargate extends Page
 				wE.click();
 		}
 	}
-		
+	
+	// вводд данных при создании объявлений
 	private void InputDataToElement(WebElement wElement, String sNameField , String sPath) throws ExceptFailTest
 	{  	
 		CheckElementPresent(1, sPath);
@@ -275,17 +473,27 @@ public class Page_Stargate extends Page
 		KeyPress(wElement, Keys.ARROW_RIGHT, 1); // переходим на соседнюю строку (в ней элементы ввода) 
 		CheckElementPresent(1,"//td[contains(@class,'x-grid3-cell-selected')]"); // проверяем что wTdSecondFields доступен
 		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]")); // вторая строка от заголовка (поле где вводим)
+		
+		if(!wTdSecondFields.getText().equals(" "))
+		print("Предыдущее значение: " + wTdSecondFields.getText());
+		
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 			wTdSecondFields.click();
 		else DoubleClickElement(wTdSecondFields);
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		CheckElementForInput(sNameField);
+	}
+	
+	// Проверка какой элемент доступен и вызов соответствующей функции для подачи объявления
+	private void CheckElementForInput(String sNameField) throws ExceptFailTest
+	{
 		// проверяем какой элемент появился в строке для ввода
 		try // проверка наличия активного выпадающего списка img
 		{
 			WebElement wImageArrow = driver.findElement(By.xpath("//div[contains(@class,'x-trigger-wrap-focus')]/img")); 
 			if(wImageArrow.isDisplayed())										
 			{	
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				SetDropDownList(wImageArrow, sNameField);
 				return;
 			}
@@ -297,7 +505,7 @@ public class Page_Stargate extends Page
 			WebElement wInput = driver.findElement(By.xpath("//input[contains(@class,'x-form-focus')]"));
 			if(wInput.isDisplayed())										
 			{
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				SetInput(wInput, sNameField);
 				return;
 			}
@@ -309,7 +517,7 @@ public class Page_Stargate extends Page
 			WebElement wSelect = driver.findElement(By.xpath("//select[contains(@class,'x-form-focus')]"));
 			if(wSelect.isDisplayed())
 			{
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				SetSelect(wSelect, sNameField);
 				return;
 			}
@@ -321,7 +529,7 @@ public class Page_Stargate extends Page
 			WebElement wArea = driver.findElement(By.xpath("//textarea[contains(@class, 'x-form-focus')]"));
 			if(wArea.isDisplayed())
 			{
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 				SetTextArea(wArea, sNameField);
 				return;
 			}
@@ -329,8 +537,29 @@ public class Page_Stargate extends Page
 		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного текстареа");*/}
 	}
 
-	@Override
-	public void OpenPage(String sUrl){}
+	// Проверка какой элемент доступен и вызов соответствующей функции для поиска объявления
+	private void CheckElementForInputFind(String sData) throws ExceptFailTest
+	{
+		try // проверка наличия активного инпута
+		{
+			WebElement wInput = driver.findElement(By.xpath("//input[contains(@class,'x-form-focus')]"));
+			if(wInput.isDisplayed())										
+			{
+				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+				SetInputForFind(wInput, sData);
+				return;
+			}
+		}
+		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного инпута");*/}
+	}
+	
+	// ввод значений если элемент ввода input для поиска
+	private void SetInputForFind(WebElement wElement, String sData)
+	{
+		//System.out.println("Сработал SetInput");
+		wElement.clear();
+		wElement.sendKeys(sData);
+	}
 	
 	//Открытие листинга выбора рубрики добавления обычного объявления
 	private void OpenListAdvert() throws ExceptFailTest  
@@ -350,5 +579,7 @@ public class Page_Stargate extends Page
 		Sleep(1000);
 	}
 	
+	@Override
+	public void OpenPage(String sUrl){}
 
 }

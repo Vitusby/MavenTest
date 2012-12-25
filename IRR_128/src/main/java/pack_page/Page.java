@@ -5,6 +5,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.concurrent.TimeUnit;
+
 import javax.imageio.ImageIO;
 
 import pack_utils.ExceptFailTest;
@@ -33,6 +36,7 @@ public abstract class Page
 	public Page(WebDriver driver)
 	{
 		this.driver = driver;
+		this.driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 	}
 
 	
@@ -52,7 +56,7 @@ public abstract class Page
 	public void CheckAtributeElement(final String sAtribute, final String sFindAtribute, final WebElement wElement) throws ExceptFailTest
 	{
 		Boolean bFlag = false;
-		WebDriverWait wWaitDriver = new WebDriverWait(driver, 10);
+		WebDriverWait wWaitDriver = new WebDriverWait(driver, 5);
 		try
 		{
 			bFlag = wWaitDriver.until(new ExpectedCondition<Boolean>()
@@ -76,7 +80,7 @@ public abstract class Page
 	public void CheckCssElement(final String sCssAtribute, final String sFindCssAtributeValue, final WebElement wElement) throws ExceptFailTest
 	{
 		Boolean bFlag = false;
-		WebDriverWait wWaitDriver = new WebDriverWait(driver, 10);
+		WebDriverWait wWaitDriver = new WebDriverWait(driver, 5);
 		try
 		{
 			bFlag = wWaitDriver.until(new ExpectedCondition<Boolean>()
@@ -226,6 +230,13 @@ public abstract class Page
 	    catch(Exception e){
 	        e.printStackTrace();
 	    }
+	}
+	
+	// System.out
+	public <T> void print(T obj)
+	{
+		PrintWriter pw = new PrintWriter(System.out, true);
+		pw.println(obj);
 	}
 	
 	/*	private boolean isElementPresent(By by)

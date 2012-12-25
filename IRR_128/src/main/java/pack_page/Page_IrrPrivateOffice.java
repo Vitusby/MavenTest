@@ -1,5 +1,8 @@
 package pack_page;
 
+import java.io.PrintWriter;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -70,33 +73,46 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(id="logout")
 	private WebElement wLinkLogout;
 	
+	@FindBy(xpath = "//div[@class='b-id']")
+	private WebElement wLinkAdvert;
+	
 	//div class="b-adListTable"
 //////////////////////////////////////////////////////////////////////////////////////////////	
-	private HM<String, Integer> clStatusAdvert;  // для блока Статус
-	private String sMas[] = {"Все статусы", "Активные", "Снятые с размещения"};
-	private Integer iMas[] = new Integer[3];
-	
-	private HM<String, Integer> clCategoryAdvert; // Для блока Категории
-	private String sMas2[] = {"Все категории","Авто и мото","Отдам даром"};
-	private Integer iMas2[] = new Integer[3];
+
 	
 	private HM<String, Integer> clsStatusAndCategory;
-	private String sMas3[] = {"Мои объявления", "Все статусы", "Активные", "Снятые с размещения","Все листинг","Неактивные листинг",
-			"Активные листинг","Все категории", "Авто и мото","Легковые автомобили", "Автомобили с пробегом",
+	private HM<String, String> clsStatusAndCategoryString;
+	private String sMas3[] = {"Мои объявления",
+			"Все статусы", "Активные", "Снятые с размещения",
+			"Все листинг","Неактивные листинг","Активные листинг",
+			"Все категории",
+			"Авто и мото","Легковые автомобили", "Автомобили с пробегом",
 			"Недвижимость", "Квартиры. Продажа", "Вторичный рынок"};
-	
 	private Integer iMas3[] = new Integer[14];
+	private String sMasCounters[] = new String[14];
 	
-	public Page_IrrPrivateOffice(WebDriver driver){super(driver);}
+	public Page_IrrPrivateOffice(WebDriver driver){super(driver); }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	// id первого объявления в списке
+	public String GetIdAdvert() throws ExceptFailTest
+	{
+		CheckElementPresent(1, "//div[@class='b-id']");
+		String s[] = wLinkAdvert.getText().split("\n");
+		return s[0].substring(18);
+	}
+	
+	// Значение всех счетчиков
 	public void GetStatusAndCategory() throws ExceptFailTest
 	{
+		Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
+		driver.get(driver.getCurrentUrl());
+		
 		wLinkPrivateOffice.click();
-		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик корличества объявлений
+		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик количества объявлений
 		Sleep(1000);
 		String s[] = wLinkMyAdverts.getText().split("\n");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		
 		
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a"); // мои объявления
 		CheckElementPresent(1, "//div[@id='minWidth']//li[@class='all'][1]/div[2]"); // все сатусы
@@ -115,36 +131,105 @@ public class Page_IrrPrivateOffice extends Page
 		iMas3[6] = (int)AllAdvertListing - (int)NotActoveAdvertListing;
 		iMas3[7] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
 		
+		sMasCounters[0] = s[0];
+		sMasCounters[1] = wTextAllStatus.getText();
+		sMasCounters[2] = wLinkActiveStatus.getText();
+		sMasCounters[3] = wLinkNotActiveStatus.getText();
+		sMasCounters[4] = String.valueOf(AllAdvertListing);
+		sMasCounters[5] = String.valueOf(NotActoveAdvertListing);
+		sMasCounters[6] = String.valueOf((AllAdvertListing-NotActoveAdvertListing));
+		sMasCounters[7]	= wTextAllStatus.getText();
+		
 		// Для рубрики Авто и мото
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div", sMas3[8]))
+		{
 			iMas3[8] = ParseStringToInt(wTextLinkAutoAndMoto.getText(),"Не удалось перевести значение счетчика \"Авто и мото\" в число в блоке \"Категори\"");
-		else iMas3[8] = -99999;
+			sMasCounters[8] = wTextLinkAutoAndMoto.getText();
+		}
+		else
+		{
+			iMas3[8] = -99999;
+			sMasCounters[8] = "нет";
+		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div", sMas3[9]))
+		{
 			iMas3[9] = ParseStringToInt(wTextLinkEasyAuto.getText(),"Не удалось перевести значение счетчика \"Легковые автомобили\" в число в блоке \"Категори\"");
-		else iMas3[9] = -99999;
+			sMasCounters[9] = wTextLinkEasyAuto.getText();
+		}
+		else
+		{
+			iMas3[9] = -99999;
+			sMasCounters[9] = "нет";
+		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div", sMas3[10]))
+		{
 			iMas3[10] = ParseStringToInt(wTextLinkAutoUsed.getText(),"Не удалось перевести значение счетчика \"Автомобили с пробегом\" в число в блоке \"Категори\"");
-		else iMas3[10] = -99999;
+			sMasCounters[10] = wTextLinkAutoUsed.getText();
+		}
+		else
+		{
+			iMas3[10] = -99999;
+			sMasCounters[10] = "нет";
+		}
 		// Для рубрики Недвижимость
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div", sMas3[11]))
+		{
 			iMas3[11] = ParseStringToInt(wTextLinkRealEstate.getText(),"Не удалось перевести значение счетчика \"Недвижимость\" в число в блоке \"Категори\"");
-		else iMas3[11] = -99999;
-		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div", sMas3[12]))
-			iMas3[12] = ParseStringToInt(wTextLinkRealEstateApartaments.getText(),"Не удалось перевести значение счетчика \"Квартиры. Продажа\" в число в блоке \"Категори\"");
-		else iMas3[12] = -99999;
-		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div", sMas3[13]))
-			iMas3[13] = ParseStringToInt(wTextLinkRealEstateApartamentsSecondary.getText(),"Не удалось перевести значение счетчика \"Вторичный рынок\" в число в блоке \"Категори\"");
-		else iMas3[13] = -99999;
-		
-		
-		for(int i=0; i<iMas3.length; i++)
-			System.out.println(sMas3[i]+": "+iMas3[i]);
+			sMasCounters[11] = wTextLinkRealEstate.getText();
 		}
+		else
+		{
+			iMas3[11] = -99999;
+			sMasCounters[11] = "нет";
+		}
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div", sMas3[12]))
+		{
+			iMas3[12] = ParseStringToInt(wTextLinkRealEstateApartaments.getText(),"Не удалось перевести значение счетчика \"Квартиры. Продажа\" в число в блоке \"Категори\"");
+			sMasCounters[12] = wTextLinkRealEstateApartaments.getText();
+		}
+		else
+		{
+			iMas3[12] = -99999;
+			sMasCounters[12] = "нет";
+		}
+		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div", sMas3[13]))
+		{
+			iMas3[13] = ParseStringToInt(wTextLinkRealEstateApartamentsSecondary.getText(),"Не удалось перевести значение счетчика \"Вторичный рынок\" в число в блоке \"Категори\"");
+			sMasCounters[13] = wTextLinkRealEstateApartamentsSecondary.getText();
+		}
+		else
+		{
+			iMas3[13] = -99999;
+			sMasCounters[13] = "нет";
+		}
+		
+		clsStatusAndCategoryString = new HM<String,String>(sMas3, sMasCounters);
+		print("");
+		print("ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЕТЧИКОВ:");
+		wLog.WriteString(3, "ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЕТЧИКОВ:");
+		clsStatusAndCategoryString.PrintKeyAndValue(wLog);
+		print("");
+		
+		
+		/*clsStatusAndCategory = new HM<String,Integer>(sMas3, iMas3);
+		
+		print("");
+		print("ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЕТЧИКОВ:");
+		wLog.WriteString(1,"");
+		wLog.WriteString(1, "ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЕТЧИКОВ:");
+		clsStatusAndCategory.PrintKeyAndValue(wLog);
+		print("");
+		wLog.WriteString(1,"");
+		*/
+		
+		
+	}
 	
+	//проверка есть ли ссылки для авто или недвижимости
 	private boolean CheckLink(final String sLocator, String sName)
 	{
 		WebElement wElement = null;
-		WebDriverWait wWaitDriver = new WebDriverWait(driver, 10);
+		WebDriverWait wWaitDriver = new WebDriverWait(driver, 4);
 		try
 		{
 			wElement = wWaitDriver.until(new ExpectedCondition<WebElement>()
@@ -161,300 +246,214 @@ public class Page_IrrPrivateOffice extends Page
 			return false;
 		else return true;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void GetStatusForLastLogin(HM<String, Integer> clInStatusAdvert, HM<String, Integer> clInStatusAdvertCategory) throws ExceptFailTest
+	// проверка всех счетчиков для int
+	public void CheckAllCountersAfterChangeData(
+			int nMyAdvert,
+			int nAllStatus, int nActiveS, int nNotActiveS,
+			int nAllList, int nNotActiveL, int nActiveL,
+			int nAllCategory,
+			int nMainAuto, int nEasyCars, int nUsedCars,
+			int nMainRealt, int nRealtSell, int nRealtSecond,
+			String sOperation
+												) throws ExceptFailTest
 	{
-		clStatusAdvert = clInStatusAdvert;
-		clCategoryAdvert = clInStatusAdvertCategory;
-		wLog.WriteString(1, "ЗНАЧЕНИЕ СТАТУСА ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
-		System.out.println("ЗНАЧЕНИЕ СТАТУСА ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
-		clStatusAdvert.PrintKeyAndValue(wLog);
-		wLog.WriteString(1, "ЗНАЧЕНИЯ КАТЕГОРИЙ ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
-		System.out.println("ЗНАЧЕНИЯ КАТЕГОРИЙ ПЕРЕД ДОБАВЛЕНИЕМ ОБЪЯВЛЕНИЯ");
-		clCategoryAdvert.PrintKeyAndValue(wLog);
-	}
-	
-	public HM<String, Integer> SendStatus()
-	{
-		return clStatusAdvert;
-	}
-	
-	public HM<String, Integer> SendCategory()
-	{
-		return clCategoryAdvert;
-	}
-	
-	// Для категории проверка что  значение счетчика все категории соответствует значениям счетчиков все статусы и значению сумме счетчиков категорий
-	public void CheckCurrentCategory() throws ExceptFailTest
-	{
-		// Проверяем что значение счетчика Все статусы = значению Все категории
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//li[@class='all']/div[2]");
-		wLog.WriteString(1, "ПРОВЕРЯЕМ ЧТО ЗНАЧЕНИЕ СЧЕТЧИКА \"ВСЕ СТАТУСЫ\" РАВНО ЗНАЧЕНИЮ СЧЕТЧИКА \"ВСЕ КАТЕГОРИИ\"");
-		System.out.println("ПРОВЕРЯЕМ ЧТО ЗНАЧЕНИЕ СЧЕТЧИКА \"ВСЕ СТАТУСЫ\" РАВНО ЗНАЧЕНИЮ СЧЕТЧИКА \"ВСЕ КАТЕГОРИИ\"");
-		int iAllCategory = ParseStringToInt(wTextAllCategory.getText(),"Не удалось перевести значение счетчика \"Все категори\" в число в блоке \"Категори\"");
-		int iAllStatus = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
-		wLog.WriteString(1, "Значение счетчика \"Все категории\" в блоке \"Категории\" равно: "+iAllCategory);
-		System.out.println("Значение счетчика \"Все категории\" в блоке \"Категории\" равно: "+iAllCategory);
-		wLog.WriteString(1, "Значение счетчика \"Все статусы\" в блоке \"Cтатусы\" равно: "+iAllStatus);
-		System.out.println("Значение счетчика \"Все статусы\" в блоке \"Cтатусы\" равно: "+iAllStatus);
-		if(iAllCategory != iAllStatus)
+		HM<String, Integer> clsOldStatusAndCategory = clsStatusAndCategory;
+		boolean bFlag1, bFlag2, bFlag3, bFlag4, bFlag5, bFlag6, bFlag7, bFlag8, bFlag9, bFlag10, bFlag11, bFlag12, bFlag13, bFlag14;
+		
+		print("Проверяем значения счетчиков после операции: "+ sOperation);
+		wLog.WriteString(1, "Проверяем значения счетчиков после операции: "+sOperation);
+		
+		// Мои объявления
+		bFlag1 = CheckCurrentCounter("Мои объявления", nMyAdvert);
+		
+		// Все статусы
+		bFlag2  = CheckCurrentCounter("Все статусы", nAllStatus);
+		// Активные
+		bFlag3  = CheckCurrentCounter("Активные", nActiveS);
+		// Снятые с размещения
+		bFlag4  = CheckCurrentCounter("Снятые с размещения", nNotActiveS);
+		
+		// Все листинг
+		bFlag5  = CheckCurrentCounter("Все листинг", nAllList);
+		// Неактивные листинг
+		bFlag6  = CheckCurrentCounter("Неактивные листинг", nNotActiveL);
+		// Активные листинг
+		bFlag7  = CheckCurrentCounter("Активные листинг", nActiveL);
+		
+		// Все категории
+		bFlag8  = CheckCurrentCounter("Все категории", nAllCategory);
+		
+		// Авто и мото
+		bFlag9  = CheckCurrentCounter("Авто и мото", nMainAuto);
+		// Легковые автомобили
+		bFlag10  = CheckCurrentCounter("Легковые автомобили", nEasyCars);
+		// Автомобили с пробегом
+		bFlag11  = CheckCurrentCounter("Автомобили с пробегом", nUsedCars);
+		
+		// Недвижимость
+		bFlag12  = CheckCurrentCounter("Недвижимость", nMainRealt);
+		// Квартиры. Продажа
+		bFlag13  = CheckCurrentCounter("Квартиры. Продажа", nRealtSell);
+		// Вторичный рынок
+		bFlag14  = CheckCurrentCounter("Вторичный рынок", nRealtSecond);
+		
+		if(bFlag1 || bFlag2 || bFlag3 || bFlag4 || bFlag5 || bFlag6 || bFlag7 || bFlag8 || bFlag9 || bFlag10 || bFlag11 || bFlag12 || bFlag13 || bFlag14)
 		{
-			wLog.WriteString(2, "Значение счетчика \"Все статусы\" в блоке \"Статус\" не равно значению счетчика \"Все категории\" в блоке \"Категории\"");
-			throw new ExceptFailTest("Значение счетчика \"Все статусы\" в блоке \"Статус\" не равно значению счетчика \"Все категории\" в блоке \"Категории\""); 
+			print("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			wLog.WriteString(2,"Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
 		}
-		else 
+		print("Значения счетчиков для операции "+sOperation+" корректны");
+		wLog.WriteString(1,"Значения счетчиков для операции "+sOperation+" корректны");
+	}
+	
+	// проверка всех счетчиков для String
+	public void CheckAllCountersAfterChangeData(
+			String sMyAdvert,
+			String sAllStatus, String sActiveS, String sNotActiveS,
+			String sAllList, String sNotActiveL, String sActiveL,
+			String sAllCategory,
+			String sMainAuto, String sEasyCars, String sUsedCars,
+			String sMainRealt, String sRealtSell, String sRealtSecond,
+			String sOperation
+												) throws ExceptFailTest
+	{
+		HM<String, String> clsOldStatusAndCategory = clsStatusAndCategoryString;
+		boolean bFlag1, bFlag2, bFlag3, bFlag4, bFlag5, bFlag6, bFlag7, bFlag8, bFlag9, bFlag10, bFlag11, bFlag12, bFlag13, bFlag14;
+		
+		print("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ ПОСЛЕ ОПЕРАЦИИ: "+ sOperation);
+		wLog.WriteString(3, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ ПОСЛЕ ОПЕРАЦИИ: "+sOperation);
+		
+		// Мои объявления
+		bFlag1 = CheckCurrentCounter("Мои объявления", sMyAdvert);
+		
+		// Все статусы
+		bFlag2  = CheckCurrentCounter("Все статусы", sAllStatus);
+		// Активные
+		bFlag3  = CheckCurrentCounter("Активные", sActiveS);
+		// Снятые с размещения
+		bFlag4  = CheckCurrentCounter("Снятые с размещения", sNotActiveS);
+		
+		// Все листинг
+		bFlag5  = CheckCurrentCounter("Все листинг", sAllList);
+		// Неактивные листинг
+		bFlag6  = CheckCurrentCounter("Неактивные листинг", sNotActiveL);
+		// Активные листинг
+		bFlag7  = CheckCurrentCounter("Активные листинг", sActiveL);
+		
+		// Все категории
+		bFlag8  = CheckCurrentCounter("Все категории", sAllCategory);
+		
+		// Авто и мото
+		bFlag9  = CheckCurrentCounterForAutoAndRealtString("Авто и мото", sMainAuto);
+		// Легковые автомобили
+		bFlag10  = CheckCurrentCounterForAutoAndRealtString("Легковые автомобили", sEasyCars);
+		// Автомобили с пробегом
+		bFlag11  = CheckCurrentCounterForAutoAndRealtString("Автомобили с пробегом", sUsedCars);
+		
+		// Недвижимость
+		bFlag12  = CheckCurrentCounterForAutoAndRealtString("Недвижимость", sMainRealt);
+		// Квартиры. Продажа
+		bFlag13  = CheckCurrentCounterForAutoAndRealtString("Квартиры. Продажа", sRealtSell);
+		// Вторичный рынок
+		bFlag14  = CheckCurrentCounterForAutoAndRealtString("Вторичный рынок", sRealtSecond);
+		
+		if(bFlag1 || bFlag2 || bFlag3 || bFlag4 || bFlag5 || bFlag6 || bFlag7 || bFlag8 || bFlag9 || bFlag10 || bFlag11 || bFlag12 || bFlag13 || bFlag14)
 		{
-			wLog.WriteString(1, "Значение счетчика \"Все статусы\" в блоке \"Статус\" равно значению счетчика \"Все категории\" в блоке \"Категории\"");
-			System.out.println("Значение счетчика \"Все статусы\" в блоке \"Статус\" равно значению счетчика \"Все категории\" в блоке \"Категории\"");
+			print("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			wLog.WriteString(2,"Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
 		}
-		// Поверяем что если объявления есть то значение счетчика все категории равно сумме значений счетчиков  категорий
-		if(iAllCategory != 0)
+		print("ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ "+sOperation+" КОРРЕТКНЫ");
+		wLog.WriteString(3,"ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ "+sOperation+" КОРРЕТКНЫ");
+	}
+	
+	// проверка конкретного счетчика для String
+	private boolean CheckCurrentCounter(String sNameCounter, String sCounter) throws ExceptFailTest
+	{
+		if(!clsStatusAndCategoryString.GetValue(sNameCounter).equals(sCounter))
 		{
-			CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div");
-			CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div");
-			int iAuto = ParseStringToInt(wTextLinkAutoAndMoto.getText(),"Не удалось перевести значение счетчика \"Авто и мото\" в число в блоке \"Категори\"");
-			int iTakeFree  = ParseStringToInt(wTextLinkTakeFree.getText(),"Не удалось перевести значение счетчика \"Отдам даром\" в число в блоке \"Категори\"");
-			wLog.WriteString(1, "ПРОВЕРЯЕМ ЧТО СУММА ЗНАЧЕНИЙ СЧЕТЧИКОВ ГЛАВНЫХ КАТЕГОРИЙ " +
-					"РАВНА ЗНАЧЕНИЮ СЧЕТЧИКА \"ВСЕ КАТЕГОРИИ\" В БЛОКЕ \"КАТЕГОРИИ\"");
-			System.out.println("ПРОВЕРЯЕМ ЧТО СУММА ЗНАЧЕНИЙ СЧЕТЧИКОВ ГЛАВНЫХ КАТЕГОРИЙ " +
-					"РАВНА ЗНАЧЕНИЮ СЧЕТЧИКА \"ВСЕ КАТЕГОРИИ\" В БЛОКЕ \"КАТЕГОРИИ\"");
-			wLog.WriteString(1, "Значение счетчика \"Все категории\" в блоке \"Категории\" равно: "+iAllCategory);
-			System.out.println("Значение счетчика \"Все категории\" в блоке \"Категории\" равно: "+iAllCategory);
-			wLog.WriteString(1, "Сумма значений счетчиков \"Авто и мото\" и \"Отдам даром\" равно: "+(iAuto+iTakeFree));
-			System.out.println("Сумма значений счетчиков \"Авто и мото\" и \"Отдам даром\" равно: "+(iAuto+iTakeFree));
-			if(iAllCategory == (iAuto+iTakeFree))
+			print("Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " + sCounter);
+			wLog.WriteString(2, "Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " +  sCounter);
+			return true;
+		}
+		else
+		{
+			print("Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" равно правильному значению счетчика = " + sCounter);
+			wLog.WriteString(1, "Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" равно правильному значению счетчика = " +  sCounter);
+			return false;
+		}
+	}
+	
+	// проверка конкретного счетчика для Авто и Недвижимости 
+	private boolean CheckCurrentCounterForAutoAndRealtString(String sNameCounter, String sCounter) throws ExceptFailTest
+	{
+		if(sCounter.equalsIgnoreCase("нет"))
+		{
+			if(clsStatusAndCategoryString.GetValue(sNameCounter).equalsIgnoreCase(sCounter))
 			{
-				wLog.WriteString(1, "В блоке \"Категории\" сумма значений счетчиков главных категорий равно значению счетчика \"Все категории\"");
-				System.out.println("В блоке \"Категории\" сумма значений счетчиков главных категорий равно значению счетчика \"Все категории\"");
-				return;
+				print("Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Корректно.");
+				wLog.WriteString(1, "Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Корректно.");
+				return false;
 			}
 			else
 			{
-				wLog.WriteString(1, "Cумма значений счетчиков главных категорий не равно значению счетчика \"Все категории\" в блоке \"Категории\"");
-				throw new ExceptFailTest("Cумма значений счетчиков главных категорий не равно значению счетчика \"Все категории\" в блоке \"Категории\"");
+				print("Ссылка(и значение счетчика) \""+ sNameCounter +"\" присутствует, значение счетчика для нее = "+clsStatusAndCategoryString.GetValue(sNameCounter)+". Но ее не должно быть. Некорректно.");
+				wLog.WriteString(2, "Ссылка(и значение счетчика) \""+ sNameCounter +"\" присутствует, значение счетчика для нее = "+clsStatusAndCategoryString.GetValue(sNameCounter)+". Но ее не должно быть. Некорректно.");
+				return true;
 			}
+				
 		}
 		
-		//  Проверяем что если объявлений нет счетчик Все категории равен 0 , то и нет ссылок на категории
-		if(iAllCategory == 0)
+		if(clsStatusAndCategoryString.GetValue(sNameCounter).equalsIgnoreCase("нет"))
 		{
-			wLog.WriteString(1, "ПРОВЕРЯЕМ ЧТО БЛОК \"КАТЕГОРИИ\" НЕ СОДЕРЖИТ ССЫЛОК НА КАТЕГОРИИ И ПОДКАТЕГОРИИ");
-			System.out.println("ПРОВЕРЯЕМ ЧТО БЛОК \"КАТЕГОРИИ\" НЕ СОДЕРЖИТ ССЫЛОК НА КАТЕГОРИИ И ПОДКАТЕГОРИИ");
-			wLog.WriteString(1, "Значение счетчика \"Все категории\" в блоке \"Категории\" равно 0");
-			System.out.println("Значение счетчика \"Все категории\" в блоке \"Категории\" равно 0");
-			if(GetCountAllChildrenCategoryFromListCategory() == 0)
+			if(clsStatusAndCategoryString.GetValue(sNameCounter).equalsIgnoreCase(sCounter))
 			{
-				wLog.WriteString(1, "В блоке \"Категории\" отсутсвуют записи о категориях.");
-				System.out.println("В блоке \"Категории\" отсутсвуют записи о категориях.");
-				Integer iTemp[] = {0,0,0}; // Если все объявления удалены то надо обнулить хранилище категории
-				clCategoryAdvert = new HM<String,Integer>(sMas2, iTemp);
-				return;
+				print("Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Корректно.");
+				wLog.WriteString(1, "Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Корректно.");
+				return false;
 			}
-			else 
+			else
 			{
-				wLog.WriteString(2, "Значения счетчика \"Все категории\" в блоке \"Категории\" равно 0, однако в блоке присутствуют записи о категориях");
-				throw new ExceptFailTest("Значения счетчика \"Все категории\" в блоке \"Категории\" равно 0, однако в блоке присутствуют записи о категориях");
+				print("Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Но она должна быть и ее зачение должно быть ="+ sCounter +". Некорректно.");
+				wLog.WriteString(2, "Ссылка(и значение счетчика) \""+ sNameCounter +"\" отсутствует. Но она должна быть и ее зачение должно быть ="+ sCounter +". Некорректно.");
+				return true;
 			}
-		} 
-	}
-	
-	public void GetCurrentCategory() throws ExceptFailTest
-	{
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//li[@class='all']/div[2]");
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div");
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div");
-		iMas2[0] = ParseStringToInt(wTextAllCategory.getText(),"Не удалось перевести значение счетчика \"Все категори\" в число в блоке \"Категори\"");
-		iMas2[1] = ParseStringToInt(wTextLinkAutoAndMoto.getText(),"Не удалось перевести значение счетчика \"Авто и мото\" в число в блоке \"Категори\"");
-		iMas2[2] = ParseStringToInt(wTextLinkTakeFree.getText(),"Не удалось перевести значение счетчика \"Отдам даром\" в число в блоке \"Категори\"");
-		
-		clCategoryAdvert = new HM<String,Integer>(sMas2, iMas2);
-		wLog.WriteString(1, "ЗНАЧЕНИЯ ТЕКУЩИХ КАТЕГОРИЙ:");
-		System.out.println("ЗНАЧЕНИЯ ТЕКУЩИХ КАТЕГОРИЙ:");
-		clCategoryAdvert.PrintKeyAndValue(wLog);
-	}
-	
-	public void CheckOldAndNewCategory(int nOperation) throws ExceptFailTest
-	{
-		HM<String, Integer> clOldCategoryAdvert = clCategoryAdvert;
-		GetCurrentCategory();
-		switch (nOperation)
-		{
-			case 1:// деактивация
-				wLog.WriteString(1, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"КАТЕГОРИИ\" ПОСЛЕ ДЕАКТИВАЦИИ");
-				System.out.println("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"КАТЕГОРИИ\" ПОСЛЕ ДЕАКТИВАЦИИ");
-				if(clOldCategoryAdvert.GetValue("Все категории") != clCategoryAdvert.GetValue("Все категории"))
-				{
-					wLog.WriteString(2, "Значение счетчика \"Все категории\" после деактивации объявлений не равно старому значению счетчика \"Все категории\" до деактивации");
-					throw new ExceptFailTest("Значение счетчика \"Все категории\" после деактивации объявлений не равно старому значению счетчика \"Все категории\" до деактивации");
-				}
-				if(clOldCategoryAdvert.GetValue("Авто и мото") != clCategoryAdvert.GetValue("Авто и мото"))
-				{
-					wLog.WriteString(2, "Значение счетчика \"Авто и мото\" после деактивации объявлений не равно старому значению счетчика \"Авто и мото\" до деактивации");
-					throw new ExceptFailTest("Значение счетчика \"Авто и мото\" после деактивации объявлений не равно старому значению счетчика \"Авто и мото\" до деактивации");
-				}
-				if(clOldCategoryAdvert.GetValue("Отдам даром") != clCategoryAdvert.GetValue("Отдам даром"))
-				{
-					wLog.WriteString(2, "Значение счетчика \"Отдам даром\" после деактивации объявлений не равно старому значению счетчика \"Отдам даром\" до деактивации");
-					throw new ExceptFailTest("Значение счетчика \"Отдам даром\" после деактивации объявлений не равно старому значению счетчика \"Отдам даром\" до деактивации");
-				}
-				wLog.WriteString(1, "Значение счетчиков в блоке \"Все категории\" после деактивации корреткны, остались прежними");
-				System.out.println("Значение счетчиков в блоке \"Все категории\" после деактивации корреткны, остались прежними");
-				wLog.WriteString(1, "ПРОВЕРЯЕМ СООТВЕТСТВИЕ ЗНАЧЕНИЙ СЧЕТЧИКОВ РУБРИКИ К ЕЕ ПОДРУБРИКАМ. РУБРИКА АВТО.");
-				System.out.println("ПРОВЕРЯЕМ СООТВЕТСТВИЕ ЗНАЧЕНИЙ СЧЕТЧИКОВ РУБРИКИ К ЕЕ ПОДРУБРИКАМ. РУБРИКА АВТО.");
-				CheckCountAuto();
-				break;
-			case 2: // добавление
-				wLog.WriteString(1, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"КАТЕГОРИИ\" ПОСЛЕ ДОБАВЛЕНИЯ ОБЪЯВЛЕНИЙ");
-				System.out.println("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"КАТЕГОРИИ\" ПОСЛЕ ДОБАВЛЕНИЯ ОБЪЯВЛЕНИЙ");
-				if((clOldCategoryAdvert.GetValue("Все категории")+2) != clCategoryAdvert.GetValue("Все категории"))
-				{
-					wLog.WriteString(2, "Значения счетчика \"Все категории\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-					throw new ExceptFailTest("Значения счетчика \"Все категории\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-				}
-				if((clOldCategoryAdvert.GetValue("Авто и мото")+1) != clCategoryAdvert.GetValue("Авто и мото"))
-				{
-					wLog.WriteString(2, "Значения счетчика \"Авто и мото\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-					throw new ExceptFailTest("Значения счетчика \"Авто и мото\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-				}
-				if((clOldCategoryAdvert.GetValue("Отдам даром")+1) != clCategoryAdvert.GetValue("Отдам даром"))
-				{
-					wLog.WriteString(2, "Значения счетчика \"Отдам даром\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-					throw new ExceptFailTest("Значения счетчика \"Отдам даром\" в блоке \"Категории\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-				}
-				wLog.WriteString(1, "Значение счетчиков корректны, объявления добавлены");
-				System.out.println("Значение счетчиков корректны, объявления добавлены");
-				wLog.WriteString(1, "ПРОВЕРЯЕМ СООТВЕТСТВИЕ ЗНАЧЕНИЙ СЧЕТЧИКОВ РУБРИКИ К ЕЕ ПОДРУБРИКАМ. РУБРИКА АВТО.");
-				System.out.println("ПРОВЕРЯЕМ СООТВЕТСТВИЕ ЗНАЧЕНИЙ СЧЕТЧИКОВ РУБРИКИ К ЕЕ ПОДРУБРИКАМ. РУБРИКА АВТО.");
-				CheckCountAuto();
-				break;
 		}
 		
-	}
-	
-	
-	// Получение значений счетчиков в блоке Статус
-	public void GetCurrentStatus() throws ExceptFailTest
-	{
-		CheckElementPresent(1, "//div[@id='minWidth']//li[@class='all'][1]/div[2]");
-		CheckElementPresent(1,  "//div[@id='minWidth']//li[2]/a/div");
-		CheckElementPresent(1,  "//div[@id='minWidth']//li[3]/a/div");
-		
-		iMas[0] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
-		iMas[1] = ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
-		iMas[2] = ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");
-		
-		clStatusAdvert = new HM<String,Integer>(sMas, iMas);
-		wLog.WriteString(1, "ЗНАЧЕНИЯ ТЕКУЩЕГО СТАТУСА:");
-		System.out.println("ЗНАЧЕНИЯ ТЕКУЩЕГО СТАТУСА:");
-		clStatusAdvert.PrintKeyAndValue(wLog);	
-	}
-	
-	// Проверка счетчиков для блока Статус 
-	public void CheckOldAndNewStatus(int nOperation) throws ExceptFailTest
-	{
-		HM<String, Integer> clOldStatus = clStatusAdvert;
-		GetCurrentStatus();
-		switch (nOperation)
+		if(!clsStatusAndCategoryString.GetValue(sNameCounter).equals(sCounter))
 		{
-			case 1:// деактивация
-				wLog.WriteString(1, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ ДЕАКТИВАЦИИ");
-				System.out.println("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ ДЕАКТИВАЦИИ");
-				if(clOldStatus.GetValue("Все статусы") != clStatusAdvert.GetValue("Все статусы"))
-				{
-					wLog.WriteString(2, "Новое значение счетчика \"Все статусы\" в блоке \"Статус\" после деактивации объявлений не равно старому значению");
-					throw new ExceptFailTest("Новое значение счетчика \"Все статусы\" в блоке \"Статус\" после деактивации объявлений не равно старому значению");
-				}
-				if(clStatusAdvert.GetValue("Активные") !=  0)
-				{
-					wLog.WriteString(2, "Значение счетчика \"Активные\" после деактивации всех объявлений не равно нулю");
-					throw new ExceptFailTest("Значение счетчика \"Активные\" после деактивации всех объявлений не равно нулю");
-				}
-				if((clOldStatus.GetValue("Активные") + clOldStatus.GetValue("Снятые с размещения")) != clStatusAdvert.GetValue("Снятые с размещения"))
-				{
-					wLog.WriteString(2, "Значение счетчика \"Снятые с размещения\" после деактивации всех объявлений не равно значению счетчика \"Активные\" до активации всех объявлений");
-					throw new ExceptFailTest("Значение счетчика \"Снятые с размещения\" после деактивации всех объявлений не равно значению счетчика \"Активные\" до активации всех объявлений");
-				}
-				wLog.WriteString(1, "Значение счетчиков корректны, все объявления деактивированы");
-				System.out.println("Значение счетчиков корректны, все объявления деактивированы");
-				break;
-			case 2://удаление
-				wLog.WriteString(1, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ УДАЛЕНИЯ");
-				System.out.println("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ УДАЛЕНИЯ");
-				if((clStatusAdvert.GetValue("Все статусы") != 0) || (clStatusAdvert.GetValue("Активные") != 0) || (clStatusAdvert.GetValue("Снятые с размещения") != 0))
-				{
-					wLog.WriteString(2, "Значения счетчиков в блоке \"Статус\" не обнулились,после удаления всех объявлений");
-					throw new ExceptFailTest("Значения счетчиков в блоке \"Статус\" не обнулились,после удаления всех объявлений");
-				}
-				else
-				{
-					wLog.WriteString(1, "Значение счетчиков в блоке \"Статус\" корректны, после удаления всех объявлений равны нулю");
-					System.out.println("Значение счетчиков в блоке \"Статус\" корректны, после удаления всех объявлений равны нулю");
-				}
-				break;
-			case 3://добавление
-				wLog.WriteString(1, "ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ ДОБАВЛЕНИЯ ОБЪЯВЛЕНИЙ");
-				System.out.println("ПРОВЕРЯЕМ ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУС\" ПОСЛЕ ДОБАВЛЕНИЯ ОБЪЯВЛЕНИЙ");
-				if( (clOldStatus.GetValue("Все статусы")+2) != clStatusAdvert.GetValue("Все статусы") ) 
-				{
-					wLog.WriteString(2, "Значения счетчиков \"Все статусы\" в блоке \"Статус\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-					throw new ExceptFailTest("Значения счетчиков \"Все статусы\" в блоке \"Статус\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-				}
-				if( (clOldStatus.GetValue("Активные")+2) != clStatusAdvert.GetValue("Активные") )
-				{
-					wLog.WriteString(2, "Значения счетчика \"Активные\" в блоке \"Статус\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-					throw new ExceptFailTest("Значения счетчика \"Активные\" в блоке \"Статус\" после добавления объявлений не увеличилось на значение количества добавленных объявлений");
-				}
-				if( clOldStatus.GetValue("Снятые с размещения") != clStatusAdvert.GetValue("Снятые с размещения") )
-				{
-					wLog.WriteString(2, "Значения счетчика  \"Снятые с размещения\" в блоке \"Статус\" после добавления объявлений в статусе активно изменилось");
-					throw new ExceptFailTest("Значения счетчика  \"Снятые с размещения\" в блоке \"Статус\" после добавления объявлений в статусе активно изменилось");
-				}
-				wLog.WriteString(1, "Значение счетчиков корректны, объявления добавлены");
-				System.out.println("Значение счетчиков корректны, объявления добавлены");
-				break;
+			print("Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " + sCounter);
+			wLog.WriteString(2, "Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " +  sCounter);
+			return true;
+		}
+		else
+		{
+			print("Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" равно правильному значению счетчика = " + sCounter);
+			wLog.WriteString(1, "Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" равно правильному значению счетчика = " +  sCounter);
+			return false;
 		}
 	}
 	
-	// Для блока Статус проверка соответствия счетчиков в блоке Статус кроичеству отображаемых объявлений на в  листинге 
-	public void CheckCountAndVisibleAdvert () throws ExceptFailTest // Работает для одной страницы. Проверка, что счетчики объявлений со всеми статусами равны соответсенно количеству отображаемых и снятыз в листинге Л
+	
+	// проверка конкретного счетчика для int
+	private boolean CheckCurrentCounter(String sNameCounter, int nCounter) throws ExceptFailTest
 	{
-		Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
-		driver.get(driver.getCurrentUrl());
-		wLog.WriteString(1, "ПРОВЕРЯЕМ, ЧТО ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУСЫ\" СООТВЕТСТВУЮТ" +
-				" КОЛИЧЕСТВУ ОТОБРАЖАЕМЫХ ОБЪЯВЛЕНИЙ В СООТВЕТСТВУЮЩИХ СТАТУСАХ");
-		System.out.println("ПРОВЕРЯЕМ, ЧТО ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУСЫ\" СООТВЕТСТВУЮТ" +
-				" КОЛИЧЕСТВУ ОТОБРАЖАЕМЫХ ОБЪЯВЛЕНИЙ В СООТВЕТСТВУЮЩИХ СТАТУСАХ");
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		Long lVisibleAllAdvert = (Long)js.executeScript("return document.getElementsByClassName(\"rowsButton\").length;"); // получили количество отображаемых объявлений все статусы(активно неактивно)
-		Long lVisibleNonActiveAdvert = (Long)js.executeScript("return document.getElementsByClassName(\"wrButton\").length");  // неактивные отображаемые , есть кнопка разместить
-		Long lCountAllStatus = (long) ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число"); // получили значение счетчика все статусы
-		Long lCountNonActiveAdvert = (long) ParseStringToInt(wLinkNotActiveStatus.getText(), "Не удалось перевести значение количества неактивных объявлений в число"); // получили значение счетчика неактивные
-		Long lCountActiveAdvert = (long) ParseStringToInt(wLinkActiveStatus.getText(), "Не удалось перевести значение количества активных объявлений в число");
-		
-		if(lCountAllStatus != lVisibleAllAdvert)
+		if(clsStatusAndCategory.GetValue(sNameCounter) != nCounter)
 		{
-			wLog.WriteString(2, "Значение счетчика \"Все статусы\" "+lCountAllStatus+" не равно количеству отображаемых объявлений "+lVisibleAllAdvert+".");
-			throw new ExceptFailTest("Значение счетчика \"Все статусы\" "+lCountAllStatus+" не равно количеству отображаемых объявлений "+lVisibleAllAdvert+".");
+			print("Значение счетчика \""+sNameCounter +"\" = "+ clsStatusAndCategory.GetValue(sNameCounter)+" не равно правильному значению счетчика = " + nCounter);
+			wLog.WriteString(2, "Значение счетчика \""+sNameCounter +"\" = "+ clsStatusAndCategory.GetValue(sNameCounter)+" не равно правильному значению счетчика = " +  nCounter);
+			return true;
 		}
-		wLog.WriteString(1, "Значение счетчика \"Все статусы\" "+lCountAllStatus+" равно количеству отображаемых объявлений "+lVisibleAllAdvert+".");
-		System.out.println("Значение счетчика \"Все статусы\" "+lCountAllStatus+" равно количеству отображаемых объявлений "+lVisibleAllAdvert+".");
-		
-		if(lCountActiveAdvert != (lVisibleAllAdvert-lVisibleNonActiveAdvert))
+		else
 		{
-			wLog.WriteString(2, "Значение счетчика \"Активные\" "+lCountActiveAdvert+" не равно количеству отображаемых активных объявлений "+(lVisibleAllAdvert-lVisibleNonActiveAdvert)+".");
-			throw new ExceptFailTest("Значение счетчика \"Активные\" "+lCountActiveAdvert+" не равно количеству отображаемых активных объявлений "+(lVisibleAllAdvert-lVisibleNonActiveAdvert)+".");
+			print("Значение счетчика \""+sNameCounter +"\" = "+ clsStatusAndCategory.GetValue(sNameCounter)+" равно правильному значению счетчика = " + nCounter);
+			wLog.WriteString(1, "Значение счетчика \""+sNameCounter +"\" = "+ clsStatusAndCategory.GetValue(sNameCounter)+" равно правильному значению счетчика = " +  nCounter);
+			return false;
 		}
-		wLog.WriteString(1, "Значение счетчика \"Активные\" "+lCountActiveAdvert+" равно количеству отображаемых активных объявлений "+(lVisibleAllAdvert-lVisibleNonActiveAdvert)+".");
-		System.out.println("Значение счетчика \"Активные\" "+lCountActiveAdvert+" равно количеству отображаемых активных объявлений "+(lVisibleAllAdvert-lVisibleNonActiveAdvert)+".");
-
-		if(lVisibleNonActiveAdvert != lCountNonActiveAdvert)
-		{
-			wLog.WriteString(2, "Значение счетчика \"Снятые с размещения\" "+lCountNonActiveAdvert+"не равно количеству отображаемых снятых с размещения объявлений "+lVisibleNonActiveAdvert+".");
-			throw new ExceptFailTest("Значение счетчика \"Снятые с размещения\" "+lCountNonActiveAdvert+"не равно количеству отображаемых снятых с размещения объявлений "+lVisibleNonActiveAdvert+".");
-		}
-		wLog.WriteString(1, "Значение счетчика \"Снятые с размещения\" "+lCountNonActiveAdvert+" равно количеству отображаемых снятых с размещения объявлений "+lVisibleNonActiveAdvert+".");
-		System.out.println("Значение счетчика \"Снятые с размещения\" "+lCountNonActiveAdvert+" равно количеству отображаемых снятых с размещения объявлений "+lVisibleNonActiveAdvert+".");
 	}
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
 	public void OpenPage(String sUrl){};
@@ -494,46 +493,6 @@ public class Page_IrrPrivateOffice extends Page
 			wLinkLogout.click();
 		}
 	
-	// Проверяем значение соответвия счетчика рубрики к подрубрикам в Авто
-	private void CheckCountAuto() throws ExceptFailTest  
-	{
-		wLog.WriteString(1, "ПРОВЕРЯЕМ ЧТО ЗНАЧЕНИЕ СЧЕТЧИКА  РУБРИКИ \"АВТО И МОТО\" РАВНО ЗНАЧЕНИЯМ ЕГО" +
-				" ПОДРУБИК \"ЛЕГКОВЫЕ АВТОМОБИЛИ\" И \"АВТОМОБИЛИ С ПРОБЕГОМ\" ");
-		System.out.println("ПРОВЕРЯЕМ ЧТО ЗНАЧЕНИЕ СЧЕТЧИКА  РУБРИКИ \"АВТО И МОТО\" РАВНО ЗНАЧЕНИЯМ ЕГО" +
-				" ПОДРУБИК \"ЛЕГКОВЫЕ АВТОМОБИЛИ\" И \"АВТОМОБИЛИ С ПРОБЕГОМ\" ");
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div");
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div");
-		CheckElementPresent(1,"//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div");
-		int iAuto = ParseStringToInt(wTextLinkAutoAndMoto.getText(),"Не удалось перевести значение счетчика \"Авто и мото\" в число в блоке \"Категори\"");
-		int iEasyAuto = ParseStringToInt(wTextLinkEasyAuto.getText(),"Не удалось перевести значение счетчика \"Легковые автомобили\" в число в блоке \"Категори\"");
-		int iAutoUsed = ParseStringToInt(wTextLinkAutoUsed.getText(),"Не удалось перевести значение счетчика \"Автомобили с пробегом\" в число в блоке \"Категори\""); 	
-		wLog.WriteString(1, "Счетчик \"Авто и мото\" равен: "+ iAuto);
-		System.out.println("Счетчик \"Авто и мото\" равен: "+ iAuto);
-		wLog.WriteString(1, "Счетчик \"Легковые автомобили\" равен: "+ iEasyAuto);
-		System.out.println("Счетчик \"Легковые автомобили\" равен: "+ iEasyAuto);
-		wLog.WriteString(1, "Счетчик \"Автомобили с пробегом\" равен: "+ iEasyAuto);
-		System.out.println("Счетчик \"Автомобили с пробегом\" равен: "+ iEasyAuto);
-		if((iAuto != iEasyAuto) || (iEasyAuto != iAutoUsed) || (iAutoUsed != iAuto))
-		{
-			wLog.WriteString(2, "Значение счетчика  рубрики \"Авто и мото\" не равно значениям его подрубик \"Легковые автомобили\" и \"Автомобили с пробегом\" ");
-			throw new ExceptFailTest("Значение счетчика  рубрики \"Авто и мото\" не равно значениям его подрубик \"Легковые автомобили\" и \"Автомобили с пробегом\" ");
-		}
-		wLog.WriteString(1, "Значение счетчика в рубрике \"Авто и Мото\" равно значениям его подрубик \"Легковые автомобили\" и \"Автомобили с пробегом\"");
-		System.out.println("Значение счетчика в рубрике \"Авто и Мото\" равно значениям его подрубик \"Легковые автомобили\" и \"Автомобили с пробегом\"");
-	}
-	
-	// Для категорий -  количество всех категорий и подкатегорий
-	private Long GetCountAllChildrenCategoryFromListCategory() throws ExceptFailTest
-	{
-		wLog.WriteString(1, "ПОЛУЧАЕМ КОЛИЧЕСТВО ЗАПИСЕЙ(ССЫЛОК) О КАТЕГОРИЯХ И ПОДКАТЕГОРИЯХ В БЛОКЕ \"КАТЕГОРИИ\"");
-		System.out.println("ПОЛУЧАЕМ КОЛИЧЕСТВО ЗАПИСЕЙ(ССЫЛОК) О КАТЕГОРИЯХ И ПОДКАТЕГОРИЯХ В БЛОКЕ \"КАТЕГОРИИ\"");
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		Long lLinkAllAdvertCategory = (Long)js.executeScript(" var j = document.getElementsByClassName(\"b-blockInf\"); return j[1].getElementsByTagName(\"a\").length ");
-		wLog.WriteString(1, "Количество записей о категориях и подкатегориях в блоке \"Категории\" равно: "+lLinkAllAdvertCategory);
-		System.out.println("Количество записей о категориях и подкатегориях в блоке \"Категории\" равно: "+lLinkAllAdvertCategory);
-		return lLinkAllAdvertCategory;
-	}
-
 	
 	private int ParseStringToInt(String sCount, String sMessage) throws ExceptFailTest
 	{

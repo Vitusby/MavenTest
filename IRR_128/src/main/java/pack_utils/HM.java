@@ -1,6 +1,6 @@
 package pack_utils;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -8,18 +8,18 @@ import java.util.Map.Entry;
 
 public class HM<K,V>
 {
-	private HashMap<K, V> hm;
+	private LinkedHashMap<K, V> hm;
 	private Set<Entry<K,V>> s;
 
 	
 	public HM() 
 	{
-		hm=new HashMap<K, V>();
+		hm=new LinkedHashMap<K, V>();
 	}
 	
 	public HM(K masK[], V masV[]) 
 	{
-		hm = new HashMap<K, V>();
+		hm = new LinkedHashMap<K, V>();
 		int i = masK.length;
 		for(int j=0; j<i; j++)
 		{

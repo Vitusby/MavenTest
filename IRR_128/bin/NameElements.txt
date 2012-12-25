@@ -9,6 +9,7 @@ By.xpath: //a[@href='/stargate/workspace/admanagement/']&Пункт меню Объявления s
 By.xpath: //a[@href='/stargate/?logout=true']&Ссылка выход stargate
 By.xpath: //a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'Каталог объявлений')]&Подпункт меню Каталог объявлений stargate 
 By.xpath: //a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'Создать премиум')]&Подпункт меню Создать премиум stargate
+By.xpath: //a[@href='/stargate/workspace/admanagement/find/']/span[contains(text(),'Найти объявления')]&Подпункт меню Найти объявление stargate
 By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'Авто и мото')]&Пункт меню Авто и мото stargate
 By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'Легковые автомобили')]&Подпункт меню Легковые автомобили stargate
 By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'Автомобили с пробегом')]&Подпункт меню Автомобили с пробегом stargate
@@ -39,6 +40,9 @@ By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(
 By.xpath: //div[contains(text(),'Отдам даром')]&Поле с текстом Отдам даром stargate
 By.xpath: //div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]&Поле с текстом Авто и мото -> Легковые автомобили -> Автомобили с пробегом stargate
 By.xpath: //td[contains(@class,'x-grid3-cell-selected')]&Div ввода данных при создании объявлений stargate
+By.xpath: //label[@class='x-form-item-label' and contains(text(),'ID:')]& Поле ввода ID(форма поиска) stargate
+By.xpath: //td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']&Строка найденного объвления(форма поиска) stargate
+By.xpath: //button[@class='x-btn-text' and contains(text(),'Сохранить')]&Кнопка Сохранить(форма поиска) stargate
 By.id: a_login& Ссылка вход Irr 
 By.xpath: //div[@class='popupRegions']&Заголовок окна выбора региона Irr 
 By.xpath: //div[@class='button-style btn-a']/a&Кнопка ОК окна выбора региона Irr
@@ -59,3 +63,6 @@ By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/d
 By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div&Ссылка авто с пробегом(блок статус) IrrLK
 By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div&Ссылка отдам даром(блок статус) IrrLK
 By.id: logout&Ссылка выход IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div&Ссылка Недвижимость IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div&Ссылка Квартиры IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div&Ссылка Вторичный рынок IrrLK

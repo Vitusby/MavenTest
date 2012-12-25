@@ -20,22 +20,23 @@ public class Test_128 extends TestConstruct
 	Page_Stargate pageStargate;
 	Page_IrrMain pageIrr = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
 	Page_IrrPrivateOffice pageIrrPrOf;
+	private String sIdAdvert = "246817968";
 	
 	@BeforeTest
 	public void TestBefore() throws ExceptFailTest
 	{
-		System.out.println("Start @BeforeTest");
+		print("Start @BeforeTest");
 		wLog = new WriterLog();
 		wLog.SetUpWriterLog("Log_Result.html");
 		lthe.GetWritterLog(wLog);
-		System.out.println("End @BeforeTest");
+		print("End @BeforeTest");
 	}
 	
 	@AfterTest
 	public void TestAfter()
 	{
-		System.out.println("Start @AfterTest");
-		System.out.println("End @AfterTest");
+		print("Start @AfterTest");
+		print("End @AfterTest");
 	}
 	
 	
@@ -43,27 +44,11 @@ public class Test_128 extends TestConstruct
 	@Parameters({ "sUrl", "sLogin", "sPassword" })
 	public void TestStart(String sUrl, String sLogin, String sPassword) throws ExceptFailTest
 	{
-		System.out.println("Start @Test");
+		print("Start @Test");
 		try
 		{
-			
-			//Удалям все объявления перед тестом
-			pageIrr.GetWriterLog(wLog);
-			pageIrr.OpenPage("");
-			pageIrr.OpenFormAuthorization();
-			pageIrrPrOf = pageIrr.LoginOn("login_1");
-			pageIrrPrOf.GetWriterLog(wLog);	
-			
-			pageIrrPrOf.GetStatusAndCategory();
-			
-			/*pageIrrPrOf.GetCurrentStatus();
-			pageIrrPrOf.DeleteAllAdvert();
-			pageIrrPrOf.CheckCountAndVisibleAdvert();
-			pageIrrPrOf.CheckOldAndNewStatus(2);
-			pageIrrPrOf.LogOutFromIrr();
-			
-			// Содаем объявление
-			pageLoginStargate.GetWriterLog(wLog);
+			// Создаем объявление
+			/*pageLoginStargate.GetWriterLog(wLog);
 			pageLoginStargate.OpenPage(sUrl);
 			pageLoginStargate.CheckElements();
 			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
@@ -72,20 +57,68 @@ public class Test_128 extends TestConstruct
 			pageStargate.OpenFormCreateAdvertAuto();
 			pageStargate.InputDataAuto();
 			*/
+			
+			/*pageIrr.GetWriterLog(wLog);
+			pageIrr.OpenPage("");
+			pageIrr.OpenFormAuthorization();
+			pageIrrPrOf = pageIrr.LoginOn("login_1");
+			pageIrrPrOf.GetWriterLog(wLog);	
+			
+			sIdAdvert = pageIrrPrOf.GetIdAdvert();
+			print(sIdAdvert);
+			pageIrrPrOf.LogOutFromIrr();
+			*/
+			
+			
+			/*
+			pageLoginStargate.GetWriterLog(wLog);
+			pageLoginStargate.OpenPage(sUrl);
+			pageLoginStargate.CheckElements();
+			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
+			pageStargate = pageLoginStargate.EnterStargate();
+			pageStargate.GetWriterLog(wLog);
+			
+			pageStargate.OpenFindForm();
+			pageStargate.FindAdvert(sIdAdvert);
+			
+			
+			pageStargate.ChangeDataForAdvert("region", "email", "actionOfAdvert2", "changeOfRubric2", 3);
+			*/
+			
+			
+			pageIrr.GetWriterLog(wLog);
+			pageIrr.OpenPage("");
+			pageIrr.OpenFormAuthorization();
+			pageIrrPrOf = pageIrr.LoginOn("login_1");
+			
+			pageIrrPrOf.GetWriterLog(wLog);
+			//pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
+			
+			pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
+			pageIrrPrOf.CheckAllCountersAfterChangeData("2", "2", "2", "0", "2", "0", "2", "2", "3", "3", "3", "нет", "нет", "нет", "Удаление всех объявлений");
+			//pageIrrPrOf.CheckAllCountersAfterChangeData(0, 0, 0, 0, 0, 0, 0, 0, -99999, -99999, -99999, -99999, -99999, -99999, "Удаление всех объявлений");
+			
+			
+			//pageIrrPrOf.LogOutFromIrr();
+			
+			
 		}
 		catch(Exception exc)
 		{
-			System.out.println("Что то случилось непредвиденное");
+			print("Что то случилось непредвиденное");
 			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
+			exc.printStackTrace();
 			throw new ExceptFailTest(exc.toString());
 		}
 		finally
 		{
 			//CaptureScreenshot();
-			//wLog.CloseFile();
+			wLog.CloseFile();
 			//driver.quit();
 		}
-		System.out.println("End @Test");
+		print("End @Test");
 	}
+
+
 	
 }

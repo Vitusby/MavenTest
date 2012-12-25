@@ -2,6 +2,7 @@ package pack_test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -39,17 +40,18 @@ public class TestConstruct
 		if(driver == null)
 		{
 			driver = new FirefoxDriver(/*GetFireFoxProfile()*/);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			lthe = new ListenerThatHiglilightsElements("#FFFF00", 1, 250, TimeUnit.MILLISECONDS);
 			if(Proper.GetProperty("lightElement").equals("yes"))
 			{
 				driver1 = new EventFiringWebDriver(this.driver);
 				driver1.register(lthe);
-				driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				driver1.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 				return driver1;
 			}
 			else
 			{
-				driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 				return driver;
 			}
 		}
@@ -72,6 +74,12 @@ public class TestConstruct
         } 
         catch (IOException e) {e.printStackTrace();}
     }
+	
+	public <T> void print(T obj)
+	{
+		PrintWriter pw = new PrintWriter(System.out, true);
+		pw.println(obj);
+	}
 	
 	
 }
