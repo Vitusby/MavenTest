@@ -97,6 +97,7 @@ public class Page_IrrPrivateOffice extends Page
 	// id первого объявления в списке
 	public String GetIdAdvert() throws ExceptFailTest
 	{
+		driver.get(driver.getCurrentUrl());
 		CheckElementPresent(1, "//div[@class='b-id']");
 		String s[] = wLinkAdvert.getText().split("\n");
 		return s[0].substring(18);

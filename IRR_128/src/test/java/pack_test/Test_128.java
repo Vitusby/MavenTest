@@ -16,11 +16,11 @@ import pack_utils.WriterLog;
 
 public class Test_128 extends TestConstruct
 {
-	Page_LoginStargate pageLoginStargate = PageFactory.initElements(GetWebDriver(), Page_LoginStargate.class);
+	Page_LoginStargate pageLoginStargate = PageFactory.initElements(GetWebDriver(0), Page_LoginStargate.class);
 	Page_Stargate pageStargate;
-	Page_IrrMain pageIrr = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
+	Page_IrrMain pageIrr = PageFactory.initElements(GetWebDriver(1), Page_IrrMain.class);
 	Page_IrrPrivateOffice pageIrrPrOf;
-	private String sIdAdvert = "246817968";
+	private String sIdAdvert;
 	
 	@BeforeTest
 	public void TestBefore() throws ExceptFailTest
@@ -47,16 +47,7 @@ public class Test_128 extends TestConstruct
 		print("Start @Test");
 		try
 		{
-			// Создаем объявление
-			/*pageLoginStargate.GetWriterLog(wLog);
-			pageLoginStargate.OpenPage(sUrl);
-			pageLoginStargate.CheckElements();
-			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
-			pageStargate = pageLoginStargate.EnterStargate();
-			pageStargate.GetWriterLog(wLog);
-			pageStargate.OpenFormCreateAdvertAuto();
-			pageStargate.InputDataAuto();
-			*/
+			
 			
 			/*pageIrr.GetWriterLog(wLog);
 			pageIrr.OpenPage("");
@@ -69,38 +60,64 @@ public class Test_128 extends TestConstruct
 			pageIrrPrOf.LogOutFromIrr();
 			*/
 			
-			
-			/*
-			pageLoginStargate.GetWriterLog(wLog);
-			pageLoginStargate.OpenPage(sUrl);
-			pageLoginStargate.CheckElements();
-			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
-			pageStargate = pageLoginStargate.EnterStargate();
-			pageStargate.GetWriterLog(wLog);
-			
-			pageStargate.OpenFindForm();
-			pageStargate.FindAdvert(sIdAdvert);
-			
-			
-			pageStargate.ChangeDataForAdvert("region", "email", "actionOfAdvert2", "changeOfRubric2", 3);
-			*/
-			
-			
+		
+////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ		
 			pageIrr.GetWriterLog(wLog);
 			pageIrr.OpenPage("");
 			pageIrr.OpenFormAuthorization();
 			pageIrrPrOf = pageIrr.LoginOn("login_1");
 			
 			pageIrrPrOf.GetWriterLog(wLog);
-			//pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
+			pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
 			
 			pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
-			pageIrrPrOf.CheckAllCountersAfterChangeData("2", "2", "2", "0", "2", "0", "2", "2", "3", "3", "3", "нет", "нет", "нет", "Удаление всех объявлений");
+			pageIrrPrOf.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений");
 			//pageIrrPrOf.CheckAllCountersAfterChangeData(0, 0, 0, 0, 0, 0, 0, 0, -99999, -99999, -99999, -99999, -99999, -99999, "Удаление всех объявлений");
 			
 			
 			//pageIrrPrOf.LogOutFromIrr();
+////////////////////////////////////////////////////////////	
 			
+	
+///////////////////////////////////////////////////////// Создаем объявление БО
+			
+			pageLoginStargate.GetWriterLog(wLog);
+			pageLoginStargate.OpenPage(sUrl);
+			pageLoginStargate.CheckElements();
+			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
+			pageStargate = pageLoginStargate.EnterStargate();
+			pageStargate.GetWriterLog(wLog);
+			pageStargate.OpenFormCreateAdvertAuto();
+			pageStargate.InputDataAuto();
+
+
+////////////////////////////////////////////////////////			
+			
+////////////////////////////////////////////////////////////  Копируем ID объявления
+			
+			sIdAdvert = pageIrrPrOf.GetIdAdvert();
+			print(sIdAdvert);
+			
+////////////////////////////////////////////////////////////			
+			
+			
+			
+////////////////////////////////////////////////////////////  Заходим в БО вносим изменения
+		
+			/*pageLoginStargate.GetWriterLog(wLog);
+			pageLoginStargate.OpenPage(sUrl);
+			pageLoginStargate.CheckElements();
+			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
+			pageStargate = pageLoginStargate.EnterStargate();
+			pageStargate.GetWriterLog(wLog);
+			*/
+			pageStargate.OpenFindForm();
+			pageStargate.FindAdvert(sIdAdvert);
+			
+			
+			pageStargate.ChangeDataForAdvert("region", "email", "actionOfAdvert2", "changeOfRubric2", 3);
+		
+//////////////////////////////////////////////////////////////
 			
 		}
 		catch(Exception exc)
@@ -112,9 +129,11 @@ public class Test_128 extends TestConstruct
 		}
 		finally
 		{
-			//CaptureScreenshot();
+			CaptureScreenshot(driver[0], "screen1");
+			CaptureScreenshot(driver[1], "screen2");
 			wLog.CloseFile();
-			//driver.quit();
+			driver[0].quit();
+			driver[1].quit();
 		}
 		print("End @Test");
 	}

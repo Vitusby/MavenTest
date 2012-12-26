@@ -86,6 +86,8 @@ public class Page_Stargate extends Page
 	// Авто (а так же найденное объявление)
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]")
 	private WebElement wDivTitleRegion;
+	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Рубрика')]")
+	private WebElement wDivTitleRubric;
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Текст объявления')]")
 	private WebElement wDivDescription;
 	@FindBy(xpath="//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Цена')]")
@@ -183,7 +185,7 @@ public class Page_Stargate extends Page
 	private void ChangeUserForAdvert(String sUser) throws ExceptFailTest
 	{
 		print("Изменяем пользователя");
-		wLog.WriteString(1, "Изменяем пользователя");
+		wLog.WriteString(3, "Изменяем пользователя");
 		InputDataToElement(wDivTitleOwnerAdvert, sUser, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
 		print("Новое значение: " + Proper.GetProperty(sUser));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sUser));
@@ -192,8 +194,11 @@ public class Page_Stargate extends Page
 	private void ChangeCategoryForAdvert(String sCategory) throws ExceptFailTest 
 	{
 		print("Изменяем рубрику(категорию) объявления");
-		wLog.WriteString(1, "Изменяем рубрику(категорию) объявления");
+		wLog.WriteString(3, "Изменяем рубрику(категорию) объявления");
+		String sData = GetDataFromFieldForAdvert(wDivTitleRubric, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Рубрика')]");
 		InputDataToElement(wDivChangeOfRubric, sCategory, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Перенести в рубрику')]");
+		print("Предыдущее значение: " + sData);
+		wLog.WriteString(1, "Предыдущее значение: " + sData);
 		print("Новое значение: " + Proper.GetProperty(sCategory));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sCategory));
 	}
@@ -201,7 +206,7 @@ public class Page_Stargate extends Page
 	private void ChangeRegionForAdvert(String sRegion) throws ExceptFailTest 
 	{
 		print("Изменяем регион объявления");
-		wLog.WriteString(1, "Изменяем регион объявления");
+		wLog.WriteString(3, "Изменяем регион объявления");
 		InputDataToElement(wDivTitleRegion, sRegion, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
 		print("Новое значение: " + Proper.GetProperty(sRegion));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sRegion));
@@ -210,7 +215,7 @@ public class Page_Stargate extends Page
 	private void ChangeStatusForAdvert(String sStatus) throws ExceptFailTest 
 	{
 		print("Изменяем статус объявления");
-		wLog.WriteString(1, "Изменяем статус объявления");
+		wLog.WriteString(3, "Изменяем статус объявления");
 		InputDataToElement(wDivActionOfAdvet, sStatus, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
 		print("Новое значение: " + Proper.GetProperty(sStatus));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sStatus));
@@ -277,6 +282,18 @@ public class Page_Stargate extends Page
 			InputDataToElement(wDivFloor, "floor", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Этаж')]");
 			Sleep(100);
 		}
+	}
+	
+	// получение значения поля (данных в поле)
+	private String GetDataFromFieldForAdvert(WebElement wElement, String sPath) throws ExceptFailTest
+	{
+		CheckElementPresent(1, sPath);
+		ScrollToElement(wElement); //скролим к заголовку нужного  поля
+		wElement.click(); //выделяем его
+		KeyPress(wElement, Keys.ARROW_RIGHT, 1); // переходим на соседнюю строку (в ней элементы ввода) 
+		CheckElementPresent(1,"//td[contains(@class,'x-grid3-cell-selected')]"); // проверяем что wTdSecondFields доступен
+		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]"));
+		return wTdSecondFields.getText();
 	}
 	
 	// ввод данных при поиске объявления в форме поиска
@@ -379,7 +396,8 @@ public class Page_Stargate extends Page
 		}
 		wLog.WriteString(1, "Объявление создано");
 		System.out.println("Объявление создано");
-		wLinkLogout.click();
+		driver.get(driver.getCurrentUrl());
+		//wLinkLogout.click();
 	}
 	    
 	// ввод региона
@@ -475,7 +493,10 @@ public class Page_Stargate extends Page
 		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]")); // вторая строка от заголовка (поле где вводим)
 		
 		if(!wTdSecondFields.getText().equals(" "))
-		print("Предыдущее значение: " + wTdSecondFields.getText());
+		{
+			print("Предыдущее значение: " + wTdSecondFields.getText());
+			wLog.WriteString(1, "Предыдущее значение: " + wTdSecondFields.getText());
+		}
 		
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 			wTdSecondFields.click();
