@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
   <test name="Test">
-  <parameter name="sUrl"  value="http://master.prontosoft.by/stargate/"/>
+  <parameter name="sUrl"  value="http://irr.ru/stargate/"/>
   <parameter name="sLogin"  value="dsobol"/>
   <parameter name="sPassword"  value="555555"/>
     <classes>

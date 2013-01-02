@@ -3,11 +3,11 @@
 <suite name="Failed suite [Suite]" parallel="none">
   <parameter name="sPassword" value="555555"/>
   <parameter name="sLogin" value="dsobol"/>
-  <parameter name="sUrl" value="http://master.prontosoft.by/stargate/"/>
+  <parameter name="sUrl" value="http://irr.ru/stargate/"/>
   <test name="Test(failed)" parallel="none">
     <parameter name="sPassword" value="555555"/>
     <parameter name="sLogin" value="dsobol"/>
-    <parameter name="sUrl" value="http://master.prontosoft.by/stargate/"/>
+    <parameter name="sUrl" value="http://irr.ru/stargate/"/>
     <classes>
       <class name="pack_test.Test_128">
         <methods>

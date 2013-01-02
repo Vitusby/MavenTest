@@ -20,6 +20,7 @@ By.xpath: //button[@class='x-btn-text icon-plus' and contains(text(),'Создать')]
 By.xpath: //span[@class='x-window-header-text' and contains(text(),'Редактирование')]&Заголовок окна выбора региона stargate
 By.xpath: //fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]&Поле ввода региона окна выбора региона stargate	
 By.xpath: //div[@class='x-window-footer']//button[contains(text(),'Сохранить')]&Кнопка сохранить окна выбора региона stargate
+By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Автомобили с пробегом ')]&Текст название рубрики Автомобили с пробегом в выпадающем списке Переместить в рубрику stargate
 By.xpath: //div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'Сохранить')]&Кнопка сохранить премиум объявление stargate
 By.xpath: //div[@class='x-tab-panel-footer']//button[contains(text(),'Сохранить')]&Кнопка сохранить обычное объявление stargate
 By.xpath: //div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]&Кнопка ОК после создания премиума stargate
@@ -41,6 +42,7 @@ By.xpath: //div[contains(text(),'Отдам даром')]&Поле с текстом Отдам даром starg
 By.xpath: //div[contains(text(),'Авто и мото -> Легковые автомобили -> Автомобили с пробегом')]&Поле с текстом Авто и мото -> Легковые автомобили -> Автомобили с пробегом stargate
 By.xpath: //td[contains(@class,'x-grid3-cell-selected')]&Div ввода данных при создании объявлений stargate
 By.xpath: //label[@class='x-form-item-label' and contains(text(),'ID:')]& Поле ввода ID(форма поиска) stargate
+By.xpath: //div[@class='x-column-inner']//input[1]& Поле ввода ID(форма поиска) stargate
 By.xpath: //td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']&Строка найденного объвления(форма поиска) stargate
 By.xpath: //button[@class='x-btn-text' and contains(text(),'Сохранить')]&Кнопка Сохранить(форма поиска) stargate
 By.id: a_login& Ссылка вход Irr 

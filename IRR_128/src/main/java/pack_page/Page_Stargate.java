@@ -35,6 +35,7 @@ public class Page_Stargate extends Page
 	
 	//форма поиска
 	//заголовок поле ID
+	@SuppressWarnings("unused")
 	@FindBy(xpath = "//label[@class='x-form-item-label' and contains(text(),'ID:')]")
 	private WebElement wTitleId;
 	//кнопка искать
@@ -49,6 +50,9 @@ public class Page_Stargate extends Page
 	//кнопка Сохранить
 	@FindBy(xpath="//button[@class='x-btn-text' and contains(text(),'Сохранить')]")
 	private WebElement wButtonSaveFind;
+	//поле ввода id
+	@FindBy(xpath="//div[@class='x-column-inner']//input[1]")
+	private WebElement wInputID;
 
 	
 	// Авто
@@ -122,11 +126,15 @@ public class Page_Stargate extends Page
 	private WebElement wDivFloor;
 	
 	
+	
+	
+	
 	public Page_Stargate(WebDriver driver){super(driver);}
 	
 	// открытие формы поиска
 	public void OpenFindForm() throws ExceptFailTest
 	{
+		driver.get(driver.getCurrentUrl());
 		Sleep(1000);
 		wLog.WriteString(1, "Проверяем вошли ли");
 		print("Проверяем вошли ли");
@@ -143,14 +151,17 @@ public class Page_Stargate extends Page
 	}
 	
 	// Поиск объявления по ID в поле формы поиска
-	public void FindAdvert(String sData) throws ExceptFailTest
+	public boolean FindAdvert(String sData) throws ExceptFailTest
 	{
-		Sleep(100);
+		
+		Sleep(300);
 		print("Ищем объявление через форму поиска");
 		wLog.WriteString(1, "Ищем объявление через форму поиска");
 		print("Вводим ID объявления: " + sData);
 		wLog.WriteString(1, "Вводим ID объявления: " + sData);
-		InputDataToElementFormFind(wTitleId, sData, "//label[@class='x-form-item-label' and contains(text(),'ID:')]");
+		CheckElementPresent(1,"//div[@class='x-column-inner']//input[1]");
+		wInputID.sendKeys(sData);
+		Sleep(300);
 		print("Нажимаем кнопку Искать");
 		wLog.WriteString(1, "Нажимаем кнопку Искать");
 		CheckElementPresent(1, "//button[@class='x-btn-text' and contains(text(),'Искать')]");
@@ -166,16 +177,19 @@ public class Page_Stargate extends Page
 		CheckElementPresent(1, "//span[@class='x-tab-strip-text ' and contains(text(),'Свойства')]");
 		print("Объявление развернуто");
 		wLog.WriteString(1, "Объявление развернуто");
+		return true;
 		
 	}
 	
 	// изменение данных
-	public void ChangeDataForAdvert(String sRegion, String sUser, String sStatus, String sCategory, int nKey) throws ExceptFailTest
+	public void ChangeDataForAdvert(String sUser, String sCategory, String sRegion, String sStatus, String sKey, String sNameOperation) throws ExceptFailTest
 	{
+		print("Выполняется операция: "+sNameOperation);
+		wLog.WriteString(3, "Выполняется операция: "+sNameOperation);
 		ChangeRegionForAdvert(sRegion);
 		ChangeUserForAdvert(sUser);
 		ChangeStatusForAdvert(sStatus);
-		AddDataForAdvertCarsOrRealt(nKey);
+		AddDataForAdvertCarsOrRealt(sKey);
 		ChangeCategoryForAdvert(sCategory);
 		SaveChangeForFormFind();	
 	}
@@ -240,9 +254,9 @@ public class Page_Stargate extends Page
 	}
 	
 	// добавление данных для объяления авто (когда меняем рубрику)
-	private void AddDataForAdvertCarsOrRealt(int nKey) throws ExceptFailTest
+	private void AddDataForAdvertCarsOrRealt(String sKey) throws ExceptFailTest
 	{
-		if(nKey == 0)
+		if(sKey.equals("0"))
 		{
 			Sleep(100);
 			print("Вводим марку");
@@ -266,7 +280,7 @@ public class Page_Stargate extends Page
 			InputDataToElement(wDivTitleTypeOfTransmission, "typeOfTransmission", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Тип трансмиссии')]");
 			Sleep(100);
 		}
-		if(nKey == 1)
+		if(sKey.equals("1"))
 		{
 			Sleep(100);
 			print("Вводим количество комнат в квартире");
@@ -296,14 +310,7 @@ public class Page_Stargate extends Page
 		return wTdSecondFields.getText();
 	}
 	
-	// ввод данных при поиске объявления в форме поиска
-	private void InputDataToElementFormFind(WebElement wElement, String sData, String sPath) throws ExceptFailTest
-	{
-		CheckElementPresent(1, sPath);
-		wElement.click();
-		CheckElementForInputFind(sData);
-	}
-	
+
 	public void OpenFormCreateAdvertAuto() throws ExceptFailTest
 	{
 		OpenListAdvert();
@@ -369,7 +376,7 @@ public class Page_Stargate extends Page
 		Sleep(100);
 		wLog.WriteString(1, "Вводим статус активности объявления");
 		System.out.println("Вводим статус активности объявления");
-		InputDataToElement(wDivActionOfAdvet, "actionOfAdvet", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
+		InputDataToElement(wDivActionOfAdvet, "actionOfAdvert", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
 		wLog.WriteString(1, "Сохраняем введенные данны");
 		System.out.println("Сохраняем введенные данные");
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
@@ -396,7 +403,7 @@ public class Page_Stargate extends Page
 		}
 		wLog.WriteString(1, "Объявление создано");
 		System.out.println("Объявление создано");
-		driver.get(driver.getCurrentUrl());
+		//driver.get(driver.getCurrentUrl());
 		//wLinkLogout.click();
 	}
 	    
@@ -501,7 +508,7 @@ public class Page_Stargate extends Page
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 			wTdSecondFields.click();
 		else DoubleClickElement(wTdSecondFields);
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		CheckElementForInput(sNameField);
 	}
 	
@@ -558,29 +565,8 @@ public class Page_Stargate extends Page
 		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного текстареа");*/}
 	}
 
-	// Проверка какой элемент доступен и вызов соответствующей функции для поиска объявления
-	private void CheckElementForInputFind(String sData) throws ExceptFailTest
-	{
-		try // проверка наличия активного инпута
-		{
-			WebElement wInput = driver.findElement(By.xpath("//input[contains(@class,'x-form-focus')]"));
-			if(wInput.isDisplayed())										
-			{
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-				SetInputForFind(wInput, sData);
-				return;
-			}
-		}
-		catch(NoSuchElementException exc){/*System.out.println("Нет ниодного активнного инпута");*/}
-	}
 	
-	// ввод значений если элемент ввода input для поиска
-	private void SetInputForFind(WebElement wElement, String sData)
-	{
-		//System.out.println("Сработал SetInput");
-		wElement.clear();
-		wElement.sendKeys(sData);
-	}
+
 	
 	//Открытие листинга выбора рубрики добавления обычного объявления
 	private void OpenListAdvert() throws ExceptFailTest  

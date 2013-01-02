@@ -80,6 +80,20 @@ public class ListenerThatHiglilightsElements extends AbstractWebDriverEventListe
 				return;
 			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Амурск')]"))
 				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'Автомобили с пробегом ')]"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div"))
+				return;
+			if(lastFindBy.toString().equals("By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div"))
+				return;
 			try
 			{
 				System.out.println("Элемент "+lNameWebElement.GetNameWebElement(lastFindBy.toString())+" не найден");

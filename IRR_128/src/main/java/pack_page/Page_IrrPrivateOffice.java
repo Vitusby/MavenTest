@@ -1,6 +1,5 @@
 package pack_page;
 
-import java.io.PrintWriter;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -40,6 +39,7 @@ public class Page_IrrPrivateOffice extends Page
 	private WebElement wLinkNotActiveStatus;
 	
 	// Категории
+	@SuppressWarnings("unused")
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//li[@class='all']/div[2]")
 	private WebElement wTextAllCategory;
 	
@@ -61,6 +61,7 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div")
 	private WebElement wTextLinkRealEstateApartamentsSecondary;
 	
+	@SuppressWarnings("unused")
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div")
 	private WebElement wTextLinkTakeFree;
 	
@@ -91,27 +92,40 @@ public class Page_IrrPrivateOffice extends Page
 	private Integer iMas3[] = new Integer[14];
 	private String sMasCounters[] = new String[14];
 	
-	public Page_IrrPrivateOffice(WebDriver driver){super(driver); }
+	public Page_IrrPrivateOffice(WebDriver driver){super(driver); driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	// id первого объявления в списке
 	public String GetIdAdvert() throws ExceptFailTest
 	{
+		Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
 		driver.get(driver.getCurrentUrl());
 		CheckElementPresent(1, "//div[@class='b-id']");
 		String s[] = wLinkAdvert.getText().split("\n");
 		return s[0].substring(18);
 	}
 	
+	public void ReloadPage(boolean bFlag) throws ExceptFailTest
+	{
+		if(bFlag)
+		{
+			Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
+		}
+		driver.get(driver.getCurrentUrl());
+	}
+	
 	// Значение всех счетчиков
 	public void GetStatusAndCategory() throws ExceptFailTest
 	{
-		Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
-		driver.get(driver.getCurrentUrl());
+		//Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
+		//driver.get(driver.getCurrentUrl());
+		
+		print("ПОЛУЧАЕМ ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЁТЧИКОВ В ЛК");
+		wLog.WriteString(3, "ПОЛУЧАЕМ ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЁТЧИКОВ В ЛК");
 		
 		wLinkPrivateOffice.click();
+		Sleep(1700);
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик количества объявлений
-		Sleep(1000);
 		String s[] = wLinkMyAdverts.getText().split("\n");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
@@ -230,7 +244,7 @@ public class Page_IrrPrivateOffice extends Page
 	private boolean CheckLink(final String sLocator, String sName)
 	{
 		WebElement wElement = null;
-		WebDriverWait wWaitDriver = new WebDriverWait(driver, 4);
+		WebDriverWait wWaitDriver = new WebDriverWait(driver, 2);
 		try
 		{
 			wElement = wWaitDriver.until(new ExpectedCondition<WebElement>()
@@ -365,8 +379,8 @@ public class Page_IrrPrivateOffice extends Page
 			wLog.WriteString(2,"Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
 			throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
 		}
-		print("ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ "+sOperation+" КОРРЕТКНЫ");
-		wLog.WriteString(3,"ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ "+sOperation+" КОРРЕТКНЫ");
+		print("ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ " + sOperation + "\r\nКОРРЕКТНЫ");
+		wLog.WriteString(3,"ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ " + sOperation + "\r\nКОРРЕКTНЫ");
 	}
 	
 	// проверка конкретного счетчика для String
@@ -374,8 +388,8 @@ public class Page_IrrPrivateOffice extends Page
 	{
 		if(!clsStatusAndCategoryString.GetValue(sNameCounter).equals(sCounter))
 		{
-			print("Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " + sCounter);
-			wLog.WriteString(2, "Значение счетчика \""+ sNameCounter +"\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter)+" не равно правильному значению счетчика = " +  sCounter);
+			print("Значение счетчика \"" + sNameCounter + "\" = " + clsStatusAndCategoryString.GetValue(sNameCounter) + " не равно правильному значению счетчика = " + sCounter);
+			wLog.WriteString(2, "Значение счетчика \"" + sNameCounter + "\" = "+ clsStatusAndCategoryString.GetValue(sNameCounter) + " не равно правильному значению счетчика = " +  sCounter);
 			return true;
 		}
 		else
