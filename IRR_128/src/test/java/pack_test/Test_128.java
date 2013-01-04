@@ -106,7 +106,7 @@ public class Test_128 extends TestConstruct
 ////////////////////////////////////////////////////////////  Копируем ID объявления
 			
 			//sIdAdvert = pageIrrPrOf.GetIdAdvert();
-			sIdAdvert = "247867491";
+			sIdAdvert = "247955855";
 			print(sIdAdvert);
 			
 ////////////////////////////////////////////////////////////			
@@ -114,7 +114,7 @@ public class Test_128 extends TestConstruct
 ////////////////////////////////////////////////////////////  Заходим в БО вносим изменения  Шаг 1
 			
 			
-			for(int i=82; i<list.GetSizeList(); i++)
+			for(int i=171; i<list.GetSizeList(); i++)
 			{
 				print("ШАГ " + i);
 				wLog.WriteString(0, "ШАГ " + i);
@@ -167,7 +167,7 @@ public class Test_128 extends TestConstruct
 						"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 						"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
 				
-				if( ((i > 17) && (i < 50)) || (i > 81))
+				if( ((i > 17) && (i < 50)) || ((i > 81) && (i < 114)) || ((i > 141) && (i < 174)) || (i > 205))
 				{
 					wLog.WriteString(0, "</br>");
 					print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ USER_128_2");
