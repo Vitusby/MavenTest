@@ -68,6 +68,7 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//a[@id='load_user_ads_counter']/span[2]")
 	private WebElement wLinkPrivateOffice;
 	
+	@SuppressWarnings("unused")
 	@FindBy(xpath="//div[@id='block_links_lk']/ul/li/a")
 	private WebElement wLinkMyAdverts; 
 	
@@ -76,6 +77,10 @@ public class Page_IrrPrivateOffice extends Page
 	
 	@FindBy(xpath = "//div[@class='b-id']")
 	private WebElement wLinkAdvert;
+	
+	
+	@FindBy(xpath = "//span[@id='user_ads_counter']")
+	private WebElement wTextMyAdvert;
 	
 	//div class="b-adListTable"
 //////////////////////////////////////////////////////////////////////////////////////////////	
@@ -126,7 +131,7 @@ public class Page_IrrPrivateOffice extends Page
 		wLinkPrivateOffice.click();
 		Sleep(1700);
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик количества объявлений
-		String s[] = wLinkMyAdverts.getText().split("\n");
+		//String s[] = wLinkMyAdverts.getText().split("\n");
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a"); // мои объявления
@@ -135,7 +140,8 @@ public class Page_IrrPrivateOffice extends Page
 		CheckElementPresent(1, "//div[@id='minWidth']//li[3]/a/div"); // неактивные
 		CheckElementPresent(1, "//div[@class='b-blockInf'][2]//li[@class='all']/div[2]"); // все категории
 		
-		iMas3[0]=ParseStringToInt(s[0], "Не удалось перевести значение количества объявлений в число");
+		//iMas3[0]=ParseStringToInt(s[0], "Не удалось перевести значение количества объявлений в число");
+		iMas3[0]=ParseStringToInt(wTextMyAdvert.getText(), "Не удалось перевести значение количества объявлений в ссылке Мои объявления");
 		iMas3[1]=ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
 		iMas3[2]=ParseStringToInt(wLinkActiveStatus.getText(),"Не удалось перевести значение количества активных объявлений в число");
 		iMas3[3]=ParseStringToInt(wLinkNotActiveStatus.getText(),"Не удалось перевести значение количества неактивных объявлений в число");		
@@ -146,7 +152,8 @@ public class Page_IrrPrivateOffice extends Page
 		iMas3[6] = (int)AllAdvertListing - (int)NotActoveAdvertListing;
 		iMas3[7] = ParseStringToInt(wTextAllStatus.getText(), "Не удалось перевести значение количества объявлений в число");
 		
-		sMasCounters[0] = s[0];
+		//sMasCounters[0] = s[0];
+		sMasCounters[0] = wTextMyAdvert.getText();
 		sMasCounters[1] = wTextAllStatus.getText();
 		sMasCounters[2] = wLinkActiveStatus.getText();
 		sMasCounters[3] = wLinkNotActiveStatus.getText();

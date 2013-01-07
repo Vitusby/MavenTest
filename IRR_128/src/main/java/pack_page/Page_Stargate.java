@@ -45,6 +45,7 @@ public class Page_Stargate extends Page
 	@FindBy(xpath ="//td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']")
 	private WebElement wDivCrossAdvert;
 	// Вкладка свойства
+	@SuppressWarnings("unused")
 	@FindBy(xpath="//span[@class='x-tab-strip-text ' and contains(text(),'Свойства')]")
 	private WebElement wTabProperties;
 	//кнопка Сохранить
@@ -182,55 +183,68 @@ public class Page_Stargate extends Page
 	}
 	
 	// изменение данных
-	public void ChangeDataForAdvert(String sUser, String sCategory, String sRegion, String sStatus, String sKey, String sNameOperation) throws ExceptFailTest
+	public void ChangeDataForAdvert(String sOldUser, String sUser, String sOldCategory, String sCategory, String sOldRegion, String sRegion, String sOldStatus, String sStatus, String sKey, String sNameOperation) throws ExceptFailTest
 	{
 		print("Выполняется операция: "+sNameOperation);
 		wLog.WriteString(3, "Выполняется операция: "+sNameOperation);
-		ChangeRegionForAdvert(sRegion);
-		ChangeUserForAdvert(sUser);
-		ChangeStatusForAdvert(sStatus);
+		ChangeRegionForAdvert(sOldRegion, sRegion);
+		ChangeUserForAdvert(sOldUser, sUser);
+		ChangeStatusForAdvert(sStatus, sOldStatus);
 		AddDataForAdvertCarsOrRealt(sKey);
-		ChangeCategoryForAdvert(sCategory);
+		ChangeCategoryForAdvert(sOldCategory, sCategory);
 		SaveChangeForFormFind();	
 	}
 	
 	// изменение данных для конкретных полей объявления
 	// изменение пользователя
-	private void ChangeUserForAdvert(String sUser) throws ExceptFailTest
+	private void ChangeUserForAdvert(String sOldUser, String sUser) throws ExceptFailTest
 	{
 		print("Изменяем пользователя");
 		wLog.WriteString(3, "Изменяем пользователя");
-		InputDataToElement(wDivTitleOwnerAdvert, sUser, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		String sData = GetDataFromFieldForAdvert(wDivTitleOwnerAdvert, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		print("Предыдущее значение: " + sData);
+		wLog.WriteString(1, "Предыдущее значение: " + sData);
+		if(!sOldUser.equals(sUser))
+			InputDataToElement(wDivTitleOwnerAdvert, sUser, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
 		print("Новое значение: " + Proper.GetProperty(sUser));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sUser));
 	}
 	
-	private void ChangeCategoryForAdvert(String sCategory) throws ExceptFailTest 
+	private void ChangeCategoryForAdvert(String sOldCategory, String sCategory) throws ExceptFailTest 
 	{
 		print("Изменяем рубрику(категорию) объявления");
 		wLog.WriteString(3, "Изменяем рубрику(категорию) объявления");
 		String sData = GetDataFromFieldForAdvert(wDivTitleRubric, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Рубрика')]");
-		InputDataToElement(wDivChangeOfRubric, sCategory, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Перенести в рубрику')]");
+		if(!sOldCategory.equals(sCategory))
+			InputDataToElement(wDivChangeOfRubric, sCategory, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Перенести в рубрику')]");
 		print("Предыдущее значение: " + sData);
 		wLog.WriteString(1, "Предыдущее значение: " + sData);
 		print("Новое значение: " + Proper.GetProperty(sCategory));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sCategory));
 	}
 
-	private void ChangeRegionForAdvert(String sRegion) throws ExceptFailTest 
+	private void ChangeRegionForAdvert(String sOldRegion, String sRegion) throws ExceptFailTest 
 	{
 		print("Изменяем регион объявления");
 		wLog.WriteString(3, "Изменяем регион объявления");
-		InputDataToElement(wDivTitleRegion, sRegion, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
+		String sData = GetDataFromFieldForAdvert(wDivTitleRegion, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
+		print("Предыдущее значение: " + sData);
+		wLog.WriteString(1, "Предыдущее значение: " + sData);
+		if(!sOldRegion.equals(sRegion))
+			InputDataToElement(wDivTitleRegion, sRegion, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Регион')]");
 		print("Новое значение: " + Proper.GetProperty(sRegion));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sRegion));
 	}
 	
-	private void ChangeStatusForAdvert(String sStatus) throws ExceptFailTest 
+	private void ChangeStatusForAdvert(String sStatus, String sOldStatus) throws ExceptFailTest 
 	{
 		print("Изменяем статус объявления");
 		wLog.WriteString(3, "Изменяем статус объявления");
-		InputDataToElement(wDivActionOfAdvet, sStatus, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
+		String sData = GetDataFromFieldForAdvert(wDivActionOfAdvet, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
+		print("Предыдущее значение: " + sData);
+		wLog.WriteString(1, "Предыдущее значение: " + sData);
+		if(!sOldStatus.equals(sStatus))
+			InputDataToElement(wDivActionOfAdvet, sStatus, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Активность объявления')]");
 		print("Новое значение: " + Proper.GetProperty(sStatus));
 		wLog.WriteString(1, "Новое значение: " + Proper.GetProperty(sStatus));
 	}
@@ -330,7 +344,7 @@ public class Page_Stargate extends Page
 		Sleep(2000);
 	}
 		
-	public void InputDataAuto() throws ExceptFailTest
+	public void InputDataAuto(String sNumberSteps) throws ExceptFailTest
 	{
 		wLog.WriteString(1, "Создаем объявление в рубрике \"Авто с пробегом\"");
 		System.out.println("Создаем объявление в рубрике \"Авто с пробегом\"");
@@ -352,7 +366,7 @@ public class Page_Stargate extends Page
 		Sleep(200);
 		wLog.WriteString(1, "Вводим email владельца объявления");
 		System.out.println("Вводим email владельца объявления");
-		InputDataToElement(wDivTitleOwnerAdvert, "email", "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
+		InputDataToElement(wDivTitleOwnerAdvert, "email" + sNumberSteps, "//div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Владелец объявления')]");
 		Sleep(200);
 		wLog.WriteString(1, "Вводим марку");
 		System.out.println("Вводим марку");
@@ -449,11 +463,15 @@ public class Page_Stargate extends Page
 		}
 		catch(NoSuchElementException exc){wElement.click();} // иначе если его нет жмем
 		
-		if(wTitledWindowRegion.isDisplayed()) // если открывается окно выбора регионов (у него заголовок "Редактировать")
-			{
-				SetRegion(sNameField); // вводим регион
-				return;
-			}
+		try
+		{
+			if(wTitledWindowRegion.isDisplayed()) // если открывается окно выбора регионов (у него заголовок "Редактировать")
+				{
+					SetRegion(sNameField); // вводим регион
+					return;
+				}
+		}
+		catch(NoSuchElementException exc){/*print("это не выбор региона");*/}
 		SetOtherImageDiv(sNameField);
 
 	}
@@ -499,11 +517,11 @@ public class Page_Stargate extends Page
 		CheckElementPresent(1,"//td[contains(@class,'x-grid3-cell-selected')]"); // проверяем что wTdSecondFields доступен
 		WebElement wTdSecondFields = driver.findElement(By.xpath("//td[contains(@class,'x-grid3-cell-selected')]")); // вторая строка от заголовка (поле где вводим)
 		
-		if(!wTdSecondFields.getText().equals(" "))
+		/*if(!wTdSecondFields.getText().equals(" "))
 		{
 			print("Предыдущее значение: " + wTdSecondFields.getText());
 			wLog.WriteString(1, "Предыдущее значение: " + wTdSecondFields.getText());
-		}
+		}*/
 		
 		if(Proper.GetProperty("typeAdvert").equals("premium"))
 			wTdSecondFields.click();

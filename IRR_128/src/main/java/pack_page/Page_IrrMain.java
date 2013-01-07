@@ -39,18 +39,18 @@ public class Page_IrrMain extends Page
 	private WebElement wLinkMyAdverts;
 	
 	
-	private String sUrlIRR;
+	private String sUrl;
 	
 	public Page_IrrMain(WebDriver driver){super(driver);}
 
 	public void OpenPage(String sUrl) throws ExceptFailTest
 	{
-		sUrlIRR = Proper.GetProperty("urlIrr");
-		driver.navigate().to(sUrlIRR);
+		//sUrlIRR = Proper.GetProperty("urlIrr");
+		driver.navigate().to(sUrl);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		wLog.WriteString(1, "Открываем страницу "+sUrlIRR);
-		System.out.println("Открываем страницу "+sUrlIRR);
+		wLog.WriteString(1, "Открываем страницу " + sUrl);
+		System.out.println("Открываем страницу " + sUrl);
 	}
 	
 	public void OpenFormAuthorization() throws ExceptFailTest
@@ -71,13 +71,13 @@ public class Page_IrrMain extends Page
 		
 	}
 	
-	public Page_IrrPrivateOffice LoginOn(String sLogin1) throws ExceptFailTest
+	public Page_IrrPrivateOffice LoginOn(String sLogin) throws ExceptFailTest
 	{
 		Sleep(1000);
 		wLog.WriteString(1, "Вводим логин");
 		System.out.println("Вводим логин");
 		CheckElementPresent(1, "//div[@id='popup-wrap']//input[@class='login']");
-		wFieldLoginForm.sendKeys(Proper.GetProperty(sLogin1));
+		wFieldLoginForm.sendKeys(Proper.GetProperty(sLogin));
 		wLog.WriteString(1, "Вводим пароль");
 		System.out.println("Вводим пароль");
 		CheckElementPresent(1, "//div[@id='popup-wrap']//input[@name='password']");

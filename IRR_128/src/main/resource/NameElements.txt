@@ -1,70 +1,70 @@
-By.id: ext-comp-1003&œÓÎÂ ‚‚Ó‰‡ ÎÓ„ËÌ‡ stargate
-By.id: ext-comp-1004&œÓÎÂ ‚‚Ó‰‡ Ô‡ÓÎˇ stargate
-By.id: ext-gen31& ÌÓÔÍ‡ ‚ÓÈÚË stargate
-By.xpath: //div[contains(@class,'x-trigger-wrap-focus')]/img&¬˚Ô‡‰‡˛˘ËÈ ÒÔËÒÓÍ IMG
-By.xpath: //input[contains(@class,'x-form-focus')]&œÓÎÂ Input
-By.xpath: //select[contains(@class,'x-form-focus')]&¬˚Ô‡‰‡˛˘ËÈ ÒÔËÒÓÍ Select
-By.xpath: //textarea[contains(@class, 'x-form-focus')]&œÓÎÂTextArea
-By.xpath: //a[@href='/stargate/workspace/admanagement/']&œÛÌÍÚ ÏÂÌ˛ Œ·˙ˇ‚ÎÂÌËˇ stargate
-By.xpath: //a[@href='/stargate/?logout=true']&—Ò˚ÎÍ‡ ‚˚ıÓ‰ stargate
-By.xpath: //a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),' ‡Ú‡ÎÓ„ Ó·˙ˇ‚ÎÂÌËÈ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛  ‡Ú‡ÎÓ„ Ó·˙ˇ‚ÎÂÌËÈ stargate 
-By.xpath: //a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'—ÓÁ‰‡Ú¸ ÔÂÏËÛÏ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ —ÓÁ‰‡Ú¸ ÔÂÏËÛÏ stargate
-By.xpath: //a[@href='/stargate/workspace/admanagement/find/']/span[contains(text(),'Õ‡ÈÚË Ó·˙ˇ‚ÎÂÌËˇ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ Õ‡ÈÚË Ó·˙ˇ‚ÎÂÌËÂ stargate
-By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'¿‚ÚÓ Ë ÏÓÚÓ')]&œÛÌÍÚ ÏÂÌ˛ ¿‚ÚÓ Ë ÏÓÚÓ stargate
-By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'ÀÂ„ÍÓ‚˚Â ‡‚ÚÓÏÓ·ËÎË')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ ÀÂ„ÍÓ‚˚Â ‡‚ÚÓÏÓ·ËÎË stargate
-By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ ¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ stargate
-By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'‡‚ÚÓ Ò ÔÓ·Â„ÓÏ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ ‡‚ÚÓ Ò ÔÓ·Â„ÓÏ stargate
-By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'ŒÚ‰‡Ï ‰‡ÓÏ')]&œÛÌÍÚ ÏÂÌ˛ ŒÚ‰‡Ï ‰‡ÓÏ stargate
-By.xpath: //ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'ŒÚ‰‡Ï ‰‡ÓÏ')]&œÓ‰ÔÛÌÍÚ ÏÂÌ˛ ŒÚ‰‡Ï ‰‡ÓÏ stargate
-By.xpath: //button[@class='x-btn-text icon-plus' and contains(text(),'—ÓÁ‰‡Ú¸')]& ÌÓÔÍ‡ —ÓÁ‰‡Ú¸ Ó·˚˜ÌÓÂ Ó·˙ˇ‚ÎÂÌËÂ stargate
-By.xpath: //span[@class='x-window-header-text' and contains(text(),'–Â‰‡ÍÚËÓ‚‡ÌËÂ')]&«‡„ÓÎÓ‚ÓÍ ÓÍÌ‡ ‚˚·Ó‡ Â„ËÓÌ‡ stargate
-By.xpath: //fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]&œÓÎÂ ‚‚Ó‰‡ Â„ËÓÌ‡ ÓÍÌ‡ ‚˚·Ó‡ Â„ËÓÌ‡ stargate	
-By.xpath: //div[@class='x-window-footer']//button[contains(text(),'—Óı‡ÌËÚ¸')]& ÌÓÔÍ‡ ÒÓı‡ÌËÚ¸ ÓÍÌ‡ ‚˚·Ó‡ Â„ËÓÌ‡ stargate
-By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ ')]&“ÂÍÒÚ Ì‡Á‚‡ÌËÂ Û·ËÍË ¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ ‚ ‚˚Ô‡‰‡˛˘ÂÏ ÒÔËÒÍÂ œÂÂÏÂÒÚËÚ¸ ‚ Û·ËÍÛ stargate
-By.xpath: //div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'—Óı‡ÌËÚ¸')]& ÌÓÔÍ‡ ÒÓı‡ÌËÚ¸ ÔÂÏËÛÏ Ó·˙ˇ‚ÎÂÌËÂ stargate
-By.xpath: //div[@class='x-tab-panel-footer']//button[contains(text(),'—Óı‡ÌËÚ¸')]& ÌÓÔÍ‡ ÒÓı‡ÌËÚ¸ Ó·˚˜ÌÓÂ Ó·˙ˇ‚ÎÂÌËÂ stargate
-By.xpath: //div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]& ÌÓÔÍ‡ Œ  ÔÓÒÎÂ ÒÓÁ‰‡ÌËˇ ÔÂÏËÛÏ‡ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–Â„ËÓÌ')]&œÓÎÂ ‚‚Ó‰‡ Â„ËÓÌ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'“ÂÍÒÚ Ó·˙ˇ‚ÎÂÌËˇ')]&œÓÎÂ ‚‚Ó‰‡ ÚÂÍÒÚ Ó·˙ˇ‚ÎÂÌËˇ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'÷ÂÌ‡')]&œÓÎÂ ‚‚Ó‰‡ ˆÂÌ˚ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'¬‡Î˛Ú‡')]&œÓÎÂ ‚‚Ó‰‡ ‚‡Î˛Ú˚ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'¬Î‡‰ÂÎÂˆ Ó·˙ˇ‚ÎÂÌËˇ')]&œÓÎÂ ‚‚Ó‰‡ email ‚Î‡‰ÂÎ¸ˆ‡ Ó·˙ˇ‚ÎÂÌËˇ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'Ã‡Í‡')]&œÓÎÂ ‚‚Ó‰‡ Ï‡ÍË stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'ÃÓ‰ÂÎ¸')]&œÓÎÂ ‚‚Ó‰‡ ÏÓ‰ÂÎË stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'√Ó‰ ‚˚ÔÛÒÍ‡')]&œÓÎÂ ‚‚Ó‰‡ „Ó‰‡ ‚˚ÔÛÒÍ‡ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'“ËÔ ÍÛÁÓ‚‡')]&œÓÎÂ ‚‚Ó‰‡ ÚËÔ‡ ÍÛÁÓ‚‡ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'“ËÔ Ú‡ÌÒÏËÒÒËË')]&œÓÎÂ ‚‚Ó‰‡ ÚËÔ‡ Ú‡ÌÒÏËÒÒËË stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'—Ú‡ÚÛÒ ÏÓ‰Â‡ˆËË')]&œÓÎÂ ‚‚Ó‰‡ ÒÚ‡ÚÛÒ‡ ÏÓ‰Â‡ˆËË stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'¿ÍÚË‚ÌÓÒÚ¸ Ó·˙ˇ‚ÎÂÌËˇ')]&œÓÎÂ ‚‚Ó‰‡ ÒÚ‡ÚÛÒ‡ ‡ÍÚË‚ÌÓÒÚË Ó·˙ˇ‚ÎÂÌËˇ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'«‡„ÓÎÓ‚ÓÍ')]&œÓÎÂ ‚‚Ó‰‡ Á‡„ÓÎÓ‚Í‡ stargate
-By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'“ÂÍÒÚ')]&œÓÎÂ ‚‚Ó‰‡ ÚÂÍÒÚ‡(ŒÚ‰‡Ï ‰‡ÓÏ) stargate
-By.xpath: //div[contains(text(),'ŒÚ‰‡Ï ‰‡ÓÏ')]&œÓÎÂ Ò ÚÂÍÒÚÓÏ ŒÚ‰‡Ï ‰‡ÓÏ stargate
-By.xpath: //div[contains(text(),'¿‚ÚÓ Ë ÏÓÚÓ -> ÀÂ„ÍÓ‚˚Â ‡‚ÚÓÏÓ·ËÎË -> ¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ')]&œÓÎÂ Ò ÚÂÍÒÚÓÏ ¿‚ÚÓ Ë ÏÓÚÓ -> ÀÂ„ÍÓ‚˚Â ‡‚ÚÓÏÓ·ËÎË -> ¿‚ÚÓÏÓ·ËÎË Ò ÔÓ·Â„ÓÏ stargate
-By.xpath: //td[contains(@class,'x-grid3-cell-selected')]&Div ‚‚Ó‰‡ ‰‡ÌÌ˚ı ÔË ÒÓÁ‰‡ÌËË Ó·˙ˇ‚ÎÂÌËÈ stargate
-By.xpath: //label[@class='x-form-item-label' and contains(text(),'ID:')]& œÓÎÂ ‚‚Ó‰‡ ID(ÙÓÏ‡ ÔÓËÒÍ‡) stargate
-By.xpath: //div[@class='x-column-inner']//input[1]& œÓÎÂ ‚‚Ó‰‡ ID(ÙÓÏ‡ ÔÓËÒÍ‡) stargate
-By.xpath: //td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']&—ÚÓÍ‡ Ì‡È‰ÂÌÌÓ„Ó Ó·˙‚ÎÂÌËˇ(ÙÓÏ‡ ÔÓËÒÍ‡) stargate
-By.xpath: //button[@class='x-btn-text' and contains(text(),'—Óı‡ÌËÚ¸')]& ÌÓÔÍ‡ —Óı‡ÌËÚ¸(ÙÓÏ‡ ÔÓËÒÍ‡) stargate
-By.id: a_login& —Ò˚ÎÍ‡ ‚ıÓ‰ Irr 
-By.xpath: //div[@class='popupRegions']&«‡„ÓÎÓ‚ÓÍ ÓÍÌ‡ ‚˚·Ó‡ Â„ËÓÌ‡ Irr 
-By.xpath: //div[@class='button-style btn-a']/a& ÌÓÔÍ‡ Œ  ÓÍÌ‡ ‚˚·Ó‡ Â„ËÓÌ‡ Irr
-By.xpath: //div[@id='popup-wrap']//input[@name='password']&œÓÎÂ ‚‚Ó‰‡ Ô‡ÓÎˇ Irr
-By.xpath: //div[@id='popup-wrap']//input[@class='login']&œÓÎˇ ‚‚Ó‰‡ ÎÓ„ËÌ‡ Irr
-By.xpath: //div[@id='popup-wrap']//a[@class='loginFormSubmit']& ÌÓÔÍ‡ ‚ÓÈÚË Irr
-By.xpath: //a[@id='load_user_ads_counter']/span[2]&—Ò˚ÎÍ‡ ÏÓÈ Í‡·ËÌÂÚ Irr
-By.xpath: //div[@id='block_links_lk']/ul/li/a&—Ò˚ÎÍ‡ ÏÓË Ó·˙ˇ‚ÎÂÌËˇ Irr
-By.id: checkAll&◊ÂÍ·ÓÍÒ ‚˚·‡Ú¸ ‚ÒÂ IrrLK
-By.id: groupActionDeleteSelected&—Ò˚ÎÍ‡ Û‰‡ÎËÚ¸ ‚ÒÂ IrrLK
-By.id: groupActionDeactivateSelected&—Ò˚ÎÍ‡ ‰Â‡ÍÚË‚ËÓ‚‡Ú¸ ‚ÒÂ IrrLK
-By.xpath: //div[@id='minWidth']//li[@class='all'][1]/div[2]&“ÂÍÒÚ ‚ÒÂ ÒÚ‡ÚÛÒ˚ IrrLK
-By.xpath: //div[@id='minWidth']//li[2]/a/div&—Ò˚ÎÍ‡ ‡ÍÚË‚Ì˚Â IrrLK
-By.xpath: //div[@id='minWidth']//li[3]/a/div&—Ò˚ÎÍ‡ ÌÂ‡ÍÚË‚Ì˚Â IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//li[@class='all']/div[2]&“ÂÍÒÚ ‚ÒÂ Í‡ÚÂ„ÓËË IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div&—Ò˚ÎÍ‡ ¿‚ÚÓ Ë ÏÓÚÓ(·ÎÓÍ ÒÚ‡ÚÛÒ) IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div&—Ò˚ÎÍ‡ ÎÂ„ÍÓ‚˚Â ‡‚ÚÓ(·ÎÓÍ ÒÚ‡ÚÛÒ) IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div&—Ò˚ÎÍ‡ ‡‚ÚÓ Ò ÔÓ·Â„ÓÏ(·ÎÓÍ ÒÚ‡ÚÛÒ) IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div&—Ò˚ÎÍ‡ ÓÚ‰‡Ï ‰‡ÓÏ(·ÎÓÍ ÒÚ‡ÚÛÒ) IrrLK
-By.id: logout&—Ò˚ÎÍ‡ ‚˚ıÓ‰ IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div&—Ò˚ÎÍ‡ ÕÂ‰‚ËÊËÏÓÒÚ¸ IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div&—Ò˚ÎÍ‡  ‚‡ÚË˚ IrrLK
-By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div&—Ò˚ÎÍ‡ ¬ÚÓË˜Ì˚È ˚ÌÓÍ IrrLK
+By.id: ext-comp-1003&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –ª–æ–≥–∏–Ω–∞ stargate
+By.id: ext-comp-1004&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –ø–∞—Ä–æ–ª—è stargate
+By.id: ext-gen31&–ö–Ω–æ–ø–∫–∞ –≤–æ–π—Ç–∏ stargate
+By.xpath: //div[contains(@class,'x-trigger-wrap-focus')]/img&–í—ã–ø–∞–¥–∞—é—â–∏–π —Å–ø–∏—Å–æ–∫ IMG
+By.xpath: //input[contains(@class,'x-form-focus')]&–ü–æ–ª–µ Input
+By.xpath: //select[contains(@class,'x-form-focus')]&–í—ã–ø–∞–¥–∞—é—â–∏–π —Å–ø–∏—Å–æ–∫ Select
+By.xpath: //textarea[contains(@class, 'x-form-focus')]&–ü–æ–ª–µTextArea
+By.xpath: //a[@href='/stargate/workspace/admanagement/']&–ü—É–Ω–∫—Ç –º–µ–Ω—é –û–±—ä—è–≤–ª–µ–Ω–∏—è stargate
+By.xpath: //a[@href='/stargate/?logout=true']&–°—Å—ã–ª–∫–∞ –≤—ã—Ö–æ–¥ stargate
+By.xpath: //a[@href='/stargate/workspace/admanagement/catalog/']/span[contains(text(),'–ö–∞—Ç–∞–ª–æ–≥ –æ–±—ä—è–≤–ª–µ–Ω–∏–π')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –ö–∞—Ç–∞–ª–æ–≥ –æ–±—ä—è–≤–ª–µ–Ω–∏–π stargate 
+By.xpath: //a[@href='/stargate/workspace/admanagement/premium/']/span[contains(text(),'–°–æ–∑–¥–∞—Ç—å –ø—Ä–µ–º–∏—É–º')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –°–æ–∑–¥–∞—Ç—å –ø—Ä–µ–º–∏—É–º stargate
+By.xpath: //a[@href='/stargate/workspace/admanagement/find/']/span[contains(text(),'–ù–∞–π—Ç–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏—è')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –ù–∞–π—Ç–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏–µ stargate
+By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'–ê–≤—Ç–æ –∏ –º–æ—Ç–æ')]&–ü—É–Ω–∫—Ç –º–µ–Ω—é –ê–≤—Ç–æ –∏ –º–æ—Ç–æ stargate
+By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'–õ–µ–≥–∫–æ–≤—ã–µ –∞–≤—Ç–æ–º–æ–±–∏–ª–∏')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –õ–µ–≥–∫–æ–≤—ã–µ –∞–≤—Ç–æ–º–æ–±–∏–ª–∏ stargate
+By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'–ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º stargate
+By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'–∞–≤—Ç–æ —Å –ø—Ä–æ–±–µ–≥–æ–º')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –∞–≤—Ç–æ —Å –ø—Ä–æ–±–µ–≥–æ–º stargate
+By.xpath: //a[@class='x-tree-node-anchor']/span[contains(text(),'–û—Ç–¥–∞–º –¥–∞—Ä–æ–º')]&–ü—É–Ω–∫—Ç –º–µ–Ω—é –û—Ç–¥–∞–º –¥–∞—Ä–æ–º stargate
+By.xpath: //ul[@class='x-tree-root-ct x-tree-lines']//ul/li[25]/ul//a[@class='x-tree-node-anchor']/span[contains(text(),'–û—Ç–¥–∞–º –¥–∞—Ä–æ–º')]&–ü–æ–¥–ø—É–Ω–∫—Ç –º–µ–Ω—é –û—Ç–¥–∞–º –¥–∞—Ä–æ–º stargate
+By.xpath: //button[@class='x-btn-text icon-plus' and contains(text(),'–°–æ–∑–¥–∞—Ç—å')]&–ö–Ω–æ–ø–∫–∞ –°–æ–∑–¥–∞—Ç—å –æ–±—ã—á–Ω–æ–µ –æ–±—ä—è–≤–ª–µ–Ω–∏–µ stargate
+By.xpath: //span[@class='x-window-header-text' and contains(text(),'–†–µ–¥–∞–∫—Ç–∏—Ä–æ–≤–∞–Ω–∏–µ')]&–ó–∞–≥–æ–ª–æ–≤–æ–∫ –æ–∫–Ω–∞ –≤—ã–±–æ—Ä–∞ —Ä–µ–≥–∏–æ–Ω–∞ stargate
+By.xpath: //fieldset[@class=' x-fieldset x-fieldset-noborder x-form-label-left']//input[2]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ä–µ–≥–∏–æ–Ω–∞ –æ–∫–Ω–∞ –≤—ã–±–æ—Ä–∞ —Ä–µ–≥–∏–æ–Ω–∞ stargate	
+By.xpath: //div[@class='x-window-footer']//button[contains(text(),'–°–æ—Ö—Ä–∞–Ω–∏—Ç—å')]&–ö–Ω–æ–ø–∫–∞ —Å–æ—Ö—Ä–∞–Ω–∏—Ç—å –æ–∫–Ω–∞ –≤—ã–±–æ—Ä–∞ —Ä–µ–≥–∏–æ–Ω–∞ stargate
+By.xpath: //div[@class='x-combo-list-inner']/div[contains(text(),'–ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º ')]&–¢–µ–∫—Å—Ç –Ω–∞–∑–≤–∞–Ω–∏–µ —Ä—É–±—Ä–∏–∫–∏ –ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º –≤ –≤—ã–ø–∞–¥–∞—é—â–µ–º —Å–ø–∏—Å–∫–µ –ü–µ—Ä–µ–º–µ—Å—Ç–∏—Ç—å –≤ —Ä—É–±—Ä–∏–∫—É stargate
+By.xpath: //div[@class='x-panel-bbar x-panel-bbar-noborder']//button[contains(text(),'–°–æ—Ö—Ä–∞–Ω–∏—Ç—å')]&–ö–Ω–æ–ø–∫–∞ —Å–æ—Ö—Ä–∞–Ω–∏—Ç—å –ø—Ä–µ–º–∏—É–º –æ–±—ä—è–≤–ª–µ–Ω–∏–µ stargate
+By.xpath: //div[@class='x-tab-panel-footer']//button[contains(text(),'–°–æ—Ö—Ä–∞–Ω–∏—Ç—å')]&–ö–Ω–æ–ø–∫–∞ —Å–æ—Ö—Ä–∞–Ω–∏—Ç—å –æ–±—ã—á–Ω–æ–µ –æ–±—ä—è–≤–ª–µ–Ω–∏–µ stargate
+By.xpath: //div[@class='x-window x-window-plain x-window-dlg']//button[contains(text(),'OK')]&–ö–Ω–æ–ø–∫–∞ –û–ö –ø–æ—Å–ª–µ —Å–æ–∑–¥–∞–Ω–∏—è –ø—Ä–µ–º–∏—É–º–∞ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–†–µ–≥–∏–æ–Ω')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ä–µ–≥–∏–æ–Ω stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–¢–µ–∫—Å—Ç –æ–±—ä—è–≤–ª–µ–Ω–∏—è')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ç–µ–∫—Å—Ç –æ–±—ä—è–≤–ª–µ–Ω–∏—è stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–¶–µ–Ω–∞')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ü–µ–Ω—ã stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–í–∞–ª—é—Ç–∞')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –≤–∞–ª—é—Ç—ã stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–í–ª–∞–¥–µ–ª–µ—Ü –æ–±—ä—è–≤–ª–µ–Ω–∏—è')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ email –≤–ª–∞–¥–µ–ª—å—Ü–∞ –æ–±—ä—è–≤–ª–µ–Ω–∏—è stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–ú–∞—Ä–∫–∞')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –º–∞—Ä–∫–∏ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–ú–æ–¥–µ–ª—å')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –º–æ–¥–µ–ª–∏ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–ì–æ–¥ –≤—ã–ø—É—Å–∫–∞')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –≥–æ–¥–∞ –≤—ã–ø—É—Å–∫–∞ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–¢–∏–ø –∫—É–∑–æ–≤–∞')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ç–∏–ø–∞ –∫—É–∑–æ–≤–∞ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–¢–∏–ø —Ç—Ä–∞–Ω—Å–º–∏—Å—Å–∏–∏')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ç–∏–ø–∞ —Ç—Ä–∞–Ω—Å–º–∏—Å—Å–∏–∏ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–°—Ç–∞—Ç—É—Å –º–æ–¥–µ—Ä–∞—Ü–∏–∏')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Å—Ç–∞—Ç—É—Å–∞ –º–æ–¥–µ—Ä–∞—Ü–∏–∏ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–ê–∫—Ç–∏–≤–Ω–æ—Å—Ç—å –æ–±—ä—è–≤–ª–µ–Ω–∏—è')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Å—Ç–∞—Ç—É—Å–∞ –∞–∫—Ç–∏–≤–Ω–æ—Å—Ç–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏—è stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–ó–∞–≥–æ–ª–æ–≤–æ–∫')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –∑–∞–≥–æ–ª–æ–≤–∫–∞ stargate
+By.xpath: //div[@class='x-grid3-cell-inner x-grid3-col-title' and contains(text(),'–¢–µ–∫—Å—Ç')]&–ü–æ–ª–µ –≤–≤–æ–¥–∞ —Ç–µ–∫—Å—Ç–∞(–û—Ç–¥–∞–º –¥–∞—Ä–æ–º) stargate
+By.xpath: //div[contains(text(),'–û—Ç–¥–∞–º –¥–∞—Ä–æ–º')]&–ü–æ–ª–µ —Å —Ç–µ–∫—Å—Ç–æ–º –û—Ç–¥–∞–º –¥–∞—Ä–æ–º stargate
+By.xpath: //div[contains(text(),'–ê–≤—Ç–æ –∏ –º–æ—Ç–æ -> –õ–µ–≥–∫–æ–≤—ã–µ –∞–≤—Ç–æ–º–æ–±–∏–ª–∏ -> –ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º')]&–ü–æ–ª–µ —Å —Ç–µ–∫—Å—Ç–æ–º –ê–≤—Ç–æ –∏ –º–æ—Ç–æ -> –õ–µ–≥–∫–æ–≤—ã–µ –∞–≤—Ç–æ–º–æ–±–∏–ª–∏ -> –ê–≤—Ç–æ–º–æ–±–∏–ª–∏ —Å –ø—Ä–æ–±–µ–≥–æ–º stargate
+By.xpath: //td[contains(@class,'x-grid3-cell-selected')]&Div –≤–≤–æ–¥–∞ –¥–∞–Ω–Ω—ã—Ö –ø—Ä–∏ —Å–æ–∑–¥–∞–Ω–∏–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏–π stargate
+By.xpath: //label[@class='x-form-item-label' and contains(text(),'ID:')]& –ü–æ–ª–µ –≤–≤–æ–¥–∞ ID(—Ñ–æ—Ä–º–∞ –ø–æ–∏—Å–∫–∞) stargate
+By.xpath: //div[@class='x-column-inner']//input[1]& –ü–æ–ª–µ –≤–≤–æ–¥–∞ ID(—Ñ–æ—Ä–º–∞ –ø–æ–∏—Å–∫–∞) stargate
+By.xpath: //td[@class='x-grid3-col x-grid3-cell x-grid3-td-expander x-grid3-cell-first ']&–°—Ç—Ä–æ–∫–∞ –Ω–∞–π–¥–µ–Ω–Ω–æ–≥–æ –æ–±—ä–≤–ª–µ–Ω–∏—è(—Ñ–æ—Ä–º–∞ –ø–æ–∏—Å–∫–∞) stargate
+By.xpath: //button[@class='x-btn-text' and contains(text(),'–°–æ—Ö—Ä–∞–Ω–∏—Ç—å')]&–ö–Ω–æ–ø–∫–∞ –°–æ—Ö—Ä–∞–Ω–∏—Ç—å(—Ñ–æ—Ä–º–∞ –ø–æ–∏—Å–∫–∞) stargate
+By.id: a_login& –°—Å—ã–ª–∫–∞ –≤—Ö–æ–¥ Irr 
+By.xpath: //div[@class='popupRegions']&–ó–∞–≥–æ–ª–æ–≤–æ–∫ –æ–∫–Ω–∞ –≤—ã–±–æ—Ä–∞ —Ä–µ–≥–∏–æ–Ω–∞ Irr 
+By.xpath: //div[@class='button-style btn-a']/a&–ö–Ω–æ–ø–∫–∞ –û–ö –æ–∫–Ω–∞ –≤—ã–±–æ—Ä–∞ —Ä–µ–≥–∏–æ–Ω–∞ Irr
+By.xpath: //div[@id='popup-wrap']//input[@name='password']&–ü–æ–ª–µ –≤–≤–æ–¥–∞ –ø–∞—Ä–æ–ª—è Irr
+By.xpath: //div[@id='popup-wrap']//input[@class='login']&–ü–æ–ª—è –≤–≤–æ–¥–∞ –ª–æ–≥–∏–Ω–∞ Irr
+By.xpath: //div[@id='popup-wrap']//a[@class='loginFormSubmit']&–ö–Ω–æ–ø–∫–∞ –≤–æ–π—Ç–∏ Irr
+By.xpath: //a[@id='load_user_ads_counter']/span[2]&–°—Å—ã–ª–∫–∞ –º–æ–π –∫–∞–±–∏–Ω–µ—Ç Irr
+By.xpath: //div[@id='block_links_lk']/ul/li/a&–°—Å—ã–ª–∫–∞ –º–æ–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏—è Irr
+By.id: checkAll&–ß–µ–∫–±–æ–∫—Å –≤—ã–±—Ä–∞—Ç—å –≤—Å–µ IrrLK
+By.id: groupActionDeleteSelected&–°—Å—ã–ª–∫–∞ —É–¥–∞–ª–∏—Ç—å –≤—Å–µ IrrLK
+By.id: groupActionDeactivateSelected&–°—Å—ã–ª–∫–∞ –¥–µ–∞–∫—Ç–∏–≤–∏—Ä–æ–≤–∞—Ç—å –≤—Å–µ IrrLK
+By.xpath: //div[@id='minWidth']//li[@class='all'][1]/div[2]&–¢–µ–∫—Å—Ç –≤—Å–µ —Å—Ç–∞—Ç—É—Å—ã IrrLK
+By.xpath: //div[@id='minWidth']//li[2]/a/div&–°—Å—ã–ª–∫–∞ –∞–∫—Ç–∏–≤–Ω—ã–µ IrrLK
+By.xpath: //div[@id='minWidth']//li[3]/a/div&–°—Å—ã–ª–∫–∞ –Ω–µ–∞–∫—Ç–∏–≤–Ω—ã–µ IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//li[@class='all']/div[2]&–¢–µ–∫—Å—Ç –≤—Å–µ –∫–∞—Ç–µ–≥–æ—Ä–∏–∏ IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/']/div&–°—Å—ã–ª–∫–∞ –ê–≤—Ç–æ –∏ –º–æ—Ç–æ(–±–ª–æ–∫ —Å—Ç–∞—Ç—É—Å) IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div&–°—Å—ã–ª–∫–∞ –ª–µ–≥–∫–æ–≤—ã–µ –∞–≤—Ç–æ(–±–ª–æ–∫ —Å—Ç–∞—Ç—É—Å) IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div&–°—Å—ã–ª–∫–∞ –∞–≤—Ç–æ —Å –ø—Ä–æ–±–µ–≥–æ–º(–±–ª–æ–∫ —Å—Ç–∞—Ç—É—Å) IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div&–°—Å—ã–ª–∫–∞ –æ—Ç–¥–∞–º –¥–∞—Ä–æ–º(–±–ª–æ–∫ —Å—Ç–∞—Ç—É—Å) IrrLK
+By.id: logout&–°—Å—ã–ª–∫–∞ –≤—ã—Ö–æ–¥ IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div&–°—Å—ã–ª–∫–∞ –ù–µ–¥–≤–∏–∂–∏–º–æ—Å—Ç—å IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div&–°—Å—ã–ª–∫–∞ –ö–≤–∞—Ä—Ç–∏—Ä—ã IrrLK
+By.xpath: //div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div&–°—Å—ã–ª–∫–∞ –í—Ç–æ—Ä–∏—á–Ω—ã–π —Ä—ã–Ω–æ–∫ IrrLK

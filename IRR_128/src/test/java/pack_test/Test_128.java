@@ -25,7 +25,7 @@ public class Test_128 extends TestConstruct
 	Page_IrrPrivateOffice pageIrrPrOf;
 	Page_IrrMain pageIrr2 = PageFactory.initElements(GetWebDriver(2), Page_IrrMain.class); //test_128_2
 	Page_IrrPrivateOffice pageIrrPrOf2;
-	private String sIdAdvert = "247859253";
+	private String sIdAdvert;
 	private ArrayListDataStep list;
 	
 	
@@ -50,71 +50,116 @@ public class Test_128 extends TestConstruct
 	
 	
 	@Test(invocationCount = 1)
-	@Parameters({ "sUrl", "sLogin", "sPassword" })
-	public void TestStart(String sUrl, String sLogin, String sPassword) throws ExceptFailTest
+	@Parameters({ "sUrl", "sLogin", "sPassword", "sNumberSteps" })
+	public void TestStart(String sUrl, String sLogin, String sPassword, String sNumberSteps) throws ExceptFailTest
 	{
 		print("Start @Test");
 		
 		try
 		{
-////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ //test_128_1
-			print("Пользователь test_128_1");
-			wLog.WriteString(1, "Пользователь test_128_1");
+////////////////////////////////////////////////////////// Получаем номер шагов, если такого блока с номерами нет то выходим
+			int j=0, k=0;
+			
+			//  Шаги 0 - 17     sNumberSteps=1
+			//  Шаги 18 - 49    sNumberSteps=2
+			//  Шаги 50 - 81    sNumberSteps=3
+			//  Шаги 82 - 113   sNumberSteps=4
+			//  Шаги 114 - 141  sNumberSteps=5
+			//  Шаги 142 - 173  sNumberSteps=6
+			//  Шаги 174 - 205  sNumberSteps=7
+			//  Шаги 206 - 236  sNumberSteps=8
+			
+			switch(sNumberSteps) 
+			{
+			case "1":
+				j=0; k=18;
+				break;
+			case "2":
+				j=18; k=50;
+				break;	
+			case "3":
+				j=50; k=82;
+				break;
+			case "4":
+				j=82; k=114;
+				break;
+			case "5":
+				j=114; k=142;
+				break;
+			case "6":
+				j=142; k=174;
+				break;
+			case "7":
+				j=174; k=206;
+				break;
+			case "8":
+				j=206; k=237;
+				break;
+			default:
+				print("Tеста с таким блоком номеров шагов " + sNumberSteps +" не существует. Номера блоков от 1 до 8");
+				wLog.WriteString(2, "Tеста с таким блоком номеров шагов " + sNumberSteps +" не существует. Номера блоков от 1 до 8");
+				throw new ExceptFailTest("Tеста с таким блоком номеров шагов " + sNumberSteps +" не существует. Номера блоков от 1 до 8");		
+			}
+			
+			
+			
+////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ //Пользователь 1
+			
+			print("Пользователь " + Proper.GetProperty("email"+sNumberSteps));
+			wLog.WriteString(1, "Пользователь " + Proper.GetProperty("email"+sNumberSteps));
 			pageIrr.GetWriterLog(wLog);
-			pageIrr.OpenPage("");
+			pageIrr.OpenPage(sUrl);
 			pageIrr.OpenFormAuthorization();
-			pageIrrPrOf = pageIrr.LoginOn("login_1");
+			pageIrrPrOf = pageIrr.LoginOn("email"+sNumberSteps);
 			
 			pageIrrPrOf.GetWriterLog(wLog);
-			/*pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
+			pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
 			pageIrrPrOf.ReloadPage(true);
 			pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
-			pageIrrPrOf.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для test_128_1");
-	*/
-////////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ //test_128_2
+			pageIrrPrOf.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для " + Proper.GetProperty("email"+sNumberSteps));
+	
+////////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ //Пользователь 2
 			
-			
-			print("Пользователь test_128_2");
-			wLog.WriteString(1, "Пользователь test_128_2");
+		
+			print("Пользователь " + Proper.GetProperty("email2"+sNumberSteps));
+			wLog.WriteString(1, "Пользователь " + Proper.GetProperty("email2"+sNumberSteps));
 			pageIrr2.GetWriterLog(wLog);
-			pageIrr2.OpenPage("");
+			pageIrr2.OpenPage(sUrl);
 			pageIrr2.OpenFormAuthorization();
-			pageIrrPrOf2 = pageIrr2.LoginOn("login_2");
+			pageIrrPrOf2 = pageIrr2.LoginOn("email2"+sNumberSteps);
 			
 			pageIrrPrOf2.GetWriterLog(wLog);
-			/*pageIrrPrOf2.DeleteAllAdvert(); //Удалям все объявления
+			pageIrrPrOf2.DeleteAllAdvert(); //Удалям все объявления
 			pageIrrPrOf2.ReloadPage(true);
 			pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
-			pageIrrPrOf2.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для test_128_2");
-			*/
+			pageIrrPrOf2.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для " + Proper.GetProperty("email2"+sNumberSteps));
+			
 			
 	
 ///////////////////////////////////////////////////////// Создаем объявление БО
 			
 			pageLoginStargate.GetWriterLog(wLog);
-			pageLoginStargate.OpenPage(sUrl);
+			pageLoginStargate.OpenPage(sUrl+"/stargate/");
 			pageLoginStargate.CheckElements();
 			pageLoginStargate.TypeLoginPassword(sLogin, sPassword);
 			pageStargate = pageLoginStargate.EnterStargate();
 			pageStargate.GetWriterLog(wLog);
-			//pageStargate.OpenFormCreateAdvertAuto();
-			//pageStargate.InputDataAuto();
-
-
-////////////////////////////////////////////////////////			
+			pageStargate.OpenFormCreateAdvertAuto();
+			pageStargate.InputDataAuto(sNumberSteps);		
 			
 ////////////////////////////////////////////////////////////  Копируем ID объявления
 			
-			//sIdAdvert = pageIrrPrOf.GetIdAdvert();
-			sIdAdvert = "247955855";
-			print(sIdAdvert);
+			sIdAdvert = pageIrrPrOf.GetIdAdvert();
+			//sIdAdvert = "248110901";
+			print(sIdAdvert);		
 			
-////////////////////////////////////////////////////////////			
-			
-////////////////////////////////////////////////////////////  Заходим в БО вносим изменения  Шаг 1
+////////////////////////////////////////////////////////////  Заходим в БО вносим изменения  Шаги
 			
 			
-			for(int i=171; i<list.GetSizeList(); i++)
+			
+			
+			//for(int i=j; i<list.GetSizeList(); i++)
+			for(int i=j; i<k; i++)
 			{
 				print("ШАГ " + i);
 				wLog.WriteString(0, "ШАГ " + i);
@@ -128,7 +173,7 @@ public class Test_128 extends TestConstruct
 				//  region_old - 4          // region_new - 5	
 				//  actionOfAdvert_old - 6	// actionOfAdvert_new - 7
 				
-				//  user_128_1 (шаг 1-18)
+				//  user_128_1 (шаг 0-17)
 				//  sMyAdvert - 8 
 				//  sAllStatus - 9 			// sActiveS - 10         	// sNotActiveS - 11
 				//  sAllList - 12			// sNotActiveL - 13			// sActiveL - 14
@@ -137,7 +182,7 @@ public class Test_128 extends TestConstruct
 				//  sMainRealt - 19			// sRealtSell - 20			// sRealtSecond - 21
 				//  nOperation - 22
 				
-				// 	user_128_2 (шаг 19-)
+				// 	user_128_2 (шаг 18-49;82-113;142-173;206-236)
 				//  sMyAdvert - 23 
 				//  sAllStatus - 24			// sActiveS - 25         	// sNotActiveS - 26
 				//  sAllList - 27			// sNotActiveL - 28			// sActiveL - 29
@@ -150,19 +195,19 @@ public class Test_128 extends TestConstruct
 				pageStargate.FindAdvert(sIdAdvert);
 				
 				
-				pageStargate.ChangeDataForAdvert(sMas[1], sMas[3], sMas[5], sMas[7], sMas[22],
-						"изменение владельца объявления с " + Proper.GetProperty(sMas[0]).toUpperCase() + " на " + Proper.GetProperty(sMas[1]).toUpperCase() + "\r\n" +
+				pageStargate.ChangeDataForAdvert(sMas[0]+sNumberSteps, sMas[1]+sNumberSteps, sMas[2], sMas[3], sMas[4], sMas[5], sMas[6], sMas[7], sMas[22],
+						"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
 						"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
 						"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 						"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
 				
 				wLog.WriteString(0, "</br>");
-				print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ USER_128_1");
-				wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ USER_128_1");
+				print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
+				wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
 				pageIrrPrOf.ReloadPage(true);
 				pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
 				pageIrrPrOf.CheckAllCountersAfterChangeData(sMas[8], sMas[9], sMas[10], sMas[11], sMas[12], sMas[13], sMas[14], sMas[15], sMas[16], sMas[17], sMas[18], sMas[19], sMas[20], sMas[21], 
-						"изменение владельца объявления с " + Proper.GetProperty(sMas[0]).toUpperCase() + " на " + Proper.GetProperty(sMas[1]).toUpperCase() + "\r\n" +
+						"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
 						"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
 						"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 						"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
@@ -170,17 +215,18 @@ public class Test_128 extends TestConstruct
 				if( ((i > 17) && (i < 50)) || ((i > 81) && (i < 114)) || ((i > 141) && (i < 174)) || (i > 205))
 				{
 					wLog.WriteString(0, "</br>");
-					print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ USER_128_2");
-					wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ USER_128_2");
+					print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
+					wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
 					pageIrrPrOf2.ReloadPage(false);
 					pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
 					pageIrrPrOf2.CheckAllCountersAfterChangeData(sMas[23], sMas[24], sMas[25], sMas[26], sMas[27], sMas[28], sMas[29], sMas[30], sMas[31], sMas[32], sMas[33], sMas[34], sMas[35], sMas[36], 
-							"изменение владельца объявления с " + Proper.GetProperty(sMas[0]).toUpperCase() + " на " + Proper.GetProperty(sMas[1]).toUpperCase() + "\r\n" +
+							"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
 							"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
 							"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 							"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
 				}
 				wLog.WriteString(0, "</br>");
+				
 			}
 
 //////////////////////////////////////////////////////////////
