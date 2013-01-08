@@ -50,8 +50,8 @@ public class Test_128 extends TestConstruct
 	
 	
 	@Test(invocationCount = 1)
-	@Parameters({ "sUrl", "sLogin", "sPassword", "sNumberSteps" })
-	public void TestStart(String sUrl, String sLogin, String sPassword, String sNumberSteps) throws ExceptFailTest
+	@Parameters({ "sUrl", "sLogin", "sPassword", "sPasswordIrr", "sNumberSteps" })
+	public void TestStart(String sUrl, String sLogin, String sPassword, String sPasswordIrr, String sNumberSteps) throws ExceptFailTest
 	{
 		print("Start @Test");
 		
@@ -110,7 +110,7 @@ public class Test_128 extends TestConstruct
 			pageIrr.GetWriterLog(wLog);
 			pageIrr.OpenPage(sUrl);
 			pageIrr.OpenFormAuthorization();
-			pageIrrPrOf = pageIrr.LoginOn("email"+sNumberSteps);
+			pageIrrPrOf = pageIrr.LoginOn("email"+sNumberSteps, sPasswordIrr);
 			
 			pageIrrPrOf.GetWriterLog(wLog);
 			pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
@@ -126,7 +126,7 @@ public class Test_128 extends TestConstruct
 			pageIrr2.GetWriterLog(wLog);
 			pageIrr2.OpenPage(sUrl);
 			pageIrr2.OpenFormAuthorization();
-			pageIrrPrOf2 = pageIrr2.LoginOn("email2"+sNumberSteps);
+			pageIrrPrOf2 = pageIrr2.LoginOn("email2"+sNumberSteps, sPasswordIrr);
 			
 			pageIrrPrOf2.GetWriterLog(wLog);
 			pageIrrPrOf2.DeleteAllAdvert(); //Удалям все объявления
