@@ -31,7 +31,7 @@
             	<suiteXmlFile>testng.xml</suiteXmlFile>
           	</suiteXmlFiles>
           	<systemPropertyVariables>
-				<sUrl>http://irr.ru</sUrl>
+				<sUrl>${sUrl}</sUrl>
 				<sLogin>dsobol</sLogin>
 				<sPassword>555555</sPassword>
 				<sPasswordIrr>retry2</sPasswordIrr>
