@@ -34,6 +34,7 @@
 				<sUrl>http://irr.ru</sUrl>
 				<sLogin>dsobol</sLogin>
 				<sPassword>555555</sPassword>
+				<sPasswordIrr>retry2</sPasswordIrr>
 				<sNumberSteps>4</sNumberSteps>
 			</systemPropertyVariables>
         </configuration>
