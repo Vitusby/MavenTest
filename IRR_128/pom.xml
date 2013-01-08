@@ -32,10 +32,10 @@
           	</suiteXmlFiles>
           	<systemPropertyVariables>
 				<sUrl>${sUrl}</sUrl>
-				<sLogin>dsobol</sLogin>
-				<sPassword>555555</sPassword>
-				<sPasswordIrr>retry2</sPasswordIrr>
-				<sNumberSteps>4</sNumberSteps>
+				<sLogin>${sLogin}</sLogin>
+   				<sPassword>${sPassword}</sPassword>
+    			<sPasswordIrr>${sPasswordIrr}</sPasswordIrr>
+   				<sNumberSteps>${sNumberSteps}</sNumberSteps>
 			</systemPropertyVariables>
         </configuration>
       </plugin>
