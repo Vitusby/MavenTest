@@ -13,7 +13,7 @@ public class TestTest {
   {
 	  	String s = Proper.GetProperty("url");
 	  	System.out.println(s);
-	  	System.out.println("Параметр из Testng: "+ url);
+	  	System.out.println("Start Testng: "+ url);
 	  	System.out.println("Start Test");
 		WebDriver driver = new FirefoxDriver();
 		driver.get(url);
