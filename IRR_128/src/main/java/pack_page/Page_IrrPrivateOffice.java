@@ -171,7 +171,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[8] = -99999;
-			sMasCounters[8] = "нет";
+			sMasCounters[8] = "No";
 		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/']/div", sMas3[9]))
 		{
@@ -181,7 +181,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[9] = -99999;
-			sMasCounters[9] = "нет";
+			sMasCounters[9] = "No";
 		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/cars/passenger/used/']/div", sMas3[10]))
 		{
@@ -191,7 +191,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[10] = -99999;
-			sMasCounters[10] = "нет";
+			sMasCounters[10] = "No";
 		}
 		// Для рубрики Недвижимость
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/']/div", sMas3[11]))
@@ -202,7 +202,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[11] = -99999;
-			sMasCounters[11] = "нет";
+			sMasCounters[11] = "No";
 		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/']/div", sMas3[12]))
 		{
@@ -212,7 +212,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[12] = -99999;
-			sMasCounters[12] = "нет";
+			sMasCounters[12] = "No";
 		}
 		if(CheckLink("//div[@class='b-blockInf'][2]//a[@href='/myadverts/real-estate/apartments-sale/secondary/']/div", sMas3[13]))
 		{
@@ -222,7 +222,7 @@ public class Page_IrrPrivateOffice extends Page
 		else
 		{
 			iMas3[13] = -99999;
-			sMasCounters[13] = "нет";
+			sMasCounters[13] = "No";
 		}
 		
 		clsStatusAndCategoryString = new HM<String,String>(sMas3, sMasCounters);

@@ -116,7 +116,7 @@ public class Test_128 extends TestConstruct
 			pageIrrPrOf.DeleteAllAdvert(); //Удалям все объявления
 			pageIrrPrOf.ReloadPage(true);
 			pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
-			pageIrrPrOf.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для " + Proper.GetProperty("email"+sNumberSteps));
+			pageIrrPrOf.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "No", "No", "No", "No", "No", "No", "Удаление всех объявлений для " + Proper.GetProperty("email"+sNumberSteps));
 	
 ////////////////////////////////////////////////////////////	Заходим и удаляем все объявления , проверяем что удалено САЙТ //Пользователь 2
 			
@@ -132,7 +132,7 @@ public class Test_128 extends TestConstruct
 			pageIrrPrOf2.DeleteAllAdvert(); //Удалям все объявления
 			pageIrrPrOf2.ReloadPage(true);
 			pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
-			pageIrrPrOf2.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "нет", "нет", "нет", "нет", "нет", "нет", "Удаление всех объявлений для " + Proper.GetProperty("email2"+sNumberSteps));
+			pageIrrPrOf2.CheckAllCountersAfterChangeData("0", "0", "0", "0", "0", "0", "0", "0", "No", "No", "No", "No", "No", "No", "Удаление всех объявлений для " + Proper.GetProperty("email2"+sNumberSteps));
 			
 			
 	

@@ -71,7 +71,7 @@ public class Page_IrrMain extends Page
 		
 	}
 	
-	public Page_IrrPrivateOffice LoginOn(String sLogin) throws ExceptFailTest
+	public Page_IrrPrivateOffice LoginOn(String sLogin, String sPasswordIrr) throws ExceptFailTest
 	{
 		Sleep(1000);
 		wLog.WriteString(1, "Вводим логин");
@@ -81,7 +81,10 @@ public class Page_IrrMain extends Page
 		wLog.WriteString(1, "Вводим пароль");
 		System.out.println("Вводим пароль");
 		CheckElementPresent(1, "//div[@id='popup-wrap']//input[@name='password']");
-		wFieldPasswordForm.sendKeys(Proper.GetProperty("passwordIRR"));	
+		
+		//wFieldPasswordForm.sendKeys(Proper.GetProperty("passwordIRR"));	
+		wFieldPasswordForm.sendKeys(sPasswordIrr);
+		
 		CheckElementPresent(1, "//div[@id='popup-wrap']//a[@class='loginFormSubmit']");
 		wButtonEnterForm.click();
 		wLog.WriteString(1, "Нажимаем войти");
@@ -94,7 +97,8 @@ public class Page_IrrMain extends Page
 		Sleep(1000);
 		CheckElementPresent(1,"//div[@id='block_links_lk']/ul/li/a");	
 		wLinkMyAdverts.click();
-		driver.get(Proper.GetProperty("urlIrr")+"myadverts/");
+		//driver.get(Proper.GetProperty("urlIrr")+"myadverts/");
+		driver.get(driver.getCurrentUrl()+"myadverts/");
 		return PageFactory.initElements(driver, Page_IrrPrivateOffice.class);
 	}
 
