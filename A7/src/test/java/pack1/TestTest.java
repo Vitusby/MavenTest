@@ -54,7 +54,7 @@ public class TestTest {
 			
 			//exc.printStackTrace();
 			System.out.println("перед ассертом");
-			fail("gdfgfg");
+			//fail("gdfgfg");
 			//System.out.println("после ассерта");
 			//throw new ExceptFailTest(exc.toString());
 	}
