@@ -42,7 +42,7 @@ public class TestTest {
 		  	System.out.println("Start Test");
 			WebDriver driver = new FirefoxDriver();
 			driver.get(s);
-			WebElement wElement = driver.findElement(By.id("uname"));
+			WebElement wElement = driver.findElement(By.id("uname3"));
 			wElement.sendKeys("dfsdfsdfsd");
 			driver.quit();
 			System.out.println("Close Test");
@@ -51,11 +51,11 @@ public class TestTest {
 		{
 			System.out.println("Что то случилось непредвиденное");
 			
-			exc.printStackTrace();
+			//exc.printStackTrace();
 			System.out.println("перед ассертом");
 			assertTrue(false);
-			System.out.println("после ассерта");
-			throw new ExceptFailTest(exc.toString());
+			//System.out.println("после ассерта");
+			//throw new ExceptFailTest(exc.toString());
 		}
 		
   }
