@@ -1,6 +1,6 @@
 package pack1;
 
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,29 +34,34 @@ public class TestTest {
   //@Parameters({ "url" })
   public void Test(/*String url*/) throws ExceptFailTest
   {
+	  WebDriver driver = new FirefoxDriver();
 	  try 
 	  {
 		  	String s = Proper.GetProperty("url");
 		  	System.out.println(s);
 		  	System.out.println("Start Testng: "+ s);
 		  	System.out.println("Start Test");
-			WebDriver driver = new FirefoxDriver();
 			driver.get(s);
-			WebElement wElement = driver.findElement(By.id("uname3"));
+			WebElement wElement = driver.findElement(By.id("uname4"));
 			wElement.sendKeys("dfsdfsdfsd");
-			driver.quit();
-			System.out.println("Close Test");
-	  }
-		catch(Exception exc)
-		{
-			System.out.println("Что то случилось непредвиденное");
+			//assertTrue(false);
+			//driver.quit();
+			//System.out.println("Close Test");
+	 //}
+	//catch(Exception exc)
+	//{
+			System.out.println("Случилось что то непредвиденное");
 			
 			//exc.printStackTrace();
 			System.out.println("перед ассертом");
-			assertTrue(false);
+			fail("gdfgfg");
 			//System.out.println("после ассерта");
 			//throw new ExceptFailTest(exc.toString());
-		}
+	}
+	finally
+	{
+		  driver.quit();
+	}
 		
   }
 }
