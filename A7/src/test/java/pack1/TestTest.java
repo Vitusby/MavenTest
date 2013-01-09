@@ -53,7 +53,7 @@ public class TestTest {
 			
 			exc.printStackTrace();
 			System.out.println("перед ассертом");
-			//assertTrue(false);
+			assertTrue(false);
 			System.out.println("после ассерта");
 			throw new ExceptFailTest(exc.toString());
 		}
