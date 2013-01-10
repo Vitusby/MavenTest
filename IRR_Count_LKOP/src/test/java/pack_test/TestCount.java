@@ -131,7 +131,6 @@ public class TestCount extends TestConstruct
 		{
 			System.out.println("Что то случилось непредвиденное");
 			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
-			fail("ggfgdgdgdfg34");
 			throw new ExceptFailTest(exc.toString());
 		}
 		finally
