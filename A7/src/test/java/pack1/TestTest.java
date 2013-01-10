@@ -44,7 +44,7 @@ public class TestTest {
 	  	System.out.println("Start Testng: "+ s);
 	  	System.out.println("Start Test");
 		driver.get(s);
-		WebElement wElement = driver.findElement(By.id("uname"));
+		WebElement wElement = driver.findElement(By.id("uname2"));
 		wElement.sendKeys("dfsdfsdfsd");
 		driver.quit();
 		System.out.println("Close Test");
@@ -60,16 +60,18 @@ public class TestTest {
 		System.out.println("после ассерта2");
 		driver.quit();
 		bFlag = false;
+		if(!bFlag)
+		fail("some error here2");
 		//throw new ExceptFailTest(exc.toString());
 	}	
   }
   
-  @AfterMethod(alwaysRun=true)
+  /*@AfterMethod(alwaysRun=true)
   public void tearDown() throws Exception
   {
       if(!bFlag)
       fail("some error here2");
-  }
+  }*/
   
   
   
