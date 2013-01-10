@@ -6,13 +6,17 @@ import pack_page.Page_Stargate;
 import pack_utils.ExceptFailTest;
 import pack_utils.HM;
 import pack_utils.Proper;
+import pack_utils.ResultTest;
 import pack_utils.WriterLog;
 
 import static org.testng.Assert.*;
+
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
 
 public class TestCount extends TestConstruct
 {
@@ -24,21 +28,25 @@ public class TestCount extends TestConstruct
 	HM<String, Integer> clStatusAdvert; // Статус
 	HM<String, Integer> clStatusAdvertCategory; //Категории
 	WriterLog wLog;//Лог
+	ResultTest testR;
 	
 	@BeforeTest
 	public void befTest() throws ExceptFailTest
 	{
 		System.out.println("Start @BeforeTest");
+		testR = new ResultTest();
 		wLog = new WriterLog();
 		wLog.SetUpWriterLog("Log_Result.html");
 		lthe.GetWritterLog(wLog);
 		System.out.println("End @BeforeTest");
 	};
 	
-	@AfterTest
+	@AfterTest(alwaysRun=true)
 	public void aftTest()
 	{
 		System.out.println("Start @AfterTest");
+		if(!testR.GetFlag())
+		fail("some error here");
 		System.out.println("End @AfterTest");
 	}
 	
@@ -127,12 +135,20 @@ public class TestCount extends TestConstruct
 			System.out.println("Тест завершен успешно");
 			wLog.WriteString(1, "Тест завершен успешно");
 		}
+		catch(ExceptFailTest exc)
+		{
+			System.out.println("Что то случилось непредвиденное 2");
+			wLog.WriteString(2, "Что то случилось непредвиденное 2: "+exc.toString());
+			testR.SetFlag(false);
+		}
 		catch(Exception exc)
 		{
 			System.out.println("Что то случилось непредвиденное");
 			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
-			throw new ExceptFailTest(exc.toString());
+			testR.SetFlag(false);
+			//throw new ExceptFailTest(exc.toString());
 		}
+		
 		finally
 		{
 			CaptureScreenshot();
