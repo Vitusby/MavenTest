@@ -44,7 +44,7 @@ public class TestTest {
 	  	System.out.println("Start Testng: "+ s);
 	  	System.out.println("Start Test");
 		driver.get(s);
-		WebElement wElement = driver.findElement(By.id("uname4"));
+		WebElement wElement = driver.findElement(By.id("uname"));
 		wElement.sendKeys("dfsdfsdfsd");
 		driver.quit();
 		System.out.println("Close Test");
