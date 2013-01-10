@@ -8,6 +8,7 @@ import pack_utils.HM;
 import pack_utils.Proper;
 import pack_utils.WriterLog;
 
+import static org.testng.Assert.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -130,6 +131,7 @@ public class TestCount extends TestConstruct
 		{
 			System.out.println("Что то случилось непредвиденное");
 			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
+			fail("Fail");
 			throw new ExceptFailTest(exc.toString());
 		}
 		finally
