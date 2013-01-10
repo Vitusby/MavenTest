@@ -45,8 +45,8 @@ public class TestCount extends TestConstruct
 	public void aftTest()
 	{
 		System.out.println("Start @AfterTest");
-		if(!testR.GetFlag())
-		fail("some error here");
+		//if(!testR.GetFlag())
+		//fail("some error here");
 		System.out.println("End @AfterTest");
 	}
 	
@@ -137,15 +137,17 @@ public class TestCount extends TestConstruct
 		}
 		catch(ExceptFailTest exc)
 		{
-			System.out.println("Что то случилось непредвиденное 2");
+			System.out.println("Что то случилось непредвиденное 2" +exc.toString());
 			wLog.WriteString(2, "Что то случилось непредвиденное 2: "+exc.toString());
-			testR.SetFlag(false);
+			fail("some error here2");
+			//testR.SetFlag(false);
 		}
 		catch(Exception exc)
 		{
-			System.out.println("Что то случилось непредвиденное");
+			System.out.println("Что то случилось непредвиденное" +exc.toString());
 			wLog.WriteString(2, "Что то случилось непредвиденное: "+exc.toString());
-			testR.SetFlag(false);
+			fail("some error here");
+			//testR.SetFlag(false);
 			//throw new ExceptFailTest(exc.toString());
 		}
 		
