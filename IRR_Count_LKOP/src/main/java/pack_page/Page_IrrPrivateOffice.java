@@ -1,5 +1,7 @@
 package pack_page;
 
+import static org.testng.Assert.fail;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -318,6 +320,9 @@ public class Page_IrrPrivateOffice extends Page
 	// Для блока Статус проверка соответствия счетчиков в блоке Статус кроичеству отображаемых объявлений на в  листинге 
 	public void CheckCountAndVisibleAdvert () throws ExceptFailTest // Работает для одной страницы. Проверка, что счетчики объявлений со всеми статусами равны соответсенно количеству отображаемых и снятыз в листинге Л
 	{
+		fail("Fail");
+		
+		
 		Sleep(ParseStringToInt(Proper.GetProperty("timeReloadPage"),"Не удалось перевести значение времени перезагрузки страницы timeReloadPage указаного в конфиге в число"));
 		driver.get(driver.getCurrentUrl());
 		wLog.WriteString(1, "ПРОВЕРЯЕМ, ЧТО ЗНАЧЕНИЕ СЧЕТЧИКОВ В БЛОКЕ \"СТАТУСЫ\" СООТВЕТСТВУЮТ" +
