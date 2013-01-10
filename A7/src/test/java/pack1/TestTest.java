@@ -44,7 +44,7 @@ public class TestTest {
 	  	System.out.println("Start Testng: "+ s);
 	  	System.out.println("Start Test");
 		driver.get(s);
-		WebElement wElement = driver.findElement(By.id("uname2"));
+		WebElement wElement = driver.findElement(By.id("uname"));
 		wElement.sendKeys("dfsdfsdfsd");
 		driver.quit();
 		System.out.println("Close Test");
@@ -57,7 +57,7 @@ public class TestTest {
 		exc.printStackTrace();
 		System.out.println("перед ассертом");
 		//assertTrue(false);
-		System.out.println("после ассерта");
+		System.out.println("после ассерта2");
 		driver.quit();
 		bFlag = false;
 		//throw new ExceptFailTest(exc.toString());
@@ -68,7 +68,7 @@ public class TestTest {
   public void tearDown() throws Exception
   {
       if(!bFlag)
-      fail("some error here");
+      fail("some error here2");
   }
   
   
