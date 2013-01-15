@@ -161,6 +161,9 @@ public class Test_128 extends TestConstruct
 			//for(int i=j; i<list.GetSizeList(); i++)
 			for(int i=j; i<k; i++)
 			{
+				int nAttemptReloadPageUserOne = 0;
+				int nAttemptReloadPageUserTwo = 0;
+				
 				print("ШАГ " + i);
 				wLog.WriteString(0, "ШАГ " + i);
 				
@@ -202,29 +205,90 @@ public class Test_128 extends TestConstruct
 						"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
 				
 				wLog.WriteString(0, "</br>");
-				print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
-				wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
-				pageIrrPrOf.ReloadPage(true);
-				pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
-				pageIrrPrOf.CheckAllCountersAfterChangeData(sMas[8], sMas[9], sMas[10], sMas[11], sMas[12], sMas[13], sMas[14], sMas[15], sMas[16], sMas[17], sMas[18], sMas[19], sMas[20], sMas[21], 
-						"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
-						"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
-						"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
-						"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
-				
-				if( ((i > 17) && (i < 50)) || ((i > 81) && (i < 114)) || ((i > 141) && (i < 174)) || (i > 205))
+///////////////////////////////////////////////////////	
+				while(nAttemptReloadPageUserOne <=1)
 				{
-					wLog.WriteString(0, "</br>");
-					print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
-					wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
-					pageIrrPrOf2.ReloadPage(false);
-					pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
-					pageIrrPrOf2.CheckAllCountersAfterChangeData(sMas[23], sMas[24], sMas[25], sMas[26], sMas[27], sMas[28], sMas[29], sMas[30], sMas[31], sMas[32], sMas[33], sMas[34], sMas[35], sMas[36], 
+				
+					if(nAttemptReloadPageUserOne == 1)
+					{
+						print("ПОВТОРНАЯ ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
+						wLog.WriteString(3, "ПОВТОРНАЯ ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
+					}
+					else
+					{
+						print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
+						wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email"+sNumberSteps));
+					}
+					pageIrrPrOf.ReloadPage(true);
+					pageIrrPrOf.GetStatusAndCategory(); // Значение всех счетчиков
+					boolean bFlagUserOne = pageIrrPrOf.CheckAllCountersAfterChangeData(sMas[8], sMas[9], sMas[10], sMas[11], sMas[12], sMas[13], sMas[14], sMas[15], sMas[16], sMas[17], sMas[18], sMas[19], sMas[20], sMas[21], 
 							"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
 							"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
 							"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 							"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
+			
+					if(!bFlagUserOne)
+					{
+						if((nAttemptReloadPageUserOne < 1))
+						{	
+							print("Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+							wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+							nAttemptReloadPageUserOne++;
+						}
+						else
+							throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+					}
+					else
+						nAttemptReloadPageUserOne = 2;
+					
 				}
+				
+				
+				if( ((i > 17) && (i < 50)) || ((i > 81) && (i < 114)) || ((i > 141) && (i < 174)) || (i > 205))
+				{
+					while(nAttemptReloadPageUserTwo <=1)
+					{
+						wLog.WriteString(0, "</br>");
+						
+						if(nAttemptReloadPageUserTwo == 1)
+						{
+							print("ПОВТОРНАЯ ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
+							wLog.WriteString(3, "ПОВТОРНАЯ ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
+							pageIrrPrOf2.ReloadPage(true);
+						}
+						else
+						{
+							print("ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
+							wLog.WriteString(3, "ПРОВЕРКА ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ " + Proper.GetProperty("email2"+sNumberSteps));
+						}
+						
+						pageIrrPrOf2.ReloadPage(false);
+						pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
+						boolean bFlagUserTwo = pageIrrPrOf2.CheckAllCountersAfterChangeData(sMas[23], sMas[24], sMas[25], sMas[26], sMas[27], sMas[28], sMas[29], sMas[30], sMas[31], sMas[32], sMas[33], sMas[34], sMas[35], sMas[36], 
+								"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
+								"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
+								"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
+								"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
+					
+						if(!bFlagUserTwo)
+						{
+							if((nAttemptReloadPageUserTwo < 1))
+							{	
+								print("Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+								wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+								nAttemptReloadPageUserTwo++;
+							}
+							else
+								throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+						}
+						else
+							nAttemptReloadPageUserTwo = 2;
+						
+					}
+					
+				}
+				
+////////////////////////////////////////////////////////////////////////////////////				
 				wLog.WriteString(0, "</br>");
 				
 			}

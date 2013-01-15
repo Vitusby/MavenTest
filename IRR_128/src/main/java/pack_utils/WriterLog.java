@@ -48,6 +48,9 @@ public class WriterLog
 				case 3:
 					fw.write("<pre style=\"color:blue\">"+sMessage+"</pre>"+"\n");
 					break;
+				case 4:
+					fw.write("<pre style=\"color:yellow\">"+sMessage+"</pre>"+"\n");
+					break;
 				default:
 					fw.write(sMessage+"\n");
 					break;

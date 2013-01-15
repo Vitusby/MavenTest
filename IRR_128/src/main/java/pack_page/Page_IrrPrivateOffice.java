@@ -330,7 +330,7 @@ public class Page_IrrPrivateOffice extends Page
 	}
 	
 	// проверка всех счетчиков для String
-	public void CheckAllCountersAfterChangeData(
+	public boolean CheckAllCountersAfterChangeData(
 			String sMyAdvert,
 			String sAllStatus, String sActiveS, String sNotActiveS,
 			String sAllList, String sNotActiveL, String sActiveL,
@@ -384,10 +384,12 @@ public class Page_IrrPrivateOffice extends Page
 		{
 			print("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
 			wLog.WriteString(2,"Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
-			throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			//throw new ExceptFailTest("Значение(я) счетчика(ов) выше не совпало с правильным(и) значение(ями) счетчика(ов)");
+			return false;
 		}
 		print("ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ " + sOperation + "\r\nКОРРЕКТНЫ");
 		wLog.WriteString(3,"ЗНАЧЕНИЯ СЧЕТЧИКОВ ДЛЯ ОПЕРАЦИИ " + sOperation + "\r\nКОРРЕКTНЫ");
+		return true;
 	}
 	
 	// проверка конкретного счетчика для String
