@@ -94,7 +94,7 @@ public class Page_IrrMain extends Page
 		wLinkPrivateOffice.click();
 		wLog.WriteString(1, "Переходим в личный кабинет");
 		System.out.println("Переходим в личный кабинет");
-		Sleep(1000);
+		Sleep(1500);
 		CheckElementPresent(1,"//div[@id='block_links_lk']/ul/li/a");	
 		wLinkMyAdverts.click();
 		//driver.get(Proper.GetProperty("urlIrr")+"myadverts/");
