@@ -32,9 +32,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetProfile_1_2" })
-	public void Test2() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword"})
+	public void Test2(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetProfile_1_2("ag.regions.devel.ps", "Timon2180", "retry2");
+		cM.GetProfile_1_2(sBaseHost, sLogin, sPassword);
 	}
 	
 	@Test (groups = { "EditProfile_1_3" })
