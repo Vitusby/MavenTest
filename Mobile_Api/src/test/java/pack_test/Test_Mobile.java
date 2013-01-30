@@ -270,14 +270,14 @@ public class Test_Mobile
 	public void Test30(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetCastomfieldsForSearchAdvert_3_4(sBaseHost, sParam);
-		//{category=cars/passenger/new/, region=russia/moskva-gorod/}
 	}
 	
 
 	@Test (groups = { "GetRegions_4_1" })
-	public void Test31() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost"})
+	public void Test31(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRegions_4_1("design.prontosoft.by");
+		cM.GetRegions_4_1(sBaseHost);
 	}
 	
 	// Какие отдает ??????
