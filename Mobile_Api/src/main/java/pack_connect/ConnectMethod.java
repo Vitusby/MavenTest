@@ -853,7 +853,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера Фильтр-листинг получен");
+    		print("Ответ сервера" + jsonObject.toString() + "Фильтр-листинг получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{	
@@ -943,9 +944,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений «своих» объявлений получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
+    		{	
+    			print("");
     			print(ar.get(i));
+    		}
     	}
     	else
     	{

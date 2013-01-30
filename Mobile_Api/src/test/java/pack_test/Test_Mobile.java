@@ -221,14 +221,15 @@ public class Test_Mobile
 	public void Test24(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetListFavourite_2_20(sBaseHost, sLogin, sPassword, sParam);
-		//{offset=0, limit=20}
+	
 	}
 	
 	
 	@Test (groups = { "GetListOwnAdvert_2_21" })
-	public void Test25() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
+	public void Test25(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListOwnAdvert_2_21("design.prontosoft.by","Timon2181", "retry2", "{offset=0, limit=20}");
+		cM.GetListOwnAdvert_2_21(sBaseHost, sLogin, sPassword, sParam);
 	}
 	
 	
