@@ -26,7 +26,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public abstract class Connect_Request_Abstract
 {	  
     public Connect_Request_Abstract(){}
-    //РјРµС‚РѕРґС‹ Http Р·Р°РїСЂРѕСЃРѕРІ Post, Put, Get, Delete
+    //Post, Put, Get, Delete
     public String HttpPostRequest(URI uri) throws URISyntaxException, IOException
     {
     	HttpClient hClient = new DefaultHttpClient();
@@ -99,7 +99,7 @@ public abstract class Connect_Request_Abstract
     	return sTempResponse;
     }
     
-	//РјРµС‚РѕРґ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РёРїР° ?param=value
+	// ?param=value
 	public final String CreateSimpleRequest(String sDataForSimpleRequest) throws UnsupportedEncodingException
 	{
 		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "");
@@ -114,7 +114,7 @@ public abstract class Connect_Request_Abstract
 		return request;	
 	}
 	
-	//РјРµС‚РѕРґ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РёРїР° ?param[value_param1]=value1
+	// ?param[value_param1]=value1
 	public final String CreateArrayRequest(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
 	{
 		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[");
@@ -128,7 +128,7 @@ public abstract class Connect_Request_Abstract
 		request = request.replaceAll("%3D", "=");
 		return request;
 	}
-	//РјРµС‚РѕРґ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ С‚РёРїР° ?param[value_param1][value1_param2][0]=value2
+	// ?param[value_param1][value1_param2][0]=value2
 	public final String CreateDoubleArrayRequest(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
 	{
 		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=").replace("{", "[");
@@ -142,7 +142,7 @@ public abstract class Connect_Request_Abstract
 		request = request.replaceAll("%3D", "=");
 		return request;
 	}
-	//РјРµС‚РѕРґ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РёР· РѕС‚РІРµС‚Р° РЅР° Р·Р°РїСЂРѕСЃ СЃС‚СЂРѕРєРё
+
 	private String GetContentResponse(HttpResponse response) throws IOException
 	{
 		BufferedReader br; 
