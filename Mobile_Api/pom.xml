@@ -20,7 +20,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.12.4</version>
 				<configuration>
-					<groups>RestorePassword1_4</groups>
+					<groups>${sNameMethod}</groups>
 				</configuration>
 			</plugin>
 		</plugins>
