@@ -25,6 +25,7 @@
 						<sBaseHost>${sBaseHost}</sBaseHost>
 						<sLogin>${sLogin}</sLogin>
 						<sPassword>${sPassword}</sPassword>
+						<sParam>${sParam}</sParam>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

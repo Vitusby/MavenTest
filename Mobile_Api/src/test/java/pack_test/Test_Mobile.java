@@ -39,9 +39,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "EditProfile_1_3" })
-	public void Test3() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "SParam"})
+	public void Test3(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.EditProfile_1_3("ag.regions.devel.ps", "Timon2180", "retry2", "{zip=111111, city=\u041A\u0430\u0440\u0430\u0433\u0430\u043D\u0434\u0430}");
+		cM.EditProfile_1_3(sBaseHost, sLogin, sPassword, sParam);
 	}
 	
 	@Test (groups = { "RestorePassword1_4" })
