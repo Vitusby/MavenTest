@@ -153,9 +153,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "Prolongadvert_2_12" })
-	public void Test16() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token"})
+	public void Test16(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.Prolongadvert_2_12("vo.ru.master.g.devel.ps","Timon2180", "retry2", "245364635", "");
+		cM.Prolongadvert_2_12(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token);
 	}
 	
 	@Test (groups = { "PushUpAdvert_2_13" })
