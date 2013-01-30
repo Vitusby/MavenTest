@@ -296,7 +296,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert,  String sPathImageNew) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sCustom_fields, String sPathImageNew) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
 		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -313,6 +313,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("UrlImage = "+ sUrlImage);
 		}
+		
+		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
+    		.setQuery(sRequest);
+    	
+    	if(!sUrlImage.equals("false"))
+    		builder.setQuery("&deleted_images[0]="+sUrlImage).setParameter("auth_token", sAuth_token);
+    	else builder.setParameter("auth_token", sAuth_token);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+		
 		
 		
 	}
