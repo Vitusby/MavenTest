@@ -26,6 +26,8 @@
 						<sLogin>${sLogin}</sLogin>
 						<sPassword>${sPassword}</sPassword>
 						<sParam>${sParam}</sParam>
+						<sParam1>${sParam1}</sParam1>
+						<sParam2>${sParam1}</sParam2>
 						<sIdAdvert>${sIdAdvert}</sIdAdvert>
 					</systemPropertyVariables>
 				</configuration>
