@@ -32,6 +32,7 @@
 						<sApp_token>${sApp_token}</sApp_token>
 						<sNumberDays>${sNumberDays}</sNumberDays>
 						<sCategory>${sCategory}</sCategory>
+						<sRegion>${sRegion}</sRegion>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

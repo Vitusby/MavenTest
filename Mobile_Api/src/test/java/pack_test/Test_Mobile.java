@@ -282,9 +282,11 @@ public class Test_Mobile
 	
 	// Какие отдает ??????
 	@Test (groups = { "GetPopularCities_4_2" })
-	public void Test32() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sRegion"})
+	public void Test32(String sBaseHost, String sRegion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPopularCities_4_2("design.prontosoft.by", "russia/moskva-gorod/");
+		cM.GetPopularCities_4_2(sBaseHost, sRegion);
+		 // /russia/moskva-gorod/
 	}
 	
 	
