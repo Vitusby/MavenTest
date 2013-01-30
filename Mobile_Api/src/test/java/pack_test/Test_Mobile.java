@@ -3,6 +3,7 @@ package pack_test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.google.appengine.repackaged.org.json.JSONException;
@@ -40,10 +41,11 @@ public class Test_Mobile
 		cM.EditProfile_1_3("ag.regions.devel.ps", "Timon2180", "retry2", "{zip=111111, city=\u041A\u0430\u0440\u0430\u0433\u0430\u043D\u0434\u0430}");
 	}
 	
+	@Parameters({ "sUrl"})
 	@Test (groups = { "RestorePassword1_4" })
-	public void Test4() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Test4( String sUrl) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.RestorePassword1_4("ag.regions.devel.ps", "Timon2180@mail.ru");
+		cM.RestorePassword1_4(sUrl, "Timon2180@mail.ru");
 	}
 	
 	@Test (groups = { "PostAdvert_2_1" })
