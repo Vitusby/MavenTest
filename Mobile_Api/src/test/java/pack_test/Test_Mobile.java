@@ -294,14 +294,15 @@ public class Test_Mobile
 	public void Test33(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetCitiesSuggest_4_3(sBaseHost, sParam);
-		//{region=russia/, search_string=Москва}
 	}
 	
 	
 	@Test (groups = { "GetStreetsSuggest_4_4" })
-	public void Test34() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test34(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetStreetsSuggest_4_4("design.prontosoft.by", "{region=russia/moskva-gorod/, search_string=байкальская}");
+		cM.GetStreetsSuggest_4_4(sBaseHost, sParam);
+		//{region=russia/moskva-gorod/, search_string=байкальская}
 	}
 	
 	
