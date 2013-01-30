@@ -199,9 +199,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetListForCategory_2_18" })
-	public void Test22() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test22(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListForCategory_2_18("design.prontosoft.by", "{category=cars/passenger/new/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}");
+		cM.GetListForCategory_2_18(sBaseHost, sParam);
 	}
 	
 	
