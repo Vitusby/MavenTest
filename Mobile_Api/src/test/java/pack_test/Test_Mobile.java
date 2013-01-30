@@ -145,9 +145,10 @@ public class Test_Mobile
 	
 		
 	@Test (groups = { "DeactivateAdvert_2_11" })
-	public void Test15() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert"})
+	public void Test15(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.DeactivateAdvert_2_11("design.prontosoft.by","ml@rglab.by", "123456", "245364635");
+		cM.DeactivateAdvert_2_11(sBaseHost, sLogin, sPassword, sIdAdvert);
 	}
 	
 	
