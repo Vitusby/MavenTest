@@ -43,9 +43,9 @@ public class Test_Mobile
 	
 	@Test (groups = { "RestorePassword1_4" })
 	//@Parameters({"sBaseHost"})
-	public void Test4(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Test4() throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.RestorePassword1_4(sBaseHost, "Timon2180@mail.ru");
+		cM.RestorePassword1_4("ag.regions.devel.ps", "Timon2180@mail.ru");
 	}
 	
 	@Test (groups = { "PostAdvert_2_1" })
