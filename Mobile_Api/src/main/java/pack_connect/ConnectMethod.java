@@ -1074,7 +1074,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для подачи объявления получен");
     		print("");
     		jsonObject = jsonObject.getJSONObject("group_custom_fields");
-    		print(jsonObject.names());
+    		print(jsonObject.keys());
     	}
     	else
     	{
