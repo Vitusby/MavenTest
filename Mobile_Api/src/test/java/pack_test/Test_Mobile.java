@@ -210,7 +210,6 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sParam", "sParam1"})
 	public void Test23(String sBaseHost, String sParam, String sParam1 ) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		//cM.GetListSearchCategory_2_19("design.prontosoft.by", "{category=cars/passenger/new/, region=russia/moskva-gorod/, offset=0, limit=20, sort_by=date_sort:desc}", "make=AC/model=ACE");
 		cM.GetListSearchCategory_2_19(sBaseHost, sParam, sParam1);
 	}
 	
@@ -221,7 +220,8 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
 	public void Test24(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListFavourite_2_20("design.prontosoft.by","Timon2181", "retry2", "{offset=0, limit=20}");
+		cM.GetListFavourite_2_20(sBaseHost, sLogin, sPassword, sParam);
+		//{offset=0, limit=20}
 	}
 	
 	
