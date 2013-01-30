@@ -137,9 +137,10 @@ public class Test_Mobile
 	// Проверить для ИП и ОП (есть пакет нету)
 	// возвращает не только массив error
 	@Test (groups = { "ActivationAdvert_2_10" })
-	public void Test14() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token"})
+	public void Test14(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.ActivationAdvert_2_10("vo.ru.master.g.devel.ps","Timon2181", "retry2", "245363995" , "gfdgdf");
+		cM.ActivationAdvert_2_10(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token);
 	}
 	
 		
