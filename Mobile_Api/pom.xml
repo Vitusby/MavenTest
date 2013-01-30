@@ -22,7 +22,7 @@
 				<configuration>
 					<groups>${sNameMethod}</groups>
 					<systemPropertyVariables>
-						<sUrl>${sBaseHost}</sUrl>
+						<sBaseHost>${sBaseHost}</sBaseHost>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
