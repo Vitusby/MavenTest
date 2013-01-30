@@ -191,9 +191,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "VoteForAdvertLower_2_17" })
-	public void Test21() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert"})
+	public void Test21(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.VoteForAdvertLower_2_17("design.prontosoft.by","Timon2181", "retry2", "246824575");
+		cM.VoteForAdvertLower_2_17(sBaseHost, sLogin, sPassword, sIdAdvert);
 	}
 	
 	
