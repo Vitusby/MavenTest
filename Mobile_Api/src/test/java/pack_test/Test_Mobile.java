@@ -84,7 +84,7 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "DeleteAdvert_2_4" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert"})
 	public void Test8(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.DeleteAdvert_2_4(sBaseHost, sLogin, sPassword, sIdAdvert);
