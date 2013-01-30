@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="pack_test.Test_Mobile">
+        <methods>
+          <include name="Test17"/>
+          <include name="Test18"/>
+          <include name="Test15"/>
+          <include name="Test38"/>
+          <include name="Test12"/>
+          <include name="Test35"/>
+          <include name="Test"/>
+          <include name="Test24"/>
+        </methods>
+      </class> <!-- pack_test.Test_Mobile -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

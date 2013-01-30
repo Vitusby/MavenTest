@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="8" total="42" passed="34">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="18397" started-at="2013-01-30T07:14:30Z" finished-at="2013-01-30T07:14:48Z">
+    <groups>
+      <group name="GetCitiesSuggest_4_3">
+        <method signature="Test_Mobile.Test33()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test33" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetCitiesSuggest_4_3 -->
+      <group name="GetListOwnAdvert_2_21">
+        <method signature="Test_Mobile.Test25()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test25" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetListOwnAdvert_2_21 -->
+      <group name="DeleteAdvertFromFavourite_2_6">
+        <method signature="Test_Mobile.Test10()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test10" class="pack_test.Test_Mobile"/>
+      </group> <!-- DeleteAdvertFromFavourite_2_6 -->
+      <group name="GetListSearchCategory_2_19">
+        <method signature="Test_Mobile.Test23()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test23" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetListSearchCategory_2_19 -->
+      <group name="GetRubricator_3_1">
+        <method signature="Test_Mobile.Test27()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test27" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetRubricator_3_1 -->
+      <group name="GetPaidProductsFromLK_2_8">
+        <method signature="Test_Mobile.Test12()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test12" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetPaidProductsFromLK_2_8 -->
+      <group name="GetCastomfieldsForEditAdvert_3_3">
+        <method signature="Test_Mobile.Test29()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test29" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetCastomfieldsForEditAdvert_3_3 -->
+      <group name="GetDictinary_6_1">
+        <method signature="Test_Mobile.Test41()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test41" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetDictinary_6_1 -->
+      <group name="GetListForCategory_2_18">
+        <method signature="Test_Mobile.Test22()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test22" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetListForCategory_2_18 -->
+      <group name="EditAdvert_2_3">
+        <method signature="Test_Mobile.Test7()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test7" class="pack_test.Test_Mobile"/>
+      </group> <!-- EditAdvert_2_3 -->
+      <group name="GetHousesSuggest_4_5">
+        <method signature="Test_Mobile.Test35()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test35" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetHousesSuggest_4_5 -->
+      <group name="VoteForAdvertLower_2_17">
+        <method signature="Test_Mobile.Test21()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test21" class="pack_test.Test_Mobile"/>
+      </group> <!-- VoteForAdvertLower_2_17 -->
+      <group name="GetFreeProductsForAdvert_2_9">
+        <method signature="Test_Mobile.Test13()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test13" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetFreeProductsForAdvert_2_9 -->
+      <group name="GetPaidProductsToStepToAdd_2_7">
+        <method signature="Test_Mobile.Test11()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test11" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetPaidProductsToStepToAdd_2_7 -->
+      <group name="GetStreetsSuggest_4_4">
+        <method signature="Test_Mobile.Test34()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test34" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetStreetsSuggest_4_4 -->
+      <group name="ActivationAdvert_2_10">
+        <method signature="Test_Mobile.Test14()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test14" class="pack_test.Test_Mobile"/>
+      </group> <!-- ActivationAdvert_2_10 -->
+      <group name="GetListFavourite_2_20">
+        <method signature="Test_Mobile.Test24()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test24" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetListFavourite_2_20 -->
+      <group name="GetAdvert_2_2">
+        <method signature="Test_Mobile.Test6()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test6" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetAdvert_2_2 -->
+      <group name="Prolongadvert_2_12">
+        <method signature="Test_Mobile.Test16()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test16" class="pack_test.Test_Mobile"/>
+      </group> <!-- Prolongadvert_2_12 -->
+      <group name="GetProfile_1_2">
+        <method signature="Test_Mobile.Test2()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test2" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetProfile_1_2 -->
+      <group name="RestorePassword1_4">
+        <method signature="Test_Mobile.Test4()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test4" class="pack_test.Test_Mobile"/>
+      </group> <!-- RestorePassword1_4 -->
+      <group name="GetRegions_4_1">
+        <method signature="Test_Mobile.Test31()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test31" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetRegions_4_1 -->
+      <group name="GetCurrencies_5_1">
+        <method signature="Test_Mobile.Test40()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test40" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetCurrencies_5_1 -->
+      <group name="GetMetroSuggest_4_9">
+        <method signature="Test_Mobile.Test39()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test39" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetMetroSuggest_4_9 -->
+      <group name="GetPopularCities_4_2">
+        <method signature="Test_Mobile.Test32()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test32" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetPopularCities_4_2 -->
+      <group name="Authorization_1_1">
+        <method signature="Test_Mobile.Test1()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test1" class="pack_test.Test_Mobile"/>
+      </group> <!-- Authorization_1_1 -->
+      <group name="HighLightAdvert_2_14">
+        <method signature="Test_Mobile.Test18()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test18" class="pack_test.Test_Mobile"/>
+      </group> <!-- HighLightAdvert_2_14 -->
+      <group name="CreateProfileRequest_1">
+        <method signature="Test_Mobile.Test()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test" class="pack_test.Test_Mobile"/>
+      </group> <!-- CreateProfileRequest_1 -->
+      <group name="VoteForAdvertHigh_2_16">
+        <method signature="Test_Mobile.Test20()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test20" class="pack_test.Test_Mobile"/>
+      </group> <!-- VoteForAdvertHigh_2_16 -->
+      <group name="SetPremiumForAdvert_2_15">
+        <method signature="Test_Mobile.Test19()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test19" class="pack_test.Test_Mobile"/>
+      </group> <!-- SetPremiumForAdvert_2_15 -->
+      <group name="AddAdvertToFavourite_2_5">
+        <method signature="Test_Mobile.Test9()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test9" class="pack_test.Test_Mobile"/>
+      </group> <!-- AddAdvertToFavourite_2_5 -->
+      <group name="GetCastomfieldsForSearchAdvert_3_4">
+        <method signature="Test_Mobile.Test30()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test30" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetCastomfieldsForSearchAdvert_3_4 -->
+      <group name="PostAdvert_2_1">
+        <method signature="Test_Mobile.Test5()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test5" class="pack_test.Test_Mobile"/>
+      </group> <!-- PostAdvert_2_1 -->
+      <group name="GetHighwaySuggest_4_8">
+        <method signature="Test_Mobile.Test38()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test38" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetHighwaySuggest_4_8 -->
+      <group name="DeactivateAdvert_2_11">
+        <method signature="Test_Mobile.Test15()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test15" class="pack_test.Test_Mobile"/>
+      </group> <!-- DeactivateAdvert_2_11 -->
+      <group name="GetDirectionSuggest_4_7">
+        <method signature="Test_Mobile.Test37()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test37" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetDirectionSuggest_4_7 -->
+      <group name="GetCastomfieldsForAddAdvert_3_2">
+        <method signature="Test_Mobile.Test28()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test28" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetCastomfieldsForAddAdvert_3_2 -->
+      <group name="DeleteAdvert_2_4">
+        <method signature="Test_Mobile.Test8()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test8" class="pack_test.Test_Mobile"/>
+      </group> <!-- DeleteAdvert_2_4 -->
+      <group name="GetdistrictSuggest_4_6">
+        <method signature="Test_Mobile.Test36()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test36" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetdistrictSuggest_4_6 -->
+      <group name="PushUpAdvert_2_13">
+        <method signature="Test_Mobile.Test17()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test17" class="pack_test.Test_Mobile"/>
+      </group> <!-- PushUpAdvert_2_13 -->
+      <group name="GetListUserAdvert_2_22">
+        <method signature="Test_Mobile.Test26()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test26" class="pack_test.Test_Mobile"/>
+      </group> <!-- GetListUserAdvert_2_22 -->
+      <group name="EditProfile_1_3">
+        <method signature="Test_Mobile.Test3()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test3" class="pack_test.Test_Mobile"/>
+      </group> <!-- EditProfile_1_3 -->
+    </groups>
+    <test name="Default test" duration-ms="18397" started-at="2013-01-30T07:14:30Z" finished-at="2013-01-30T07:14:48Z">
+      <class name="pack_test.Test_Mobile">
+        <test-method status="FAIL" signature="Test()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test" duration-ms="663" started-at="2013-01-30T10:14:30Z" finished-at="2013-01-30T10:14:30Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Тест провален
+	at pack_connect.ConnectMethod.CreateProfileRequest_1(ConnectMethod.java:51)
+	at pack_test.Test_Mobile.Test(Test_Mobile.java:21)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test -->
+        <test-method status="PASS" signature="Test1()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test1" duration-ms="296" started-at="2013-01-30T10:14:30Z" finished-at="2013-01-30T10:14:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test1 -->
+        <test-method status="PASS" signature="Test10()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test10" duration-ms="639" started-at="2013-01-30T10:14:31Z" finished-at="2013-01-30T10:14:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test10 -->
+        <test-method status="PASS" signature="Test11()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test11" duration-ms="234" started-at="2013-01-30T10:14:31Z" finished-at="2013-01-30T10:14:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test11 -->
+        <test-method status="FAIL" signature="Test12()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test12" duration-ms="157" started-at="2013-01-30T10:14:31Z" finished-at="2013-01-30T10:14:32Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Не удалось распарсить ответ
+	at pack_connect.ConnectMethod.ParseResponse(ConnectMethod.java:1577)
+	at pack_connect.ConnectMethod.GetPaidProductsFromLK_2_8(ConnectMethod.java:453)
+	at pack_test.Test_Mobile.Test12(Test_Mobile.java:110)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test12 -->
+        <test-method status="PASS" signature="Test13()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test13" duration-ms="165" started-at="2013-01-30T10:14:32Z" finished-at="2013-01-30T10:14:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test13 -->
+        <test-method status="PASS" signature="Test14()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test14" duration-ms="670" started-at="2013-01-30T10:14:32Z" finished-at="2013-01-30T10:14:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test14 -->
+        <test-method status="FAIL" signature="Test15()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test15" duration-ms="694" started-at="2013-01-30T10:14:32Z" finished-at="2013-01-30T10:14:33Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Тест провален
+	at pack_connect.ConnectMethod.DeactivateAdvert_2_11(ConnectMethod.java:559)
+	at pack_test.Test_Mobile.Test15(Test_Mobile.java:133)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test15 -->
+        <test-method status="PASS" signature="Test16()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test16" duration-ms="413" started-at="2013-01-30T10:14:33Z" finished-at="2013-01-30T10:14:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test16 -->
+        <test-method status="FAIL" signature="Test17()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test17" duration-ms="662" started-at="2013-01-30T10:14:34Z" finished-at="2013-01-30T10:14:34Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Не удалось распарсить ответ
+	at pack_connect.ConnectMethod.ParseResponse(ConnectMethod.java:1577)
+	at pack_connect.ConnectMethod.PushUpAdvert_2_13(ConnectMethod.java:627)
+	at pack_test.Test_Mobile.Test17(Test_Mobile.java:146)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test17 -->
+        <test-method status="FAIL" signature="Test18()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test18" duration-ms="557" started-at="2013-01-30T10:14:34Z" finished-at="2013-01-30T10:14:35Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Не удалось распарсить ответ
+	at pack_connect.ConnectMethod.ParseResponse(ConnectMethod.java:1577)
+	at pack_connect.ConnectMethod.HighLightAdvert_2_14(ConnectMethod.java:663)
+	at pack_test.Test_Mobile.Test18(Test_Mobile.java:153)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test18 -->
+        <test-method status="PASS" signature="Test19()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test19" duration-ms="530" started-at="2013-01-30T10:14:35Z" finished-at="2013-01-30T10:14:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test19 -->
+        <test-method status="PASS" signature="Test2()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test2" duration-ms="562" started-at="2013-01-30T10:14:35Z" finished-at="2013-01-30T10:14:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test2 -->
+        <test-method status="PASS" signature="Test20()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test20" duration-ms="592" started-at="2013-01-30T10:14:36Z" finished-at="2013-01-30T10:14:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test20 -->
+        <test-method status="PASS" signature="Test21()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test21" duration-ms="639" started-at="2013-01-30T10:14:36Z" finished-at="2013-01-30T10:14:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test21 -->
+        <test-method status="PASS" signature="Test22()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test22" duration-ms="391" started-at="2013-01-30T10:14:37Z" finished-at="2013-01-30T10:14:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test22 -->
+        <test-method status="PASS" signature="Test23()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test23" duration-ms="327" started-at="2013-01-30T10:14:37Z" finished-at="2013-01-30T10:14:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test23 -->
+        <test-method status="FAIL" signature="Test24()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test24" duration-ms="725" started-at="2013-01-30T10:14:38Z" finished-at="2013-01-30T10:14:39Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Тест провален
+	at pack_connect.ConnectMethod.GetListFavourite_2_20(ConnectMethod.java:892)
+	at pack_test.Test_Mobile.Test24(Test_Mobile.java:196)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test24 -->
+        <test-method status="PASS" signature="Test25()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test25" duration-ms="787" started-at="2013-01-30T10:14:39Z" finished-at="2013-01-30T10:14:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test25 -->
+        <test-method status="PASS" signature="Test26()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test26" duration-ms="250" started-at="2013-01-30T10:14:39Z" finished-at="2013-01-30T10:14:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test26 -->
+        <test-method status="PASS" signature="Test27()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test27" duration-ms="211" started-at="2013-01-30T10:14:40Z" finished-at="2013-01-30T10:14:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test27 -->
+        <test-method status="PASS" signature="Test28()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test28" duration-ms="312" started-at="2013-01-30T10:14:40Z" finished-at="2013-01-30T10:14:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test28 -->
+        <test-method status="PASS" signature="Test29()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test29" duration-ms="311" started-at="2013-01-30T10:14:40Z" finished-at="2013-01-30T10:14:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test29 -->
+        <test-method status="PASS" signature="Test3()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test3" duration-ms="711" started-at="2013-01-30T10:14:40Z" finished-at="2013-01-30T10:14:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test3 -->
+        <test-method status="PASS" signature="Test30()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test30" duration-ms="288" started-at="2013-01-30T10:14:41Z" finished-at="2013-01-30T10:14:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test30 -->
+        <test-method status="PASS" signature="Test31()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test31" duration-ms="289" started-at="2013-01-30T10:14:41Z" finished-at="2013-01-30T10:14:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test31 -->
+        <test-method status="PASS" signature="Test32()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test32" duration-ms="171" started-at="2013-01-30T10:14:42Z" finished-at="2013-01-30T10:14:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test32 -->
+        <test-method status="PASS" signature="Test33()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test33" duration-ms="188" started-at="2013-01-30T10:14:42Z" finished-at="2013-01-30T10:14:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test33 -->
+        <test-method status="PASS" signature="Test34()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test34" duration-ms="164" started-at="2013-01-30T10:14:42Z" finished-at="2013-01-30T10:14:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test34 -->
+        <test-method status="FAIL" signature="Test35()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test35" duration-ms="163" started-at="2013-01-30T10:14:42Z" finished-at="2013-01-30T10:14:42Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Тест провален
+	at pack_connect.ConnectMethod.GetHousesSuggest_4_5(ConnectMethod.java:1325)
+	at pack_test.Test_Mobile.Test35(Test_Mobile.java:274)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test35 -->
+        <test-method status="PASS" signature="Test36()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test36" duration-ms="164" started-at="2013-01-30T10:14:42Z" finished-at="2013-01-30T10:14:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test36 -->
+        <test-method status="PASS" signature="Test37()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test37" duration-ms="194" started-at="2013-01-30T10:14:43Z" finished-at="2013-01-30T10:14:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test37 -->
+        <test-method status="FAIL" signature="Test38()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test38" duration-ms="148" started-at="2013-01-30T10:14:43Z" finished-at="2013-01-30T10:14:43Z">
+          <exception class="pack_utils.ExceptFailTest">
+            <full-stacktrace>
+              <![CDATA[Тест провален, причина Не удалось распарсить ответ
+	at pack_connect.ConnectMethod.ParseResponse(ConnectMethod.java:1577)
+	at pack_connect.ConnectMethod.GetHighwaySuggest_4_8(ConnectMethod.java:1432)
+	at pack_test.Test_Mobile.Test38(Test_Mobile.java:296)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+]]>
+            </full-stacktrace>
+          </exception> <!-- pack_utils.ExceptFailTest -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test38 -->
+        <test-method status="PASS" signature="Test39()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test39" duration-ms="184" started-at="2013-01-30T10:14:43Z" finished-at="2013-01-30T10:14:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test39 -->
+        <test-method status="PASS" signature="Test4()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test4" duration-ms="515" started-at="2013-01-30T10:14:43Z" finished-at="2013-01-30T10:14:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test4 -->
+        <test-method status="PASS" signature="Test40()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test40" duration-ms="148" started-at="2013-01-30T10:14:44Z" finished-at="2013-01-30T10:14:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test40 -->
+        <test-method status="PASS" signature="Test41()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test41" duration-ms="155" started-at="2013-01-30T10:14:44Z" finished-at="2013-01-30T10:14:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test41 -->
+        <test-method status="PASS" signature="Test5()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test5" duration-ms="1688" started-at="2013-01-30T10:14:44Z" finished-at="2013-01-30T10:14:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test5 -->
+        <test-method status="PASS" signature="Test6()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test6" duration-ms="235" started-at="2013-01-30T10:14:46Z" finished-at="2013-01-30T10:14:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test6 -->
+        <test-method status="PASS" signature="Test7()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test7" duration-ms="849" started-at="2013-01-30T10:14:46Z" finished-at="2013-01-30T10:14:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test7 -->
+        <test-method status="PASS" signature="Test8()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test8" duration-ms="698" started-at="2013-01-30T10:14:47Z" finished-at="2013-01-30T10:14:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test8 -->
+        <test-method status="PASS" signature="Test9()[pri:0, instance:pack_test.Test_Mobile@184a81]" name="Test9" duration-ms="609" started-at="2013-01-30T10:14:47Z" finished-at="2013-01-30T10:14:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test9 -->
+      </class> <!-- pack_test.Test_Mobile -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
