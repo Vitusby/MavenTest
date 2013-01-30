@@ -61,10 +61,7 @@ public class Test_Mobile
 				"{make=BMW, model=116, currency=RUR, price=1200, car-year=2010, bodytype=внедорожник, transmittion=механическая}",
 				"1.jpeg");*/
 		
-		cM.PostAdvert_2_1("ag.regions.devel.ps", "Timon2180", "retry2", "{category=cars/passenger/new/, region=russia/moskva-gorod/ ,advert_type=auto_new}", 
-				"{phone=343434343434, email=mail@mail.com, contact=Vasia}",
-				"{make=BMW, model=116, currency=RUR, price=1200, car-year=2010, bodytype=внедорожник, transmittion=механическая}",
-				"1.jpeg");
+		cM.PostAdvert_2_1(sBaseHost, sLogin, sPassword, sParam, sParam1, sParam2, "1.jpeg");
 	}
 	
 	// пользователя с такими данными не существует 245364632
