@@ -285,6 +285,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{
     			JSONArray ar = (JSONArray) jTemp.get("images");
     			jTemp = (JSONObject) ar.get(0);
+    			print(jTemp.get("orig").toString());
     			return jTemp.get("orig").toString();
     		}
     	}
