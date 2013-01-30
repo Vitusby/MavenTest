@@ -1111,9 +1111,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для редактирования объявления получен");
-    		JSONArray ar = jsonObject.getJSONArray("fields");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("");
+    		jsonObject = jsonObject.getJSONObject("group_custom_fields");
+    		print(jsonObject.names());
     	}
     	else
     	{

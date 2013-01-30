@@ -266,9 +266,11 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetCastomfieldsForSearchAdvert_3_4" })
-	public void Test30() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test30(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCastomfieldsForSearchAdvert_3_4("design.prontosoft.by", "{category=cars/passenger/new/, region=russia/moskva-gorod/}");
+		cM.GetCastomfieldsForSearchAdvert_3_4(sBaseHost, sParam);
+		//{category=cars/passenger/new/, region=russia/moskva-gorod/}
 	}
 	
 
