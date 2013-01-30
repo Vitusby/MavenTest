@@ -117,7 +117,7 @@ public abstract class Connect_Request_Abstract
 	// ?param[value_param1]=value1
 	public final String CreateArrayRequest(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
 	{
-		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("^", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("№", "[")
+		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[")
 				.replaceAll("\"", "");
 		String s1[] = sDataForArrayRequest.split(",");
 		
