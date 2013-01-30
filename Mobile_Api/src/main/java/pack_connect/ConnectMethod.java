@@ -247,7 +247,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		
     	else
     	{
-    		print("Не создать объявление\r\n"+
+    		print("Не удалось создать объявление\r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}
@@ -339,7 +339,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-		
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString() + " Объявление отредактировано");
+    		
+    	else
+    	{
+    		print("Не удалось отредактировать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
 		
 	}
 	// Удаление объявления
