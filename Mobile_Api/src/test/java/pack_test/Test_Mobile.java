@@ -119,9 +119,10 @@ public class Test_Mobile
 	
 	// Проверить для ИП и ОП
 	@Test (groups = { "GetPaidProductsFromLK_2_8" })
-	public void Test12() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert"})
+	public void Test12(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPaidProductsFromLK_2_8("design.prontosoft.by", "246824574");
+		cM.GetPaidProductsFromLK_2_8(sBaseHost, sIdAdvert);
 	}
 	
 	
