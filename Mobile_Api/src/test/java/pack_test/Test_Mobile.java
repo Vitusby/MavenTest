@@ -41,9 +41,9 @@ public class Test_Mobile
 		cM.EditProfile_1_3("ag.regions.devel.ps", "Timon2180", "retry2", "{zip=111111, city=\u041A\u0430\u0440\u0430\u0433\u0430\u043D\u0434\u0430}");
 	}
 	
-	@Parameters({ "sBaseHost"})
 	@Test (groups = { "RestorePassword1_4" })
-	public void Test4( String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost"})
+	public void Test4(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.RestorePassword1_4(sBaseHost, "Timon2180@mail.ru");
 	}
