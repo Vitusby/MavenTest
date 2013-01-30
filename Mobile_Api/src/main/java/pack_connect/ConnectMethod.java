@@ -216,6 +216,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		
+		print("");
+		print("2.1.	Подача объявления");
+		print("Параметры для запроса");
+		print("sCatRegAdv = "+ sCatRegAdv);
+		print("sAdvertisement = "+ sAdvertisement);
+		print("sCustom_fields = "+ sCustom_fields);
+		
 		String sRequest = CreateSimpleRequest(sCatRegAdv);
 		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
 		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
