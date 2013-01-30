@@ -102,7 +102,7 @@ public abstract class Connect_Request_Abstract
 	// ?param=value
 	public final String CreateSimpleRequest(String sDataForSimpleRequest) throws UnsupportedEncodingException
 	{
-		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "");
+		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
 		String s0[] = sDataForSimpleRequest.split(",");
 		String request = "";
 		for(int i=0; i<s0.length; i++)
@@ -136,7 +136,8 @@ public abstract class Connect_Request_Abstract
 	// ?param[value_param1][value1_param2][0]=value2
 	public final String CreateDoubleArrayRequest(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
 	{
-		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=").replace("{", "[");
+		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=")
+				.replace("{", "[").replaceAll("\"", "");
 		String s1[] = sDataForDoubleArrayRequest.split(",");
 		String request ="";
 		for(int i=0; i<s1.length; i++)
