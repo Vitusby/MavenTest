@@ -168,9 +168,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "HighLightAdvert_2_14" })
-	public void Test18() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token"})
+	public void Test18(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.HighLightAdvert_2_14("vo.ru.master.g.devel.ps","Timon2180", "retry2", "245364635", "");
+		cM.HighLightAdvert_2_14(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token);
 	}
 	
 	
