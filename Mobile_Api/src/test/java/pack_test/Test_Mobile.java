@@ -24,9 +24,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "Authorization_1_1" })
-	public void Test1() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword"})
+	public void Test1(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.Authorization_1_1("ag.regions.devel.ps", "ml@rglab.by", "123456");
+		cM.Authorization_1_1(sBaseHost, sLogin, sPassword);
 	}
 	
 	@Test (groups = { "GetProfile_1_2" })
