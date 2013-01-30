@@ -445,7 +445,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("2.8.	Получение списка платных продуктов для объявления доступных в личном кабинете пользователя");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pers_acc");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc");
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
