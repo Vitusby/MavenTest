@@ -334,7 +334,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-		
+    	String sResponse = HttpPutRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
 		
 		
 	}
