@@ -988,9 +988,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений пользователя получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("");
     			print(ar.get(i));
+    		}
     	}
     	else
     	{

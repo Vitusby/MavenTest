@@ -31,6 +31,7 @@
 						<sIdAdvert>${sIdAdvert}</sIdAdvert>
 						<sApp_token>${sApp_token}</sApp_token>
 						<sNumberDays>${sNumberDays}</sNumberDays>
+						<sCategory>${sCategory}</sCategory>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

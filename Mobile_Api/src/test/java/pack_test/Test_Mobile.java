@@ -234,16 +234,18 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetListUserAdvert_2_22" })
-	public void Test26() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test26(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListUserAdvert_2_22("design.prontosoft.by", "{user_id=10644682, offset=0, limit=20}");
+		cM.GetListUserAdvert_2_22(sBaseHost, sParam);
 	}
 	
 	
 	@Test (groups = { "GetRubricator_3_1" })
-	public void Test27() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sCategory"})
+	public void Test27(String sBaseHost, String sCategory) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRubricator_3_1("design.prontosoft.by", "cars/");
+		cM.GetRubricator_3_1(sBaseHost, sCategory);
 	}
 	
 	
