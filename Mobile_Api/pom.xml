@@ -21,6 +21,9 @@
 				<version>2.12.4</version>
 				<configuration>
 					<groups>${sNameMethod}</groups>
+					<systemPropertyVariables>
+						<sUrl>${sBaseHost}</sUrl>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 		</plugins>
