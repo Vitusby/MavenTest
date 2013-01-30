@@ -301,6 +301,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert);
+		print("");
 		print("2.3.	Редактирование объявления");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
@@ -317,12 +318,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
 		
 		builder = new URIBuilder();
+		
+		if(!sUrlImage.equals("false"))
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest);
-    	
-    	if(!sUrlImage.equals("false"))
-    		builder.setQuery("&deleted_images[0]="+sUrlImage).setParameter("auth_token", sAuth_token);
-    	else builder.setParameter("auth_token", sAuth_token);
+    		.setQuery(sRequest + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
+
+    	else
+    		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
+    		.setQuery(sRequest).setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
