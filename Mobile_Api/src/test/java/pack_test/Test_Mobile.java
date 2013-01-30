@@ -110,9 +110,10 @@ public class Test_Mobile
 	
 	// Проверить для ИП и ОП
 	@Test (groups = { "GetPaidProductsToStepToAdd_2_7" })
-	public void Test11() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert"})
+	public void Test11(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPaidProductsToStepToAdd_2_7("design.prontosoft.by", "246824574");
+		cM.GetPaidProductsToStepToAdd_2_7(sBaseHost, sIdAdvert);
 	}
 	
 	
