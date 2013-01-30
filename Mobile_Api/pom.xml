@@ -30,6 +30,7 @@
 						<sParam2>${sParam2}</sParam2>
 						<sIdAdvert>${sIdAdvert}</sIdAdvert>
 						<sApp_token>${sApp_token}</sApp_token>
+						<sNumberDays>${sNumberDays}</sNumberDays>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
