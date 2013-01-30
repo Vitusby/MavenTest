@@ -88,9 +88,10 @@ public class Test_Mobile
 	
 	// можно добавить свое собственное объявление
 	@Test (groups = { "AddAdvertToFavourite_2_5" })
-	public void Test9() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert"})
+	public void Test9(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.AddAdvertToFavourite_2_5("design.prontosoft.by","Timon2180", "retry2", "246824574");
+		cM.AddAdvertToFavourite_2_5(sBaseHost, sLogin, sPassword, sIdAdvert);
 	}
 	
 	

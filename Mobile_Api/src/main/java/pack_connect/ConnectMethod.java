@@ -148,8 +148,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("1.3.	Редактирование профиля");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
+		print("user_info = "+ sUser_info);
 		String sQuery = CreateArrayRequest("user_info", sUser_info);
-		print(sQuery);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
