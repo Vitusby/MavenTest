@@ -23,6 +23,8 @@
 					<groups>${sNameMethod}</groups>
 					<systemPropertyVariables>
 						<sBaseHost>${sBaseHost}</sBaseHost>
+						<sLogin>${sLogin}</sLogin>
+						<sPassword>${sPassword}</sPassword>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
