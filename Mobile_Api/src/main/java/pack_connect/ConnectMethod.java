@@ -833,13 +833,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
-    		.setQuery("category=cars%2Fpassenger%2Fnew%2F&region=russia%2Fmoskva-gorod%2F&offset=0&limit=40&sort_by=date_sort%3Adesc&filters=%2Fsearch%2Fmake=BMW");
+    		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
+   
+    	String ss =	"/&filters=/search/"+sDataForSearch;
+    	String s1 = uri.toString()+ss;
+    	uri = new URI(s1);
+    	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);

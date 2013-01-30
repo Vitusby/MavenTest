@@ -207,16 +207,19 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetListSearchCategory_2_19" })
-	public void Test23() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1"})
+	public void Test23(String sBaseHost, String sParam, String sParam1 ) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListSearchCategory_2_19("design.prontosoft.by", "{category=cars/passenger/new/, region=russia/moskva-gorod/, offset=0, limit=20, sort_by=date_sort:desc}", "make=AC/model=ACE");
+		//cM.GetListSearchCategory_2_19("design.prontosoft.by", "{category=cars/passenger/new/, region=russia/moskva-gorod/, offset=0, limit=20, sort_by=date_sort:desc}", "make=AC/model=ACE");
+		cM.GetListSearchCategory_2_19(sBaseHost, sParam, sParam1);
 	}
 	
 	
 	
 	// Ошибка запроса к базе
 	@Test (groups = { "GetListFavourite_2_20" })
-	public void Test24() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
+	public void Test24(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetListFavourite_2_20("design.prontosoft.by","Timon2181", "retry2", "{offset=0, limit=20}");
 	}
