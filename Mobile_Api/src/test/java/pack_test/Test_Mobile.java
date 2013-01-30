@@ -67,9 +67,10 @@ public class Test_Mobile
 	// пользователя с такими данными не существует 245364632
 	// на неправильный id = fgdfgdfgdfg отдает какую ту чушь 
 	@Test (groups = { "GetAdvert_2_2" })
-	public void Test6() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sIdAdvert"})
+	public void Test6(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetAdvert_2_2("design.prontosoft.by", "246824574");
+		cM.GetAdvert_2_2(sBaseHost, sIdAdvert);
 	}
 	
 // НЕ ПРОВЕРИЛ С ЭТОГО	
