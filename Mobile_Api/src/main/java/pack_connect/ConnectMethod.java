@@ -1073,12 +1073,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для подачи объявления получен");
     		print("");
-    		JSONArray ar = jsonObject.getJSONArray("group_custom_fields");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("");
-    			print(ar.get(i));
-    		}
+    		jsonObject = jsonObject.getJSONObject("group_custom_fields");
+    		print(jsonObject.keys());
     	}
     	else
     	{
