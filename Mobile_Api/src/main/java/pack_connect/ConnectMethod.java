@@ -818,10 +818,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Проголосовать за объявление (повысить рейтинг объявления)
-	public void VoteForAdvertHigh_2_16(String sHost, String sUsername, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void VoteForAdvertHigh_2_16(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.16.	Проголосовать за объявление (повысить рейтинг объявления)");
 		print("Параметры для запроса");

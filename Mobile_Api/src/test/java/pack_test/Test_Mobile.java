@@ -183,10 +183,10 @@ public class Test_Mobile
 	}
 
 	@Test (groups = { "VoteForAdvertHigh_2_16" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert"})
-	public void Test20(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bAuthFlag"})
+	public void Test20(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.VoteForAdvertHigh_2_16(sBaseHost, sLogin, sPassword, sIdAdvert);
+		cM.VoteForAdvertHigh_2_16(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag);
 	}
 	
 	
