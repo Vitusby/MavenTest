@@ -924,7 +924,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("");
-    			print(ar.get(i));
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(2));
+    			//print(ar.get(i));
     		}
     	}
     	else
