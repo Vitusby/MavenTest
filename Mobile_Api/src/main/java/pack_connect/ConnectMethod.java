@@ -1018,7 +1018,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений, добавленных в «Избранное» получен");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("");
     			print(ar.get(i));
+    		}
     	}
     	else
     	{
@@ -1069,7 +1072,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{	
     			print("");
     			print(ar.get(i));
-    			print("");
     		}
     	}
     	else
