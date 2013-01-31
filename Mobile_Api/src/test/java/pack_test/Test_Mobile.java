@@ -329,7 +329,7 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test37(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDirectionSuggest_4_7("design.prontosoft.by", " {region=russia/moskovskaya-obl/, search_string=курс}");
+		cM.GetDirectionSuggest_4_7(sBaseHost, sParam);
 	}
 	
 	
