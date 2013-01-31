@@ -1356,7 +1356,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetHousesSuggest_4_5(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.5.	Получение списка домов улицы (саджест)");
+		print("4.5.	Получение списка домов улицы (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataHousesSuggest = "+ sDataHousesSuggest);
 	
