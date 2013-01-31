@@ -338,15 +338,16 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test38(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		// {region=russia/moskovskaya-obl/, search_string=варшавское}
 		cM.GetHighwaySuggest_4_8(sBaseHost, sParam);
 	}
 	
 	//Ничего не нашли
 	@Test (groups = { "GetMetroSuggest_4_9" })
-	public void Test39() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test39(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMetroSuggest_4_9("design.prontosoft.by", "{region=russia/moskovskaya-obl/, search_string=кутузова}");
+		cM.GetMetroSuggest_4_9(sBaseHost, sParam);
+		//{region=russia/moskovskaya-obl/, search_string=кутузова}
 	}
 	
 	
