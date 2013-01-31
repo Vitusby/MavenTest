@@ -73,7 +73,6 @@ public class Test_Mobile
 		cM.GetAdvert_2_2(sBaseHost, sIdAdvert);
 	}
 	
-// НЕ ПРОВЕРИЛ С ЭТОГО	
 	
 	// картинку редактируем orig
 	@Test (groups = { "EditAdvert_2_3" })
@@ -307,13 +306,11 @@ public class Test_Mobile
 	}
 	
 	
-	// Не работает
 	@Test (groups = { "GetHousesSuggest_4_5" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test35(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetHousesSuggest_4_5(sBaseHost, sParam);
-		//{region=russia/moskva-gorod/, street=бакальская, search_string=22}
 	}
 	
 	

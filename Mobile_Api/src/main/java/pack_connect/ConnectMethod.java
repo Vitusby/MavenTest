@@ -340,7 +340,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление отредактировано");
+    		print("Ответ сервера:" + jsonObject.toString() + "\r\n Объявление отредактировано");
     		
     	else
     	{
