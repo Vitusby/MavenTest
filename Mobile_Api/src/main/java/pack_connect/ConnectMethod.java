@@ -283,7 +283,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	if(jsonObject.isNull("error"))
     	{	
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление получено");
+    		print("Ответ сервера:" + jsonObject.toString(2) + " Объявление получено");
     		
     		print("Ищем ссылку на изображение в объявлении");
     		JSONObject jTemp = jsonObject.getJSONObject("advertisement");
