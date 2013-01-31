@@ -1476,7 +1476,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetHighwaySuggest_4_8(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.8. Получение списка шоссе (саджест)".toUpperCase());
+		print("4.11. Получение списка шоссе (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataHighwaySuggest = "+ sDataHighwaySuggest);
 	
@@ -1516,7 +1516,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetMetroSuggest_4_9(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.9.	Получение списка станций метро (саджест)");
+		print("4.12.	Получение списка станций метро (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataMetroSuggest = "+ sDataMetroSuggest);
 	
