@@ -1476,7 +1476,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetHighwaySuggest_4_8(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.8.	Получение списка шоссе (саджест)");
+		print("4.8. Получение списка шоссе (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataHighwaySuggest = "+ sDataHighwaySuggest);
 	
@@ -1499,7 +1499,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список шоссе (саджест) получен");
+    		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок шоссе (саджест) получен\r\n");
     		JSONArray ar = jsonObject.getJSONArray("highway");
     		for(int i=0; i<ar.length(); i++)
     			print(ar.get(i));
