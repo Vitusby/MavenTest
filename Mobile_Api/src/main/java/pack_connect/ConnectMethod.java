@@ -1028,10 +1028,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//2.21.	Получение листинга «своих» объявлений
-	public void GetListOwnAdvert_2_21(String sHost, String sUsername, String sPassword, String sDataForSearchOwnAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListOwnAdvert_2_21(String sHost, String sUsername, String sPassword, String sDataForSearchOwnAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		
 		print("2.21.	Получение листинга «своих» объявлений");
@@ -1058,13 +1062,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений «своих» объявлений получен");
+    		print("Ответ сервера:" + jsonObject.toString() + "листинг «своих» объявлений получен");
     		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{	
     			print("");
     			print(ar.get(i));
+    			print("");
     		}
     	}
     	else

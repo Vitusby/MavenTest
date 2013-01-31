@@ -226,10 +226,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetListOwnAdvert_2_21" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
-	public void Test25(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "bAuthFlag"})
+	public void Test25(String sBaseHost, String sLogin, String sPassword, String sParam, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListOwnAdvert_2_21(sBaseHost, sLogin, sPassword, sParam);
+		cM.GetListOwnAdvert_2_21(sBaseHost, sLogin, sPassword, sParam, bAuthFlag);
 	}
 	
 	
