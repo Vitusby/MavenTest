@@ -1041,7 +1041,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		
-		print("2.21.	Получение листинга «своих» объявлений");
+		print("2.21.	Получение листинга «своих» объявлений".toUpperCase());
 		print("Параметры для запроса");
 		print("DataForSearchOwnAdvert = "+ sDataForSearchOwnAdvert);
 		
@@ -1068,6 +1068,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:" + jsonObject.toString() + "листинг «своих» объявлений получен");
     		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		print("Объявления");
     		for(int i=0; i<ar.length(); i++)
     		{	
     			print("");
