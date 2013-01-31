@@ -145,10 +145,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Редактирование профиля
-	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = GetProfile_1_2(sHost, sUsername, sPassword);
+		sAuth_token = GetProfile_1_2(sHost, sUsername, sPassword, bAuthFlag);
 		print("1.3.	Редактирование профиля");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);

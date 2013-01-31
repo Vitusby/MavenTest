@@ -40,9 +40,9 @@ public class Test_Mobile
 	
 	@Test (groups = { "EditProfile_1_3" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam"})
-	public void Test3(String sBaseHost, String sLogin, String sPassword, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Test3(String sBaseHost, String sLogin, String sPassword, String sParam, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.EditProfile_1_3(sBaseHost, sLogin, sPassword, sParam);
+		cM.EditProfile_1_3(sBaseHost, sLogin, sPassword, sParam, bAuthFlag);
 	}
 	
 	@Test (groups = { "RestorePassword1_4" })
