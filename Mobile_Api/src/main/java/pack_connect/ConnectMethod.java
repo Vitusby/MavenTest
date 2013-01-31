@@ -86,19 +86,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
     	{
     		print("Пользователя с такими данными не существует");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
     	String sAuth_token = (String) jsonObject.get("auth_token");
     	if(sAuth_token != null)
     	{
     	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString());
+    	         print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
     	         return sAuth_token;
     	}
     	else 
     	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
 		
