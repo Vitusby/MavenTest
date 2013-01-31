@@ -382,11 +382,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Добавление объявления в избранное
-	public void AddAdvertToFavourite_2_5(String sHost, String sUsername, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void AddAdvertToFavourite_2_5(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.5.	Добавление объявления в «Избранное»");
 		print("Параметры для запроса");

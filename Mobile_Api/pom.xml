@@ -34,6 +34,7 @@
 						<sCategory>${sCategory}</sCategory>
 						<sRegion>${sRegion}</sRegion>
 						<sNameDictinary>${sNameDictinary}</sNameDictinary>
+						<bAuthFlag>${bAuthFlag}</bAuthFlag>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
