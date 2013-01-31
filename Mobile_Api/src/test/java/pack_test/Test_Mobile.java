@@ -317,10 +317,11 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "GetdistrictSuggest_4_6" })
-	public void Test36() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Test (groups = { "GetDistrictSuggest_4_6" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test36(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetdistrictSuggest_4_6("design.prontosoft.by", "{region=russia/moskva-gorod/, street=бакальская, house=23, search_string=гольяно}");
+		cM.GetDistrictSuggest_4_6(sBaseHost, sParam);
 	}
 	
 	

@@ -1394,7 +1394,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//4.6.	Получение списка районов (саджест)
-	public void GetdistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.7.	Получение списка районов (саджест)".toUpperCase());
