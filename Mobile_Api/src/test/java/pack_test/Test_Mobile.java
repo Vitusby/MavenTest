@@ -76,10 +76,10 @@ public class Test_Mobile
 	
 	// картинку редактируем orig
 	@Test (groups = { "EditAdvert_2_3" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert",  "sParam2"})
-	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam2) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert",  "sParam2", "bAuthFlag"})
+	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam2, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam2 , "1.jpeg");
+		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam2, "1.jpeg", bAuthFlag);
 	}
 	
 	

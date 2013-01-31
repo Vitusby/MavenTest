@@ -306,10 +306,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sCustom_fields, String sPathImageNew) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sCustom_fields, String sPathImageNew, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert);
 		print("");
 		print("2.3.	Редактирование объявления");
