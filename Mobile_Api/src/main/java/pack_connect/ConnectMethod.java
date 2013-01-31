@@ -562,7 +562,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		}
-		
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("2.10.	Активация объявлений");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
