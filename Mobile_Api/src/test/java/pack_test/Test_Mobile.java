@@ -362,10 +362,10 @@ public class Test_Mobile
 	
 	// должен отдавать value отдает currencies
 	@Test (groups = { "GetDictinary_6_1" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test41(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sNameDictinary"})
+	public void Test41(String sBaseHost, String sNameDictinary) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDictinary_6_1(sBaseHost, sParam);
+		cM.GetDictinary_6_1(sBaseHost, sNameDictinary);
 		//"Car makers commercial"
 	} 
 	

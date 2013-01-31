@@ -33,6 +33,7 @@
 						<sNumberDays>${sNumberDays}</sNumberDays>
 						<sCategory>${sCategory}</sCategory>
 						<sRegion>${sRegion}</sRegion>
+						<sNameDictinary>${sNameDictinary}</sNameDictinary>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
