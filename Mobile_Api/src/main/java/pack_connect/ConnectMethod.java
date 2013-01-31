@@ -438,10 +438,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Удаления объявления из избранного
-	public void DeleteAdvertFromFavourite_2_6(String sHost, String sUsername, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void DeleteAdvertFromFavourite_2_6(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("2.4.	Удаление объявления из «Избранное»");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);

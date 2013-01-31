@@ -101,10 +101,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "DeleteAdvertFromFavourite_2_6" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert"})
-	public void Test10(String sBaseHost, String sLogin, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag"})
+	public void Test10(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.DeleteAdvertFromFavourite_2_6(sBaseHost, sLogin, sPassword, sIdAdvert);
+		cM.DeleteAdvertFromFavourite_2_6(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag);
 	}
 	
 	
