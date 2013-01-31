@@ -981,10 +981,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//2.20.	Получение листинга объявлений, добавленных в «Избранное»
-	public void GetListFavourite_2_20(String sHost, String sUsername, String sPassword, String sDataForSearchFavourite) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListFavourite_2_20(String sHost, String sUsername, String sPassword, String sDataForSearchFavourite, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		
 		print("2.20.	Получение листинга объявлений, добавленных в «Избранное»");
