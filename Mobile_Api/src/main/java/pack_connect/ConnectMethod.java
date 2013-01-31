@@ -215,10 +215,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	// Подача объявления
-	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv,  String sAdvertisement, String sCustom_fields, String sPathImage) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv,  String sAdvertisement, String sCustom_fields, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("");
 		print("2.1.	Подача объявления");
@@ -226,6 +230,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sCatRegAdv = "+ sCatRegAdv);
 		print("sAdvertisement = "+ sAdvertisement);
 		print("sCustom_fields = "+ sCustom_fields);
+		print("sAuth_token = "+ sAuth_token);
 		
 		String sRequest = CreateSimpleRequest(sCatRegAdv);
 		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
