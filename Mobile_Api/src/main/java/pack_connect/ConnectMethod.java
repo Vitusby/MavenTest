@@ -772,10 +772,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Назначение «Премиум» объявлению
-	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.15. Назначение «Премиум» объявлению");
 		print("Параметры для запроса");
@@ -800,7 +804,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявлению назначен премиум");
+    	{
+    		if(jsonObject.toString().equals("{\"error\":null,\"actions\":false}"))
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление не назначен премиум (возможно оно неактивно, неоплачено)");
+    		else 
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление назначен премиум");
+    	}
     	else
     	{
     		print("Не удалось назначить премиум объявление \r\n"+
