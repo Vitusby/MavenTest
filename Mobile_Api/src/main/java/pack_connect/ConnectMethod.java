@@ -1273,7 +1273,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.3.	Поиск городов и населенных пунктов по названию (саджест)");
+		print("4.4. Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataCitiesSuggest = "+ sDataCitiesSuggest);
 	
@@ -1316,7 +1316,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.4.	Получение списка улиц (саджест)");
+		print("4.5. Получение списка улиц (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataStreetsSuggest = "+ sDataStreetsSuggest);
 	
@@ -1356,7 +1356,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetHousesSuggest_4_5(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.5.	Получение списка домов улицы (саджест)".toUpperCase());
+		print("4.6. Получение списка домов улицы (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataHousesSuggest = "+ sDataHousesSuggest);
 	
@@ -1393,11 +1393,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.6.	Получение списка районов/микрорайонов (саджест)
+	//4.6.	Получение списка районов (саджест)
 	public void GetdistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.6.	Получение списка районов/микрорайонов (саджест)");
+		print("4.7.	Получение списка районов (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataDistrictSuggest = "+ sDataDistrictSuggest);
 	
@@ -1420,14 +1420,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список районов/микрорайонов (саджест) получен");
+    		print("Ответ сервера:" + jsonObject.toString() + "\r\n список районов (саджест) получен \r\n");
     		JSONArray ar = jsonObject.getJSONArray("districts");
     		for(int i=0; i<ar.length(); i++)
     			print(ar.get(i));
     	}
     	else
     	{
-    		print("Не удалось получить список районов/микрорайонов (саджест) \r\n"+
+    		print("Не удалось получить список районов (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
