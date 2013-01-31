@@ -727,10 +727,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Выделение объявления 
-	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.14. Выделения объявления в списке");
 		print("Параметры для запроса");
@@ -754,7 +758,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление выделено");
+    	{
+    		if(jsonObject.toString().equals("{\"error\":null,\"actions\":false}"))
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление не выделено (возможно оно неактивно, неоплачено)");
+    		else 
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление выделено");
+    	}
     	else
     	{
     		print("Не удалось выделить объявление \r\n"+
