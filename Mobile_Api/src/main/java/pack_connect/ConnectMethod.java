@@ -668,8 +668,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print(jsonObject.get("actions"));
-    		if(jsonObject.get("actions").equals("false"))
+    		String s = jsonObject.get("actions").toString();
+    		print(s);
+    		if(s.equals("false"))
     			print("Ответ сервера:" + jsonObject.toString() + " Объявление не продлено (возможно оно неактивно, неоплачено)");
     		else 
     			print("Ответ сервера:" + jsonObject.toString() + " Объявление продлено");
