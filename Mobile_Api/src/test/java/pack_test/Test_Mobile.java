@@ -353,9 +353,10 @@ public class Test_Mobile
 	
 	// евро не переведено кодировка,  currencies не массив  в ответе
 	@Test (groups = { "GetCurrencies_5_1" })
-	public void Test40() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost"})
+	public void Test40(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCurrencies_5_1("design.prontosoft.by");
+		cM.GetCurrencies_5_1(sBaseHost);
 	} 
 	
 	

@@ -1576,10 +1576,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список валют получен");
-    		/*JSONArray ar = jsonObject.getJSONArray("currencies");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));*/
+    		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок валют получен");
     	}
     	else
     	{
