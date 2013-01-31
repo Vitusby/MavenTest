@@ -923,10 +923,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
-    			print("");
+    			print("Объявление №" + i + "\r\n");
     			jsonObject = (JSONObject) ar.get(i);
-    			print(jsonObject.toString(2));
-    			//print(ar.get(i));
+    			print(jsonObject.toString(10));
+    		
     		}
     	}
     	else
