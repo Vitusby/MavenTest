@@ -668,7 +668,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		
     		if(jsonObject.toString().equals("{\"error\":null,\"actions\":false}"))
     			print("Ответ сервера:" + jsonObject.toString() + " Объявление не продлено (возможно оно неактивно, неоплачено)");
     		else 
@@ -682,10 +681,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Поднятие объявления
-	public void PushUpAdvert_2_13(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void PushUpAdvert_2_13(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token,  boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.13.	Поднятие объявления в списке");
 		print("Параметры для запроса");
@@ -710,7 +713,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление поднято");
+    	{
+    		if(jsonObject.toString().equals("{\"error\":null,\"actions\":false}"))
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление не поднято (возможно оно неактивно, неоплачено)");
+    		else 
+    			print("Ответ сервера:" + jsonObject.toString() + " Объявление поднято");
+    	}
     	else
     	{
     		print("Не удалось поднять объявление \r\n"+
