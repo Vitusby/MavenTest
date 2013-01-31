@@ -104,12 +104,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// Получение профиля
-	public String GetProfile_1_2(String sHost,String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public String GetProfile_1_2(String sHost,String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
-		print("1.2.	Получение профиля");
+		print("1.2.	Получение профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
