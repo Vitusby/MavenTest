@@ -153,10 +153,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "Prolongadvert_2_12" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token"})
-	public void Test16(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token", "bAuthFlag"})
+	public void Test16(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.Prolongadvert_2_12(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token);
+		cM.Prolongadvert_2_12(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, bAuthFlag);
 	}
 	
 	@Test (groups = { "PushUpAdvert_2_13" })
