@@ -326,7 +326,8 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetDirectionSuggest_4_7" })
-	public void Test37() throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test37(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetDirectionSuggest_4_7("design.prontosoft.by", " {region=russia/moskovskaya-obl/, search_string=курс}");
 	}

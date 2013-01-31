@@ -1436,7 +1436,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetDirectionSuggest_4_7(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.7.	Получение списка направлений (саджест)");
+		print("4.10. Получение списка направлений (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataDirectionSuggest = "+ sDataDirectionSuggest);
 	
@@ -1455,11 +1455,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
-    	
+    
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список направлений (саджест) получен");
+    		print("Ответ сервера:" + jsonObject.toString() + "\r\n список направлений (саджест) получен \r\n");
     		JSONArray ar = jsonObject.getJSONArray("directions");
     		for(int i=0; i<ar.length(); i++)
     			print(ar.get(i));
