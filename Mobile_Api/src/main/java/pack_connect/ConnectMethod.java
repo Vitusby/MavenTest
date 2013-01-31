@@ -555,10 +555,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Активация объявлений
-	public void ActivationAdvert_2_10(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void ActivationAdvert_2_10(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
 		
 		print("2.10.	Активация объявлений");
 		print("Параметры для запроса");
