@@ -313,7 +313,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		else
 		{
-			print("UrlImage = "+ sUrlImage);
+			print("UrlImage = "+ sUrlImage +"\r\n");
 		}
 		
 		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
