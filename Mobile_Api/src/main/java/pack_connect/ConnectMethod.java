@@ -313,7 +313,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		}
-		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
 		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert);
 		print("");
 		print("2.3.	Редактирование объявления");
@@ -364,10 +364,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// Удаление объявления
-	public void DeleteAdvert_2_4(String sHost, String sUsername, String sPassword, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void DeleteAdvert_2_4(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
+		
 		print("2.4.	Удаление объявления");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
