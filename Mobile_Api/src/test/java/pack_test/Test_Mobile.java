@@ -93,10 +93,10 @@ public class Test_Mobile
 	
 	// можно добавить свое собственное объявление
 	@Test (groups = { "AddAdvertToFavourite_2_5" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "sAuthFlag"})
-	public void Test9(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean sAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag"})
+	public void Test9(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.AddAdvertToFavourite_2_5(sBaseHost, sLogin, sPassword, sIdAdvert, sAuthFlag);
+		cM.AddAdvertToFavourite_2_5(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag);
 	}
 	
 	
