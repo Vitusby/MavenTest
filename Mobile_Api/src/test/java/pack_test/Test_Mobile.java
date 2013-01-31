@@ -79,7 +79,6 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert",  "sParam2"})
 	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam2) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		//cM.EditAdvert_2_3("design.prontosoft.by","Timon2181", "retry2", "246819150", "{make=BMW, model=116}" , "1.jpeg");
 		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam2 , "1.jpeg");
 	}
 	

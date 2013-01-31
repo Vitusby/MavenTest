@@ -406,10 +406,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление добавлено в избранное, проверьте вкладку изюранные для данного пользователя");
+    		print("Ответ сервера:" + jsonObject.toString() + " Объявление добавлено в избранное, проверьте вкладку избранные для данного пользователя");
     	else
     	{
-    		print("Не удалось добавить объявлени \r\n"+
+    		print("Не удалось добавить объявление \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}
