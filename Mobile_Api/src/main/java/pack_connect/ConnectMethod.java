@@ -319,7 +319,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
 		
 		builder = new URIBuilder();
-		//
+		
 		if(!sUrlImage.equals("false"))
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
     		.setQuery(sRequest + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
@@ -1500,7 +1500,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок шоссе (саджест) получен\r\n");
-    		JSONArray ar = jsonObject.getJSONArray("highway");
+    		JSONArray ar = jsonObject.getJSONArray("highways");
     		for(int i=0; i<ar.length(); i++)
     			print(ar.get(i));
     	}
