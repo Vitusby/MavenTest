@@ -1022,12 +1022,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений, добавленных в «Избранное» получен");
+    		print("Ответ сервера: Листинг объявлений, добавленных в «Избранное» получен");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("");
-    			print(ar.get(i));
+    			jsonObject = ar.getJSONObject(i);
+    			print(jsonObject.toString(10));
     		}
     	}
     	else
@@ -1118,10 +1119,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений пользователя получен");
-    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
     			print("");
     			print(ar.get(i));
     		}
