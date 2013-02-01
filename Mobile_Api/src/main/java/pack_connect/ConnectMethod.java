@@ -1274,11 +1274,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	
+    	jsonObject = ParseResponse(sResponse);
     	//debug
     	print(jsonObject.toString(1));
     	
     	//
-    	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
