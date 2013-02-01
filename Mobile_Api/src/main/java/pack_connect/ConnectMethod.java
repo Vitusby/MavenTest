@@ -1274,6 +1274,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	
+    	//debug
+    	print(jsonObject.toString(1));
+    	
+    	//
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
