@@ -1026,9 +1026,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
-    			print("");
-    			jsonObject = ar.getJSONObject(i);
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
+    			jsonObject = (JSONObject) ar.get(i);
     			print(jsonObject.toString(10));
+    		
     		}
     	}
     	else
@@ -1080,8 +1082,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
     			print("Объявление №" + i);
-    			print("");
-    			print(ar.get(i));
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
     		}
     	}
     	else
@@ -1119,15 +1122,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "листинг объявлений пользователя получен");
+    		print("Ответ сервера: Листинг объявлений пользователя получен");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("Объявление №" + i);
-    			print("");
-    			print(ar.get(i));
-    		}
+    			for(int i=0; i<ar.length(); i++)
+        		{
+        			print("--------------------------------------------------------------------------------------------------------------");
+        			print("Объявление №" + i);
+        			jsonObject = (JSONObject) ar.get(i);
+        			print(jsonObject.toString(10));
+        		
+        		}
     	}
     	else
     	{
