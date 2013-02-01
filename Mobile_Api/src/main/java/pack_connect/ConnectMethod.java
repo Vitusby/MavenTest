@@ -1273,18 +1273,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
-    	
+    	JSONObject jsonTemp;
     	jsonObject = ParseResponse(sResponse);
-    	//debug
-    	//print(jsonObject.toString(1));
-    	print(jsonObject.names());
-    	
-    	//
+    	jsonTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
     		print("");
-    		JSONArray ar = jsonObject.getJSONArray("default");
+    		JSONArray ar = jsonTemp.getJSONArray("default");
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
@@ -1293,7 +1289,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}
-    		ar = jsonObject.getJSONArray("extended");
+    		ar = jsonTemp.getJSONArray("extended");
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
