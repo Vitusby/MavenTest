@@ -1748,7 +1748,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    		print("Не удалось распарсить ответ");
 	    		print("Ответ на запрос:");
-	    		print(sResponse);
+	    		print(sResponse+"\r\n");
 	    		exc.printStackTrace();
 	    		throw new ExceptFailTest("Не удалось распарсить ответ");
 	    	}
