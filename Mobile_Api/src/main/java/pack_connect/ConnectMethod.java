@@ -1277,10 +1277,26 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для фильтрации объявлений получен");
+    		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("default");
     		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("default");
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}
+    		ar = jsonObject.getJSONArray("extended");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("extended");
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}
     	}
     	else
     	{
