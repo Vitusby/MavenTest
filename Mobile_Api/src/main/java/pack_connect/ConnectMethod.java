@@ -131,12 +131,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	String sTempResponse = jsonObject.toString();
     	
-    	print("Ответ сервера:\r\n"+ sTempResponse);
+    	
+    	print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     	
     	if(jsonObject.isNull("error"))
+    	{
     		return sAuth_token;
+    	}
     	else
     	{
     		print("Тест провален");
