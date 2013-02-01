@@ -1276,7 +1276,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	//debug
-    	print(jsonObject.toString(1));
+    	//print(jsonObject.toString(1));
+    	print(jsonObject.names());
     	
     	//
     	if(jsonObject.isNull("error"))
