@@ -1239,30 +1239,26 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	JSONObject jsonTemp;
-    	jsonTemp = jsonObject;
     	
     	if(jsonObject.isNull("error"))
     	{
 	    	print("Ответ сервера. Cписок полей рубрики для редактирования объявлений получен \r\n");
 	    	
-			JSONArray ar = jsonTemp.getJSONArray("group_custom_fields");
-			for(int i=0; i<ar.length(); i++)
-			{
-				print("--------------------------------------------------------------------------------------------------------------");
-				print("group_custom_fields");
-				jsonObject = (JSONObject) ar.get(i);
-				print(jsonObject.toString(10));
+	    	print("--------------------------------------------------------------------------------------------------------------");
+			print("group_custom_fields");
+			jsonTemp = jsonObject.getJSONObject("group_custom_fields");
+			print(jsonTemp.toString(10));
 			
-			}
-			ar = jsonTemp.getJSONArray("video");
-			for(int i=0; i<ar.length(); i++)
-			{
-				print("--------------------------------------------------------------------------------------------------------------");
-				print("video");
-				jsonObject = (JSONObject) ar.get(i);
-				print(jsonObject.toString(10));
+			print("--------------------------------------------------------------------------------------------------------------");
+			print("video");
+			jsonTemp = jsonObject.getJSONObject("video");
+			print(jsonTemp.toString(10));
 			
-			}
+			print("--------------------------------------------------------------------------------------------------------------");
+			print("contacts");
+			jsonTemp = jsonObject.getJSONObject("contacts");
+			print(jsonTemp.toString(10));
+			
     	}
     	else
     	{
