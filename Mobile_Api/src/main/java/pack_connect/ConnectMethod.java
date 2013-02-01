@@ -173,14 +173,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	String sTempResponse = jsonObject.toString();
     	
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:\r\n"+ sTempResponse);
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     	else
     	{
     		print("Тест провален");
-    		print("Ответ сервера:\r\n"+ sTempResponse);
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
 		
