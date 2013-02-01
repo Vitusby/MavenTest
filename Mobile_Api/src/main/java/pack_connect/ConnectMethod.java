@@ -1073,12 +1073,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "листинг «своих» объявлений получен");
+    		print("Ответ сервера: Листинг «своих» объявлений получен");
     		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
-    		print("Объявления");
     		for(int i=0; i<ar.length(); i++)
-    		{	
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
     			print("");
     			print(ar.get(i));
     		}
