@@ -1125,14 +1125,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера: Листинг объявлений пользователя получен");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
-    			for(int i=0; i<ar.length(); i++)
-        		{
-        			print("--------------------------------------------------------------------------------------------------------------");
-        			print("Объявление №" + i);
-        			jsonObject = (JSONObject) ar.get(i);
-        			print(jsonObject.toString(10));
-        		
-        		}
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}
     	}
     	else
     	{
