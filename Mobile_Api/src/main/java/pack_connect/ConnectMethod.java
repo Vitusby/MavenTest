@@ -474,7 +474,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных на этапе подачи объявления
-	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest
+	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
@@ -492,7 +492,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Список получен");
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nСписок получен");
     	else
     	{
     		print("Не удалось получить список продуктов \r\n"+
