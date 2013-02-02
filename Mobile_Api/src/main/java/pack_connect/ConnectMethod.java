@@ -794,9 +794,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Назначение «Премиум» объявлению
-	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);

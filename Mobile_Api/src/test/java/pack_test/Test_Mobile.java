@@ -176,10 +176,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "SetPremiumForAdvert_2_15" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token" , "sNumberDays", "bAuthFlag"})
-	public void Test19(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token" , "sNumberDays", "bAuthFlag"})
+	public void Test19(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.SetPremiumForAdvert_2_15(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, sNumberDays, bAuthFlag);
+		cM.SetPremiumForAdvert_2_15(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, sNumberDays, bAuthFlag);
 	}
 
 	@Test (groups = { "VoteForAdvertHigh_2_16" })
