@@ -1,5 +1,4 @@
 package pack_connect;
-//http://www.jarvana.com/jarvana/search?search_type=project&project=org.json
 
 import java.io.IOException;
 import java.net.URI;
