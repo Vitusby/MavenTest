@@ -604,6 +604,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void DeactivateAdvert_2_11(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -641,9 +642,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Продление объявления
-	public void Prolongadvert_2_12(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void Prolongadvert_2_12(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
