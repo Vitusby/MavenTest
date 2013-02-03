@@ -1650,8 +1650,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.6.1	Получение списка районов (саджест)
-		public void GetMicroDistrictSuggest_4_6_1(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	//4.8	Получение списка районов (саджест)
+		public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 		{
 
 			print("4.8. Получение списка микрорайонов (саджест)".toUpperCase());
@@ -1688,7 +1688,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	
 	
-	//4.7.	Получение списка направлений (саджест)
+	//4.10.	Получение списка направлений (саджест)
 	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -1728,7 +1728,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.8.	Получение списка шоссе (саджест)
+	//4.11.	Получение списка шоссе (саджест)
 	public void GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -1768,7 +1768,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.9.	Получение списка станций метро (саджест)
+	//4.12.	Получение списка станций метро (саджест)
 	public void GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 

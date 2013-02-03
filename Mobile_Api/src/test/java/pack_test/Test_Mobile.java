@@ -290,7 +290,7 @@ public class Test_Mobile
 	
 	@Test (groups = { "GetCitiesWithDomen_4_2_1" })
 	@Parameters({"sBaseHost"})
-	public void Test32(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Test32_1(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetCitiesWithDomen_4_2_1(sBaseHost);
 	}
@@ -325,6 +325,13 @@ public class Test_Mobile
 	public void Test36(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetDistrictSuggest_4_6(sBaseHost, sParam);
+	}
+	
+	@Test (groups = { "GetMicroDistrictSuggest_4_8" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test36_1(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetMicroDistrictSuggest_4_8(sBaseHost, sParam);
 	}
 	
 	
