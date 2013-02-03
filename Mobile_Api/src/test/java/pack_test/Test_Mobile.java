@@ -328,28 +328,28 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "GetDirectionSuggest_4_7" })
+	@Test (groups = { "GetDirectionSuggest_4_10" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test37(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDirectionSuggest_4_7(sBaseHost, sParam);
+		cM.GetDirectionSuggest_4_10(sBaseHost, sParam);
 	}
 	
 	
 	// Не работает
-	@Test (groups = { "GetHighwaySuggest_4_8" })
+	@Test (groups = { "GetHighwaySuggest_4_11" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test38(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetHighwaySuggest_4_8(sBaseHost, sParam);
+		cM.GetHighwaySuggest_4_11(sBaseHost, sParam);
 	}
 	
 	//Ничего не нашли
-	@Test (groups = { "GetMetroSuggest_4_9" })
+	@Test (groups = { "GetMetroSuggest_4_12" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test39(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMetroSuggest_4_9(sBaseHost, sParam);
+		cM.GetMetroSuggest_4_12(sBaseHost, sParam);
 		//{region=russia/moskovskaya-obl/, search_string=кутузова}
 	}
 	
