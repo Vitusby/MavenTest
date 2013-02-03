@@ -1430,7 +1430,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.2.	Получение списка популярных городов");
+		print("4.3. Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
@@ -1460,6 +1460,40 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
+	//4.2.1.	Получение списка городов, для которых заведены поддомены
+		public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+		{
+
+			print("4.2.	Получение списка городов, для которых заведены поддомены".toUpperCase());
+			print("Параметры для запроса");
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/popular_cities");
+	    	
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	
+	    	String sResponse = HttpGetRequest(uri);
+	    	print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	if(jsonObject.isNull("error"))
+	    	{
+	    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок городов, для которых заведены поддомены");
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить список городов, для которых заведены поддомены \r\n"+
+	    				"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}	
+		}
+	
 	
 	// 4.3.	Поиск городов и населенных пунктов по названию (саджест)
 	public void GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
