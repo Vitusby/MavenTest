@@ -334,6 +334,13 @@ public class Test_Mobile
 		cM.GetMicroDistrictSuggest_4_8(sBaseHost, sParam);
 	}
 	
+	@Test (groups = { "GetAOSuggest_4_9" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test36_2(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetAOSuggest_4_9(sBaseHost, sParam);
+	}
+	
 	
 	@Test (groups = { "GetDirectionSuggest_4_10" })
 	@Parameters({"sBaseHost", "sParam"})
