@@ -280,12 +280,19 @@ public class Test_Mobile
 		cM.GetRegions_4_1(sBaseHost);
 	}
 	
-	// Какие отдает ??????
 	@Test (groups = { "GetPopularCities_4_2" })
 	@Parameters({"sBaseHost", "sRegion"})
 	public void Test32(String sBaseHost, String sRegion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetPopularCities_4_2(sBaseHost, sRegion);
+	}
+	
+	
+	@Test (groups = { "GetCitiesWithDomen_4_2_1" })
+	@Parameters({"sBaseHost"})
+	public void Test32(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetCitiesWithDomen_4_2_1(sBaseHost);
 	}
 	
 	
