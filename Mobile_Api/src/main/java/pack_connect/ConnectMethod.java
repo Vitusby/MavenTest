@@ -1451,10 +1451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список популярных городов получен");
-    		JSONArray ar = jsonObject.getJSONArray("regions");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок популярных городов получен");
     	}
     	else
     	{
