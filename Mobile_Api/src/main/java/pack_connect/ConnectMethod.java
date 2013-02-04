@@ -240,6 +240,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Получение/Редактирование профиля Автотест
 	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		JSONObject jTemp, jData;
+		
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -263,13 +265,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
-    	JSONObject jTemp;
-    	
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\nПрофиль получен.");
     		print("Проверяем совпадение логина и email");
     		jTemp = jsonObject.getJSONObject("user_info"); 
+    		jData = jTemp; // для проверки и сравнения данных
     		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
     		{
     			print("Логин пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
@@ -292,9 +293,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Редактирование профиля".toUpperCase());
     	String sUser_info="";
 		print("Параметры для запроса");
-		print("Генерируем данные");
 		print("auth_token = "+ sAuth_token);
-		print("user_info = "+ sUser_info);
+		print("Генерируем данные");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		String sRandomSite = RamdomData.GetRandomData(Proper.GetProperty("sRandomSite"), jData.getString("site"));
+		String sRandomZip = RamdomData.GetRandomData(Proper.GetProperty("sRandomZip"),  jData.getString("zip"));
+		
+		print(sRandomSite +" "+sRandomZip);
+		
+		
+		
+		/*print("user_info = "+ sUser_info);
 		String sQuery = CreateArrayRequest("user_info", sUser_info);
 		
 		builder = new URIBuilder();
@@ -322,7 +331,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
-    	
+    	*/
 	}
 		
 		
