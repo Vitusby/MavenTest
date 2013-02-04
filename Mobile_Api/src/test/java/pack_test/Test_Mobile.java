@@ -15,25 +15,29 @@ public class Test_Mobile
 {
 	ConnectMethod cM = new ConnectMethod();
 	
-	@Test (groups = { "CreateProfileRequest_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAutoTestOrParameterTest"})
-	public void Test(String sBaseHost, String sLogin, String sPassword, boolean bAutoTestOrParameterTest) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void Test_Auto(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		if(!bAutoTestOrParameterTest)
-			cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
-		else
-			cM.CreateProfileReqeust_1_1_2(sBaseHost);
-		
+			cM.CreateProfileReqeust_1_1_2(sBaseHost); // Создание профиля
+			cM.Authorization_1_1_Auto(sBaseHost); // Авторизация	
+	}
+	
+	
+	
+	@Test (groups = { "CreateProfileRequest_1" })
+	@Parameters({"sBaseHost", "sLogin", "sPassword"})
+	public void Test(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
 	}
 
 	@Test (groups = { "Authorization_1_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAutoTestOrParameterTest"})
-	public void Test1(String sBaseHost, String sLogin, String sPassword, boolean bAutoTestOrParameterTest) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword"})
+	public void Test1(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		if(!bAutoTestOrParameterTest)
 			cM.Authorization_1_1(sBaseHost, sLogin, sPassword);
-		else
-			cM.Authorization_1_1_Auto(sBaseHost);
 	}
 
 	@Test (groups = { "GetProfile_1_2" })

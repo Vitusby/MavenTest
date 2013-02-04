@@ -50,7 +50,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	if(sAuth_token != null)
 	    	{
 	    	         print("Auth_token получен = "+ sAuth_token);
-	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить ключ Auth_token");
+	    		throw new ExceptFailTest("Тест провален");
 	    	}
     	}
     	else 
@@ -83,7 +88,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	{
+	    	String sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+	    	         print("Auth_token получен = "+ sAuth_token);
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить ключ Auth_token");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+    	}
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
@@ -221,7 +238,51 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
+	// Получение редактирование профиля
+	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
+		String sAuth_token = "";
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
+		print("1.2.	Получение профиля".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	JSONObject jTemp;
+    	
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\nПрофиль получен.");
+    		print("Проверяем совпадение логина и email");
+    		jTemp = jsonObject.getJSONObject("user_info"); 
+    		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
+    		{
+    			print("Логин пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
+    			print("Email пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
+    		}
+    	}
+    	else
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10)+"");
+    		print("Тест провален");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
 		
 		
 	// Создание профиля
