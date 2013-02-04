@@ -17,7 +17,7 @@ public class Test_Mobile
 	
 	@Test (groups = { "CreateProfileRequest_1" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAutoTestOrParameterTest"})
-	public void Test(String sBaseHost, String sLogin, String sPassword, boolean bAutoTestOrParameterTest) throws URISyntaxException, IOException, ExceptFailTest
+	public void Test(String sBaseHost, String sLogin, String sPassword, boolean bAutoTestOrParameterTest) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		if(!bAutoTestOrParameterTest)
 			cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
