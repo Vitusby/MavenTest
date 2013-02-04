@@ -35,6 +35,7 @@
 						<sRegion>${sRegion}</sRegion>
 						<sNameDictinary>${sNameDictinary}</sNameDictinary>
 						<bAuthFlag>${bAuthFlag}</bAuthFlag>
+						<bFlagDataForTest>${bFlagDataForTest}</bFlagDataForTest>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

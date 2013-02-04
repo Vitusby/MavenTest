@@ -23,14 +23,14 @@ public class Test_Mobile
 		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
 		
 	}
-	
+
 	@Test (groups = { "Authorization_1_1" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword"})
 	public void Test1(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.Authorization_1_1(sBaseHost, sLogin, sPassword);
 	}
-	
+
 	@Test (groups = { "GetProfile_1_2" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAuthFlag"})
 	public void Test2(String sBaseHost, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
