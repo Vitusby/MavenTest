@@ -22,8 +22,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp;
-	
-		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
+
 		print("1.1.	Авторизация - Обычный пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
@@ -204,8 +203,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Создание профиля АвтоТест
 	public void CreateProfileReqeust_1_1_2(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
-		print("1.	Создание профиля");
+		print("1.	Создание профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("Генерируем Еmail");
 		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
@@ -230,15 +228,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан\r\n");
     	else
     	{
     		print("Не удалось создать профилль пользователя\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
-	// Получение редактирование профиля
+	// Получение/Редактирование профиля Автотест
 	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sLogin = Proper.GetProperty("login_authOP");
