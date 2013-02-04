@@ -16,11 +16,13 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	
 	@Test (groups = { "CreateProfileRequest_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword"})
-	public void Test(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAutoTestOrParameterTest"})
+	public void Test(String sBaseHost, String sLogin, String sPassword, boolean bAutoTestOrParameterTest) throws URISyntaxException, IOException, ExceptFailTest
 	{
-		// try catch
-		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
+		if(!bAutoTestOrParameterTest)
+			cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
+		else
+			cM.CreateProfileReqeust_1_1_2(sBaseHost);
 		
 	}
 

@@ -22,8 +22,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp;
-		
-		
+	
 		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
 		print("1.1.	Авторизация - Обычный пользователь".toUpperCase());
 		print("Параметры для запроса");
@@ -185,14 +184,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
     	
 	}
-	// Создание/Редактирование/Получение профиля АвтоТест
-	public void CreateEditGetProfile(String sHost) throws URISyntaxException, IOException, ExceptFailTest
+	// Создание профиля АвтоТест
+	public void CreateProfileReqeust_1_1_2(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
 		print("1.	Создание профиля");
 		print("Параметры для запроса");
-		
 		print("Генерируем Еmail");
-		String sEmail = RamdomData.GetRamdomString(7);
+		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
 		String sPassword = "retry2";
 		print("email = "+ sEmail);
 		print("password = "+ sPassword);
@@ -212,10 +211,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpPostRequest(uri);
     	print("Парсим ответ....");
     	
-    	// Проверка что получили
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + "Профиль пользователя создан");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан");
     	else
     	{
     		print("Не удалось создать профилль пользователя\r\n"+
