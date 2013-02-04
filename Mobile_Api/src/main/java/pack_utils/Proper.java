@@ -12,7 +12,7 @@ public class Proper
 		prop = new Properties();
 		try
 		{
-			prop.load(ClassLoader.getSystemResourceAsStream("conf.properties"));
+			prop.load(ClassLoader.getSystemResourceAsStream("/Mobile_Api/src/main/resource/conf.properties"));
 			if(prop == null)
 				System.out.println("Не удалось загрузить файл конфигурации");
 		}
