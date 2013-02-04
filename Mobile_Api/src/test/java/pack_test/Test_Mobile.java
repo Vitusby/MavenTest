@@ -30,7 +30,12 @@ public class Test_Mobile
 			cM.Authorization_1_1_Auto(sBaseHost); // Авторизация	
 	}
 	
-	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetAndEditProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.GetAndEditProfile(sBaseHost); // Получение и редактирование профиля
+	}
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

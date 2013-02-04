@@ -20,7 +20,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void CreateProfileReqeust_1_1_2(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("------------------------------------------------------------------------------------------------------------");
-		print("\r\n1.	Создание профиля".toUpperCase());
+		print("Создание профиля - Тест".toUpperCase());
+		print("\r\nСоздание профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("Генерируем Еmail и пароль");
 		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
@@ -58,7 +59,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		JSONObject jTemp;
 		print("------------------------------------------------------------------------------------------------------------");
-		print("\r\n1.1.	Авторизация - Обычный пользователь".toUpperCase());
+		print("Авторизация - Тест".toUpperCase());
+		print("\r\nАвторизация - Обычный пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		print("password = "+ Proper.GetProperty("password"));
@@ -99,7 +101,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	/////////////////////////////////////////////////////////////////////////////////////////////
-    	print("\r\n1.1.	Авторизация - Интернет партнер".toUpperCase());
+    	print("\r\nАвторизация - Интернет партнер".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authIP"));
 		print("password = "+ Proper.GetProperty("password"));
@@ -140,7 +142,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	///////////////////////////////////////////////////////////////////////////////////////////////
  
-		print("\r\n1.1.	Авторизация - Несуществующий пользователь".toUpperCase());
+		print("\r\nАвторизация - Несуществующий пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = " + Proper.GetProperty("login_authNotExist"));
 		print("password = " + Proper.GetProperty("password"));
@@ -172,7 +174,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	///////////////////////////////////////////////////////////////////////////////////////////////
     	
-    	print("\r\n1.1.	Авторизация - Забаненный пользователь".toUpperCase());
+    	print("\r\nАвторизация - Забаненный пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
@@ -204,7 +206,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 		///////////////////////////////////////////////////////////////////////////////////////////////
     	
-		print("\r\n1.1.	Авторизация - Неактивный(не подтвердивший регистрацию) пользователь".toUpperCase());
+		print("\r\nАвторизация - Неактивный(не подтвердивший регистрацию) пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
@@ -242,9 +244,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизация, получение, редактирование профиля".toUpperCase());
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
-		print("1.2.	Получение профиля".toUpperCase());
+		print("\r\nПолучение профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
