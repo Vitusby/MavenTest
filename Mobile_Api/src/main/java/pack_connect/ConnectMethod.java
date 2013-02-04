@@ -244,7 +244,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
-		print("Авторизация, получение, редактирование профиля".toUpperCase());
+		print("Авторизация, получение, редактирование профиля - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		print("\r\nПолучение профиля".toUpperCase());
@@ -272,8 +272,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     		jTemp = jsonObject.getJSONObject("user_info"); 
     		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
     		{
-    			print("Логин пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
-    			print("Email пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
+    			print("Логин пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
+    			print("Email пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
     		}
     		else
     		{
