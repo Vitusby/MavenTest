@@ -192,7 +192,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("Генерируем Еmail");
 		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
-		String sPassword = "retry2";
+		String sPassword = RamdomData.GetRamdomString(7);
 		print("email = "+ sEmail);
 		print("password = "+ sPassword);
 		builder = new URIBuilder();
