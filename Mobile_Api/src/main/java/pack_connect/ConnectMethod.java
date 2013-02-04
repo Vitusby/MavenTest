@@ -130,15 +130,84 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequest(uri);
     	print("Парсим ответ....");
-    	//print(sResponse);
     	jsonObject = ParseResponse(sResponse);
     	
-    	jsonObject = jsonObject.getJSONObject("error");
-    	String s = jsonObject.getString("description");
-    	print(s);
     	
-    	if//(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
-    		(jsonObject.getString("error").equals("Не указан логин или пароль"))
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	
+    	/////////////////////////////////////////////////////////////////////////////////////////////
+    	print("\r\n1.1.	Авторизация - Интернет партнер".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authIP"));
+		print("password = "+ Proper.GetProperty("password"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
+    		.setParameter("username", Proper.GetProperty("login_authIP"))
+    		.setParameter("password", Proper.GetProperty("password"));
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	///////////////////////////////////////////////////////////////////////////////////////////////
+ 
+		print("1.1.	Авторизация - Несуществующий пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = " + Proper.GetProperty("login_authNotExist"));
+		print("password = " + Proper.GetProperty("password"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
+    		.setParameter("username", Proper.GetProperty("login_authNotExist"))
+    		.setParameter("password", Proper.GetProperty("password"));
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	print(jsonObject.toString());
+    	
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	
+    	
+    	//jsonObject = jsonObject.getJSONObject("error");
+    	//String s = jsonObject.getString("description");
+    	
+    	
+    	if(jsonObject.getString("error").equals("Не указан логин или пароль"))
     	{
     		print("Не указан логин или пароль");
     		print("Ответ сервера:\r\n"+ jsonObject.toString());
