@@ -19,6 +19,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Создание профиля АвтоТест
 	public void CreateProfileReqeust_1_1_2(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		print("------------------------------------------------------------------------------------------------------------");
 		print("\r\n1.	Создание профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("Генерируем Еmail");
@@ -56,7 +57,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp;
-
+		print("------------------------------------------------------------------------------------------------------------");
 		print("\r\n1.1.	Авторизация - Обычный пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
