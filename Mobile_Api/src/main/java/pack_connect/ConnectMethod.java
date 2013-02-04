@@ -89,6 +89,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
 	    		throw new ExceptFailTest("Тест провален");
 	    	}
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
+	    	{
+	    		print("Пользователя неактивен или забанен");
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	
 	    	String sAuth_token = (String) jsonObject.get("auth_token");
 	    	if(sAuth_token != null)
 	    	{
