@@ -92,12 +92,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(sAuth_token != null)
     	{
     	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     	         return sAuth_token;
     	}
     	else 
     	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
 		
