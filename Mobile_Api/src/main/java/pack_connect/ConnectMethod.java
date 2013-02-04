@@ -112,6 +112,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация АвтоТест
 	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		JSONObject jTemp;
+		
+		
 		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
 		print("1.1.	Авторизация - Обычный пользователь".toUpperCase());
 		print("Параметры для запроса");
@@ -134,12 +137,20 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	{
+	    	String sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+	    	         print("Auth_token получен = "+ sAuth_token);
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    	}
+    	}
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
+    	
     	
     	
     	/////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,7 +183,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	///////////////////////////////////////////////////////////////////////////////////////////////
  
-		print("1.1.	Авторизация - Несуществующий пользователь".toUpperCase());
+		print("\r\n1.1.	Авторизация - Несуществующий пользователь".toUpperCase());
 		print("Параметры для запроса");
 		print("email = " + Proper.GetProperty("login_authNotExist"));
 		print("password = " + Proper.GetProperty("password"));
@@ -191,53 +202,29 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
     	
-    	print(jsonObject.toString());
+    	jTemp = jsonObject.getJSONObject("error");
+    	String sResult = jTemp.getString("description");
     	
-    	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователь авторизован");
+    	if(sResult.equals("Пользователя с такими данными не существует"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nПользователя не существует");
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
     	
+    	///////////////////////////////////////////////////////////////////////////////////////////////
     	
     	
-    	//jsonObject = jsonObject.getJSONObject("error");
-    	//String s = jsonObject.getString("description");
     	
-    	
-    	if(jsonObject.getString("error").equals("Не указан логин или пароль"))
-    	{
-    		print("Не указан логин или пароль");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString());
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	/*if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
-    	{
-    		print("Пользователя с такими данными не существует");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
+    	/*if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
     	{
     		print("Пользовател неактивен или забанен");
     		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
     	*/
-    	String sAuth_token = (String) jsonObject.get("auth_token");
-    	if(sAuth_token != null)
-    	{
-    	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
-    	        // return sAuth_token;
-    	}
-    	else 
-    	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
+    	
 	}
 	
 	// Получение профиля
