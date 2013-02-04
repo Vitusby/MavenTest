@@ -13,6 +13,8 @@ public class Proper
 		try
 		{
 			prop.load(ClassLoader.getSystemResourceAsStream("conf.properties"));
+			if(prop == null)
+				System.out.println("Не удалось загрузить файл конфигурации");
 		}
 		catch(IOException exc){exc.printStackTrace(); System.out.println("Не удалось загрузить файл конфигурации");}
 	}
