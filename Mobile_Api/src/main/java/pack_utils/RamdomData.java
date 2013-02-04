@@ -2,11 +2,16 @@ package pack_utils;
 
 import java.util.Random;
 
-public class RamdomData
+public final class RamdomData
 {
+	protected static Random r;
+	static
+	{
+		r = new Random();
+	}
+	
 	public static String GetRamdomString(int lenth)
 	{
-		Random r = new Random();
 		char mas[] = new char[lenth];
 		for(int i=0; i<lenth; i++)
 		{
@@ -15,4 +20,20 @@ public class RamdomData
 		String s = new String(mas);
 		return s;
 	}
+	
+	public static String  GetRandomData(String sMassData, String sCurrentData)
+	{
+		String mas[] = sMassData.split("&");
+		String sData = "";
+		do
+		{
+			int i = r.nextInt(mas.length);
+			sData = mas[i];
+		}
+		while(sData.equals(sCurrentData));
+		return sData;
+		
+	}
+	
+	
 }

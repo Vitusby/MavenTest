@@ -288,10 +288,44 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален");
     		throw new ExceptFailTest("Тест провален");
     	}
+    	
+    	print("Редактирование профиля".toUpperCase());
+    	String sUser_info="";
+		print("Параметры для запроса");
+		print("Генерируем данные");
+		print("auth_token = "+ sAuth_token);
+		print("user_info = "+ sUser_info);
+		String sQuery = CreateArrayRequest("user_info", sUser_info);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	sResponse = HttpPutRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    	else
+    	{
+    		print("Тест провален");
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
 	}
 		
 		
-	// Создание профиля
 	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.	Создание профиля");
@@ -325,7 +359,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}	
-	// Авторизация
 	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("1.1.	Авторизация".toUpperCase());
@@ -460,8 +493,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален");
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}
-		
+    	}	
 	}
 	// Восстановление пароля
 	public void RestorePassword1_4(String sHost, String sEmail) throws URISyntaxException, IOException, ExceptFailTest
@@ -1446,7 +1478,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	
 	//3.1.	Получение рубрикатора сайта
 	public void GetRubricator_3_1(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1485,8 +1516,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
-	}
-	
+	}	
 	//3.2.	Получение списка полей рубрики для подачи объявления
 	public void GetCastomfieldsForAddAdvert_3_2(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1548,7 +1578,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	//3.3.	Получение списка полей рубрики для редактирования объявления
 	public void GetCastomfieldsForEditAdvert_3_3(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1704,7 +1733,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	//4.2.	Получение списка популярных городов
 	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1739,9 +1767,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	//4.2.1.	Получение списка городов, для которых заведены поддомены
-		public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 		{
 
 			print("4.2.	Получение списка городов, для которых заведены поддомены".toUpperCase());
@@ -1772,8 +1799,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		throw new ExceptFailTest("Тест провален");
 	    	}	
 		}
-	
-	
 	// 4.3.	Поиск городов и населенных пунктов по названию (саджест)
 	public void GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1810,7 +1835,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	//4.4.	Получение списка улиц (саджест)	
 	public void GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1846,8 +1870,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
-	}
-	
+	}	
 	//4.5.	Получение списка домов улицы (саджест)
 	public void GetHousesSuggest_4_5(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1887,8 +1910,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
-	}
-	
+	}	
 	//4.6.	Получение списка районов (саджест)
 	public void GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1927,8 +1949,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
-	}
-	
+	}	
 	//4.8	Получение списка районов (саджест)
 	public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -1965,10 +1986,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-
-	
 	//4.9	Получение списка АО (саджест)
-		public void GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 		{
 
 			print("4.9. Получение списка административных округов (саджест)".toUpperCase());
@@ -2003,9 +2022,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		throw new ExceptFailTest("Тест провален");
 	    	}	
 		}
-	
-	//4.10.	Получение списка направлений (саджест)
-	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+		//4.10.	Получение списка направлений (саджест)
+public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.10. Получение списка направлений (саджест)".toUpperCase());
@@ -2042,8 +2060,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
-	}
-	
+	}	
 	//4.11.	Получение списка шоссе (саджест)
 	public void GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -2083,7 +2100,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	//4.12.	Получение списка станций метро (саджест)
 	public void GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -2123,8 +2139,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
-	
+		
 	//5.1.	Получение списка валют
 	public void GetCurrencies_5_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -2157,8 +2172,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
-	
+		
 	//6.1.	Получение значений словаря
 	public void GetDictinary_6_1(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
