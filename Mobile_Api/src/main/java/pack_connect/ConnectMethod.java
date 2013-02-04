@@ -22,7 +22,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("\r\n1.	Создание профиля".toUpperCase());
 		print("Параметры для запроса");
-		print("Генерируем Еmail");
+		print("Генерируем Еmail и пароль");
 		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
 		String sPassword = RamdomData.GetRamdomString(7);
 		print("email = "+ sEmail);
@@ -241,6 +241,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
+		print("------------------------------------------------------------------------------------------------------------");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		print("1.2.	Получение профиля".toUpperCase());
@@ -270,6 +271,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{
     			print("Логин пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
     			print("Email пользователя: "+ sLogin + "для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
+    		}
+    		else
+    		{
+    			print("Тест провален. Логин: " + sLogin +" или Email: " + sLogin + " пользователя для котрого запрашивалсяя профиль," +
+    					" не совпали с полученным логином: "+ jTemp.getString("login") + " или Email: " + jTemp.getString("email"));	
+    			throw new ExceptFailTest("Тест провален");
     		}
     	}
     	else
@@ -318,8 +325,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация
 	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		print("Тест выполняется с параметрами переданными при запуске");
-		print("1.1.	Авторизация");
+		print("1.1.	Авторизация".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ sUsername);
 		print("password = "+ sPassword);
@@ -364,7 +370,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(sAuth_token != null)
     	{
     	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
     	         return sAuth_token;
     	}
     	else 
