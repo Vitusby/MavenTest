@@ -130,11 +130,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequest(uri);
     	print("Парсим ответ....");
-    	
+    	//print(sResponse);
     	jsonObject = ParseResponse(sResponse);
     	
+    	jsonObject = jsonObject.getJSONObject("error");
+    	String s = jsonObject.getString("description");
+    	print(s);
+    	
     	if//(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
-    		(jsonObject.getString("description").equals("Не указан логин или пароль"))
+    		(jsonObject.getString("error").equals("Не указан логин или пароль"))
     	{
     		print("Не указан логин или пароль");
     		print("Ответ сервера:\r\n"+ jsonObject.toString());

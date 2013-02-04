@@ -2,9 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
   <test name="Test">
+   <parameter name="sBaseHost" value="design.prontosoft.by"/>
+   <parameter name="sLogin" value="Timon2181"/> 
+   <parameter name="sPassword" value="retry2"/> 
+   <parameter name="bAutoTestOrParameterTest" value="true"/>    
   <groups>
     <run>
-      <include name="test1"/>
+      <include name="Authorization_1_1"/>
     </run>
   </groups>
     <classes>
