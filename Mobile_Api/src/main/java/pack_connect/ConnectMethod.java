@@ -216,11 +216,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	///////////////////////////////////////////////////////////////////////////////////////////////
     	print("\r\n1.1.	Авторизация - Забаненный пользователь".toUpperCase());
 		print("Параметры для запроса");
-		print("email = " + Proper.GetProperty("login_authNotActive"));
+		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", Proper.GetProperty("login_authNotActive"))
+    		.setParameter("username", Proper.GetProperty("login_authBan"))
     		.setParameter("password", Proper.GetProperty("password"));
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -244,14 +244,36 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
     	
-    	
-    	/*if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
-    	{
-    		print("Пользовател неактивен или забанен");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	*/
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		print("\r\n1.1.	Авторизация - Неактивный(не подтвердивший регистрацию) пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = " + Proper.GetProperty("login_authNotActive"));
+		print("password = " + Proper.GetProperty("password"));
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
+		.setParameter("username", Proper.GetProperty("login_authNotActive"))
+		.setParameter("password", Proper.GetProperty("password"));
+		uri = builder.build();
+		if(uri.toString().indexOf("%25") != -1)
+		{
+		String sTempUri = uri.toString().replace("%25", "%");
+		uri = new URI(sTempUri);			
+		}
+		print("Отправляем запрос. Uri Запроса: "+uri.toString());
+		sResponse = HttpPostRequest(uri);
+		print("Парсим ответ....");
+		jsonObject = ParseResponse(sResponse);
+		
+		jTemp = jsonObject.getJSONObject("error");
+		sResult = jTemp.getString("description");
+		
+		if(sResult.equals("Пользователя с такими данными не существует"))
+		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
+		else 
+		{
+		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+		throw new ExceptFailTest("Тест провален");
+		}
     	
 	}
 	
