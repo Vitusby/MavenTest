@@ -1,5 +1,4 @@
 package pack_connect;
-//http://www.jarvana.com/jarvana/search?search_type=project&project=org.json
 
 import java.io.IOException;
 import java.net.URI;
@@ -253,7 +252,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление создано");
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
     		
     	else
     	{
@@ -354,7 +353,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\n Объявление отредактировано");
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\n Объявление отредактировано");
     		
     	else
     	{
@@ -475,7 +474,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных на этапе подачи объявления
-	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest
+	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
@@ -493,7 +492,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Список получен");
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nСписок получен");
     	else
     	{
     		print("Не удалось получить список продуктов \r\n"+
@@ -502,7 +501,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных в личном кабинете пользователя
-	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException
+	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		print("2.8.	Получение списка платных продуктов для объявления доступных в личном кабинете пользователя");
 		builder = new URIBuilder();
@@ -520,7 +519,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Список получен");
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nСписок получен");
     	else
     	{
     		print("Не удалось получить список продуктов \r\n"+
@@ -570,7 +569,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
-		print("2.10.	Активация объявлений");
+		print("2.10.	Активация объявлений".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
@@ -605,6 +604,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void DeactivateAdvert_2_11(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -642,9 +642,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Продление объявления
-	public void Prolongadvert_2_12(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void Prolongadvert_2_12(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -688,9 +693,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Поднятие объявления
-	public void PushUpAdvert_2_13(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token,  boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void PushUpAdvert_2_13(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token,  boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -734,9 +744,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Выделение объявления 
-	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -779,9 +794,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Назначение «Премиум» объявлению
-	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void SetPremiumForAdvert_2_15(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
+		String  sApp_token="";
+		
+		if(bApp_token)
+			sApp_token = "true";
+		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -1208,6 +1228,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
+    	JSONObject jsonTemp;
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	
@@ -1215,9 +1236,31 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для подачи объявления получен");
-    		print("");
-    		jsonObject = jsonObject.getJSONObject("group_custom_fields");
-    		print(jsonObject.keys());
+    		print("--------------------------------------------------------------------------------------------------------------");
+			print("group_custom_fields");
+			jsonTemp = jsonObject.getJSONObject("group_custom_fields");
+			print(jsonTemp.toString(10));
+			
+			
+			JSONArray ar = jsonObject.getJSONArray("video");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("video");
+    			jsonTemp = (JSONObject) ar.get(i);
+    			print(jsonTemp.toString(10));
+    		
+    		}
+			
+    		ar = jsonObject.getJSONArray("contacts");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("contacts");
+    			jsonTemp = (JSONObject) ar.get(i);
+    			print(jsonTemp.toString(10));
+    		
+    		}
     	}
     	else
     	{
@@ -1387,7 +1430,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.2.	Получение списка популярных городов");
+		print("4.3. Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
@@ -1408,10 +1451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список популярных городов получен");
-    		JSONArray ar = jsonObject.getJSONArray("regions");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок популярных городов получен");
     	}
     	else
     	{
@@ -1420,6 +1460,40 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
+	//4.2.1.	Получение списка городов, для которых заведены поддомены
+		public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+		{
+
+			print("4.2.	Получение списка городов, для которых заведены поддомены".toUpperCase());
+			print("Параметры для запроса");
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/popular_cities");
+	    	
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	
+	    	String sResponse = HttpGetRequest(uri);
+	    	print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	if(jsonObject.isNull("error"))
+	    	{
+	    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок городов, для которых заведены поддомены");
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить список городов, для которых заведены поддомены \r\n"+
+	    				"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}	
+		}
+	
 	
 	// 4.3.	Поиск городов и населенных пунктов по названию (саджест)
 	public void GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -1448,13 +1522,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\n список городов и населенных пунктов по названию (саджест) получен");
-    		print("");
-    		JSONArray ar = jsonObject.getJSONArray("regions");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print(ar.get(i));
-    		}
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\n список городов и населенных пунктов по названию (саджест) получен");
     	}
     	else
     	{
@@ -1491,10 +1559,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список улиц (саджест) получен");
-    		JSONArray ar = jsonObject.getJSONArray("streets");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок улиц (саджест) получен");
     	}
     	else
     	{
@@ -1584,8 +1649,84 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	//4.7.	Получение списка направлений (саджест)
-	public void GetDirectionSuggest_4_7(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	
+	//4.8	Получение списка районов (саджест)
+	public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("4.8. Получение списка микрорайонов (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDistrictSuggest = "+ sDataMicroDistrictSuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/microdistricts")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок микрорайонов (саджест) получен \r\n");
+    	}
+    	else
+    	{
+    		print("Не удалось получить список микрорайонов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+
+	
+	//4.9	Получение списка АО (саджест)
+		public void GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+		{
+
+			print("4.9. Получение списка административных округов (саджест)".toUpperCase());
+			print("Параметры для запроса");
+			print("DataDistrictSuggest = "+ sAOSuggest);
+		
+			String sQuery = CreateSimpleRequest(sAOSuggest);
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
+	    		.setQuery(sQuery);
+	    	
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	
+	    	String sResponse = HttpGetRequest(uri);
+	    	print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	if(jsonObject.isNull("error"))
+	    	{
+	    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок административных округов (саджест) получен \r\n");
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить список административных округов (саджест) \r\n"+
+	    				"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}	
+		}
+	
+	//4.10.	Получение списка направлений (саджест)
+	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.10. Получение списка направлений (саджест)".toUpperCase());
@@ -1624,8 +1765,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.8.	Получение списка шоссе (саджест)
-	public void GetHighwaySuggest_4_8(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	//4.11.	Получение списка шоссе (саджест)
+	public void GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.11. Получение списка шоссе (саджест)".toUpperCase());
@@ -1664,8 +1805,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//4.9.	Получение списка станций метро (саджест)
-	public void GetMetroSuggest_4_9(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	//4.12.	Получение списка станций метро (саджест)
+	public void GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.12.	Получение списка станций метро (саджест)".toUpperCase());

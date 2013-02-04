@@ -153,33 +153,33 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "Prolongadvert_2_12" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token", "bAuthFlag"})
-	public void Test16(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag"})
+	public void Test16(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.Prolongadvert_2_12(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, bAuthFlag);
+		cM.Prolongadvert_2_12(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag);
 	}
 	
 	@Test (groups = { "PushUpAdvert_2_13" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token", "bAuthFlag"})
-	public void Test17(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag"})
+	public void Test17(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.PushUpAdvert_2_13(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, bAuthFlag);
+		cM.PushUpAdvert_2_13(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag);
 	}
 	
 	
 	@Test (groups = { "HighLightAdvert_2_14" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token", "bAuthFlag"})
-	public void Test18(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag"})
+	public void Test18(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.HighLightAdvert_2_14(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, bAuthFlag);
+		cM.HighLightAdvert_2_14(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag);
 	}
 	
 	
 	@Test (groups = { "SetPremiumForAdvert_2_15" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sApp_token" , "sNumberDays", "bAuthFlag"})
-	public void Test19(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token" , "sNumberDays", "bAuthFlag"})
+	public void Test19(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, String sNumberDays, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.SetPremiumForAdvert_2_15(sBaseHost, sLogin, sPassword, sIdAdvert, sApp_token, sNumberDays, bAuthFlag);
+		cM.SetPremiumForAdvert_2_15(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, sNumberDays, bAuthFlag);
 	}
 
 	@Test (groups = { "VoteForAdvertHigh_2_16" })
@@ -280,12 +280,19 @@ public class Test_Mobile
 		cM.GetRegions_4_1(sBaseHost);
 	}
 	
-	// Какие отдает ??????
 	@Test (groups = { "GetPopularCities_4_2" })
 	@Parameters({"sBaseHost", "sRegion"})
 	public void Test32(String sBaseHost, String sRegion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetPopularCities_4_2(sBaseHost, sRegion);
+	}
+	
+	
+	@Test (groups = { "GetCitiesWithDomen_4_2_1" })
+	@Parameters({"sBaseHost"})
+	public void Test32_1(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetCitiesWithDomen_4_2_1(sBaseHost);
 	}
 	
 	
@@ -320,29 +327,43 @@ public class Test_Mobile
 		cM.GetDistrictSuggest_4_6(sBaseHost, sParam);
 	}
 	
+	@Test (groups = { "GetMicroDistrictSuggest_4_8" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test36_1(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetMicroDistrictSuggest_4_8(sBaseHost, sParam);
+	}
 	
-	@Test (groups = { "GetDirectionSuggest_4_7" })
+	@Test (groups = { "GetAOSuggest_4_9" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test36_2(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetAOSuggest_4_9(sBaseHost, sParam);
+	}
+	
+	
+	@Test (groups = { "GetDirectionSuggest_4_10" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test37(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDirectionSuggest_4_7(sBaseHost, sParam);
+		cM.GetDirectionSuggest_4_10(sBaseHost, sParam);
 	}
 	
 	
 	// Не работает
-	@Test (groups = { "GetHighwaySuggest_4_8" })
+	@Test (groups = { "GetHighwaySuggest_4_11" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test38(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetHighwaySuggest_4_8(sBaseHost, sParam);
+		cM.GetHighwaySuggest_4_11(sBaseHost, sParam);
 	}
 	
 	//Ничего не нашли
-	@Test (groups = { "GetMetroSuggest_4_9" })
+	@Test (groups = { "GetMetroSuggest_4_12" })
 	@Parameters({"sBaseHost", "sParam"})
 	public void Test39(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMetroSuggest_4_9(sBaseHost, sParam);
+		cM.GetMetroSuggest_4_12(sBaseHost, sParam);
 		//{region=russia/moskovskaya-obl/, search_string=кутузова}
 	}
 	
