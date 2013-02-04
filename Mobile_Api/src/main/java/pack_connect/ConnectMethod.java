@@ -53,53 +53,54 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация
 	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		print("1.1.	Авторизация");
-		print("Параметры для запроса");
-		print("email = "+ sUsername);
-		print("password = "+ sPassword);
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", sUsername)
-    		.setParameter("password", sPassword);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
-    	print("Парсим ответ....");
-    	
-    	
-    	jsonObject = ParseResponse(sResponse);
-    	String sTempResponse = jsonObject.toString();
-    	//print(sTempResponse);
-    	
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
-    	{
-    		print("Не указан логин или пароль");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString());
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
-    	{
-    		print("Пользователя с такими данными не существует");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	String sAuth_token = (String) jsonObject.get("auth_token");
-    	if(sAuth_token != null)
-    	{
-    	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
-    	         return sAuth_token;
-    	}
-    	else 
-    	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
+			print("Тест выполняется с параметрами переданными при запуске");
+			print("1.1.	Авторизация");
+			print("Параметры для запроса");
+			print("email = "+ sUsername);
+			print("password = "+ sPassword);
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
+	    		.setParameter("username", sUsername)
+	    		.setParameter("password", sPassword);
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	String sResponse = HttpPostRequest(uri);
+	    	print("Парсим ответ....");
+	    	
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	String sTempResponse = jsonObject.toString();
+	    	print(sTempResponse);
+	    	
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
+	    	{
+	    		print("Не указан логин или пароль");
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
+	    	{
+	    		print("Пользователя с такими данными не существует");
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	String sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+	    	         print("Auth_token = "+ sAuth_token);
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    	         return sAuth_token;
+	    	}
+	    	else 
+	    	{
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
 		
 	}
 	// Получение профиля
