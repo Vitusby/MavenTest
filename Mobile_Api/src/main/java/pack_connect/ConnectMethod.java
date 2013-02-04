@@ -7,6 +7,7 @@ import org.apache.http.client.utils.URIBuilder;
 import com.google.appengine.repackaged.org.json.*;
 
 import pack_utils.ExceptFailTest;
+import pack_utils.Proper;
 
 
 public class ConnectMethod extends Connect_Request_Abstract
@@ -107,8 +108,65 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
-	
 	}
+	// Авторизация АвтоТест
+	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("Автотест, параметры sUsername, sPassword переданные при запуске не учитываются");
+		print("1.1.	Авторизация - Обычный пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authOP"));
+		print("password = "+ Proper.GetProperty("password"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
+    		.setParameter("username", Proper.GetProperty("login_authOP"))
+    		.setParameter("password", Proper.GetProperty("password"));
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	if//(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
+    		(jsonObject.getString("description").equals("Не указан логин или пароль"))
+    	{
+    		print("Не указан логин или пароль");
+    		print("Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	/*if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
+    	{
+    		print("Пользователя с такими данными не существует");
+    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
+    	{
+    		print("Пользовател неактивен или забанен");
+    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	*/
+    	String sAuth_token = (String) jsonObject.get("auth_token");
+    	if(sAuth_token != null)
+    	{
+    	         print("Auth_token = "+ sAuth_token);
+    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    	        // return sAuth_token;
+    	}
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
+	
 	// Получение профиля
 	public String GetProfile_1_2(String sHost,String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
