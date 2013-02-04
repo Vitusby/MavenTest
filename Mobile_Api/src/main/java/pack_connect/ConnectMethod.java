@@ -75,7 +75,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	String sTempResponse = jsonObject.toString();
-    	print(sTempResponse);
     	
     	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
     	{
