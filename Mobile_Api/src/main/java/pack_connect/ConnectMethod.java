@@ -337,34 +337,39 @@ public class ConnectMethod extends Connect_Request_Abstract
     		jData = jTemp; // для проверки и сравнения данных
     		for(int i=0; i<mas.length; i++)
     		{
-    			// проверяем не изменился ли login
     			if(mas[i].equals("login") || mas[i].equals("email"))
     			{
-    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
-    					print("Значение login = " + jLogin + 
-	    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
-	    			else
-	    				print("Значение login = " + jLogin + 
-	    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+	    			// проверяем не изменился ли login
+	    			if(mas[i].equals("login") || mas[i].equals("email"))
+	    			{
+	    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+	    					print("Значение login = " + jLogin + 
+		    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    			else
+		    				print("Значение login = " + jLogin + 
+		    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+	    			}
+	    			// проверяем не изменился ли email
+	    			if(mas[i].equals("email"))
+	    			{
+	    				if(jEmail.equals(jData.getString(mas[i])))
+		    				print("Значение email = " + jEmail + 
+		    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    			else
+		    				print("Значение профиля email = " + jEmail + 
+		    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+	    			}
     			}
-    			// проверяем не изменился ли email
-    			if(mas[i].equals("email"))
-    			{
-    				if(jEmail.equals(jData.getString(mas[i])))
-	    				print("Значение email = " + jEmail + 
-	    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
-	    			else
-	    				print("Значение профиля email = " + jEmail + 
-	    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
-    			}
-    			
-    			// проверяем изменились ли другие данные
-    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
-    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-    						" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
     			else
-    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-    						" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+    			{
+					// проверяем изменились ли другие данные
+					if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+								" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
+					else
+						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+								" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+    			}
     			
     		}
     	}
