@@ -333,10 +333,24 @@ public class ConnectMethod extends Connect_Request_Abstract
     		jData = jTemp; // для проверки и сравнения данных
     		for(int i=0; i<mas.length; i++)
     		{
-    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
-    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
+    			if(mas[i].equals("login") || mas[i].equals("email"))
+    			{
+    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+	    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+	    			else
+	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+	    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+    			}
     			else
-    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " не совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
+    			{
+	    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+	    						" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
+	    			else
+	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+	    						" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+    			}
     		}
     	}
     	else
