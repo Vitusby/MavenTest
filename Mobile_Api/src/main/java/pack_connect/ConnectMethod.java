@@ -478,7 +478,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj2 = new HM<String, String>(); 
-		String mas2[] = {"make", "model"};/*, "mileage", "engine", "condition", "car-year", "transmittion", "currency",
+		String mas2[] = {"make", "model", "mileage", "engine"};/*, "condition", "car-year", "transmittion", "currency",
 				"modification", "price", "bodytype", "electromirror", "cruiscontrol", "color"};*/
 		for(int i=0; i<mas2.length; i++)
 		{
