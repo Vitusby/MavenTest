@@ -17,6 +17,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private URI uri;
 	private JSONObject jsonObject;
 	
+	
 	// Создание профиля АвтоТест
 	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -409,7 +410,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
-	// Восстановления пароля Автотест
+	// Восстановления пароля Автотест, 
 	public void RestorePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("------------------------------------------------------------------------------------------------------------");
@@ -446,9 +447,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение/Редактирование объявление Автотест
 	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		String sRequest, sRequest1, sRequest2, sIdAuto, sIdRealt, sIdTIU; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
+		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
@@ -462,7 +465,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Генерируем данные");
 		
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
+		sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
 		
 		//генерим advertisement 
 		HM<String, String> hObj = new HM<String, String>(); 
@@ -471,7 +474,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
 		}
-		String sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
+		sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj2 = new HM<String, String>(); 
@@ -482,7 +485,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
 		}
 		hObj2.PrintKeyAndValue();
-		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
+		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
