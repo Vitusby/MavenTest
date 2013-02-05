@@ -242,6 +242,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jData;
+		String jLogin="", jEmail="";
 		
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
@@ -272,6 +273,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Проверяем совпадение логина и email");
     		jTemp = jsonObject.getJSONObject("user_info"); 
     		jData = jTemp; // для проверки и сравнения данных
+    		jLogin = jTemp.getString("login"); // используем при сравнени после редактирования профиля
+    		jEmail = jTemp.getString("email"); // используем при сравнени после редактирования профиля
+    		
     		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
     		{
     			print("Логин пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
@@ -333,24 +337,35 @@ public class ConnectMethod extends Connect_Request_Abstract
     		jData = jTemp; // для проверки и сравнения данных
     		for(int i=0; i<mas.length; i++)
     		{
+    			// проверяем не изменился ли login
     			if(mas[i].equals("login") || mas[i].equals("email"))
     			{
     				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
-	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+    					print("Значение login = " + jLogin + 
 	    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
 	    			else
-	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-	    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+	    				print("Значение login = " + jLogin + 
+	    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
     			}
-    			else
+    			// проверяем не изменился ли email
+    			if(mas[i].equals("email"))
     			{
-	    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
-	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-	    						" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
+    				if(jEmail.equals(jData.getString(mas[i])))
+	    				print("Значение email = " + jEmail + 
+	    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
 	    			else
-	    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-	    						" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+	    				print("Значение профиля email = " + jEmail + 
+	    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
     			}
+    			
+    			// проверяем изменились ли другие данные
+    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+    						" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
+    			else
+    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+    						" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+    			
     		}
     	}
     	else
@@ -358,9 +373,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален");
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}
-    	
-    	
+    	} 	
 	}
 		
 		
