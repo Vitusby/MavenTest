@@ -305,7 +305,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), jData.getString(mas[i])));
 		}
 		
-		hObj.SetS();
+		//hObj.SetS();
 		
 		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
