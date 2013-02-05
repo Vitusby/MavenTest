@@ -459,12 +459,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sCatRegAdv = "+ Proper.GetProperty("category_auto"));
 		print("Генерируем данные");
 		
+		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+		print(sVideo+"\r\n");
 		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
-		print(sRequest);
+		print(sRequest+"\r\n");
 		
 		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "video"};
-		
+		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web"};
 		for(int i=0; i<mas.length; i++)
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
