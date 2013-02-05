@@ -291,7 +291,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
     	
-    	print("Редактирование профиля".toUpperCase());
+    	print("\r\nРедактирование профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("Генерируем данные");
@@ -304,8 +304,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), jData.getString(mas[i])));
 		}
-		
-		//hObj.SetS();
 		
 		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
@@ -328,13 +326,27 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	
     	if(jsonObject.isNull("error"))
+    	{	
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Проверяем изменения данных для профиля");
+    		jTemp = jsonObject.getJSONObject("user_info"); 
+    		jData = jTemp; // для проверки и сравнения данных
+    		for(int i=0; i<mas.length; i++)
+    		{
+    			if(hObj.GetValue(mas[i])== jData.getString(mas[i]))
+    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
+    			else
+    				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " не совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
+    		}
+    	}
     	else
     	{
     		print("Тест провален");
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
+    	
+    	
 	}
 		
 		
