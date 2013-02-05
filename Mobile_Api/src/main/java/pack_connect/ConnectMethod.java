@@ -485,6 +485,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
 		}
 		
+		hObj2.PrintKeyAndValue();
+		
 		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
 		print(sRequest2);
 		
