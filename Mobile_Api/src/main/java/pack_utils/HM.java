@@ -44,11 +44,14 @@ public class HM<K,V>
 	
 	public String GetStringFromAllHashMap()
 	{
-		String sT = "";
+		StringBuffer sBuff = new StringBuffer();
 		for(Map.Entry<K,V>me :s)
 		{
-			sT += me.getKey()+"="+me.getValue()+" ,";
+			sBuff.append(me.getKey()+"="+me.getValue()+", ");
 		}
+		int n = sBuff.lastIndexOf(",");
+		sBuff.deleteCharAt(n);
+		String sT = new String(sBuff);
 		return sT;
 	}
 	
