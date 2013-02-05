@@ -452,6 +452,49 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		//////////////////
+		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+		print("Параметры для запроса");
+		print("sCatRegAdv = "+ Proper.GetProperty("category_auto"));
+		
+		
+		
+		
+		/*print("sAdvertisement = "+ sAdvertisement);
+		print("sCustom_fields = "+ sCustom_fields);
+		print("sAuth_token = "+ sAuth_token);
+		
+		String sRequest = CreateSimpleRequest(sCatRegAdv);
+		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
+		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
+    		.setQuery(sRequest+sRequest1+sRequest2)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequestImage(uri, sPathImage);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+    		
+    	else
+    	{
+    		print("Не удалось создать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+		
+		*/
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -773,6 +816,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
+		String sRequest1 = CreateArrayRequest("advertisement" ,"{contact=Димон}");
 		
 		builder = new URIBuilder();
 		
