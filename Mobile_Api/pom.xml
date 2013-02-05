@@ -44,6 +44,7 @@
 						<sNameDictinary>${sNameDictinary}</sNameDictinary>
 						<bAuthFlag>${bAuthFlag}</bAuthFlag>
 						<bAutoTestOrParameterTest>${bAutoTestOrParameterTest}</bAutoTestOrParameterTest>
+						<sVideoUrl>${sVideoUrl}</sVideoUrl>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

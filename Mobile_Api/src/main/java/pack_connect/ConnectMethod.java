@@ -463,8 +463,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
 		print(sVideo+"\r\n");
 		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
-		print(sRequest+"\r\n");
-		
 		
 		//генерим advertisement 
 		HM<String, String> hObj = new HM<String, String>(); 
@@ -473,9 +471,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
 		}
-		
 		String sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
-		print(sRequest1+"\r\n");
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj2 = new HM<String, String>(); 
@@ -485,12 +481,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
 		}
-		
 		hObj2.PrintKeyAndValue();
-		
 		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
-		print(sRequest2);
-		
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
@@ -723,7 +715,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	// Подача объявления
-	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv,  String sAdvertisement, String sCustom_fields, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
@@ -739,19 +731,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sAdvertisement = "+ sAdvertisement);
 		print("sCustom_fields = "+ sCustom_fields);
 		print("sAuth_token = "+ sAuth_token);
+		print("sVideoUrl = "+ sVideoUrl);
 		
+		String sVideo = "&advertisement[video]="+sVideoUrl;
 		String sRequest = CreateSimpleRequest(sCatRegAdv);
 		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
 		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2)
+    		.setQuery(sRequest+sRequest1+sRequest2+sVideoUrl)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
-    		String sTempUri = uri.toString().replace("%25", "%");
+    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
