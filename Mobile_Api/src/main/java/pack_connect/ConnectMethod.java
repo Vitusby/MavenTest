@@ -460,6 +460,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Генерируем данные");
 		
 		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
+		print(sRequest);
 		
 		HM<String, String> hObj = new HM<String, String>(); 
 		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "video"};
