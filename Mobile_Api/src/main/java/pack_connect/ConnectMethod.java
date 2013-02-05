@@ -54,6 +54,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	// Авторизация АвтоТест
 	public void Authorization(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -236,6 +239,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
 		throw new ExceptFailTest("Тест провален");
 		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
     	
 	}
 	// Получение/Редактирование профиля Автотест
@@ -387,7 +393,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален");
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	} 	
+    	} 
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	// Восстановления пароля Автотест
 	public void RestorePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -419,6 +427,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	
 	
