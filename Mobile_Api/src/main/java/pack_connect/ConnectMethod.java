@@ -340,7 +340,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			if(mas[i].equals("login") || mas[i].equals("email"))
     			{
 	    			// проверяем не изменился ли login
-	    			if(mas[i].equals("login") || mas[i].equals("email"))
+	    			if(mas[i].equals("login"))
 	    			{
 	    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
 	    					print("Значение login = " + jLogin + 
