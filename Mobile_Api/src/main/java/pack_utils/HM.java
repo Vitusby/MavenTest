@@ -1,5 +1,6 @@
 package pack_utils;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -34,12 +35,21 @@ public class HM<K,V>
 	}
 	
 	public void PrintKeyAndValue()
-	{
-		
+	{	
 		for(Map.Entry<K,V>me :s)
 		{
 			System.out.println(me.getKey()+" = "+me.getValue());
 		}
+	}
+	
+	public String GetStringFromAllHashMap()
+	{
+		String sT = "";
+		for(Map.Entry<K,V>me :s)
+		{
+			sT += me.getKey()+"="+me.getValue()+" ,";
+		}
+		return sT;
 	}
 	
 	
