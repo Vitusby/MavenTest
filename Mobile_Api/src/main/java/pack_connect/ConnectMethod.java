@@ -500,8 +500,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
+    	{
     		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
-    		
+    	}
     	else
     	{
     		print("Не удалось создать объявление\r\n"+
