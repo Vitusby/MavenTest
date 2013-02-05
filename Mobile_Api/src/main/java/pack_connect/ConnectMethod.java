@@ -306,10 +306,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		hObj.SetS();
-		hObj.PrintKeyAndValue();
 		
 		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
-		print(sQuery);
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();

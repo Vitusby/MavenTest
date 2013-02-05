@@ -45,6 +45,7 @@ public class HM<K,V>
 	public String GetStringFromAllHashMap()
 	{
 		StringBuffer sBuff = new StringBuffer();
+		s = hm.entrySet();
 		for(Map.Entry<K,V>me :s)
 		{
 			sBuff.append(me.getKey()+"="+me.getValue()+", ");
