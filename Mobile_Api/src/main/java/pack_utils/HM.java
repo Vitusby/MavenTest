@@ -36,6 +36,7 @@ public class HM<K,V>
 	
 	public void PrintKeyAndValue()
 	{	
+		s = hm.entrySet();
 		for(Map.Entry<K,V>me :s)
 		{
 			System.out.println(me.getKey()+" = "+me.getValue());
