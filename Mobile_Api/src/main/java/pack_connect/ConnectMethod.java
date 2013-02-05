@@ -466,7 +466,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web"};
+		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas.length; i++)
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
@@ -475,8 +475,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj2 = new HM<String, String>(); 
-		String mas2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion", "currency",
-				"modification", "price", "bodytype", "electromirror", "cruiscontrol", "color"};
+		String mas2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
+				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
 		for(int i=0; i<mas2.length; i++)
 		{
 			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
