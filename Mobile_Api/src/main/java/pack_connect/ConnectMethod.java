@@ -822,7 +822,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(!sUrlImage.equals("false"))
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
+    		.setQuery(sRequest1 + sRequest + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
 
     	else
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
