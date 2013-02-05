@@ -346,8 +346,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    					print("Значение login = " + jLogin + 
 		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 		    			else
+		    			{
 		    				print("Значение login = " + jLogin + 
 		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				throw new ExceptFailTest("Тест провален");
+		    			}
 	    			}
 	    			// проверяем не изменился ли email
 	    			if(mas[i].equals("email"))
@@ -356,8 +359,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    				print("Значение email = " + jEmail + 
 		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 		    			else
+		    			{
 		    				print("Значение профиля email = " + jEmail + 
 		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				throw new ExceptFailTest("Тест провален");
+		    			}
 	    			}
     			}
     			else
@@ -367,8 +373,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
 								" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
 					else
+					{
 						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
 								" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+						throw new ExceptFailTest("Тест провален");
+					}
     			}
     			
     		}
