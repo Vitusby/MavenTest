@@ -7,6 +7,7 @@ import org.apache.http.client.utils.URIBuilder;
 import com.google.appengine.repackaged.org.json.*;
 
 import pack_utils.ExceptFailTest;
+import pack_utils.HM;
 import pack_utils.Proper;
 import pack_utils.RamdomData;
 
@@ -296,7 +297,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("Генерируем данные");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
-		String sRandomSite = RamdomData.GetRandomData(Proper.GetProperty("sRandomSite"), jData.getString("site"));
+		HM<String, String> hObj = new HM<String, String>(); 
+		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "contact", "dont_subscribe", "city",
+				"title", "address", "mobile", "email", "login"};
+		
+		for(int i=0; i<mas.length; i++)
+		{
+			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), jData.getString(mas[i])));
+		}
+		
+		hObj.SetS();
+		hObj.PrintKeyAndValue();
+		
+		
+		/*String sRandomSite = RamdomData.GetRandomData(Proper.GetProperty("sRandomSite"), jData.getString("site"));
 		String sRandomZip = RamdomData.GetRandomData(Proper.GetProperty("sRandomZip"), jData.getString("zip"));
 		String sRandomBuilding = RamdomData.GetRandomData(Proper.GetProperty("sRandomBuilding"), jData.getString("building"));
 		String sRandomPhone = RamdomData.GetRandomData(Proper.GetProperty("sRandomPhone"), jData.getString("phone"));
@@ -308,14 +322,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRandomDont_subscribe = RamdomData.GetRandomData(Proper.GetProperty("sRandomDont_subscribe"), jData.getString("dont_subscribe"));
 		String sRandomCity = RamdomData.GetRandomData(Proper.GetProperty("sRandomCity"), jData.getString("city"));
 		String sRandomTitle = RamdomData.GetRandomData(Proper.GetProperty("sRandomTitle"), jData.getString("title"));
-		String sRandomAddress = RamdomData.GetRandomData(Proper.GetProperty("sRandomAddress"), jData.getString("title"));
+		String sRandomAddress = RamdomData.GetRandomData(Proper.GetProperty("sRandomAddress"), jData.getString("address"));
 		String sRandomMobile = RamdomData.GetRandomData(Proper.GetProperty("sRandomMobile"), jData.getString("mobile"));
 		
 		String sRandomEmail = Proper.GetProperty("sRandomEmail");
 		String sRandomLogin = Proper.GetProperty("sRandomLogin");
 		
-		print(sRandomSite +" "+sRandomZip +" "+sRandomTitle + " " +sRandomCity + " " + sRandomOther_email);
+		StringBuffer sBuff;
+		sBuff.append("site="+)
 		
+		
+		print(sRandomSite +" "+sRandomZip +" "+sRandomTitle + " " +sRandomCity + " " + sRandomOther_email);
+		*/
 		
 		
 		/*print("user_info = "+ sUser_info);
