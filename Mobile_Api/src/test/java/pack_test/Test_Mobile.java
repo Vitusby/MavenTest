@@ -14,7 +14,7 @@ import pack_utils.ExceptFailTest;
 public class Test_Mobile
 {
 	ConnectMethod cM = new ConnectMethod();
-	
+	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -35,6 +35,13 @@ public class Test_Mobile
 	public void AutoTest_GetAndEditProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.GetAndEditProfile(sBaseHost); // Получение и редактирование профиля
+	}
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_RestorePassworde(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.RestorePassword(sBaseHost); // Восстановление пароля
 	}
 	
 	// Параметризированные тесты

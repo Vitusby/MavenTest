@@ -390,9 +390,35 @@ public class ConnectMethod extends Connect_Request_Abstract
     	} 	
 	}
 	// Восстановления пароля Автотест
-	public void RestorePassword()
+	public void RestorePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Восстановление пароля - Тест".toUpperCase()+"\r\n");
+		print("Восстановление пароля".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authOP"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore")
+    		.setParameter("email", Proper.GetProperty("login_authOP"));
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\n На указанный email отправлено письмо восстановления с инструкцией по восстановлению пароля");
+    	else
+    	{
+    		print("Не удалось восстановить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
 	}
 	
 	
