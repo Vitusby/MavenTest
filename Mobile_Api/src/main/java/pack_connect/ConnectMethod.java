@@ -307,21 +307,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		hObj.SetS();
-		hObj.PrintKeyAndValue();
+		//hObj.PrintKeyAndValue();
 		
 			
-		print(hObj.GetStringFromAllHashMap());
-		/*StringBuffer sBuff;
-		for(int i=0; i<mas.length; i++)
-		{
-			sBuff.append(mas[i]);
-		}
-		*/
-
+		//print(hObj.GetStringFromAllHashMap());
+		
+		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
+		print(sQuery);
 		
 		
 		/*print("user_info = "+ sUser_info);
-		String sQuery = CreateArrayRequest("user_info", sUser_info);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
