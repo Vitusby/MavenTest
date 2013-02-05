@@ -740,7 +740,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideoUrl)
+    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
