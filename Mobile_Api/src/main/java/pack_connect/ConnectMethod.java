@@ -457,7 +457,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
-		//////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
 		print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
@@ -469,24 +469,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
 		
 		//генерим advertisement 
-		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
-		for(int i=0; i<mas.length; i++)
+		HM<String, String> hObj_Auto = new HM<String, String>(); 
+		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		for(int i=0; i<mas_Auto.length; i++)
 		{
-			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
+			hObj_Auto.SetValue(mas_Auto[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto[i]), ""));
 		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
+		sRequest1 = CreateArrayRequest("advertisement",  hObj_Auto.GetStringFromAllHashMap());
 		
 		// генерим advertisement [custom_fields]
-		HM<String, String> hObj2 = new HM<String, String>(); 
-		String mas2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
+		HM<String, String> hObj_Auto2 = new HM<String, String>(); 
+		String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
 				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
-		for(int i=0; i<mas2.length; i++)
+		for(int i=0; i<mas_Auto2.length; i++)
 		{
-			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
+			hObj_Auto2.SetValue(mas_Auto2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto2[i]), ""));
 		}
-		hObj2.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
+		hObj_Auto2.PrintKeyAndValue();
+		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Auto2.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
@@ -517,6 +517,68 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
+/////////////////////////////////////////////////////////////////////////////////////////////////    	
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+		print("Параметры для запроса");
+		print("sAuth_token = "+ sAuth_token);
+		print("sCatRegAdv = "+ Proper.GetProperty("category_realt"));
+		print("sVideo = " + Proper.GetProperty("video"));
+		print("Генерируем данные");
+		
+		sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+		sRequest = CreateSimpleRequest(Proper.GetProperty("category_realt"));
+		
+		//генерим advertisement 
+		HM<String, String> hObj_Realt = new HM<String, String>(); 
+		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		for(int i=0; i<mas_Realt.length; i++)
+		{
+			hObj_Realt.SetValue(mas_Realt[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt[i]), ""));
+		}
+		sRequest1 = CreateArrayRequest("advertisement",  hObj_Realt.GetStringFromAllHashMap());
+		
+		// генерим advertisement [custom_fields]
+		HM<String, String> hObj_Realt2 = new HM<String, String>(); 
+		String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
+				"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
+		for(int i=0; i<mas_Realt2.length; i++)
+		{
+			hObj_Realt2.SetValue(mas_Realt2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt2[i]), ""));
+		}
+		hObj_Realt2.PrintKeyAndValue();
+		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Realt2.GetStringFromAllHashMap());
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
+    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+    		jTemp = jsonObject.getJSONObject("advertisement");
+    		sIdRealt =  jTemp.getString("id");
+    		print("ID объявление = " + sIdRealt);
+    	}
+    	else
+    	{
+    		print("Не удалось создать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
