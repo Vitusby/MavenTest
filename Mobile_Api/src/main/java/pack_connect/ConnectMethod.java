@@ -450,7 +450,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
-		print("Авторизация, получение, редактирование профиля - Тест".toUpperCase()+"\r\n");
+		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 	}
 	
