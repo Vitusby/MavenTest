@@ -499,7 +499,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
-    		String sTempUri = uri.toString().replace("%25", "%");
+    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
