@@ -443,9 +443,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
+	// Подача/Получение/Редактирование объявление Автотест
+	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизация, получение, редактирование профиля - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+	}
 	
-	
-	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
 	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
 	{

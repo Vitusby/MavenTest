@@ -5,7 +5,6 @@
    <parameter name="sBaseHost" value="design.prontosoft.by"/>
    <parameter name="sLogin" value="Timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="bAutoTestOrParameterTest" value="true"/>    
   <groups>
     <run>
       <include name="Authorization_1_1"/>
