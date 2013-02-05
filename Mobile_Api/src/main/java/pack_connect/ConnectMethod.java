@@ -300,7 +300,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRandomZip = RamdomData.GetRandomData(Proper.GetProperty("sRandomZip"), jData.getString("zip"));
 		String sRandomBuilding = RamdomData.GetRandomData(Proper.GetProperty("sRandomBuilding"), jData.getString("building"));
 		String sRandomPhone = RamdomData.GetRandomData(Proper.GetProperty("sRandomPhone"), jData.getString("phone"));
-		String sRandomFax = RamdomData.GetRandomData(Proper.GetProperty("sRandomFax"), jData.getString("fax"));
+		String sRandomFax = RamdomData.GetRandomData(Proper.GetProperty("sRandomFax"), jData.getString("other_email"));
+		String sRandomOther_email = RamdomData.GetRandomData(Proper.GetProperty("sRandomOther_email"), jData.getString("fax"));
 		String sRandomStreet = RamdomData.GetRandomData(Proper.GetProperty("sRandomStreet"), jData.getString("street"));
 		String sRandomIcq = RamdomData.GetRandomData(Proper.GetProperty("sRandomIcq"), jData.getString("icq"));
 		String sRandomContact = RamdomData.GetRandomData(Proper.GetProperty("sRandomContact"), jData.getString("contact"));
@@ -313,7 +314,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRandomEmail = Proper.GetProperty("sRandomEmail");
 		String sRandomLogin = Proper.GetProperty("sRandomLogin");
 		
-		print(sRandomSite +" "+sRandomZip +" "+sRandomTitle + " " +sRandomCity);
+		print(sRandomSite +" "+sRandomZip +" "+sRandomTitle + " " +sRandomCity + " " + sRandomOther_email);
 		
 		
 		
