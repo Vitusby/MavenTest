@@ -44,6 +44,13 @@ public class Test_Mobile
 			cM.RestorePassword(sBaseHost); // Восстановление пароля
 	}
 	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddGetEditAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.AddGetEditAdvert(sBaseHost); // Подача/получение/редактирование/
+	}
+	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })
