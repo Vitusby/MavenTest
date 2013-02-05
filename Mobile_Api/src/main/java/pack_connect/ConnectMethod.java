@@ -2391,7 +2391,7 @@ public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest)
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString() + "\r\nзначения словаря получены\r\n");
-    		JSONArray ar = jsonObject.getJSONArray("currencies");
+    		JSONArray ar = jsonObject.getJSONArray("values");
     		for(int i=0; i<ar.length(); i++)
     			print(ar.get(i));
     	}
