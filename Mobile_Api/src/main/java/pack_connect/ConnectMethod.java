@@ -333,7 +333,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		jData = jTemp; // для проверки и сравнения данных
     		for(int i=0; i<mas.length; i++)
     		{
-    			if(hObj.GetValue(mas[i])== jData.getString(mas[i]))
+    			if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
     				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
     			else
     				print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " не совпало с полученным значение в профиле " + mas[i] + " = " + jData.getString(mas[i]));
