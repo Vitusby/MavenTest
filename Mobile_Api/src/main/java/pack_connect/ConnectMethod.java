@@ -52,6 +52,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Не удалось создать профилль пользователя\r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\n");
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	
@@ -95,12 +96,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	else
 	    	{
 	    		print("Не удалось получить ключ Auth_token");
+	    		print("Тест провален".toUpperCase());
 	    		throw new ExceptFailTest("Тест провален");
 	    	}
     	}
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	
@@ -130,18 +133,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	String sAuth_token = (String) jsonObject.get("auth_token");
 	    	if(sAuth_token != null)
 	    	{
-	    	         print("Auth_token получен = "+ sAuth_token);
+	    	         print("Auth_token получен = "+ sAuth_token);  
 	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
 	    	}
 	    	else
 	    	{
 	    		print("Не удалось получить ключ Auth_token");
+	    		print("Тест провален".toUpperCase());
 	    		throw new ExceptFailTest("Тест провален");
 	    	}
     	}
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,6 +178,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	
@@ -205,6 +211,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	
@@ -237,6 +244,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else 
 		{
 		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+		print("Тест провален".toUpperCase());
 		throw new ExceptFailTest("Тест провален");
 		}
 		
@@ -291,6 +299,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{
     			print("Тест провален. Логин: " + sLogin +" или Email: " + sLogin + " пользователя для котрого запрашивалсяя профиль," +
     					" не совпали с полученным логином: "+ jTemp.getString("login") + " или Email: " + jTemp.getString("email"));	
+    			print("Тест провален".toUpperCase());
     			throw new ExceptFailTest("Тест провален");
     		}
     	}
@@ -355,6 +364,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    			{
 		    				print("Значение login = " + jLogin + 
 		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				print("Тест провален".toUpperCase());
 		    				throw new ExceptFailTest("Тест провален");
 		    			}
 	    			}
@@ -368,6 +378,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    			{
 		    				print("Значение профиля email = " + jEmail + 
 		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				print("Тест провален".toUpperCase());
 		    				throw new ExceptFailTest("Тест провален");
 		    			}
 	    			}
@@ -382,6 +393,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 					{
 						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
 								" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+						print("Тест провален".toUpperCase());
 						throw new ExceptFailTest("Тест провален");
 					}
     			}
@@ -390,7 +402,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	else
     	{
-    		print("Тест провален");
+    		print("Тест провален".toUpperCase());
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	} 
@@ -425,6 +437,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Не удалось восстановить пароль\r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
     	print("------------------------------------------------------------------------------------------------------------");
