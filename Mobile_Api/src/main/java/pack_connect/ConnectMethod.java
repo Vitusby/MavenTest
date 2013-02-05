@@ -456,6 +456,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//////////////////
 		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
 		print("Параметры для запроса");
+		print("sAuth_token = "+ sAuth_token);
 		print("sCatRegAdv = "+ Proper.GetProperty("category_auto"));
 		print("Генерируем данные");
 		
@@ -490,20 +491,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
 		print(sRequest2);
 		
-		//print("advertisement = "+ hObj.GetStringFromAllHashMap());
-		
-		
-		/*print("sAdvertisement = "+ sAdvertisement);
-		print("sCustom_fields = "+ sCustom_fields);
-		print("sAuth_token = "+ sAuth_token);
-		
-		String sRequest = CreateSimpleRequest(sCatRegAdv);
-		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
-		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2)
+    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -512,7 +503,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage(uri, sPathImage);
+    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -526,7 +517,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 		
-		*/
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
