@@ -344,20 +344,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    			{
 	    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
 	    					print("Значение login = " + jLogin + 
-		    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 		    			else
 		    				print("Значение login = " + jLogin + 
-		    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 	    			}
 	    			// проверяем не изменился ли email
 	    			if(mas[i].equals("email"))
 	    			{
 	    				if(jEmail.equals(jData.getString(mas[i])))
 		    				print("Значение email = " + jEmail + 
-		    						" не изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 		    			else
 		    				print("Значение профиля email = " + jEmail + 
-		    						" изменилось после редактирования профиля" + mas[i] + " = " + jData.getString(mas[i]));
+		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 	    			}
     			}
     			else
