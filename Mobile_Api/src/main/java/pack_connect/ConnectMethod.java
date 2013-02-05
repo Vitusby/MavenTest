@@ -389,7 +389,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 					// проверяем изменились ли другие данные
 					if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
 						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
-								" совпало с полученным значение в профиле после редактирования" + mas[i] + " = " + jData.getString(mas[i]));
+								" совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
 					else
 					{
 						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
@@ -451,6 +451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
+		JSONObject jTemp, jData;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
@@ -505,14 +506,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+    		jTemp = jsonObject.getJSONObject("advertisement");
+    		sIdAuto =  jTemp.getString("id");
+    		print("ID объявление = " + sIdAuto);
     	}
     	else
     	{
     		print("Не удалось создать объявление\r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
-		
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
