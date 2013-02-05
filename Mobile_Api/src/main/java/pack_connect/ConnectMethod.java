@@ -458,10 +458,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
 		print("sCatRegAdv = "+ Proper.GetProperty("category_auto"));
+		print("sVideo = " + Proper.GetProperty("video"));
 		print("Генерируем данные");
 		
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		print(sVideo+"\r\n");
 		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
 		
 		//генерим advertisement 

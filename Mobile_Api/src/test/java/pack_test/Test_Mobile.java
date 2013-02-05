@@ -92,12 +92,7 @@ public class Test_Mobile
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam",  "sParam1",  "sParam2", "sVideoUrl", "bAuthFlag"})
 	public void Test5(String sBaseHost, String sLogin, String sPassword, String sParam, String sParam1, String sParam2, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		/*cM.PostAdvert_2_1("ag.regions.devel.ps", "Timon2180", "retry2", "{category=cars/passenger/new/, region=russia/moskva-gorod/ ,advert_type=auto_new}", 
-				"{phone=343434343434, email=mail@mail.com, contact=Vasia}",
-				"{make=BMW, model=116, currency=RUR, price=1200, car-year=2010, bodytype=внедорожник, transmittion=механическая}",
-				"1.jpeg");*/
-		
-		cM.PostAdvert_2_1(sBaseHost, sLogin, sPassword, sParam, sParam1, sParam2, sVideoUrl, "1.jpeg", bAuthFlag);
+		cM.PostAdvert_2_1(sBaseHost, sLogin, sPassword, sParam, sParam1, sParam2, sVideoUrl, "2.jpg", bAuthFlag);
 	}
 	
 	@Test (groups = { "GetAdvert_2_2" })
