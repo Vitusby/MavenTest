@@ -18,7 +18,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject jsonObject;
 	
 	// Создание профиля АвтоТест
-	public void CreateProfileReqeust_1_1_2(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Создание профиля - Тест".toUpperCase());
@@ -56,7 +56,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Авторизация АвтоТест
-	public void Authorization_1_1_Auto(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Authorization(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp;
 		print("------------------------------------------------------------------------------------------------------------");
@@ -389,8 +389,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	} 	
 	}
+	// Восстановления пароля Автотест
+	public void RestorePassword()
+	{
 		
-		
+	}
+	
+	
+	
+	// Создание профиля	
 	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.	Создание профиля");
@@ -424,6 +431,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}	
+	// Авторизация
 	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("1.1.	Авторизация".toUpperCase());

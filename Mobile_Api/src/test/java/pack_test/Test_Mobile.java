@@ -20,14 +20,14 @@ public class Test_Mobile
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.CreateProfileReqeust_1_1_2(sBaseHost); // Создание профиля
+			cM.CreateProfileReqeust(sBaseHost); // Создание профиля
 	}
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_Authorization(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.Authorization_1_1_Auto(sBaseHost); // Авторизация	
+			cM.Authorization(sBaseHost); // Авторизация	
 	}
 	
 	@Test (groups = { "AutoTest" })
