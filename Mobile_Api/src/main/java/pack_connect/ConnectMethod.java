@@ -292,7 +292,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("Редактирование профиля".toUpperCase());
-    	String sUser_info="";
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("Генерируем данные");
@@ -307,16 +306,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		hObj.SetS();
-		//hObj.PrintKeyAndValue();
-		
-			
-		//print(hObj.GetStringFromAllHashMap());
+		hObj.PrintKeyAndValue();
 		
 		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
 		print(sQuery);
-		
-		
-		/*print("user_info = "+ sUser_info);
+		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
@@ -343,7 +337,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
-    	*/
 	}
 		
 		
