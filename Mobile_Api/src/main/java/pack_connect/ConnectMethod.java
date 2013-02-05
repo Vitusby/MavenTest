@@ -464,6 +464,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
 		print(sRequest+"\r\n");
 		
+		
+		//генерим advertisement 
 		HM<String, String> hObj = new HM<String, String>(); 
 		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web"};
 		for(int i=0; i<mas.length; i++)
@@ -472,7 +474,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		String sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
-		print(sRequest1);
+		print(sRequest1+"\r\n");
+		
+		// генерим advertisement [custom_fields]
+		HM<String, String> hObj2 = new HM<String, String>(); 
+		String mas2[] = {"make", "model", "mileage", "engine", "condition", "car-year", "transmittion", "currency",
+				"modification", "price", "bodytype", "electromirror", "cruiscontrol", "color"};
+		for(int i=0; i<mas2.length; i++)
+		{
+			hObj2.SetValue(mas2[i], RamdomData.GetRandomData(Proper.GetProperty(mas2[i]), ""));
+		}
+		
+		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
+		print(sRequest2);
+		
 		//print("advertisement = "+ hObj.GetStringFromAllHashMap());
 		
 		
