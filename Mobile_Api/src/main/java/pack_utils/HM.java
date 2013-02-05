@@ -52,6 +52,7 @@ public class HM<K,V>
 		int n = sBuff.lastIndexOf(",");
 		sBuff.deleteCharAt(n);
 		String sT = new String(sBuff);
+		sT = "{"+sT+"}";
 		return sT;
 	}
 	
