@@ -466,7 +466,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"email", "phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		String mas[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas.length; i++)
 		{
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), ""));
