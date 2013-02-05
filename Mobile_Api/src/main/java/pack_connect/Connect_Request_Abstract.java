@@ -121,7 +121,7 @@ public abstract class Connect_Request_Abstract
 		String s1[] = sDataForArrayRequest.split(",");
 		
 		for(String sTemp: s1)
-			System.out.println(sTemp);
+			System.out.println(sTemp.replaceAll("[", "").replaceAll("]", ""));
 		
 		String request = "";
 		for(int i=0; i<s1.length; i++)
