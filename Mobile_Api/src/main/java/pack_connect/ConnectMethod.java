@@ -342,7 +342,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    			// проверяем не изменился ли login
 	    			if(mas[i].equals("login"))
 	    			{
-	    				if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+	    				if(jLogin.equals(jData.getString(mas[i])))
 	    					print("Значение login = " + jLogin + 
 		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
 		    			else
