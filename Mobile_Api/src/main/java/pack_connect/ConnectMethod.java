@@ -451,7 +451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
-		JSONObject jTemp;
+		JSONObject jTemp, jData;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
@@ -640,17 +640,31 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	GetAdvert(sHost, sIdAuto, "Авто с пробегом");
-    	
+    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+    	print("Проверяем корректность указанных данных при подаче объявления");
+		jTemp = jsonObject.getJSONObject("advertisement"); 
+		jData = jTemp; // для проверки и сравнения данных
+		for(int i=0; i<mas_Auto.length; i++)
+		{
+			if(mas_Auto[i].equals("price") || mas_Auto[i].equals("currency"))
+				continue;
+			else
+			{
+				if(!hObj_Auto.GetValue(mas_Auto[i]).equals(jData.getString(mas_Auto[i])))
+					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
+							" совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));	
+					
+			}
+		}
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
-	
+	// получения объявления для автотестов
 	private JSONObject GetAdvert(String sHost, String sIdAdvert, String sText) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		print("Получение объявления".toUpperCase()+" рубрики " + sText + "ID = " + sIdAdvert);
+		print("r\nПолучение объявления".toUpperCase()+" рубрики " + sText + " ID = " + sIdAdvert);
 		print("ID = " + sIdAdvert);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert);
@@ -680,7 +694,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 		
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
 	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
 	{
