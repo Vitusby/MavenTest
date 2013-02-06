@@ -644,33 +644,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Проверяем корректность указанных данных при подаче объявления");
 		
     	ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData);
-    	/*jTemp = jsonObject.getJSONObject("advertisement"); 
-		jData = jTemp; // для проверки и сравнения данных
-		for(int i=0; i<mas_Auto.length; i++)
-		{
-			if(mas_Auto[i].equals("price") || mas_Auto[i].equals("currency"))
-				continue;
-			else
-			{
-				if(hObj_Auto.GetValue(mas_Auto[i]).equals(jData.getString(mas_Auto[i])))
-				{
-					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
-							" совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));		
-				}
-				else
-				{
-					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
-							" не совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));	
-				}
-			}
-		}*/
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
 	
-	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException
+	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jD;
 		jTemp = jsonObject.getJSONObject("advertisement"); 
@@ -690,6 +670,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 				{
 					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
 							" не совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + jD.getString(mas_Adv[i]));	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
 				}
 			}
 		}
