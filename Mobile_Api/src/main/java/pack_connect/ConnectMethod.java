@@ -643,7 +643,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
 		
-    	ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData)
+    	ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData);
     	/*jTemp = jsonObject.getJSONObject("advertisement"); 
 		jData = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Auto.length; i++)
@@ -670,7 +670,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	
-	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust, HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException
+	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException
 	{
 		JSONObject jTemp, jD;
 		jTemp = jsonObject.getJSONObject("advertisement"); 
