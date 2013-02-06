@@ -451,7 +451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
-		JSONObject jTemp, jData;
+		JSONObject jTemp;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
@@ -639,11 +639,47 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    	GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+    	
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
+    	
 	}
 	
+	private JSONObject GetAdvert(String sHost, String sIdAdvert, String sText) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		print("Получение объявления".toUpperCase()+" рубрики " + sText + "ID = " + sIdAdvert);
+		print("ID = " + sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	if(jsonObject.isNull("error"))
+    	{	
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление получено");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Объявление не получено\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+		
+	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
 	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
@@ -846,6 +882,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
 	}
+	//public void 
 	
 	// Подача объявления
 	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
