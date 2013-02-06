@@ -650,7 +650,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				continue;
 			else
 			{
-				if(!hObj_Auto.GetValue(mas_Auto[i]).equals(jData.getString(mas_Auto[i])))
+				if(hObj_Auto.GetValue(mas_Auto[i]).equals(jData.getString(mas_Auto[i])))
 				{
 					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
 							" совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));		
