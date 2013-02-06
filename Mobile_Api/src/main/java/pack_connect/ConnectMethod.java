@@ -1,6 +1,7 @@
 package pack_connect;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIBuilder;
@@ -17,6 +18,26 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private URI uri;
 	private JSONObject jsonObject;
 	
+	class InnerDataHM
+	{
+		String sID;
+		HM<String, String> hObj_Adv_Inn;
+		HM<String, String> hObj_Cust_Inn;
+		
+		
+		InnerDataHM(HM<String, String> hObj_Adv, HM<String, String> hObj_Cust, String sC)
+		{
+			hObj_Adv_Inn = hObj_Adv;
+			hObj_Cust_Inn = hObj_Cust;
+			sID = sC;
+		}
+		
+		HM<String, String> GetAdvAuto() {return hObj_Adv_Inn;} 
+		HM<String, String> GetCustAuto() {return hObj_Cust_Inn;} 
+		String GetID() {return sID;}
+		
+		
+	}
 	
 	// Создание профиля АвтоТест
 	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -444,49 +465,40 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
-	// Подача/Получение/Редактирование объявление Автотест
-	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	
+	
+	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
-		String sRequest, sRequest1, sRequest2, sIdAuto, sIdRealt, sIdTIU; 
-		String sLogin = Proper.GetProperty("login_authOP");
-		String sPassword = Proper.GetProperty("password");
-		String sAuth_token = "";
-		JSONObject jTemp, jData;
 		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		String sRequest, sRequest1, sRequest2, sRet;
+		JSONObject jTemp;
+		InnerDataHM obj;
 		
-/////////////////////////////////////////////////////////////////////////////////////////////////
-		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
 		print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
-		print("sCatRegAdv = "+ Proper.GetProperty("category_auto"));
+		print("sCatRegAdv = "+ Proper.GetProperty(sCategoryData));
 		print("sVideo = " + Proper.GetProperty("video"));
 		print("Генерируем данные");
 		
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		sRequest = CreateSimpleRequest(Proper.GetProperty("category_auto"));
+		sRequest = CreateSimpleRequest(Proper.GetProperty(sCategoryData)); //category_auto
 		
 		//генерим advertisement 
-		HM<String, String> hObj_Auto = new HM<String, String>(); 
-		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
-		for(int i=0; i<mas_Auto.length; i++)
+		HM<String, String> hObj_Adv = new HM<String, String>(); //здесь будем хранить {param=value} для advertisement
+		for(int i=0; i<sMas_Adv.length; i++)
 		{
-			hObj_Auto.SetValue(mas_Auto[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto[i]), ""));
+			hObj_Adv.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), ""));
 		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj_Auto.GetStringFromAllHashMap());
+		sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv.GetStringFromAllHashMap());
 		
 		// генерим advertisement [custom_fields]
-		HM<String, String> hObj_Auto2 = new HM<String, String>(); 
-		String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
-				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
-		for(int i=0; i<mas_Auto2.length; i++)
+		HM<String, String> hObj_Cust = new HM<String, String>();  //здесь будем хранить {param=value} для advertisement [customfields]
+		for(int i=0; i<sMas_Cust.length; i++)
 		{
-			hObj_Auto2.SetValue(mas_Auto2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto2[i]), ""));
+			hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
 		}
-		hObj_Auto2.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Auto2.GetStringFromAllHashMap());
+		hObj_Cust.PrintKeyAndValue();
+		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
@@ -507,8 +519,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
     		jTemp = jsonObject.getJSONObject("advertisement");
-    		sIdAuto =  jTemp.getString("id");
-    		print("ID объявление = " + sIdAuto);
+    		sRet =  jTemp.getString("id");
+    		print("ID объявление = " + sRet);
+    		obj = new InnerDataHM(hObj_Adv, hObj_Cust, sRet); // сохраняем значения поданных данных и id созданой объявки 
+    		return obj;
     	}
     	else
     	{
@@ -516,10 +530,45 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
-    	}
+    	}	
+	}
+	
+	// Подача/Получение/Редактирование объявление Автотест
+	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sRequest, sRequest1, sRequest2, sIdAuto, sIdRealt, sIdTIU; 
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		
+		String sResponse;
+		JSONObject jTemp, jData;
+		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web",
+				"price", "currency", "title", "text"};
+		String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
+				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
+		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
+		String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
+				"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		InnerDataHM objAuto;
+		
+		
+		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+		objAuto = PostAdvert(sHost,mas_Auto,mas_Auto2,sAuth_token, "category_auto");
+		sIdAuto = objAuto.GetID();
+		objAuto.GetAdvAuto().PrintKeyAndValue();
+/////////////////////////////////////////////////////////////////////////////////////////////////
+		
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
     	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
-		print("Параметры для запроса");
+    	PostAdvert(sHost,mas_Realt,mas_Realt2,sAuth_token, "category_realt");
+    	
+    	/*print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
 		print("sCatRegAdv = "+ Proper.GetProperty("category_realt"));
 		print("sVideo = " + Proper.GetProperty("video"));
@@ -530,7 +579,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Realt = new HM<String, String>(); 
-		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_Realt.length; i++)
 		{
 			hObj_Realt.SetValue(mas_Realt[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt[i]), ""));
@@ -539,8 +587,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj_Realt2 = new HM<String, String>(); 
-		String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
-				"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
 		for(int i=0; i<mas_Realt2.length; i++)
 		{
 			hObj_Realt2.SetValue(mas_Realt2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt2[i]), ""));
@@ -577,7 +623,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
-    	
+    	*/
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
     	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
 		print("Параметры для запроса");
@@ -641,17 +687,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+    	//jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
 		
-    	ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData);
+    	//ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData);
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
 	
-	//валидация данных объявления что было с тем что стало после каких либо действий для автотестов
+	//валидация  сравнение данных объявления что было, с тем что стало, после каких либо действий для автотестов
 	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jD, jD2, jD3;
@@ -2470,7 +2516,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}	
 		}
 		//4.10.	Получение списка направлений (саджест)
-public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.10. Получение списка направлений (саджест)".toUpperCase());
