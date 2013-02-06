@@ -559,7 +559,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
+    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image2"));
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
