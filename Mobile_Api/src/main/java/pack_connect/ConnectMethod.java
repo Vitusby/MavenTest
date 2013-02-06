@@ -495,7 +495,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
-    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
+    		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -555,7 +555,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
-    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
+    		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -619,7 +619,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
+    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image3"));
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
