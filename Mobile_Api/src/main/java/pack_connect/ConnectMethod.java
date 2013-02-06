@@ -470,7 +470,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Auto = new HM<String, String>(); 
-		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_Auto.length; i++)
 		{
 			hObj_Auto.SetValue(mas_Auto[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto[i]), ""));
@@ -530,7 +530,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Realt = new HM<String, String>(); 
-		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_Realt.length; i++)
 		{
 			hObj_Realt.SetValue(mas_Realt[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt[i]), ""));
@@ -591,7 +591,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_TIY = new HM<String, String>(); 
-		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_TIY.length; i++)
 		{
 			hObj_TIY.SetValue(mas_TIY[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY[i]), ""));
@@ -651,9 +651,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 			else
 			{
 				if(!hObj_Auto.GetValue(mas_Auto[i]).equals(jData.getString(mas_Auto[i])))
+				{
 					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
-							" совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));	
-					
+							" совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));		
+				}
+				else
+				{
+					print("Значение " + mas_Auto[i] +" = " + hObj_Auto.GetValue(mas_Auto[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));	
+				}
 			}
 		}
     	
