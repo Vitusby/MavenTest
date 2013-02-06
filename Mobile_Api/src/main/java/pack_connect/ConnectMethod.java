@@ -1151,7 +1151,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
     	else
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest).setParameter("auth_token", sAuth_token);
+    		.setQuery(sRequest1 + sRequest).setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
