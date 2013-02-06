@@ -578,6 +578,67 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
     	
+///////////////////////////////////////////////////////////////////////////////////////////////// 
+    	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
+		print("Параметры для запроса");
+		print("sAuth_token = "+ sAuth_token);
+		print("sCatRegAdv = "+ Proper.GetProperty("category_electron"));
+		print("sVideo = " + Proper.GetProperty("video"));
+		print("Генерируем данные");
+		
+		sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+		sRequest = CreateSimpleRequest(Proper.GetProperty("category_electron"));
+		
+		//генерим advertisement 
+		HM<String, String> hObj_TIY = new HM<String, String>(); 
+		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
+		for(int i=0; i<mas_TIY.length; i++)
+		{
+			hObj_TIY.SetValue(mas_TIY[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY[i]), ""));
+		}
+		sRequest1 = CreateArrayRequest("advertisement",  hObj_TIY.GetStringFromAllHashMap());
+		
+		// генерим advertisement [custom_fields]
+		HM<String, String> hObj_TIY2 = new HM<String, String>(); 
+		String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model_vacuum"};
+		for(int i=0; i<mas_TIY2.length; i++)
+		{
+			hObj_TIY2.SetValue(mas_TIY2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY2[i]), ""));
+		}
+		hObj_TIY2.PrintKeyAndValue();
+		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_TIY2.GetStringFromAllHashMap());
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
+    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+    		jTemp = jsonObject.getJSONObject("advertisement");
+    		sIdTIU =  jTemp.getString("id");
+    		print("ID объявление = " + sIdTIU);
+    	}
+    	else
+    	{
+    		print("Не удалось создать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
