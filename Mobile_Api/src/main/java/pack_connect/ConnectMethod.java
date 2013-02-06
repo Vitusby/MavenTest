@@ -675,7 +675,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 			}
 		}
-		print(jTemp.optString("electromirror"));
+		print(jTemp.optString("group_custom_fields"));
 		
 	}
 	
