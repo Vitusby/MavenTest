@@ -32,8 +32,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sID = sC;
 		}
 		
-		HM<String, String> GetAdvAuto() {return hObj_Adv_Inn;} 
-		HM<String, String> GetCustAuto() {return hObj_Cust_Inn;} 
+		HM<String, String> GetAdvertismentData() {return hObj_Adv_Inn;} 
+		HM<String, String> GetCustomfieldData() {return hObj_Cust_Inn;} 
 		String GetID() {return sID;}
 		
 		
@@ -467,7 +467,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		
 		String sRequest, sRequest1, sRequest2, sRet;
@@ -511,7 +511,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image"));
+    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty(sImage));
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -540,158 +540,65 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
-		
+		HM<String, String> hObj_Auto;
+		HM<String, String> hObj_Auto2;
+		HM<String, String> hObj_Realt;
+		HM<String, String> hObj_Realt2;
+		HM<String, String> hObj_TIY;
+		HM<String, String> hObj_TIY2;
 		String sResponse;
 		JSONObject jTemp, jData;
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web",
+		String mas_Advertisment[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web",
 				"price", "currency", "title", "text"};
 		String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
 				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
-		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
 		String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
 				"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
+		String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model_vacuum"};
+		InnerDataHM objAuto, objRealt, objTIY;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		InnerDataHM objAuto;
 		
-		
+/////////////////////////////////////////////////////////////////////////////////////////////////		
 		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-		objAuto = PostAdvert(sHost,mas_Auto,mas_Auto2,sAuth_token, "category_auto");
+		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
 		sIdAuto = objAuto.GetID();
-		objAuto.GetAdvAuto().PrintKeyAndValue();
-/////////////////////////////////////////////////////////////////////////////////////////////////
+		hObj_Auto = objAuto.GetAdvertismentData();
+		hObj_Auto2 = objAuto.GetCustomfieldData();
+
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
     	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
-    	PostAdvert(sHost,mas_Realt,mas_Realt2,sAuth_token, "category_realt");
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdRealt = objRealt.GetID();
+    	hObj_Realt = objRealt.GetAdvertismentData();
+    	hObj_Realt2 = objRealt.GetCustomfieldData();
     	
-    	/*print("Параметры для запроса");
-		print("sAuth_token = "+ sAuth_token);
-		print("sCatRegAdv = "+ Proper.GetProperty("category_realt"));
-		print("sVideo = " + Proper.GetProperty("video"));
-		print("Генерируем данные");
-		
-		sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		sRequest = CreateSimpleRequest(Proper.GetProperty("category_realt"));
-		
-		//генерим advertisement 
-		HM<String, String> hObj_Realt = new HM<String, String>(); 
-		for(int i=0; i<mas_Realt.length; i++)
-		{
-			hObj_Realt.SetValue(mas_Realt[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt[i]), ""));
-		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj_Realt.GetStringFromAllHashMap());
-		
-		// генерим advertisement [custom_fields]
-		HM<String, String> hObj_Realt2 = new HM<String, String>(); 
-		for(int i=0; i<mas_Realt2.length; i++)
-		{
-			hObj_Realt2.SetValue(mas_Realt2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt2[i]), ""));
-		}
-		hObj_Realt2.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Realt2.GetStringFromAllHashMap());
-		
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image2"));
-    	print("Парсим ответ....");
     	
-    	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    	{
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
-    		jTemp = jsonObject.getJSONObject("advertisement");
-    		sIdRealt =  jTemp.getString("id");
-    		print("ID объявление = " + sIdRealt);
-    	}
-    	else
-    	{
-    		print("Не удалось создать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
-    		print("Тест провален".toUpperCase());
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	*/
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
     	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
-		print("Параметры для запроса");
-		print("sAuth_token = "+ sAuth_token);
-		print("sCatRegAdv = "+ Proper.GetProperty("category_electron"));
-		print("sVideo = " + Proper.GetProperty("video"));
-		print("Генерируем данные");
-		
-		sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		sRequest = CreateSimpleRequest(Proper.GetProperty("category_electron"));
-		
-		//генерим advertisement 
-		HM<String, String> hObj_TIY = new HM<String, String>(); 
-		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web", "price", "currency", "title", "text"};
-		for(int i=0; i<mas_TIY.length; i++)
-		{
-			hObj_TIY.SetValue(mas_TIY[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY[i]), ""));
-		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj_TIY.GetStringFromAllHashMap());
-		
-		// генерим advertisement [custom_fields]
-		HM<String, String> hObj_TIY2 = new HM<String, String>(); 
-		String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model_vacuum"};
-		for(int i=0; i<mas_TIY2.length; i++)
-		{
-			hObj_TIY2.SetValue(mas_TIY2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY2[i]), ""));
-		}
-		hObj_TIY2.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_TIY2.GetStringFromAllHashMap());
-		
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequestImage(uri, Proper.GetProperty("image3"));
-    	print("Парсим ответ....");
-    	
-    	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    	{
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
-    		jTemp = jsonObject.getJSONObject("advertisement");
-    		sIdTIU =  jTemp.getString("id");
-    		print("ID объявление = " + sIdTIU);
-    	}
-    	else
-    	{
-    		print("Не удалось создать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
-    		print("Тест провален".toUpperCase());
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU = objTIY.GetID();
+    	hObj_TIY = objTIY.GetAdvertismentData();
+    	hObj_TIY2 = objTIY.GetCustomfieldData();
+    
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    	//jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
-		
-    	//ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData);
+		ValidateDataFromAdvert(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
+		print("");
     	
+		jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
+    	print("Проверяем корректность указанных данных при подаче объявления");
+		ValidateDataFromAdvert(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
+		print("");
+		
+		
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
