@@ -1,7 +1,6 @@
 package pack_connect;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIBuilder;
@@ -18,25 +17,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private URI uri;
 	private JSONObject jsonObject;
 	
-	class InnerDataHM
+	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
 	{
 		String sID;
 		HM<String, String> hObj_Adv_Inn;
 		HM<String, String> hObj_Cust_Inn;
-		
-		
+			
 		InnerDataHM(HM<String, String> hObj_Adv, HM<String, String> hObj_Cust, String sC)
 		{
 			hObj_Adv_Inn = hObj_Adv;
 			hObj_Cust_Inn = hObj_Cust;
 			sID = sC;
 		}
-		
 		HM<String, String> GetAdvertismentData() {return hObj_Adv_Inn;} 
 		HM<String, String> GetCustomfieldData() {return hObj_Cust_Inn;} 
-		String GetID() {return sID;}
-		
-		
+		String GetID() {return sID;}	
 	}
 	
 	// Создание профиля АвтоТест
@@ -467,76 +462,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
-	{
-		
-		String sRequest, sRequest1, sRequest2, sRet;
-		JSONObject jTemp;
-		InnerDataHM obj;
-		
-		print("Параметры для запроса");
-		print("sAuth_token = "+ sAuth_token);
-		print("sCatRegAdv = "+ Proper.GetProperty(sCategoryData));
-		print("sVideo = " + Proper.GetProperty("video"));
-		print("Генерируем данные");
-		
-		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		sRequest = CreateSimpleRequest(Proper.GetProperty(sCategoryData)); //category_auto
-		
-		//генерим advertisement 
-		HM<String, String> hObj_Adv = new HM<String, String>(); //здесь будем хранить {param=value} для advertisement
-		for(int i=0; i<sMas_Adv.length; i++)
-		{
-			hObj_Adv.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), ""));
-		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv.GetStringFromAllHashMap());
-		
-		// генерим advertisement [custom_fields]
-		HM<String, String> hObj_Cust = new HM<String, String>();  //здесь будем хранить {param=value} для advertisement [customfields]
-		for(int i=0; i<sMas_Cust.length; i++)
-		{
-			hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
-		}
-		hObj_Cust.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
-		
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty(sImage));
-    	print("Парсим ответ....");
-    	
-    	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    	{
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
-    		jTemp = jsonObject.getJSONObject("advertisement");
-    		sRet =  jTemp.getString("id");
-    		print("ID объявление = " + sRet);
-    		obj = new InnerDataHM(hObj_Adv, hObj_Cust, sRet); // сохраняем значения поданных данных и id созданой объявки 
-    		return obj;
-    	}
-    	else
-    	{
-    		print("Не удалось создать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
-    		print("Тест провален".toUpperCase());
-    		throw new ExceptFailTest("Тест провален");
-    	}	
-	}
 	
 	// Подача/Получение/Редактирование объявление Автотест
 	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sRequest, sRequest1, sRequest2, sIdAuto, sIdRealt, sIdTIU; 
+		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -546,16 +476,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Realt2;
 		HM<String, String> hObj_TIY;
 		HM<String, String> hObj_TIY2;
-		String sResponse;
-		JSONObject jTemp, jData;
-		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+		JSONObject jData;
 		String mas_Advertisment[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web",
 				"price", "currency", "title", "text"};
 		String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
 				"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
 		String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
 				"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
-		String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model_vacuum"};
+		String mas_TIY2[] = {"used-or-new", "vacuumclean_wash", "offertype", "model"};
 		InnerDataHM objAuto, objRealt, objTIY;
 		
 		print("------------------------------------------------------------------------------------------------------------");
@@ -590,7 +518,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     
     	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
-		ValidateDataFromAdvert(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
+    	sImageUrlAuto = ValidateDataFromAdvert(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
 		print("");
     	
 		jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
@@ -598,14 +526,151 @@ public class ConnectMethod extends Connect_Request_Abstract
 		ValidateDataFromAdvert(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
 		print("");
 		
+		jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
+    	print("Проверяем корректность указанных данных при подаче объявления");
+		ValidateDataFromAdvert(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
+		print("");
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		print("Редактирование объявления. Авто с пробегом");
+		
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		print("Параметры для запроса");
+		print("sAuth_token = "+ sAuth_token);
+		print("sImageUrlAuto = " + sImageUrlAuto);
+		print("sVideo = " + Proper.GetProperty("video2"));
+		print("Генерируем данные");
+		
+		String sVideo = "&advertisement[video]="+Proper.GetProperty("video2");
+		
+		
+		//генерим advertisement 
+		HM<String, String> hObj = new HM<String, String>(); 
+		for(int i=0; i<mas_Advertisment.length; i++)
+		{
+			hObj.SetValue(mas_Advertisment[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Advertisment[i]), hObj_Auto.GetValue(mas_Advertisment[i])));
+		}
+		String sd = hObj.GetStringFromAllHashMap();
+		print(sd);
+		String sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
+		print(sRequest1);
+		// генерим advertisement [custom_fields]
+		HM<String, String> hObj2 = new HM<String, String>(); 
+		for(int i=0; i<mas_Auto2.length; i++)
+		{
+			hObj2.SetValue(mas_Auto2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto2[i]), hObj_Auto2.GetValue(mas_Auto2[i])));
+		}
+		hObj2.PrintKeyAndValue();
+		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
+		print(sRequest2);
+		
+		
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAuto)
+			.setQuery(sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sImageUrlAuto).setParameter("auth_token", sAuth_token);
+		uri = builder.build();
+		if(uri.toString().indexOf("%25") != -1)
+		{
+			String sTempUri = uri.toString().replace("%25", "%");
+			uri = new URI(sTempUri);			
+		}
+		print("Отправляем запрос. Uri Запроса: " + uri.toString());
+		
+    	String sResponse = HttpPutRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\n Объявление отредактировано");
+    		
+    	else
+    	{
+    		print("Не удалось отредактировать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+		
 		
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
 	
+	
+	// Подача  для автотеста
+	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+		{
+			
+			String sRequest, sRequest1, sRequest2, sRet;
+			JSONObject jTemp;
+			InnerDataHM obj;
+			
+			print("Параметры для запроса");
+			print("sAuth_token = "+ sAuth_token);
+			print("sCatRegAdv = "+ Proper.GetProperty(sCategoryData));
+			print("sVideo = " + Proper.GetProperty("video"));
+			print("Генерируем данные");
+			
+			String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
+			sRequest = CreateSimpleRequest(Proper.GetProperty(sCategoryData)); //category_auto
+			
+			//генерим advertisement 
+			HM<String, String> hObj_Adv = new HM<String, String>(); //здесь будем хранить {param=value} для advertisement
+			for(int i=0; i<sMas_Adv.length; i++)
+			{
+				hObj_Adv.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), ""));
+			}
+			sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv.GetStringFromAllHashMap());
+			
+			// генерим advertisement [custom_fields]
+			HM<String, String> hObj_Cust = new HM<String, String>();  //здесь будем хранить {param=value} для advertisement [customfields]
+			for(int i=0; i<sMas_Cust.length; i++)
+			{
+					hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
+			}
+			hObj_Cust.PrintKeyAndValue();
+			sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
+			
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
+	    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
+	    		.setParameter("auth_token", sAuth_token);
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty(sImage));
+	    	print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	if(jsonObject.isNull("error"))
+	    	{
+	    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+	    		jTemp = jsonObject.getJSONObject("advertisement");
+	    		sRet =  jTemp.getString("id");
+	    		print("ID объявление = " + sRet);
+	    		obj = new InnerDataHM(hObj_Adv, hObj_Cust, sRet); // сохраняем значения поданных данных и id созданой объявки 
+	    		return obj;
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось создать объявление\r\n"+
+	    				"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}	
+		}
+	
 	//валидация  сравнение данных объявления что было, с тем что стало, после каких либо действий для автотестов
-	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
+	private String ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jD, jD2, jD3;
 		HM<String, String> objHM = new HM<String, String>();
@@ -680,7 +745,42 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 			
 		}
-		
+		// Проверяем наличие видео
+		print("Проверяем наличие видео");
+		String sVideo = Proper.GetProperty("video");
+		sVideo = sVideo.replaceAll("watch", "embed/").replaceFirst("\\?v=", "");
+		jTemp = jsonObject.getJSONObject("advertisement"); 
+		if(jTemp.getString("video").indexOf(sVideo)!=-1)
+		{
+			print("Объявление содержит ссылку на видео. Корректно");
+			print(sVideo);
+		}
+		else
+		{
+			print("В объявление не было добавлено видео. Тест провален".toUpperCase());
+			print("video: " + jTemp.getString("video"));
+    		throw new ExceptFailTest("Тест провален");
+		}
+		// Проверяем наличие картинок
+		print("Проверяем наличие изображений");
+		String s = jTemp.getString("images");
+		if(s.equals("[]"))
+		{
+			print("В объявление не было добавлено изображение. Тест провален".toUpperCase());
+			print("images:" + jTemp.getString("images"));
+			throw new ExceptFailTest("Тест провален");
+		}
+		else
+		{
+			print("Объявление содерижит изображения. Корректно");
+			ar = (JSONArray) jTemp.get("images");
+			for(int i=0; i<ar.length(); i++)
+			{
+				jTemp = (JSONObject) ar.get(i);
+				print(jTemp.toString(10));
+			}
+			return jTemp.getString("orig");
+		}
 		
 	}
 	
@@ -1017,7 +1117,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sCustom_fields, String sPathImageNew, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
@@ -1041,7 +1141,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
-		String sRequest1 = CreateArrayRequest("advertisement" ,"{contact=Димон}");
+		String sRequest1 = CreateArrayRequest("advertisement" , sAdvertisement);
 		
 		builder = new URIBuilder();
 		

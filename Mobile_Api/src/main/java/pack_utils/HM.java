@@ -48,7 +48,7 @@ public class HM<K,V>
 		s = hm.entrySet();
 		for(Map.Entry<K,V>me :s)
 		{
-			sBuff.append(me.getKey()+"="+me.getValue()+", ");
+			sBuff.append(me.getKey()+"="+me.getValue()+",");
 		}
 		int n = sBuff.lastIndexOf(",");
 		sBuff.deleteCharAt(n);
