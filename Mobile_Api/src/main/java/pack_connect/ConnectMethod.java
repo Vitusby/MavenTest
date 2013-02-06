@@ -470,7 +470,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Auto = new HM<String, String>(); 
-		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title_auto", "text"};
+		String mas_Auto[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_Auto.length; i++)
 		{
 			hObj_Auto.SetValue(mas_Auto[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto[i]), ""));
@@ -530,7 +530,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Realt = new HM<String, String>(); 
-		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title_realt", "text"};
+		String mas_Realt[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_Realt.length; i++)
 		{
 			hObj_Realt.SetValue(mas_Realt[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Realt[i]), ""));
@@ -591,7 +591,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//генерим advertisement 
 		HM<String, String> hObj_TIY = new HM<String, String>(); 
-		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title_tiy", "text"};
+		String mas_TIY[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "altermative_contact", "web", "price", "currency", "title", "text"};
 		for(int i=0; i<mas_TIY.length; i++)
 		{
 			hObj_TIY.SetValue(mas_TIY[i], RamdomData.GetRandomData(Proper.GetProperty(mas_TIY[i]), ""));
