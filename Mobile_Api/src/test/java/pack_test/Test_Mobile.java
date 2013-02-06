@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-	@Test (groups = { "AutoTest" })
+	/*@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -42,7 +42,7 @@ public class Test_Mobile
 	public void AutoTest_RestorePassworde(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.RestorePassword(sBaseHost); // Восстановление пароля
-	}
+	}*/
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})

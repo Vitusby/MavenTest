@@ -640,6 +640,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
 		
@@ -650,9 +651,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	
+	//валидация данных объявления что было с тем что стало после каких либо действий для автотестов
 	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
-		JSONObject jTemp, jD;
+		JSONObject jTemp, jD, jD2, jD3;
+		HM<String, String> objHM = new HM<String, String>();
 		jTemp = jsonObject.getJSONObject("advertisement"); 
 		jD = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Adv.length; i++)
@@ -675,7 +678,56 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 			}
 		}
-		print(jTemp.optString("group_custom_fields"));
+		
+		
+		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
+		jTemp = jTemp.getJSONObject("group_custom_fields");
+		JSONArray ar = jTemp.names(), ar2;
+		for(int i=0; i<ar.length(); i++)
+		{
+			jD = jTemp.getJSONObject(ar.getString(i));
+			if(!jD.getString("custom_fields").equals("[]"))
+			{
+				jD2 = jD.getJSONObject("custom_fields");
+				ar2 = jD2.names();
+				for(int j=0; j<ar2.length(); j++)
+				{
+					String key = ar2.getString(j);
+					jD3 = jD2.getJSONObject(ar2.getString(j));
+					String value = jD3.getString("value");
+					objHM.SetValue(key, value);
+				}
+			}
+				
+		}
+		
+		// Сравниваем значения
+		for(int i=0; i<mas_Cust.length; i++)
+		{
+			
+			if(obj_Cust.GetValue(mas_Cust[i]).equals(objHM.GetValue(mas_Cust[i])))
+			{
+				print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при подаче объявления," +
+						" совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));		
+			}
+			else
+			{
+				if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+				{
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при подаче, не найдено в" +
+							" объявление так как является булевским и при значении = 0, в объявление не добавляется. Корректно.");
+				}
+				else
+				{
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+			}
+			
+		}
+		
 		
 	}
 	
