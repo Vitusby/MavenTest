@@ -642,7 +642,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
-		jTemp = jsonObject.getJSONObject("advertisement"); 
+		
+    	ValidateDataFromAdvert(mas_Auto, mas_Auto2,hObj_Auto, hObj_Auto2, jData)
+    	/*jTemp = jsonObject.getJSONObject("advertisement"); 
 		jData = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Auto.length; i++)
 		{
@@ -661,16 +663,43 @@ public class ConnectMethod extends Connect_Request_Abstract
 							" не совпало со значение после получения данного объявления " + mas_Auto[i] + " = " + jData.getString(mas_Auto[i]));	
 				}
 			}
-		}
+		}*/
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
+	
+	private void ValidateDataFromAdvert(String mas_Adv[], String mas_Cust, HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException
+	{
+		JSONObject jTemp, jD;
+		jTemp = jsonObject.getJSONObject("advertisement"); 
+		jD = jTemp; // для проверки и сравнения данных
+		for(int i=0; i<mas_Adv.length; i++)
+		{
+			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
+				continue;
+			else
+			{
+				if(obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + jD.getString(mas_Adv[i]));		
+				}
+				else
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + jD.getString(mas_Adv[i]));	
+				}
+			}
+		}
+		
+	}
+	
 	// получения объявления для автотестов
 	private JSONObject GetAdvert(String sHost, String sIdAdvert, String sText) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		print("r\nПолучение объявления".toUpperCase()+" рубрики " + sText + " ID = " + sIdAdvert);
+		print("\r\nПолучение объявления".toUpperCase()+" рубрики " + sText + " ID = " + sIdAdvert);
 		print("ID = " + sIdAdvert);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert);
