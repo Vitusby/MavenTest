@@ -43,20 +43,34 @@ public class Test_Mobile
 	{
 			cM.RestorePassword(sBaseHost); // Восстановление пароля
 	}
-	
+	*/
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.AddGetEditAdvertOP(sBaseHost); // Подача/получение/редактирование/
 	}
-	*/
+	/*
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetListDeleteOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.AddGetListDeleteOP(sBaseHost); // Подача/получение листинга/редактирование/
 	}
+	*/
+	
+	
+	/*@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddFavGetListFavDeleteFavOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/получение листинга/редактирование/
+	}
+	*/
+	
+	
+	
+	
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

@@ -499,7 +499,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
 		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
 
-		
+
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
     	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
@@ -784,7 +784,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 		}	
 		// Проверяем наличие видео
-		print("\r\nПроверяем наличие видео");
+		
+	 	print("\r\nПроверяем наличие видео");
 		String sVideo = Proper.GetProperty("video2");
 		sVideo = sVideo.replaceAll("watch", "embed/").replaceFirst("\\?v=", "");
 		jTemp = jsonObject.getJSONObject("advertisement"); 
@@ -808,6 +809,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				throw new ExceptFailTest("Тест провален");
 			}
 		}
+		
 		// Проверяем что картинка удалилась
 		print("\r\nПроверяем наличие изображений");
 		String s = jTemp.getString("images");
@@ -1223,6 +1225,26 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
+	
+	// Подача объявлени(польз 1)/Добавление в избраное(П2)/Получение листинга избран(П2)/Удаление из избранного(П2)
+	//Получение листинга из избранного(П2)/Подача(П1)/Попытка добавить в избранное()
+	public void AddFavGetListFavDeleteFavOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+		{
+			String sIdAdvert; 
+			String sLogin = Proper.GetProperty("login_authOP");
+			String sLogin2 =  Proper.GetProperty("login_authOP2");
+			String sPassword = Proper.GetProperty("password");
+			String sAuth_token = "";
+			JSONObject jData;
+			
+			InnerDataHM objRealt;
+			
+			print("------------------------------------------------------------------------------------------------------------");
+			print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
+			print("Авторизация пользователем - " + sLogin2);
+			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+		}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
