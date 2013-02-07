@@ -1237,13 +1237,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 			String sPassword = Proper.GetProperty("password");
 			String sAuth_token = "";
 			JSONObject jData;
-			
 			InnerDataHM objRealt;
 			
 			print("------------------------------------------------------------------------------------------------------------");
 			print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
 			print("Авторизация пользователем - " + sLogin2);
 			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+			
+			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
+			
 		}
 	
 // Параметризированные тесты
@@ -1544,8 +1548,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew,String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		
+		print(sVideoUrl);
+		
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{

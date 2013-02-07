@@ -55,7 +55,7 @@ public class Test_Mobile
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetListDeleteOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.AddGetListDeleteOP(sBaseHost); // Подача/получение листинга/редактирование/
+			cM.AddGetListDeleteOP(sBaseHost); 
 	}
 	*/
 	
@@ -124,10 +124,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "EditAdvert_2_3" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sParam1",   "sParam2", "bAuthFlag"})
-	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam1, String sParam2, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sParam1",   "sParam2", "sVideoUrl",  "bAuthFlag"})
+	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam1, String sParam2, String sVideoUrl ,boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam1, sParam2, "1.jpeg", bAuthFlag);
+		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam1, sParam2, "1.jpeg", sVideoUrl,  bAuthFlag);
 	}
 		
 	@Test (groups = { "DeleteAdvert_2_4" })
