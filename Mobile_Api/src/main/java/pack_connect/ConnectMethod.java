@@ -1060,9 +1060,52 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nИщем поданное объявление в листинге ЛК");
     	print("ID искомого объявления = " + sIdAdvert);
     	FindAdvertFromList(jData, sIdAdvert);
+    	
+    	try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	print("\r\nУдаляем объявление в ЛК");
+    	print("ID удаляемого объявления = " + sIdAdvert);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
 	}
 	
-	//поиск объявления по id в листингах short advertisment
+	//удаление объявления для автотестов
+	private void DeleteAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	{
+		print("\r\nУдаление объявления".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("sIdAdvert = " + sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert)
+    			.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpDeleteRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление удалено");
+    	else
+    	{
+    		print("Не удалось удалить объявление c ID = "+ sIdAdvert +"\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	//поиск объявления по id в листингах short advertisment для автотестов
 	private void FindAdvertFromList(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData;
@@ -1074,17 +1117,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			jData = (JSONObject) ar.get(i);
 			if(jData.getString("id").equals(sIdAdvert))
 			{
-				print("Объявление с ID =" + sIdAdvert + "найдено в листинге. Корректно");	
+				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. Корректно");	
 				bFlag = true;
 			}
 		}
 		
-		if(bFlag)
-		{
-			print("------------------------------------------------------------------------------------------------------------");
-	    	print("Тест завершен успешно".toUpperCase());
-		}
-		else
+		if(!bFlag)
 		{
 			print("После подачи, объявление с ID = " + sIdAdvert + " не отображается в листинге");
 			print("Тест провален".toUpperCase());
@@ -1092,8 +1130,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 	}
-	
-	
+		
 	// получение лисинга ЛК ОП для автотестов
 	private JSONObject GetListOwnAdvert(String sHost, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{	
