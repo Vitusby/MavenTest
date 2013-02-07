@@ -1073,6 +1073,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nИщем удаленное из ЛК объявление");
     	FindAdvertFromListAfterDelete(jData, sIdAdvert);
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());	
 	}
 	//удаление объявления для автотестов
 	private void DeleteAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
@@ -1114,8 +1117,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("Листинг объявлений получен, но в листинге нету ни одного объявления");
 			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" удалено".toUpperCase());
-			print("------------------------------------------------------------------------------------------------------------");
-	    	print("Тест завершен успешно".toUpperCase());
 	    	return;
 		}
 		
@@ -1133,8 +1134,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		print("После удаления, объявление с ID = " + sIdAdvert + " не отображается в листинге");
-		print("------------------------------------------------------------------------------------------------------------");
-    	print("Тест завершен успешно".toUpperCase());
 	}
 	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
 	private void FindAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
@@ -1269,8 +1268,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("Ищем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 		FindAdvertFromListAfterDelete(jData, sIdAdvert);
-	}
-	
+		
+		print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
+		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+		
+		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
+		AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+	}	
 	//добавление в избранное для автотеста
 	private void AddAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -1387,7 +1394,38 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-
+	//добавление своего объявления в избранное
+	private void AddOwnAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("\r\nДобавление объявления в «Избранное»".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = " + sAuth_token);
+		print("sIdAdvert = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    			.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление c ID = " + sIdAdvert + " добавлено в избранное");
+    		print("Но это собственное объявление пользователя. Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	else
+    	{
+    		print("Не удалось добавить объявление \r\n Ответ сервера:\r\n" + jsonObject.toString(10) + "Корректно. Так как это собственное объявление пользователя");
+    	}	
+	}
 	
 	
 // Параметризированные тесты
