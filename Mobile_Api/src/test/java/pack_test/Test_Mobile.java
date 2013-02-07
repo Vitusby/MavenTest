@@ -353,7 +353,6 @@ public class Test_Mobile
 	public void Test39(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetMetroSuggest_4_12(sBaseHost, sParam);
-		//{region=russia/moskovskaya-obl/, search_string=кутузова}
 	}
 	
 	@Test (groups = { "GetCurrencies_5_1" })
@@ -363,7 +362,6 @@ public class Test_Mobile
 		cM.GetCurrencies_5_1(sBaseHost);
 	} 
 	
-	// должен отдавать value отдает currencies
 	@Test (groups = { "GetDictinary_6_1" })
 	@Parameters({"sBaseHost", "sNameDictinary"})
 	public void Test41(String sBaseHost, String sNameDictinary) throws URISyntaxException, IOException, ExceptFailTest, JSONException

@@ -493,9 +493,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 /////////////////////////////////////////////////////////////////////////////////////////////////		
 		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
 		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-		sIdAuto = objAuto.GetID();
-		hObj_Auto = objAuto.GetAdvertismentData();
-		hObj_Auto2 = objAuto.GetCustomfieldData();
+		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
+		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
 
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
@@ -518,31 +518,42 @@ public class ConnectMethod extends Connect_Request_Abstract
     
     	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
     	print("Проверяем корректность указанных данных при подаче объявления");
-    	sImageUrlAuto = ValidateDataFromAdvert(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
+    	sImageUrlAuto = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
 		print("");
     	
 		jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
     	print("Проверяем корректность указанных данных при подаче объявления");
-		ValidateDataFromAdvert(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
+    	ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
 		print("");
 		
 		jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
     	print("Проверяем корректность указанных данных при подаче объявления");
-		ValidateDataFromAdvert(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
+    	ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
 		print("");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		print("Редактирование объявления. Авто с пробегом");
+		objAuto = EditAdvert(sHost,mas_Advertisment, mas_Auto2,objAuto, sAuth_token, sImageUrlAuto);
+		sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
+		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+
+		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2);
 		
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+    	
+	}
+	
+	//Редактирование для Автотеста
+	private InnerDataHM EditAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], InnerDataHM obj_old,  String sAuth_token, String sUrlImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		
+		InnerDataHM obj_after_edit;
+		String sId = obj_old.GetID();
 		
 		print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
-		print("sImageUrlAuto = " + sImageUrlAuto);
+		print("sImageUrlAuto = " + sUrlImage);
 		print("sVideo = " + Proper.GetProperty("video2"));
 		print("Генерируем данные");
 		
@@ -550,29 +561,29 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		//генерим advertisement 
-		HM<String, String> hObj = new HM<String, String>(); 
-		for(int i=0; i<mas_Advertisment.length; i++)
+		HM<String, String> hObj_Adv_New = new HM<String, String>(); 
+		for(int i=0; i<sMas_Adv.length; i++)
 		{
-			hObj.SetValue(mas_Advertisment[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Advertisment[i]), hObj_Auto.GetValue(mas_Advertisment[i])));
+			hObj_Adv_New.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), obj_old.GetAdvertismentData().GetValue(sMas_Adv[i])));
 		}
-		String sd = hObj.GetStringFromAllHashMap();
-		print(sd);
-		String sRequest1 = CreateArrayRequest("advertisement",  hObj.GetStringFromAllHashMap());
-		print(sRequest1);
+		//String sd = hObj_Adv_New.GetStringFromAllHashMap();
+		//print(sd);
+		String sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv_New.GetStringFromAllHashMap());
+		//print(sRequest1);
 		// генерим advertisement [custom_fields]
-		HM<String, String> hObj2 = new HM<String, String>(); 
-		for(int i=0; i<mas_Auto2.length; i++)
+		HM<String, String> hObj_Cust_New = new HM<String, String>(); 
+		for(int i=0; i<sMas_Cust.length; i++)
 		{
-			hObj2.SetValue(mas_Auto2[i], RamdomData.GetRandomData(Proper.GetProperty(mas_Auto2[i]), hObj_Auto2.GetValue(mas_Auto2[i])));
+			hObj_Cust_New.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), obj_old.GetCustomfieldData().GetValue(sMas_Cust[i])));
 		}
-		hObj2.PrintKeyAndValue();
-		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj2.GetStringFromAllHashMap());
-		print(sRequest2);
+		hObj_Cust_New.PrintKeyAndValue();
+		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust_New.GetStringFromAllHashMap());
+		//print(sRequest2);
 		
 		
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAuto)
-			.setQuery(sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sImageUrlAuto).setParameter("auth_token", sAuth_token);
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ obj_old.GetID())
+			.setQuery(sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
 		uri = builder.build();
 		if(uri.toString().indexOf("%25") != -1)
 		{
@@ -586,8 +597,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
+    	{
     		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\n Объявление отредактировано");
-    		
+    		obj_after_edit = new InnerDataHM(hObj_Adv_New, hObj_Cust_New, sId); // сохраняем значения данных после редактирования
+    		return obj_after_edit;
+    	}
     	else
     	{
     		print("Не удалось отредактировать объявление\r\n"+
@@ -595,15 +609,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 		
-		
-    	print("------------------------------------------------------------------------------------------------------------");
-    	print("Тест завершен успешно".toUpperCase());
-    	
 	}
 	
-	
 	// Подача  для автотеста
-	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+ 	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 		{
 			
 			String sRequest, sRequest1, sRequest2, sRet;
@@ -669,12 +678,116 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}	
 		}
 	
-	//валидация  сравнение данных объявления что было, с тем что стало, после каких либо действий для автотестов
-	private String ValidateDataFromAdvert(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
+ 	//валидация  сравнение данных объявления что было, с тем что стало, после редактирования для автотестов
+ 	private void ValidateDataFromAdvertAfterEdit(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust) throws JSONException, ExceptFailTest
+ 	{
+ 		JSONObject jTemp, jD, jD2, jD3;
+		HM<String, String> objHM = new HM<String, String>();
+		jTemp = jsonObject.getJSONObject("advertisement");  // используем общий jsonObject указанный для всего класса(при редактировании ответ приходит в него)
+		jD = jTemp; // для проверки и сравнения данных
+		for(int i=0; i<mas_Adv.length; i++)
+		{
+			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
+				continue;
+			
+			if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone_add") ||  mas_Adv[i].equals("contact") || mas_Adv[i].equals("phone2") ||  mas_Adv[i].equals("phone_add2") ||  mas_Adv[i].equals("alternative_contact"))
+			{
+    			// проверяем не изменился ли phone, phone_add, contact, phone2, phone_add2, alternative_contact
+				if(!obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
+				{
+					print("Значение " + mas_Adv[i] +" = " + jD.getString(mas_Adv[i])  + " указанное для при подаче объявления," +
+							" осталось прежним после редактирования данного объявления, не равно значение указанному при редактировании " + mas_Adv[i] + 
+							" = " + obj_Adv.GetValue(mas_Adv[i]) + " Корректно." );		
+				}
+				else
+				{
+					print("Значение " + mas_Adv[i] +" = " + jD.getString(mas_Adv[i])  + " указанное для при подаче объявления," +
+							" не осталось прежним после редактирования данного объявления, равно значение указанному при редактировании " + mas_Adv[i] + 
+							" = " + obj_Adv.GetValue(mas_Adv[i]));	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+			}
+			/*else
+			{
+				// проверяем что изменился title, text, web.
+				if(obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при редактировании объявления," +
+							" изменилось после редактирования данного объявления, равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
+							" = " + jD.getString(mas_Adv[i]) + " Корректно." );		
+				}
+				else
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при редактировании объявления," +
+							" не изменилось после редактирования данного объявления, не равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
+							" = " + jD.getString(mas_Adv[i]));		
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+				
+			}*/
+			
+		}
+		
+		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
+		jTemp = jTemp.getJSONObject("group_custom_fields");
+		JSONArray ar = jTemp.names(), ar2;
+		for(int i=0; i<ar.length(); i++)
+		{
+			jD = jTemp.getJSONObject(ar.getString(i));
+			if(!jD.getString("custom_fields").equals("[]"))
+			{
+				jD2 = jD.getJSONObject("custom_fields");
+				ar2 = jD2.names();
+				for(int j=0; j<ar2.length(); j++)
+				{
+					String key = ar2.getString(j);
+					jD3 = jD2.getJSONObject(ar2.getString(j));
+					String value = jD3.getString("value");
+					objHM.SetValue(key, value);
+				}
+			}
+				
+		}
+		objHM.PrintKeyAndValue();
+		
+		// Сравниваем значения
+		for(int i=0; i<mas_Cust.length; i++)
+		{
+			
+			if(obj_Cust.GetValue(mas_Cust[i]).equals(objHM.GetValue(mas_Cust[i])))
+			{
+				print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
+						" совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));		
+			}
+			else
+			{
+				if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+				{
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при подаче, не найдено в" +
+							" объявление так как является булевским и при значении = 0, в объявление не добавляется. Корректно.");
+				}
+				else
+				{
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+			}
+			
+		}
+		
+		
+ 	}
+ 	
+	//валидация  сравнение данных объявления что было, с тем что стало, после подачи для автотестов
+	private String ValidateDataFromAdvertAfterPost(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jD, jD2, jD3;
 		HM<String, String> objHM = new HM<String, String>();
-		jTemp = jsonObject.getJSONObject("advertisement"); 
+		jTemp = jObj.getJSONObject("advertisement"); 
 		jD = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Adv.length; i++)
 		{
@@ -749,7 +862,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Проверяем наличие видео");
 		String sVideo = Proper.GetProperty("video");
 		sVideo = sVideo.replaceAll("watch", "embed/").replaceFirst("\\?v=", "");
-		jTemp = jsonObject.getJSONObject("advertisement"); 
+		jTemp = jObj.getJSONObject("advertisement"); 
 		if(jTemp.getString("video").indexOf(sVideo)!=-1)
 		{
 			print("Объявление содержит ссылку на видео. Корректно");
