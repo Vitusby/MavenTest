@@ -1059,20 +1059,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nИщем поданное объявление в листинге ЛК");
     	print("ID искомого объявления = " + sIdAdvert);
-    	FindAdvertFromList(jData, sIdAdvert);
-    	
-    	try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	FindAdvertFromListAfterPost(jData, sIdAdvert);
     	
     	print("\r\nУдаляем объявление в ЛК");
     	print("ID удаляемого объявления = " + sIdAdvert);
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+    	
+    	print("\r\nПолучаем листинг объявлений в ЛК");
+    	jData = GetListOwnAdvert(sHost, sAuth_token);
+    	
+    	print("\r\nИщем удаленное из ЛК объявление");
+    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
 	}
-	
 	//удаление объявления для автотестов
 	private void DeleteAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
 	{
@@ -1095,7 +1093,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление удалено");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление было удалено");
     	else
     	{
     		print("Не удалось удалить объявление c ID = "+ sIdAdvert +"\r\n"+
@@ -1104,13 +1102,51 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
-	//поиск объявления по id в листингах short advertisment для автотестов
-	private void FindAdvertFromList(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
+	//поиск объявления по id в листингах  после удаления объявления short advertisment для автотестов
+	private void FindAdvertFromListAfterDelete(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData;
+		
+		if(jObj.getString("advertisements").equals("[]"))
+		{
+			print("Листинг объявлений получен, но в листинге нету неодного объявления");
+			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" удалено".toUpperCase());
+			print("------------------------------------------------------------------------------------------------------------");
+	    	print("Тест завершен успешно".toUpperCase());
+	    	return;
+		}
+		
 		JSONArray ar = jTemp.getJSONArray("advertisements");
+		for(int i=0; i<ar.length(); i++)
+		{
+		
+			jData = (JSONObject) ar.get(i);
+			if(jData.getString("id").equals(sIdAdvert))
+			{
+				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. После удаления");	
+				print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+			}
+		}
+		
+		print("После удаления, объявление с ID = " + sIdAdvert + " не отображается в листинге");
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+	}
+	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
+	private void FindAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
+	{
+		JSONObject jTemp = jObj, jData;
 		boolean bFlag = false;
+		
+		if(jObj.getString("advertisements").equals("[]"))
+		{
+			print("Листинг объявлений получен, но в листинге нету неодного объявления");
+			print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+		}
+		
+		JSONArray ar = jTemp.getJSONArray("advertisements");
 		for(int i=0; i<ar.length(); i++)
 		{
 		
@@ -1128,10 +1164,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
 		}
-		
-	}
-		
-	// получение лисинга ЛК ОП для автотестов
+	}	
+	// получение листинга ЛК ОП для автотестов
 	private JSONObject GetListOwnAdvert(String sHost, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{	
 		String sDataForSearchOwnAdvert = "{offset=0, limit=25}";
@@ -1160,20 +1194,27 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	jTemp = jsonObject;
+    	
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера: Листинг «своих» объявлений получен");
-    		print("");
-    		JSONArray ar = jsonObject.getJSONArray("advertisements");
-    		for(int i=0; i<ar.length(); i++)
+    		if(jTemp.getString("advertisements").equals("[]"))
     		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("Объявление №" + i);
-    			jsonObject = (JSONObject) ar.get(i);
-    			print(jsonObject.toString(10));
-    		
+    			return jTemp;
     		}
-    		return jTemp;
+    		else
+    		{
+    			print("Листинг «своих» объявлений получен");
+	    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+	    		for(int i=0; i<ar.length(); i++)
+	    		{
+	    			print("--------------------------------------------------------------------------------------------------------------");
+	    			print("Объявление №" + i);
+	    			jsonObject = (JSONObject) ar.get(i);
+	    			print(jsonObject.toString(10));
+	    		
+	    		}
+	    		return jTemp;
+    		}
     	}
     	else
     	{
