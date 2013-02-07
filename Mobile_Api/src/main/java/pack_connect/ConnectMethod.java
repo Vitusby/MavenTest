@@ -1551,8 +1551,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew,String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
-		print(sVideoUrl);
-		
+		String sVideo = "&advertisement[video]="+sVideoUrl;
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
@@ -1564,6 +1563,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("2.3.	Редактирование объявления");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
+		print("sVideoUrl = " + sVideoUrl);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		if(sUrlImage.equals("false"))
 		{
@@ -1585,7 +1585,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
     	else
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest1 + sRequest).setParameter("auth_token", sAuth_token);
+    		.setQuery(sRequest1 + sRequest + sVideo).setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
