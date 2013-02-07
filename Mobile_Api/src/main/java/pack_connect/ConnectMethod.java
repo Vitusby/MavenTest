@@ -1035,7 +1035,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 
-	
+	// Подача/Получение листинга ЛК/Удаление
 	public void AddGetListDeleteOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sIdAdvert; 
@@ -1047,7 +1047,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		InnerDataHM objRealt;
 		
 		print("------------------------------------------------------------------------------------------------------------");
-		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
+		print("Подача,получение листинга ЛК, удаление объявления ОП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
@@ -1058,6 +1058,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jData = GetListOwnAdvert(sHost, sAuth_token);
     	
     	print("\r\nИщем поданное объявление в листинге ЛК");
+    	print("ID искомого объявления = " + sIdAdvert);
     	FindAdvertFromList(jData, sIdAdvert);
 	}
 	
@@ -1085,7 +1086,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		else
 		{
-			print("После подачи объявление не отображается в листинге");
+			print("После подачи, объявление с ID = " + sIdAdvert + " не отображается в листинге");
 			print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
 		}
@@ -1348,8 +1349,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
 	}
-	//public void 
-	
+
 	// Подача объявления
 	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
