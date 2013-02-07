@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-	@Test (groups = { "AutoTest" })
+	/*@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -49,6 +49,13 @@ public class Test_Mobile
 	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.AddGetEditAdvertOP(sBaseHost); // Подача/получение/редактирование/
+	}
+	*/
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddGetListDeleteOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.AddGetListDeleteOP(sBaseHost); // Подача/получение листинга/редактирование/
 	}
 	
 	// Параметризированные тесты
