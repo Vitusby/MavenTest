@@ -466,7 +466,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение/Редактирование объявление Автотест
 	public void AddGetEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto; 
+		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -523,28 +523,34 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 		jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
     	print("Проверяем корректность указанных данных при подаче объявления");
-    	ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
+    	sImageUrlRealt = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
 		print("");
 		
 		jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
     	print("Проверяем корректность указанных данных при подаче объявления");
-    	ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
+    	sImageUrlTIY = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
 		print("");
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		print("Редактирование объявления. Авто с пробегом");
-		objAuto = EditAdvert(sHost,mas_Advertisment, mas_Auto2,objAuto, sAuth_token, sImageUrlAuto);
+		/*print("\r\nРедактирование объявления. Авто с пробегом");
+		objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto);
 		sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
 		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
-
 		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2);
+		*/
+		print("\r\nРедактирование объявления. Вторичный рынок");
+		objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
+		sIdRealt = objAuto.GetID(); // сюда сохраняем значение id
+		hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+		hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2);
 		
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
-	
-	//Редактирование для Автотеста
+	// редактирование объявления автотест
 	private InnerDataHM EditAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], InnerDataHM obj_old,  String sAuth_token, String sUrlImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
@@ -610,8 +616,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 		
 	}
-	
-	// Подача  для автотеста
+	// подача объявления автотест
  	private InnerDataHM PostAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 		{
 			
@@ -677,7 +682,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		throw new ExceptFailTest("Тест провален");
 	    	}	
 		}
-	
  	//валидация  сравнение данных объявления что было, с тем что стало, после редактирования для автотестов
  	private void ValidateDataFromAdvertAfterEdit(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust) throws JSONException, ExceptFailTest
  	{
@@ -750,7 +754,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 				
 		}
-		objHM.PrintKeyAndValue();
 		
 		// Сравниваем значения
 		for(int i=0; i<mas_Cust.length; i++)
@@ -765,12 +768,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
 				{
-					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при подаче, не найдено в" +
-							" объявление так как является булевским и при значении = 0, в объявление не добавляется. Корректно.");
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при редактировании, не найдено в" +
+							" объявление так как является булевским и при значении = 0, в объявление удаляется. Корректно.");
 				}
 				else
 				{
-					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при подаче объявления," +
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
 							" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));	
 					print("Тест провален".toUpperCase());
 		    		throw new ExceptFailTest("Тест провален");
@@ -781,9 +784,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
  	}
- 	
+ 	//валидация  сравнение данных объявления что было, с тем что стало, после подачи для автотестов
 	//валидация  сравнение данных объявления что было, с тем что стало, после подачи для автотестов
-	private String ValidateDataFromAdvertAfterPost(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
+ 	// валидация данных сравнение что подавалось с тем что было получено после подачи
+ 	private String ValidateDataFromAdvertAfterPost(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jD, jD2, jD3;
 		HM<String, String> objHM = new HM<String, String>();
