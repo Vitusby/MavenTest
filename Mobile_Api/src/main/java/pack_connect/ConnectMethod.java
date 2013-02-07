@@ -1112,7 +1112,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(jObj.getString("advertisements").equals("[]"))
 		{
-			print("Листинг объявлений получен, но в листинге нету неодного объявления");
+			print("Листинг объявлений получен, но в листинге нету ни одного объявления");
 			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" удалено".toUpperCase());
 			print("------------------------------------------------------------------------------------------------------------");
 	    	print("Тест завершен успешно".toUpperCase());
@@ -1258,11 +1258,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получаем листинг вкладки «Избранное» для пользователя " + sLogin);
 		jData = GetListFavourite(sHost, sAuth_token);
 		
-		print("Ищем объявление в листинге «Избранное» для пользоватея " + sLogin);
+		print("Ищем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 		FindAdvertFromListAfterPost(jData, sIdAdvert);
 		
-		//print("Удаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
-		//DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
+		print("Удаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
+		DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
+		
+		print("Получаем листинг вкладки «Избранное» для пользователя " + sLogin);
+		jData = GetListFavourite(sHost, sAuth_token);
+		
+		print("Ищем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
+		FindAdvertFromListAfterDelete(jData, sIdAdvert);
 	}
 	
 	//добавление в избранное для автотеста
