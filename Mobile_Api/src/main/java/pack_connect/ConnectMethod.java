@@ -1,6 +1,7 @@
 package pack_connect;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIBuilder;
@@ -1162,7 +1163,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(!bFlag)
 		{
-			print("После подачи, объявление с ID = " + sIdAdvert + " не отображается в листинге");
+			print("После подачи/добавления в избранное, объявление с ID = " + sIdAdvert + " не отображается в листинге");
 			print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
 		}
@@ -1230,25 +1231,158 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача объявлени(польз 1)/Добавление в избраное(П2)/Получение листинга избран(П2)/Удаление из избранного(П2)
 	//Получение листинга из избранного(П2)/Подача(П1)/Попытка добавить в избранное()
 	public void AddFavGetListFavDeleteFavOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
-		{
-			String sIdAdvert; 
-			String sLogin = Proper.GetProperty("login_authOP");
-			String sLogin2 =  Proper.GetProperty("login_authOP2");
-			String sPassword = Proper.GetProperty("password");
-			String sAuth_token = "";
-			JSONObject jData;
-			InnerDataHM objRealt;
-			
-			print("------------------------------------------------------------------------------------------------------------");
-			print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
-			print("Авторизация пользователем - " + sLogin2);
-			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
-			
-			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
-			
-		}
+	{
+		String sIdAdvert; 
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sLogin2 =  Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objRealt;
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
+		print("Авторизация пользователем - " + sLogin2);
+		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+		
+		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+		sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
+		
+		print("Авторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
+		AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+		
+		print("Получаем листинг вкладки «Избранное» для пользователя " + sLogin);
+		jData = GetListFavourite(sHost, sAuth_token);
+		
+		print("Ищем объявление в листинге «Избранное» для пользоватея " + sLogin);
+		FindAdvertFromListAfterPost(jData, sIdAdvert);
+		
+		//print("Удаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
+		//DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
+	}
+	
+	//добавление в избранное для автотеста
+	private void AddAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("\r\nДобавление объявления в «Избранное»".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = " + sAuth_token);
+		print("sIdAdvert = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    			.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление c ID = " + sIdAdvert + " добавлено в избранное");
+    	else
+    	{
+    		print("Не удалось добавить объявление \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	//получение листинга вкладки избранное для автотеста
+	private JSONObject GetListFavourite(String sHost, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		String sDataForFavourite =  "{offset=0, limit=25}";
+		JSONObject jTemp;
+		print("\r\nПолучение листинга объявлений, добавленных в «Избранное»".toUpperCase());
+		print("Параметры для запроса");
+		print("DataForFavourite = "+ sDataForFavourite);
+		
+		String sQuery = CreateSimpleRequest(sDataForFavourite);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/favorites")
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	
+    	if(jsonObject.isNull("error"))
+    	{
+    		if(jTemp.getString("advertisements").equals("[]"))
+    		{
+    			return jTemp;
+    		}
+    		else
+    		{
+    			print("Листинг объявлений вкладки «Избранное» получен");
+	    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+	    		for(int i=0; i<ar.length(); i++)
+	    		{
+	    			print("--------------------------------------------------------------------------------------------------------------");
+	    			print("Объявление №" + i);
+	    			jsonObject = (JSONObject) ar.get(i);
+	    			print(jsonObject.toString(10));
+	    		
+	    		}
+	    		return jTemp;
+    		}
+    	}
+    	else
+    	{
+    		print("Не удалось получить листинг объявлений вкладки «Избранное» \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	//удаление из избранного для автотеста
+	private void DeleteAdvertFromFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	{
+		print("\r\nУдаление объявления из «Избранное»".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    			.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpDeleteRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление c ID = " + sIdAdvert + " удалено из избранного");
+    	else
+    	{
+    		print("Не удалось удалить объявление из избранного \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -1674,7 +1808,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Объявление добавлено в избранное, проверьте вкладку избранные для данного пользователя");
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление добавлено в избранное, проверьте вкладку избранные для данного пользователя");
     	else
     	{
     		print("Не удалось добавить объявление \r\n"+
