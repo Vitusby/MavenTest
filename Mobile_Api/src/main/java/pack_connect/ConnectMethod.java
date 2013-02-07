@@ -487,14 +487,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String mas_TIY2[] = {"used-or-new", "vacuumclean_wash", "offertype", "model"};
 		InnerDataHM objAuto, objRealt, objTIY;
 		
-		
-		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Попытка подачи объявления ИП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
-		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-		PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
