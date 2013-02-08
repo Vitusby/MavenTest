@@ -1169,7 +1169,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
 		}
-		return k; //возвращаем порядковый номер объявления в листинге 
+		return (k+1); //возвращаем порядковый номер объявления в листинге 
 	}	
 	// получение листинга ЛК ОП для автотестов
 	private JSONObject GetListOwnAdvert(String sHost, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -1466,9 +1466,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
     	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
-    	print("Объявление номер 1 распологается в листинге на " + nNumberList + "месте");
+    	print("Объявление номер 1(поданное первым) распологается в листинге на " + nNumberList + " месте");
     	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
-    	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + "месте");
+    	print("Объявление номер 2(подданое вторым) распологается в листинге на " + nNumberList2 + " месте");
     	
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
@@ -1499,10 +1499,25 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
     	
-    	
-    	/*print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключа оплаты");
+    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
-    	*/
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + "поднято");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	
+    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+    	print("Объявление номер 1 распологается в листинге на " + nNumberList + " месте");
+    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+    	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + " месте");
+    	
+    	
+    	
+    	
 	}
 	
 	// деактивация объявления для автотеста
@@ -1739,7 +1754,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
+	// сравнение расположения объявдений 
+	private void ValidetePlaceAdvertForPushUp (int nAdvert, String sIdAdvert, int nAdvert2, String sIdAdvert2)
+	{
+		if(nAdvert < nAdvert2)
+		{
+			print("Объявление с ID = " + sIdAdvert + "поднято");
+		}
+		else
+		{
+			
+		}
+	}
 	
 	
 // Параметризированные тесты
