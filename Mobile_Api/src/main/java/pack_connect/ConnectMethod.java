@@ -1465,6 +1465,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
     	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
     	
+    	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
+    	print("Объявление подано в бесплатую рубрику продлеваем без отправки App_Token");
+    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false);
+    	
+    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
+    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+    	
 	}
 	
 	// деактивация объявления для автотеста
@@ -1553,12 +1560,107 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// продление объявления для автотеста
-	private void Prolong(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token) 
+	private void ProlongAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token) throws URISyntaxException, ExceptFailTest, JSONException, IOException 
 	{
+		String sApp_token = "";
+		if(bFlagApp_Token)
+			sApp_token = "true";
 		
+		print("Продление объявления".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		print("sApp_token = "+ sApp_token);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/prolong")
+    		.setParameter("auth_token", sAuth_token)
+    		.setParameter("app_token", sApp_token);;
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление продлено");
+    	}
+    	else
+    	{
+    		print("Не удалось продлить объявление \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
 	}
-	
-	
+	// поднятие объявления для автотеста 
+	private void PushUpAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token , int nResult) throws URISyntaxException, ExceptFailTest, IOException, JSONException 
+	{
+		String sApp_token = "";
+		if(bFlagApp_Token)
+			sApp_token = "true";
+		
+		print("Поднятие объявления в списке".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		print("sApp_token = "+ sApp_token);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pushup")
+    		.setParameter("auth_token", sAuth_token)
+    		.setParameter("app_token", sApp_token);;
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	switch (nResult)   // взависимости какой результата нам надо проверить
+    	{
+    		case 1: // положительный резултат проверяем
+		    	if(jsonObject.isNull("error"))
+		    	{
+		    			print("Ответ сервера:" + jsonObject.toString(10) + " Объявление поднято");
+		    	}
+		    	else
+		    	{
+		    		print("Не удалось поднять объявление \r\n"+
+		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+		    		throw new ExceptFailTest("Тест провален");
+		    	}	
+		    	break;
+    		case 2: // отрицательный результат проверяем
+    			if(jsonObject.isNull("error"))
+		    	{
+		    			print("Ответ сервера:" + jsonObject.toString(10) + " Объявление поднято");
+		    			print("Объявление не должно было подняться, так как ключ оплаты передан не был");
+		    			print("Тест провален");
+		    			throw new ExceptFailTest("Тест провален");
+		    	}
+		    	else
+		    	{
+		    		print("Не удалось поднять объявление \r\n"+
+		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+		    		print("Объявление не поднялось, так как ключ оплаты передан не был. Корректно");
+		    		
+		    	}	
+		    	break;	
+    	}
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
