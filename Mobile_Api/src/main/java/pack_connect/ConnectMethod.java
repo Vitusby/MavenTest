@@ -1502,15 +1502,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
     	jData2 = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
     	print("Сравниваем время окончания размещения объявления до и после продления");
-    	
-    	
-    	
-    	//
-    	
-    	ValidateDateFinishAdvert(jData, jData2);
-    	
-    	//
-    	
+    	ValidateDateFinishAdvert(jData, jData2);   	
     	
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
@@ -1521,7 +1513,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
-    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + "поднято");
+    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
     	
@@ -1587,12 +1579,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	// активация объявления для автотеста
 	// сравнение даты окнчания объявления до и после продления
-	private void ValidateDateFinishAdvert( JSONObject jObj,  JSONObject jObj2) throws JSONException
+	private void ValidateDateFinishAdvert( JSONObject jObj,  JSONObject jObj2) throws JSONException, ExceptFailTest
 	{
 		String sDateFinish = jObj.getJSONObject("advertisement").getString("date_finish");
 		String sDateFinish2 = jObj2.getJSONObject("advertisement").getString("date_finish");
-		print(GetTimesMillisec(sDateFinish));
-		print(GetTimesMillisec(sDateFinish2));
+		if(GetTimesMillisec(sDateFinish) < GetTimesMillisec(sDateFinish2))
+		{
+			print("Объявление продлено, время при подаче объявления " + sDateFinish + " время после продления объявления " + sDateFinish2);
+		}
+		else
+		{
+			print("Объявление  не продлено, время при подаче объявления " + sDateFinish + " время после продления объявления " + sDateFinish2);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
 		
 	}
 	
@@ -1803,8 +1803,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String mas2[] = mas[0].split("-");
 		String mas3[] = mas[1].split(":"); 
 		c.set(Integer.parseInt(mas2[0]), Integer.parseInt(mas2[1]), Integer.parseInt(mas2[2]), Integer.parseInt(mas3[0]), Integer.parseInt(mas3[1]), Integer.parseInt(mas3[2]));
-		System.out.println(c.get(Calendar.YEAR)+" "+c.get(Calendar.MONTH)+" "+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+" "+c.get(Calendar.MINUTE)+" "+c.get(Calendar.SECOND));
-	
 		long l = c.getTimeInMillis();
 		return l;
 	}
