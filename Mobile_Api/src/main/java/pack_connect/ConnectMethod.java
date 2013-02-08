@@ -1470,6 +1470,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
     	print("Объявление номер 2(подданое вторым) распологается в листинге на " + nNumberList2 + " месте");
     	
+    	print("Сравниваем расположения первого подданного объявления с ID = " + sIdAdvert + " со вторым поданным объявлением с ID = " + sIdAdvert2);
+    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
+    	
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
     	
@@ -1496,9 +1499,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
     	
-    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-    	jData = GetListCategory(sHost, sDataForList);
-    	
     	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
     	
@@ -1514,7 +1514,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Объявление номер 1 распологается в листинге на " + nNumberList + " месте");
     	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
     	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + " месте");
-    	
+    	print("Сравниваем расположения поднятого объявления с ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
+    			" которое распологалось до поднятия выше поднятого ");
+    	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
     	
     	
     	
@@ -1754,16 +1756,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	// сравнение расположения объявдений 
-	private void ValidetePlaceAdvertForPushUp (int nAdvert, String sIdAdvert, int nAdvert2, String sIdAdvert2)
+	// сравнение расположения объявлений 
+	private void ValidetePlaceAdvert(int nAdvert, String sIdAdvert, int nAdvert2, String sIdAdvert2) throws ExceptFailTest
 	{
 		if(nAdvert < nAdvert2)
 		{
-			print("Объявление с ID = " + sIdAdvert + "поднято");
+			print("Объявление с ID = " + sIdAdvert + " распологается в листинге выше чем объявление s ID = " + sIdAdvert2 + "Корректно.");
 		}
 		else
 		{
-			
+			print("Объявление с ID = " + sIdAdvert + "распологается в листинге ниже чем объявление s ID = " + sIdAdvert2);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
 		}
 	}
 	
@@ -3474,7 +3478,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		throw new ExceptFailTest("Тест провален");
 	    	}	
 		}
-		//4.10.	Получение списка направлений (саджест)
+	//4.10.	Получение списка направлений (саджест)
 	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
