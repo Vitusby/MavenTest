@@ -50,7 +50,7 @@ public class Test_Mobile
 	{
 			cM.AddGetEditAdvertOP(sBaseHost); // Подача/получение/редактирование/
 	}
-	
+
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetListDeleteOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -64,10 +64,16 @@ public class Test_Mobile
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddFavGetListFavDeleteFavOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/добавление в избранное
+			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/добавление в избранное/удаление из избранного
 	}
 	*/
 	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум
+	}
 	
 	
 	

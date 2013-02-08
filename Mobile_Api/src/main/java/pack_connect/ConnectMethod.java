@@ -946,6 +946,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetAdvert(String sHost, String sIdAdvert, String sText) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("\r\nПолучение объявления".toUpperCase()+" рубрики " + sText + " ID = " + sIdAdvert);
+		print("Параметры запроса");
 		print("ID = " + sIdAdvert);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert);
@@ -1247,25 +1248,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
 		sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
 		
-		print("Авторизация пользователем - " + sLogin);
+		print("\r\nАвторизация пользователем - " + sLogin);
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
 		AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
 		
-		print("Получаем листинг вкладки «Избранное» для пользователя " + sLogin);
+		print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
 		jData = GetListFavourite(sHost, sAuth_token);
 		
-		print("Ищем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
+		print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 		FindAdvertFromListAfterPost(jData, sIdAdvert);
 		
-		print("Удаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
+		print("\r\nУдаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
 		DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
 		
-		print("Получаем листинг вкладки «Избранное» для пользователя " + sLogin);
+		print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
 		jData = GetListFavourite(sHost, sAuth_token);
 		
-		print("Ищем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
+		print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 		FindAdvertFromListAfterDelete(jData, sIdAdvert);
 		
 		print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
@@ -1428,7 +1429,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум
-	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost)
+	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sIdAdvert; 
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -1438,7 +1439,118 @@ public class ConnectMethod extends Connect_Request_Abstract
 		InnerDataHM objRealt;
 		
 		print("------------------------------------------------------------------------------------------------------------");
-		print("Подача , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
+		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdAdvert = objRealt.GetID();
+    	
+    	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
+    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + "Проверяем значение статуса объявления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
+    	
+    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
+    	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
+    	
+    	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
+    	print("Объявление подано в бесплатую рубрику активируем без отправки App_Token");
+    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + "Проверяем значение статуса объявления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
+    	
+    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
+    	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
+    	
+	}
+	
+	// деактивация объявления для автотеста
+	private void DeactivateAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	{
+		print("\r\nДеактивация объявления".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/deactivate")
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление деактивировано");
+    	else
+    	{
+    		print("Не удалось деактивировать объявление \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// обаработка статуса объявления автотесты
+	private void ValidateStatus(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText) throws JSONException, ExceptFailTest
+	{
+		String sStatus = jObj.getJSONObject("advertisement").getString("status");
+		if(sStatus.equals(sWaitStatus))
+		{
+			print("Текущий статус объявления ID = " + sIdAdvert + ", status = " + sStatus + " совпал с ожидаемым статусом  = " + sWaitStatus + sText);
+		}
+		else
+		{
+			print("Текущий статус объявления s ID = " + sIdAdvert + ", status = " + sStatus + " не совпал с ожидаемым статусом  = " + sWaitStatus + sText);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
+	// активация объявления для автотеста
+	private void ActivateAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		
+		String sApp_token = "";
+		if(bFlagApp_Token)
+			sApp_token = "true";
+		
+		print("Активация объявлений".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		print("sApp_token = "+ sApp_token);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate")
+    		.setParameter("auth_token", sAuth_token)
+    		.setParameter("app_token", sApp_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление активировано");
+    	else
+    	{
+    		print("Не удалось активировать объявление \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
 	}
 	
 // Параметризированные тесты
