@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Calendar;
+
 import org.apache.http.client.utils.URIBuilder;
 import com.google.appengine.repackaged.org.json.*;
 
@@ -1439,10 +1441,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
-		JSONObject jData;
+		JSONObject jData, jData2;
 		InnerDataHM objRealt;
 		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		int nNumberList, nNumberList2;
+		
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
@@ -1496,6 +1499,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Объявление подано в бесплатую рубрику продлеваем без отправки App_Token");
     	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false);
     	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
+    	jData2 = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
+    	print("Сравниваем время окончания размещения объявления до и после продления");
+    	
+    	
+    	
+    	//
+    	
+    	ValidateDateFinishAdvert(jData, jData2);
+    	
+    	//
+    	
+    	
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
     	
@@ -1518,7 +1534,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			" которое распологалось до поднятия выше поднятого ");
     	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
     	
-    	
+    	print("\r\nВыделяем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	
 	}
 	
@@ -1570,6 +1586,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// активация объявления для автотеста
+	// сравнение даты окнчания объявления до и после продления
+	private void ValidateDateFinishAdvert( JSONObject jObj,  JSONObject jObj2) throws JSONException
+	{
+		String sDateFinish = jObj.getJSONObject("advertisement").getString("date_finish");
+		String sDateFinish2 = jObj2.getJSONObject("advertisement").getString("date_finish");
+		print(GetTimesMillisec(sDateFinish));
+		print(GetTimesMillisec(sDateFinish2));
+		
+	}
+	
 	private void ActivateAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
@@ -1761,7 +1787,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		if(nAdvert < nAdvert2)
 		{
-			print("Объявление с ID = " + sIdAdvert + " распологается в листинге выше чем объявление s ID = " + sIdAdvert2 + "Корректно.");
+			print("Объявление с ID = " + sIdAdvert + " распологается в листинге выше чем объявление s ID = " + sIdAdvert2 + " Корректно.");
 		}
 		else
 		{
@@ -1770,7 +1796,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 	}
+	private long GetTimesMillisec(String sDateFinish)
+	{
+		Calendar c = Calendar.getInstance();
+		String mas[] = sDateFinish.split(" ");
+		String mas2[] = mas[0].split("-");
+		String mas3[] = mas[1].split(":"); 
+		c.set(Integer.parseInt(mas2[0]), Integer.parseInt(mas2[1]), Integer.parseInt(mas2[2]), Integer.parseInt(mas3[0]), Integer.parseInt(mas3[1]), Integer.parseInt(mas3[2]));
+		System.out.println(c.get(Calendar.YEAR)+" "+c.get(Calendar.MONTH)+" "+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+" "+c.get(Calendar.MINUTE)+" "+c.get(Calendar.SECOND));
 	
+		long l = c.getTimeInMillis();
+		return l;
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
