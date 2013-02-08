@@ -1,7 +1,6 @@
 package pack_connect;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIBuilder;
@@ -1428,6 +1427,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
+	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум
+	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost)
+	{
+		String sIdAdvert; 
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objRealt;
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
+	}
+	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
@@ -1759,7 +1772,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(!sUrlImage.equals("false"))
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest1 + sRequest + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
+    		.setQuery(sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
 
     	else
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)

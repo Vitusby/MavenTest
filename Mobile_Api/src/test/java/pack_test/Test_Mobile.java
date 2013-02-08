@@ -57,7 +57,7 @@ public class Test_Mobile
 	{
 			cM.AddGetListDeleteOP(sBaseHost);  // подача/получение листинга ЛК/удаление/ получение листинга ЛК 
 	}
-	*/
+	
 	
 	
 	@Test (groups = { "AutoTest" })
@@ -66,7 +66,7 @@ public class Test_Mobile
 	{
 			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/добавление в избранное
 	}
-	
+	*/
 	
 	
 	
