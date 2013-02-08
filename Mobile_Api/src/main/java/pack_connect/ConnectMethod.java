@@ -1552,6 +1552,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	// продление объявления для автотеста
+	private void Prolong(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token) 
+	{
+		
+	}
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
