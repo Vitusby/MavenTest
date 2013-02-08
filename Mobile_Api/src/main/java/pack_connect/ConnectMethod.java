@@ -1137,10 +1137,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("После удаления, объявление с ID = " + sIdAdvert + " не отображается в листинге");
 	}
 	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
-	private void FindAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
+	private int FindAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData;
 		boolean bFlag = false;
+		int k = -1;
 		
 		if(jObj.getString("advertisements").equals("[]"))
 		{
@@ -1158,6 +1159,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. Корректно");	
 				bFlag = true;
+				k = i;
 			}
 		}
 		
@@ -1167,6 +1169,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
 		}
+		return k; //возвращаем порядковый номер объявления в листинге 
 	}	
 	// получение листинга ЛК ОП для автотестов
 	private JSONObject GetListOwnAdvert(String sHost, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -1432,21 +1435,40 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
-		String sIdAdvert; 
+		String sIdAdvert, sIdAdvert2; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		JSONObject jData;
 		InnerDataHM objRealt;
 		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		int nNumberList, nNumberList2;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+		print("Объявление №1");
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
     	sIdAdvert = objRealt.GetID();
+    	
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+		print("Объявление №2");
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
+    	sIdAdvert2 = objRealt.GetID();
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	
+    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+    	print("Объявление номер 1 распологается в листинге на " + nNumberList + "месте");
+    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+    	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + "месте");
     	
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
@@ -1473,10 +1495,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
-    	
-    	
-    	print("\r\nОжидаем индексации, время ожидания 4 минуты".toUpperCase());
-    	Sleep(240000);
     	
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
