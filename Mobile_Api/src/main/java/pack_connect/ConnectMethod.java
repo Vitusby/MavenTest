@@ -1475,8 +1475,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
     	
     	
-    	print("Ожидаем индексации, время ожидания 3 минуты");
-    	Sleep(180000);
+    	print("\r\nОжидаем индексации, время ожидания 4 минуты".toUpperCase());
+    	Sleep(240000);
     	
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
