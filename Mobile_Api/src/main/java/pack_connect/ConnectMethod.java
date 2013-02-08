@@ -1,6 +1,7 @@
 package pack_connect;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIBuilder;
@@ -1429,7 +1430,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум
-	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sIdAdvert; 
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -1437,6 +1438,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		JSONObject jData;
 		InnerDataHM objRealt;
+		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
@@ -1449,7 +1451,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
     	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + "Проверяем значение статуса объявления");
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
     	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
     	
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
@@ -1459,7 +1461,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Объявление подано в бесплатую рубрику активируем без отправки App_Token");
     	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false);
     	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + "Проверяем значение статуса объявления");
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
     	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
     	
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
@@ -1472,6 +1474,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
     	
+    	
+    	print("Ожидаем индексации, время ожидания 3 минуты");
+    	Sleep(180000);
+    	
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	
+    	
+    	/*print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключа оплаты");
+    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+    	*/
 	}
 	
 	// деактивация объявления для автотеста
@@ -1634,7 +1647,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		case 1: // положительный резултат проверяем
 		    	if(jsonObject.isNull("error"))
 		    	{
-		    			print("Ответ сервера:" + jsonObject.toString(10) + " Объявление поднято");
+		    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление поднято");
 		    	}
 		    	else
 		    	{
@@ -1646,7 +1659,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		case 2: // отрицательный результат проверяем
     			if(jsonObject.isNull("error"))
 		    	{
-		    			print("Ответ сервера:" + jsonObject.toString(10) + " Объявление поднято");
+		    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление поднято");
 		    			print("Объявление не должно было подняться, так как ключ оплаты передан не был");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
@@ -1661,6 +1674,55 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    	break;	
     	}
 	}
+	// получение листинга категории для автотеста
+	private JSONObject GetListCategory(String sHost, String sDataForList) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		JSONObject jTemp;	
+		print("Получение листинга объявлений категории".toUpperCase());
+		print("Параметры для запроса");
+		print("sDataForList = "+ sDataForList);
+		
+		String sQuery = CreateSimpleRequest(sDataForList);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/category")
+    		.setQuery(sQuery);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Листинг объявлений получен");
+    		print("");
+    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}
+    		return jTemp;
+    	}
+    	else
+    	{
+    		print("Не удалось получить листинг категории \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

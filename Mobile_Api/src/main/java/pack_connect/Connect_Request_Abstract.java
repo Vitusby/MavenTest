@@ -170,4 +170,9 @@ public abstract class Connect_Request_Abstract
 			PrintWriter pw = new PrintWriter(System.out, true);
 			pw.println(obj);
 		}
+	
+	public void Sleep(int nTime) throws InterruptedException
+	{
+		Thread.sleep(nTime);
+	}
 }
