@@ -75,7 +75,7 @@ public class Test_Mobile
 	{
 			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум бесплатное объявление
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -83,7 +83,14 @@ public class Test_Mobile
 	{
 			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум платное объявление
 	}
+	 */
 	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	{
+			cM.AddActivateDeactivateProlongPushUpHighLightPremiumIP(sBaseHost); //Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/пермиум ИП
+	}
 	
 	
 	
