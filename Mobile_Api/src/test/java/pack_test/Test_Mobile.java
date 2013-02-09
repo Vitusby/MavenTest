@@ -68,11 +68,20 @@ public class Test_Mobile
 	}
 	*/
 	
+	/*
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум
+			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум бесплатное объявление
+	}
+	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	{
+			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум платное объявление
 	}
 	
 	
