@@ -2346,16 +2346,16 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );// запоминаем json объект в нем время окончания размещения сраз после подачи
     	
     	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, true, 2);
+    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
     	
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
     	jData2 = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
     	print("Сравниваем время окончания размещения объявления до и после продления");
     	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 1);   	
     	
-    	/*	
-    	// проверка деактиивации объявления
-    	print("\r\nШАГ 4");
+    	
+    	//проверка деактиивации объявления
+    	/*print("\r\nШАГ 4");
     	print("Проверка деактивации объявления".toUpperCase());
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
@@ -2373,11 +2373,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
     	FindAdvertFromListAfterDelete(jData, sIdAdvert);
+    	*/
     	
     	
-
     	// проверка попытки поднять объявление без оплаты
-    	print("\r\nШАГ 6");
+    	print("\r\nШАГ 8");
     	print("Проверка попытки поднять объявление без оплаты".toUpperCase());
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
@@ -2386,7 +2386,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
     	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
-    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
     	jData = GetListCategory(sHost, sDataForList);
     	
     	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
@@ -2399,8 +2399,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     			" которое распологалось в листинге выше, чем то которое мы пытались поднять");
     	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
     	
+    	
     	//   проверка поднятия объявления
-    	print("\r\nШАГ 7");
+    	print("\r\nШАГ 9");
     	print("Проверка поднятия объявления".toUpperCase());
     	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
@@ -2409,7 +2410,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
     	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
-    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
     	jData = GetListCategory(sHost, sDataForList);
     	
     	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
@@ -2421,8 +2422,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     			" которое распологалось до поднятия выше поднятого ");
     	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
     	
+    	
     	// попытка выделения объявления без оплаты
-    	print("\r\nШАГ 8");
+    	print("\r\nШАГ 10");
     	print("Проверка попытки выделить объявление без оплаты".toUpperCase());
     	print("\r\nПытаемся выделить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
     	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
@@ -2434,7 +2436,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
     	
     	// выделение объявления
-    	print("\r\nШАГ 9");
+    	print("\r\nШАГ 11");
     	print("Проверка выделения объявление".toUpperCase());
     	print("\r\nВыделяем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключ оплаты");
     	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
@@ -2446,7 +2448,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
     	
     	//попытка назначения премиум объявления без оплаты
-    	print("\r\nШАГ 10");
+    	print("\r\nШАГ 12");
     	print("Проверка попытки назначить премиум объявлению без оплаты".toUpperCase());
     	print("\r\nПытаемся назначить премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
     	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
@@ -2458,7 +2460,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	ValidatePremiun("false", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
     	
     	// назначение премиума
-    	print("\r\nШАГ 11");
+    	print("\r\nШАГ 13");
     	print("Проверка назначения премиум объявлению".toUpperCase());
     	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
     	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
@@ -2472,7 +2474,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
     	
     	//удаляем поданные обяъвления
-    	print("\r\nШАГ 12");
+    	print("\r\nШАГ 14");
     	print("Удаляем поданные объявления".toUpperCase());
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
@@ -2480,7 +2482,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
-    	*/
     	
 	}
 
