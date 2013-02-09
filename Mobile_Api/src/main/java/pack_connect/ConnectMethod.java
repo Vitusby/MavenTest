@@ -1449,6 +1449,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
+		print("\r\nАвторизация пользователем - " + sLogin);
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
 		// подача двух объявлений
@@ -1463,7 +1464,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Объявление №2");
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
     	sIdAdvert2 = objRealt.GetID();
-    	/*
+    	
     	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
@@ -1588,9 +1589,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
     	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
     	
-    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после выделения объявления");
+    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
     	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
-    	*/
+    	
     	//попытка назначения премиум объявления без оплаты
     	print("\r\nШАГ 10");
     	print("Проверка попытки назначить премиум объявлению без оплаты".toUpperCase());
@@ -1600,8 +1601,22 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
     	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок" );
     	
-    	print("\r\nПроверяем статус премиум объявления с ID = " + sIdAdvert2 + " после попытки назначить премиум объявлению без передачи ключа оплаты");
-    	ValidateHighLight("0", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
+    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после попытки назначить премиум объявлению без передачи ключа оплаты");
+    	ValidatePremiun("false", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
+    	
+    	// назначение премиума
+    	print("\r\nШАГ 11");
+    	print("Проверка назначения премиум объявлению".toUpperCase());
+    	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
+    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
+    	
+    	Sleep(2000);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
+    	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок" );
+    	
+    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после назначения премиума объявлению");
+    	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
     	
 	}
 	// деактивация объявления для автотеста
