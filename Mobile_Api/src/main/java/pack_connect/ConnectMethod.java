@@ -1,7 +1,6 @@
 package pack_connect;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Calendar;
@@ -1449,14 +1448,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
+		// авторизация
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
-		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+		// подача двух объявлений
+		print("\r\nШАГ 1");
+		print("\r\nПодача двух объявлений в бесплатную рубрику. Недвижимость - Вторичный рынок");
+		print("Подача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
 		print("Объявление №1");
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
     	sIdAdvert = objRealt.GetID();
- /*   	
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+   	
+    	print("Подача объявления в рубрику Недвижимость - Вторичный рынок");
 		print("Объявление №2");
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
     	sIdAdvert2 = objRealt.GetID();
@@ -1464,19 +1467,25 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
-    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	// проверка их появления в листинге и кооректного расположения 
+    	print("\r\nШАГ 2");
+    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
+    	print("Получаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForList);
     	
     	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
     	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
     	print("Объявление номер 1(поданное первым) распологается в листинге на " + nNumberList + " месте");
     	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
-    	print("Объявление номер 2(подданое вторым) распологается в листинге на " + nNumberList2 + " месте");
+    	print("Объявление номер 2(поданное вторым) распологается в листинге на " + nNumberList2 + " месте");
     	
     	print("Сравниваем расположения первого подданного объявления с ID = " + sIdAdvert + " со вторым поданным объявлением с ID = " + sIdAdvert2);
     	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
     	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
+    	// проверка продления объявления
+    	print("\r\nШАГ 3");
+    	print("Проверка продления объявления".toUpperCase());
+    	print("Получаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
     	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );// запоминаем json объект в нем время окончания размещения сраз после подачи
     	
     	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
@@ -1488,7 +1497,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Сравниваем время окончания размещения объявления до и после продления");
     	ValidateDateFinishAdvert(jDataPostAsvert, jData2);   	
     		
-    	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
+    	// проверка деактиивации объявления
+    	print("\r\nШАГ 4");
+    	print("Проверка деактивации объявления".toUpperCase());
+    	print("Деактивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
     	
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
@@ -1497,6 +1509,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
     	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
     	
+    	// проверка активации объявления
+    	print("\r\nШАГ 5");
+    	print("Проверка активации объявления".toUpperCase());
     	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin);
     	print("Объявление подано в бесплатую рубрику активируем без отправки App_Token");
     	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false);
@@ -1506,10 +1521,33 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
     	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
-  	
+
+    	// проверка попытки поднять объявление без оплаты
+    	print("\r\nШАГ 6");
+    	print("Проверка попытки поднять объявление без оплаты".toUpperCase());
     	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
     	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	
+    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+    	print("Объявление номер 1(которое мы пытались поднять без оплаты) распологается в листинге на " + nNumberList + " месте");
+    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+    	print("Объявление номер 2(которое распологалось в листинге выше, чем то которое мы пытались поднять) распологается в листинге на " + nNumberList2 + " месте");
+    	
+    	print("Сравниваем расположения объявления которое мы пытались поднять без оплаты  ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
+    			" которое распологалось в листинге выше, чем то которое мы пытались поднять");
+    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
+    	
+    	//   проверка поднятия объявления
+    	print("\r\nШАГ 7");
+    	print("Проверка поднятия объявления".toUpperCase());
     	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключа оплаты");
     	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
     	
@@ -1528,9 +1566,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Сравниваем расположения поднятого объявления с ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
     			" которое распологалось до поднятия выше поднятого ");
     	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
-    */	
+    	
+    	// попытка выделения объявления без оплаты
+    	print("\r\nШАГ 8");
+    	print("Проверка попытки выделить объявление без оплаты".toUpperCase());
     	print("\r\nПытаемся выделить объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " без передачи ключа оплаты");
     	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
+    	
+    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
+    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
     	
     	
 	}
@@ -1844,22 +1891,40 @@ public class ConnectMethod extends Connect_Request_Abstract
     		case 1: // положительный резултат проверяем
 		    	if(jsonObject.isNull("error"))
 		    	{
-		    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление выделено");
+		    			if(jsonObject.getString("actions").equals("true"))
+		    				print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление выделено");
+		    			else
+		    			{
+		    				print("Не удалось выделить объявление \r\n"+
+				    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+		    				print("Тест провален".toUpperCase());
+		    				throw new ExceptFailTest("Тест провален");
+		    			}
 		    	}
 		    	else
 		    	{
 		    		print("Не удалось выделить объявление \r\n"+
 		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+		    		print("Тест провален".toUpperCase());
 		    		throw new ExceptFailTest("Тест провален");
 		    	}	
 		    	break;
     		case 2: // отрицательный результат проверяем
     			if(jsonObject.isNull("error"))
 		    	{
-		    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление выделено");
+    				if(jsonObject.getString("actions").equals("true"))
+    				{	
+    					print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление выделено");
 		    			print("Объявление не должно было выделиться, так как ключ оплаты передан не был");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
+    				}
+    				else
+    				{
+    					print("Не удалось выделить объявление \r\n"+
+    		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		    		print("Объявление не выделилось, так как ключ оплаты передан не был. Корректно");
+    				}
 		    	}
 		    	else
 		    	{
@@ -1872,7 +1937,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
 	}
-	
+	// обработка статуса выделения объявления для автотестов
+	private void ValidateHighLight(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText) throws JSONException, ExceptFailTest 
+	{
+		String sStatus = jObj.getJSONObject("advertisement").getString("ismarkup");
+		if(sStatus.equals(sWaitStatus))
+		{
+			print("Текущий статус выделения объявления ID = " + sIdAdvert + ", ismarkup = " + sStatus + " совпал с ожидаемым статусом выделения ismarkup  = " + sWaitStatus + sText);
+		}
+		else
+		{
+			print("Текущий статус выделения объявления ID = " + sIdAdvert + ", ismarkup = " + sStatus + " не совпал с ожидаемым статусом выделения ismarkup  = " + sWaitStatus + sText);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
 	
 	
 	
