@@ -475,7 +475,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	// Подача/Получение/Редактирование объявление ОП Автотест
-	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -556,6 +556,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 		hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2);
+		
+///////////////////////////////////////////////////////////////////////////////////////
+		Sleep(10000);
+		
+		print("\r\nУдаляем поданные объявления");
+		DeleteAdvert(sHost, sAuth_token, sIdAuto);
+		DeleteAdvert(sHost, sAuth_token, sIdRealt);
+		DeleteAdvert(sHost, sAuth_token, sIdTIU);
 		
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -1118,9 +1126,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(jObj.getString("advertisements").equals("[]"))
 		{
 			print("Листинг объявлений получен, но в листинге нету ни одного объявления");
-			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" удалено".toUpperCase());
+			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" удалено/деактивировано".toUpperCase());
 	    	return;
 		}
+		
 		
 		JSONArray ar = jTemp.getJSONArray("advertisements");
 		for(int i=0; i<ar.length(); i++)
@@ -1129,13 +1138,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 			jData = (JSONObject) ar.get(i);
 			if(jData.getString("id").equals(sIdAdvert))
 			{
-				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. После удаления");	
+				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. После удаления/деактивации");	
 				print("Тест провален".toUpperCase());
 	    		throw new ExceptFailTest("Тест провален");
 			}
 		}
 		
-		print("После удаления, объявление с ID = " + sIdAdvert + " не отображается в листинге");
+		print("После удаления/деактивации, объявление с ID = " + sIdAdvert + " не отображается(не нейдено) в листинге. Корректно");
 	}
 	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
 	private int FindAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
@@ -1275,10 +1284,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		FindAdvertFromListAfterDelete(jData, sIdAdvert);
 		
 		print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
-		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
 		
+		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+		print("Авторизация пользователем - " + sLogin2);
 		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
 		AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+		
+		print("\r\nУдаляем поданное объявление");
+		DeleteAdvert(sHost, sAuth_token, sIdAdvert);
 		
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -1433,7 +1446,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум
+	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sIdAdvert, sIdAdvert2; 
@@ -1442,7 +1455,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		JSONObject jData, jData2, jDataPostAsvert;
 		InnerDataHM objRealt;
-		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		int nNumberList, nNumberList2;
 		
 		
@@ -1468,7 +1481,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
-    	// проверка их появления в листинге и кооректного расположения 
+    	// проверка их появления в листинге и коректного расположения 
     	print("\r\nШАГ 2");
     	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
@@ -1510,6 +1523,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
     	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
     	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	print("\r\nИщем деактивированное объявление в листинге категории");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
+    	
     	// проверка активации объявления
     	print("\r\nШАГ 5");
     	print("Проверка активации объявления".toUpperCase());
@@ -1522,6 +1543,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
     	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	print("\r\nИщем активированное объявление в листинге категории");
+    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+    	jData = GetListCategory(sHost, sDataForList);
+    	FindAdvertFromListAfterPost(jData, sIdAdvert);
 
     	// проверка попытки поднять объявление без оплаты
     	print("\r\nШАГ 6");
@@ -1617,6 +1646,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после назначения премиума объявлению");
     	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
+    	
+    	//удаляем поданные обяъвления
+    	print("\r\nШАГ 12");
+    	print("Удаляем поданные объявления".toUpperCase());
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
     	
 	}
 	// деактивация объявления для автотеста
