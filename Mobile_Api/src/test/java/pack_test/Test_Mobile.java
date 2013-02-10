@@ -99,7 +99,6 @@ public class Test_Mobile
 	{
 			cM.AddAvdertGetListUserOP(sBaseHost); //Подача/получение листинга объявлений пользователя
 	}
-	*/
 	
 	
 	@Test (groups = { "AutoTest" })
@@ -108,7 +107,14 @@ public class Test_Mobile
 	{
 			cM.AddGetFilterList(sBaseHost); //Подача/получение фильтрованного листинга объявлений категории
 	}
+	*/
 	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddVoteHighLower(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	{
+			cM.AddVoteHighLower(sBaseHost); //Подача/голосование+/голосование-
+	}
 	
 	
 	

@@ -2824,10 +2824,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	// удаляем еще не удаленное объявление
     	print("\r\nШАГ 5");
     	print("Удаление поданных объявлений пользователя".toUpperCase());
-    	print("Удаляем объявлени с ID = " + sIdAdvert2);
+    	print("Удаляем объявление с ID = " + sIdAdvert2);
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
     	
-    	print("Удаляем объявлени с ID = " + sIdAdvert);
+    	print("Удаляем объявление с ID = " + sIdAdvert);
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
     	
     	print("------------------------------------------------------------------------------------------------------------");
@@ -2977,7 +2977,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача, получение листинга с фильтрацией 
 	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
+		String sIdAuto, sIdRealt, sIdTIU; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -3038,18 +3038,34 @@ public class ConnectMethod extends Connect_Request_Abstract
     	FindAdvertFromListAfterPost(jData, sIdAuto);
     	
     	print("\r\nФормируем запрос для категории Недвижимость - Вторичный рынок. Регион Архангельск. Ищем поданное объявление с ID = " + sIdRealt);
-    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterRealt(hObj_Realt, hObj_Realt2));
+    	print("Строка для поиска в рубрике Недвижимость - Вторичный рынок для только что поданного объявления = "+ GetStringFilterRealt(hObj_Realt, hObj_Realt2));
     	print("Производим поиск");
     	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2));
     	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdRealt);
     	FindAdvertFromListAfterPost(jData, sIdRealt);
     	
     	print("\r\nФормируем запрос для категории Электроника и техника - Пылесосы. Регион Казань. Ищем поданное объявление с ID = " + sIdTIU);
-    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterRealt(hObj_TIY, hObj_TIY2));
+    	print("Строка для поиска в рубрике Электроника и техника - Пылесосы для только что поданного объявления = "+ GetStringFilterTIY(hObj_TIY, hObj_TIY2));
     	print("Производим поиск");
+    	Sleep(10000);
     	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2));
     	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
     	FindAdvertFromListAfterPost(jData, sIdTIU);
+    	
+    	// удаляем объявления 
+    	print("\r\nШАГ 3");
+    	print("Удаление поданных объявлений пользователя".toUpperCase());
+    	print("Удаляем объявление с ID = " + sIdAuto);
+    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
+    	
+    	print("Удаляем объявление с ID = " + sIdRealt);
+    	DeleteAdvert(sHost, sAuth_token, sIdRealt);
+    	
+    	print("Удаляем объявление с ID = " + sIdTIU);
+    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
     	
 	}
 	// получение строки фильтра для поиска для Авто для автотеста
@@ -3097,9 +3113,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		*/
 		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 				"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
-				"/currency=RUR/keywords=" + hObj.GetValue("text") + "/hasimages=1" +
+				"/currency=RUR/hasimages=1" +
 				"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/";
-		// /private=" +sPrivate+ "
+		// /private=" +sPrivate+ /keywords=" + hObj.GetValue("text") + ""
 		
 		return sDataForSearch;
 	}
@@ -3107,11 +3123,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2)
 	{
 		String sOffertype = "", sUsedornew = "" /*,sVacuumclean=""*/;
-		if(hObj2.GetValue("state").equals("куплю"))
+		if(hObj2.GetValue("offertype").equals("куплю"))
 			sOffertype = "4014823978";
-		if(hObj2.GetValue("state").equals("продам"))
+		if(hObj2.GetValue("offertype").equals("продам"))
 			sOffertype = "475467989";
-		if(hObj2.GetValue("state").equals("обменяю"))
+		if(hObj2.GetValue("offertype").equals("обменяю"))
 			sOffertype = "1934995446";
 		
 		
@@ -3128,8 +3144,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-				"/offertype=" + sOffertype + "/used-or-new= " + sUsedornew + "/keywords=" + hObj.GetValue("text") + "/hasimages=1/";
-		// vacuumclean_wash=1/
+				"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/";
+		// vacuumclean_wash=1/keywords=" + hObj.GetValue("text")/
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
@@ -3182,6 +3198,233 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
+	}
+	
+	//Подача, голосование + , голосование -
+	public void AddVoteHighLower(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
+	{
+		String sIdAdvert; 
+		String sLogin = Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objRealt;
+		
+		
+		print("Подача , голосование '+', голосование '-' - Тест".toUpperCase()+"\r\n");
+		// авторизация
+		print("\r\nАвторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		// подача двух объявлений
+		print("\r\nШАГ 1");
+		print("Подача объявления в бесплатную рубрику. Недвижимость - Вторичный рынок".toUpperCase());
+		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
+		print("Объявление №1");
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdAdvert = objRealt.GetID();
+    	
+    	print("\r\nШАГ 2");
+		print("Голосование за объявление (повысить рейтинг)".toUpperCase());
+		print("\r\nГолосуем за объявление с ID = " + sIdAdvert);
+		jData = VoteForAdvertHigh(sHost, sAuth_token, sIdAdvert);
+		
+		if(jData.getString("votes").equals("1"))
+			print("Объявлению был добавлен голос. Общее количество голосов = " + jData.getString("votes"));
+		else
+		{
+			print("Объявлению либо не был добавлен голос, либо добавлен более чем один голос");
+			print("Тесть провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		
+		print("\r\nШАГ 3");
+		print("Голосование за объявление (понизить рейтинг)".toUpperCase());
+		print("\r\nГолосуем за объявление с ID = " + sIdAdvert);
+		jData = VoteForAdvertLowerLower(sHost, sAuth_token, sIdAdvert);
+		
+		if(jData.getString("votes").equals("0"))
+			print("Объявлению был убран голос. Общее количество голосов = " + jData.getString("votes"));
+		else
+		{
+			print("Объявлению либо не был убран голос, либо убран более чем один голос");
+			print("Тесть провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		// удаляем объявление 
+    	print("\r\nШАГ 3");
+    	print("Удаление поданных объявлений пользователя".toUpperCase());
+    	print("Удаляем объявление с ID = " + sIdAdvert);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+    	
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+   	
+	}
+	// голосование за объявление '+' для автотеста
+	private  JSONObject VoteForAdvertHigh(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		
+		print("Проголосовать за объявление (повысить рейтинг объявления)".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote")
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpPostRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявлению +1 голос");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось добавить голос объявлению \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// голосование за объявление '-' для автотеста
+	private JSONObject VoteForAdvertLowerLower(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{	
+		print("Проголосовать за объявление (снизить рейтинг объявления)");
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote")
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpDeleteRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявлению -1 голос");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось отнять голос у объявления \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	//Подача , получения листинга категории и проверка объявлений на статус, категорию, регион
+	public void AddAdvertGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
+	{
+		String sIdAuto, sIdRealt, sIdTIU;
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objAuto, objRealt, objTIY;
+		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+/////////////////////////////////////////////////////////////////////////////////////////////////	
+		print("\r\nШАГ 1");
+		print("Подача трех объявлений".toUpperCase());
+	
+		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+		print("Объявление №1");	
+		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+
+/////////////////////////////////////////////////////////////////////////////////////////////////    	
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdRealt = objRealt.GetID();
+    	
+///////////////////////////////////////////////////////////////////////////////////////////////// 
+    	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU = objTIY.GetID();
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежать этому листингу
+    	print("\r\nШАГ 2");
+    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
+    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
+    	jData = GetListCategory(sHost, sDataForListAuto);
+   
+	}
+	// проверка листинга на содержимое
+	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegion, String sCategory) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	{
+		JSONObject jTemp, jData;
+		String sId;
+		boolean bFlagAdvert = false;
+
+		jTemp = jObj;
+		
+		
+		if(jTemp.getString("advertisements").equals("[]"))
+		{
+			print("В листинге объявлений категории, нету ни одного объявления. Но мы только что подали объявление");
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		else
+		{
+			print("Проверяем status объявлений в листинге, region объявлений, category объявлений." +
+					" Все объявления должны иметь статус равный 1," +
+					" Регион должен быть равен " + sRegion + "или принадлежать " + sRegion +
+					" Категория должна быть равна " + sCategory +
+					" и так же ищем в листинге только что поданное в данную рубрику и регион объявление, для данного пользователя");
+			JSONArray ar = jTemp.getJSONArray("advertisements");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("\r\nПроверяем объявление №" + (i+1));
+    			jTemp = (JSONObject) ar.get(i);
+    			sId = jTemp.getString("id");
+    			print("ID "+ (i+1) +" объявления в листинге равно " + sId);
+    			if(sId.equals(sIdAdvert))
+    				bFlagAdvert = true;
+    			print("Получаем данные по объявлению с ID = " + sId);
+    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя");
+    			print("Проверяем статус активность для объявления ID = " + sId);
+    			ValidateStatus("1", jData, sId, "");	
+    		}
+    		if(bFlagAdvert == true)
+    			print("Все объявления в листинге пользователя активны (status = 1). В листинге так же найдены, только что поданные объявления. Корректно");
+    		else
+    		{
+    			print("В листинге активных объявлений пользователя отсутствуют, только что поданные объявления");
+    			print("Тест провален");
+    			throw new ExceptFailTest("Тест провален");
+    		}
+			
+		}
 	}
 	
 	
