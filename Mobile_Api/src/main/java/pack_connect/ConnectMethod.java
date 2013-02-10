@@ -3432,12 +3432,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     			ValidateStatus("1", jData, sId, "");
     			print("Проверяем категорию объявления для объявления ID = " + sId);
     			ValidateCategory(sCategoryNameAuto, jData, sId, "");
+    			print("Проверяем регион объявления для объявления ID = " + sId);
+    			ValidateRegion(sRegionNameAuto, jData, sId, "", hCities);
     		}
     		if(bFlagAdvert == true)
-    			print("Все объявления в листинге категории активны (status = 1) и принадлежат категории" + sCategoryNameAuto + " . В листинге так же найдено, только что поданное объявления. Корректно");
+    			print("Все объявления в листинге категории активны (status = 1), принадлежат категории \"" + sCategoryNameAuto + "\" и региону" + sRegionNameAuto + ". В листинге так же найдено, только что поданное объявления. Корректно");
     		else
     		{
-    			print("В листинге категори отсутствует, только что поданное объявление");
+    			print("В листинге категории отсутствует, только что поданное объявление");
     			print("Тест провален");
     			throw new ExceptFailTest("Тест провален");
     		}
@@ -3494,7 +3496,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hCities.PrintKeyAndValue();
 		return hCities;
 	}
-	// проверка категории
+	// проверка категории для автотеста
 	private void ValidateCategory(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText) throws JSONException, ExceptFailTest
 	{
 		String sCategory = jObj.getJSONObject("advertisement").getString("category");
@@ -3509,7 +3511,29 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 	}
-	
+	// проверка региона для автотеста
+	private void ValidateRegion(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText , HM<String,String> hCities) throws JSONException, ExceptFailTest
+	{
+		String sRegion = jObj.getJSONObject("advertisement").getString("region");
+		if(sRegion.equals(sWaitStatus))
+		{
+			print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " совпал с ожидаемым регионом  = " + sWaitStatus + sText);
+		}
+		else
+		{
+			if(hCities.GetValue(sRegion).equals("null"))
+			{
+				print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " не совпал с ожидаемым регионом  = " + sWaitStatus + sText);
+				print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			else
+			{
+				print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " не совпал с ожидаемым регионом  = " + sWaitStatus + sText);
+				print("Однако данный регион входит в регион " + sRegion + "и его нахождение в листинге корректно");
+			}
+		}
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
