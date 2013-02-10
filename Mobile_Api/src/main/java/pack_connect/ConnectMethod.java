@@ -2487,7 +2487,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
+	//Подача/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sIdAdvert, sIdAdvert2; 
@@ -2719,7 +2719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
     	//проверка деактиивации объявления
-    	print("\r\nШАГ 4");
+    	print("\r\nШАГ 14");
     	print("Проверка деактивации объявления".toUpperCase());
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
     	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1);
@@ -2740,7 +2740,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
     	//удаляем поданные обяъвления
-    	print("\r\nШАГ 14");
+    	print("\r\nШАГ 15");
     	print("Удаляем поданные объявления".toUpperCase());
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
     	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
