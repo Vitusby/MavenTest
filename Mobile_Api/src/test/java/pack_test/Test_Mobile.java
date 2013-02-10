@@ -46,7 +46,7 @@ public class Test_Mobile
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
-	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
 			cM.AddGetEditAdvertOP(sBaseHost); // Подача/получение/редактирование/
 	}
@@ -83,7 +83,7 @@ public class Test_Mobile
 	{
 			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум платное объявление
 	}
-	 */
+	 
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -91,6 +91,24 @@ public class Test_Mobile
 	{
 			cM.AddActivateDeactivateProlongPushUpHighLightPremiumIP(sBaseHost); //Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/пермиум ИП
 	}
+	
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddAvdertGetListUserOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	{
+			cM.AddAvdertGetListUserOP(sBaseHost); //Подача/получение листинга объявлений пользователя
+	}
+	*/
+	
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddGetFilterList(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	{
+			cM.AddGetFilterList(sBaseHost); //Подача/получение фильтрованного листинга объявлений категории
+	}
+	
 	
 	
 	

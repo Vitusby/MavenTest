@@ -473,7 +473,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
@@ -545,14 +544,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("\r\nРедактирование объявления. Вторичный рынок");
 		objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
-		sIdRealt = objAuto.GetID(); // сюда сохраняем значение id
+		sIdRealt = objRealt.GetID(); // сюда сохраняем значение id
 		hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 		hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2);
 		
 		print("\r\nРедактирование объявления. Пылесосы");
 		objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY);
-		sIdTIU = objAuto.GetID(); // сюда сохраняем значение id
+		sIdTIU = objTIY.GetID(); // сюда сохраняем значение id
 		hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 		hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2);
@@ -589,7 +588,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Adv_New = new HM<String, String>(); 
 		for(int i=0; i<sMas_Adv.length; i++)
 		{
-			hObj_Adv_New.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), obj_old.GetAdvertismentData().GetValue(sMas_Adv[i])));
+			if(sMas_Adv[i].equals("currency")) // если редактируем валюту то для нее только RUR
+				hObj_Adv_New.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), ""));	
+			else
+				hObj_Adv_New.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), obj_old.GetAdvertismentData().GetValue(sMas_Adv[i])));
 		}
 		String sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv_New.GetStringFromAllHashMap());
 
@@ -988,27 +990,29 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 
 	
-	public void AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	//Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/премиум/удаления ИП 
+	public void AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sLogin = Proper.GetProperty("login_authIP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
-		JSONObject jData;
+		JSONObject jData, jDataPostAsvert;
 		String sIdAdvert;
 		int nCountAdvert, nCountAdvert_after;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Попытка подачи, редактирования, активации, деактивации, выделения, продления, поднятия, назначения премиум ИП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
+//////////////////////////////////////////////////////////////////	
 		print("\r\nШаг 1".toUpperCase());
 		print("Запоминаем количество объявлений в ЛК ИП до подачи объявления".toUpperCase());
 		print("Получаем листинг объявлений в ЛК (Данному пользователю для проведения теста поданно одно объявления с фронта сайта)");
 		jData = GetListOwnAdvert(sHost, sAuth_token);
-		print("Получаем количество объявлени в листинге ЛК до подачи");
+		print("Получаем количество объявлений в листинге ЛК до подачи");
 		nCountAdvert = GetCountAdvertListLK(jData);
 		print("У пользователя " + sLogin +" в ЛК " + nCountAdvert + " объявление(ий)");
 		
+//////////////////////////////////////////////////////////////////		
 		
 		print("\r\nШаг 2".toUpperCase());
 		print("Попытка подачи объявления в рубрику Авто с пробегом ИП".toUpperCase());
@@ -1018,18 +1022,119 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("\r\nПроверяем количество объявлений в ЛК ИП после попытки подачи");
 		print("\r\nПолучаем листинг объявлений в ЛК (Данному пользователю для проведения теста поданно одно объявления с фронта сайта)".toUpperCase());
 		jData = GetListOwnAdvert(sHost, sAuth_token);
-		print("Получаем количество объявлений в листинге ЛК до подачи");
+		print("Получаем количество объявлений в листинге ЛК после подачи");
 		nCountAdvert_after = GetCountAdvertListLK(jData);
 		if(nCountAdvert == nCountAdvert_after)
 			print("У пользователя " + sLogin +" после попытки подачи объявления в ЛК " + nCountAdvert_after + " объявление(ий). Корректно. Осталось столько же как и до попытки подачи");
+		else
+		{
+			print("У пользователя " + sLogin +" после попытки подачи объявления в ЛК " + nCountAdvert_after + " объявление(ий). Изменилось количество объявлений после попытки подачи");
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");	
+		}
+//////////////////////////////////////////////////////////////////		
 		
 		print("\r\nШаг 3".toUpperCase());
-		print("Получаем ID первого объявления в листинге ЛК ИП");
+		print("Получаем ID первого объявления в листинге ЛК ИП".toUpperCase());
 		JSONArray ar = jData.getJSONArray("advertisements");
 		jData = (JSONObject) ar.get(0);
 		sIdAdvert = jData.getString("id");
 		print("ID объявления для которого будут производится попытки манипуляций = " + sIdAdvert);
-
+		
+//////////////////////////////////////////////////////////////////		
+		
+		print("\r\nШаг 4".toUpperCase());
+		print("Попытка редактирования объявления".toUpperCase());
+		print("Редактируем объявление с ID = " + sIdAdvert);
+		EditAdvertIP(sHost, sAuth_token, sIdAdvert);
+		
+//////////////////////////////////////////////////////////////////		
+		
+		print("\r\nШаг 5".toUpperCase());
+		print("Попытка деактивации объявления".toUpperCase());
+		print("Деактивируем объявление с ID = " + sIdAdvert);
+		DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 2);
+		
+		print("\r\nПолучаем объявление с ID = " + sIdAdvert);
+    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - б/у" );
+		print("Проверяяем статус объявления. Которое мы пытались деактивировать");
+		ValidateStatus("1", jData, sIdAdvert, " после попытки деактивации");
+		
+//////////////////////////////////////////////////////////////////	
+		
+		print("\r\nШаг 6".toUpperCase());
+		print("Попытка продления объявления".toUpperCase());
+		
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
+    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - б/у" );// запоминаем json объект в нем время окончания размещения сраз после подачи
+    	
+    	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
+    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, true, 2);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - б/у" );
+    	print("Сравниваем время окончания размещения объявления до и после продления");
+    	ValidateDateFinishAdvert(jDataPostAsvert, jData, 2);   	
+    	
+//////////////////////////////////////////////////////////////////		
+    	
+    	print("\r\nШАГ 7");
+    	print("Попытка поднятия объявления".toUpperCase());
+    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert );
+    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 2);
+    	
+//////////////////////////////////////////////////////////////////
+    	
+    	// выделение объявления
+    	print("\r\nШАГ 8");
+    	print("Попытка выделения объявление".toUpperCase());
+    	print("\r\nВыделяем объявление с ID = " + sIdAdvert);
+    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 2);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - б/у" );
+    	
+    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после попытки выделения объявления");
+    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделения объявления");
+    	
+//////////////////////////////////////////////////////////////////
+    	
+    	print("\r\nШАГ 9");
+    	print("Попытка назначения премиум объявлению".toUpperCase());
+    	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert);
+    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert, true, 2);
+    	
+    	Sleep(2000);
+    	
+    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса премиум для объявления");
+    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
+    	
+    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert + " после попытки назначения премиума объявлению");
+    	ValidatePremiun("false", jData, sIdAdvert, " после попытки назначения премиума объявлению");
+    	
+//////////////////////////////////////////////////////////////////
+    	
+    	print("\r\nШАГ 10");
+    	print("Попытка удаления объявления".toUpperCase());
+    	print("\r\nУдаляем объявление с ID = " + sIdAdvert);
+    	DeleteAdvertIP(sHost, sAuth_token, sIdAdvert);
+    	
+    	print("\r\nПроверяем количество объявлений в ЛК ИП после попытки удаления");
+		print("\r\nПолучаем листинг объявлений в ЛК".toUpperCase());
+		jData = GetListOwnAdvert(sHost, sAuth_token);
+		print("Получаем количество объявлений в листинге ЛК после попытки удаления");
+		nCountAdvert_after = GetCountAdvertListLK(jData);
+		if(nCountAdvert == nCountAdvert_after)
+			print("У пользователя " + sLogin +" после попытки удаления объявления в ЛК " + nCountAdvert_after + " объявление(ий). Корректно. Осталось столько же как и до попытки удаления");
+		else
+		{
+			print("У пользователя " + sLogin +" после попытки удаления объявления в ЛК " + nCountAdvert_after + " объявление(ий). Изменилось количество объявлений после попытки удаления");
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");	
+		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	
 	}	
 	// подача ИП для автотестов
@@ -1105,6 +1210,87 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		return ar.length(); //возвращаем количество объявления в листинге 
 	}	
+	// редактирование для ИП для автотестов
+	private void EditAdvertIP(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		
+		String sAdvertisement = "{title=Тайтл}";
+		String sCustom_fields = "{make=BMW, model=116}";
+		
+		print("Редактирование объявления ИП".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		
+		
+		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
+		String sRequest1 = CreateArrayRequest("advertisement" , sAdvertisement);
+		
+		builder = new URIBuilder();
+		
+		
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
+    		.setQuery(sRequest1 + sRequest).setParameter("auth_token", sAuth_token);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPutRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление отредактировано. Но ИП партнер не имеет право редактировать объявления.");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");	
+    	}
+    		
+    	else
+    	{
+    		print("Не удалось отредактировать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Корректно. Так как ИП не имеет право редактировать свои объявления");
+    	}
+	}
+	// удаление объявление ИП для автотестов
+	private void DeleteAdvertIP(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	{
+		print("\r\nУдаление объявления".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("sIdAdvert = " + sIdAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert)
+    			.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpDeleteRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление было удалено. Но ИП партнер не имеет право удалять объявления.");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	else
+    	{
+    		print("Не удалось удалить объявление c ID = "+ sIdAdvert +"\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Корректно. Так как ИП не имеет право удалять свои объявления");;
+    	}	
+	}
 	
 	
 	// Подача/Получение листинга ЛК/Удаление
@@ -1574,7 +1760,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nШАГ 4");
     	print("Проверка деактивации объявления".toUpperCase());
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
-    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
+    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1);
     	
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
     	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
@@ -1716,7 +1902,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// деактивация объявления для автотеста
-	private void DeactivateAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	private void DeactivateAdvert(String sHost, String sAuth_token, String sIdAdvert, int nResult) throws URISyntaxException, ExceptFailTest, IOException, JSONException
 	{
 		print("\r\nДеактивация объявления".toUpperCase());
 		print("Параметры для запроса");
@@ -1738,14 +1924,36 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление деактивировано");
-    	else
+    	switch(nResult)
     	{
-    		print("Не удалось деактивировать объявление \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
-    		throw new ExceptFailTest("Тест провален");
-    	}	
+    		case 1: // Для ОП
+		    	if(jsonObject.isNull("error"))
+		    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление деактивировано");
+		    	else
+		    	{
+		    		print("Не удалось деактивировать объявление \r\n"+
+		    				"Ответ сервера:\r\n"+ jsonObject.toString());
+		    		throw new ExceptFailTest("Тест провален");
+		    	}	
+		    	break;
+    		case 2: // Для ИП
+    			if(jsonObject.isNull("error"))
+    			{
+    				print("Ответ сервера:" + jsonObject.toString(10) + " Объявление деактивировано");
+    				print("Нельзя деактивировать объявление ИП");
+    				print("Тест провален".toUpperCase());
+    				throw new ExceptFailTest("Тест провален");
+    			}
+		    	else
+		    	{
+		    		print("Не удалось деактивировать объявление \r\n"+
+		    				"Ответ сервера:\r\n"+ jsonObject.toString());
+		    		print("Корректно. Нельзя выполнять никаких действий в ЛК ИП над объявления");
+		    		
+		    	}	
+		    	break;
+		    	
+    	}
 	}
 	// обаработка статуса объявления автотесты
 	private void ValidateStatus(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText) throws JSONException, ExceptFailTest
@@ -1784,7 +1992,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			case 2:
 				if(GetTimesMillisec(sDateFinish) == GetTimesMillisec(sDateFinish2))
 				{
-					print("Объявление не продлено, время при подаче объявления " + sDateFinish + " время после попытки продления объявления " + sDateFinish2 + " Корректно. Так как ключ оплаты не передавался");
+					print("Объявление не продлено, время при подаче объявления " + sDateFinish + " время после попытки продления объявления " + sDateFinish2 + " Корректно. Так как ключ оплаты не передавался/или объявление принадлежит ИП");
 				}
 				else
 				{
@@ -1932,7 +2140,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				if(jsonObject.getString("actions").equals("true"))
     				{	
     					print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление продленно");
-		    			print("Объявление не должно было продлиться, так как ключ оплаты передан не был");
+		    			print("Объявление не должно было продлиться, так как ключ оплаты передан не был/или объявление принадлежит ИП");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
     				}
@@ -1940,14 +2148,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     				{
     					print("Не удалось продлить объявление \r\n"+
     		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-    		    		print("Объявление не продленно, так как ключ оплаты передан не был. Корректно");
+    		    		print("Объявление не продленно, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
     				}
 		    	}
 		    	else
 		    	{
 		    		print("Не удалось продлить объявление \r\n"+
 		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-		    		print("Объявление не продленно, так как ключ оплаты передан не был. Корректно");
+		    		print("Объявление не продленно, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
 		    		
 		    	}	
 		    	break;	
@@ -2001,7 +2209,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			if(jsonObject.isNull("error"))
 		    	{
 		    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление поднято");
-		    			print("Объявление не должно было подняться, так как ключ оплаты передан не был");
+		    			print("Объявление не должно было подняться, так как ключ оплаты передан не был/или объявление принадлежит ИП");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
 		    	}
@@ -2009,7 +2217,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    	{
 		    		print("Не удалось поднять объявление \r\n"+
 		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-		    		print("Объявление не поднялось, так как ключ оплаты передан не был. Корректно");
+		    		print("Объявление не поднялось, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
 		    		
 		    	}	
 		    	break;	
@@ -2145,7 +2353,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				if(jsonObject.getString("actions").equals("true"))
     				{	
     					print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление выделено");
-		    			print("Объявление не должно было выделиться, так как ключ оплаты передан не был");
+		    			print("Объявление не должно было выделиться, так как ключ оплаты передан не был/или объявление принадлежит ИП");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
     				}
@@ -2153,14 +2361,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     				{
     					print("Не удалось выделить объявление \r\n"+
     		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-    		    		print("Объявление не выделилось, так как ключ оплаты передан не был. Корректно");
+    		    		print("Объявление не выделилось, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
     				}
 		    	}
 		    	else
 		    	{
 		    		print("Не удалось выделить объявление \r\n"+
 		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-		    		print("Объявление не выделилось, так как ключ оплаты передан не был. Корректно");
+		    		print("Объявление не выделилось, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
 		    		
 		    	}	
 		    	break;	
@@ -2241,7 +2449,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     				if(jsonObject.getString("actions").equals("true"))
     				{	
     					print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление назначен премиум");
-		    			print("Объявлению не должен было стать премиумом, так как ключ оплаты передан не был");
+		    			print("Объявлению не должен было стать премиумом, так как ключ оплаты передан не был/или объявление принадлежит ИП");
 		    			print("Тест провален");
 		    			throw new ExceptFailTest("Тест провален");
     				}
@@ -2249,14 +2457,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     				{
     					print("Не удалось назначить объявлению премиум \r\n"+
     		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-    		    		print("Объявлению не назначен премиум, так как ключ оплаты передан не был. Корректно");
+    		    		print("Объявлению не назначен премиум, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
     				}
 		    	}
 		    	else
 		    	{
 		    		print("Не удалось назначить объявлению премиум \r\n"+
 		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-		    		print("Объявлению не назначен премиум, так как ключ оплаты передан не был. Корректно");
+		    		print("Объявлению не назначен премиум, так как ключ оплаты передан не был/или объявление принадлежит ИП. Корректно");
 		    		
 		    	}	
 		    	break;	
@@ -2514,7 +2722,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nШАГ 4");
     	print("Проверка деактивации объявления".toUpperCase());
     	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
-    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert);
+    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1);
     	
     	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
     	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
@@ -2543,6 +2751,298 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 
+	
+	// Подача/Получение листинга пользователя
+	public void AddAvdertGetListUserOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	{
+		String sIdAdvert, sIdAdvert2, sIdAdvert3; 
+		String sLogin = Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objRealt, objAuto;
+		String sDataForSearchUserAdvert = "{user_id=10930240, offset=0, limit=20}"; // для пользователя api12@yopmail.com
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача объявлений, получение листинга активных объявлений пользователя ОП - Тест".toUpperCase()+"\r\n");
+		
+		// авторизация
+		print("\r\nАвторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		// подача трех объявлений
+		print("\r\nШАГ 1");
+		print("Подача трех объявлений одно в платную рубрику Авто - Новые авто, два в бесплатную рубрику Недвижимость - Вторичный рынок".toUpperCase());
+		print("\r\nПодача объявления в рубрику Авто - Новые авто");
+		print("Объявление №1");
+		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+		sIdAdvert = objAuto.GetID();
+		
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
+		print("Объявление №2");
+		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdAdvert2 = objRealt.GetID();
+    	
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
+		print("Объявление №3");
+		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
+    	sIdAdvert3 = objRealt.GetID();
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
+    	print("\r\nШАГ 2");
+    	print("Получаем листинг объявлений пользователя".toUpperCase());
+    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
+    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+    	print("\r\nПроверяем статус объявлений в листинге");
+    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1);
+    	
+    	// деактивируем первое объявление и удаляем второе
+    	print("\r\nШАГ 3");
+    	print("Деактивируем первое из поданных активных объявлений и удаляем второе из поданных активных объявлений".toUpperCase());
+    	print("Деактивируем объявлени с ID = " + sIdAdvert2);
+    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1);
+
+    	print("Удаляем объявлени с ID = " + sIdAdvert3);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
+    	print("\r\nШАГ 4");
+    	print("Получаем листинг объявлений пользователя".toUpperCase());
+    	print("\r\nПолучаем листинг объявлений для пользователя " + sLogin + " и проверяем статус активности объявлений в листинге");
+    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
+    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+    	print("\r\nПроверяем статус объявлений в листинге");
+    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2);
+    	
+    	
+    	// удаляем еще не удаленное объявление
+    	print("\r\nШАГ 5");
+    	print("Удаление поданных объявлений пользователя".toUpperCase());
+    	print("Удаляем объявлени с ID = " + sIdAdvert2);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+    	
+    	print("Удаляем объявлени с ID = " + sIdAdvert);
+    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+	}
+	// получение листинга объявлений пользователя для автотестов
+	private JSONObject GetListUserAdvert(String sHost, String sDataForSearchUserAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		JSONObject jTemp;
+		print("Получение листинга объявлений пользователя".toUpperCase());
+		print("Параметры для запроса");
+		print("DataForSearchUserAdvert = "+ sDataForSearchUserAdvert);
+			
+		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/user")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Листинг объявлений пользователя получен");
+    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + (i+1));
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}
+    		return jTemp;
+    	}
+    	else
+    	{
+    		print("Не удалось получить листинг объявлений пользователя \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// проверка листинга объявлений пользователя
+	private void ValidateListUser(String sHost, JSONObject jObj, String sIdAdvert, String sIdAdvert2, int nResult) throws JSONException, ExceptFailTest, URISyntaxException, IOException
+	{
+		JSONObject jTemp, jData;
+		jTemp = jObj;
+		String sId;
+		boolean bFlagAdvert = false, bFlagAdvert2 = false;
+		
+		switch (nResult)
+		{
+			case 1:
+				if(jTemp.getString("advertisements").equals("[]"))
+				{
+					print("В листинге активных объявлений пользователя, нету ни одного объявления. Но мы только что подали два объявления");
+					print("Тест провален".toUpperCase());
+					throw new ExceptFailTest("Тест провален");
+				}
+				else
+				{
+					print("Проверяем status объявлений в листинге. Все объявления должны иметь статус равный 1," +
+							" и так же ищем в листинге только что поданные для данного пользователя объявления");
+					JSONArray ar = jTemp.getJSONArray("advertisements");
+		    		for(int i=0; i<ar.length(); i++)
+		    		{
+		    			print("\r\nПроверяем объявление №" + (i+1));
+		    			jTemp = (JSONObject) ar.get(i);
+		    			sId = jTemp.getString("id");
+		    			print("ID "+ (i+1) +" объявления в листинге равно " + sId);
+		    			if(sId.equals(sIdAdvert))
+		    				bFlagAdvert = true;
+		    			if(sId.equals(sIdAdvert2))
+		    				bFlagAdvert2 = true;
+		    			print("Получаем данные по объявлению с ID = " + sId);
+		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя");
+		    			print("Проверяем статус активность для объявления ID = " + sId);
+		    			ValidateStatus("1", jData, sId, "");	
+		    		}
+		    		if((bFlagAdvert == true) && (bFlagAdvert2 == true))
+		    			print("Все объявления в листинге пользователя активны (status = 1). В листинге так же найдены, только что поданные объявления. Корректно");
+		    		else
+		    		{
+		    			print("В листинге активных объявлений пользователя отсутствуют, только что поданные объявления");
+		    			print("Тест провален");
+		    			throw new ExceptFailTest("Тест провален");
+		    		}
+				}
+				break;
+				
+			case 2:
+				if(jTemp.getString("advertisements").equals("[]"))
+				{
+					print("В листинге активных объявлений пользователя, нету ни одного объявления. Корректно. Так как мы деактивировали и удалили объявления в ЛК");
+				}
+				else
+				{
+					print("Проверяем status объявлений в листинге. Все объявления должны иметь статус равный 1," +
+							" и так же ищем в листинге только что в листинге отсутствуют поданные, а потом деактивированные и удаленные объявления, для данного пользователя объявления");
+					JSONArray ar = jTemp.getJSONArray("advertisements");
+		    		for(int i=0; i<ar.length(); i++)
+		    		{
+		    			print("\r\nПроверяем объявление №" + (i+1));
+		    			jTemp = (JSONObject) ar.get(i);
+		    			sId = jTemp.getString("id");
+		    			print("ID "+ (i+1) +" объявления в листинге равно " + sId);
+		    			if(sId.equals(sIdAdvert))
+		    				bFlagAdvert = true;
+		    			if(sId.equals(sIdAdvert2))
+		    				bFlagAdvert2 = true;
+		    			print("Получаем данные по объявлению с ID = " + sId);
+		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя");
+		    			print("Проверяем статус активность для объявления ID = " + sId);
+		    			ValidateStatus("1", jData, sId, "");	
+		    		}
+		    		if((bFlagAdvert == true) && (bFlagAdvert2 == true))
+		    		{
+		    			print("В листинге пользователя остались объявления которые были поданы, а потом деактивированы или удалены");
+		    			print("Тест провален");
+		    			throw new ExceptFailTest("Тест провален");
+		    		}
+		    		else
+		    		{
+		    			print("В листинге только активные объявления. Так же в листинге активных объявлений пользователя отсутствуют объявления которые были поданы, " +
+		    					"а потом деактивированы или удалены. Корректно");
+	
+		    		}
+				}
+				break;
+			
+		}
+		
+	}
+	
+	
+	// Подача, получение листинга с фильтрацией 
+	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	{
+		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
+		String sLogin = Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		HM<String, String> hObj_Auto;
+		HM<String, String> hObj_Auto2;
+		HM<String, String> hObj_Realt;
+		HM<String, String> hObj_Realt2;
+		HM<String, String> hObj_TIY;
+		HM<String, String> hObj_TIY2;
+		JSONObject jData;
+		InnerDataHM objAuto, objRealt, objTIY;
+		String sDataForListing = "{category=cars/passenger/new/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
+		// авторизация
+		print("\r\nАвторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		
+		// подача трех объявлений
+		print("\r\nШАГ 1");
+		print("Подача трех объявлений".toUpperCase());
+		
+		print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва ".toUpperCase());
+		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
+		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
+
+/////////////////////////////////////////////////////////////////////////////////////////////////    	
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+    	sIdRealt = objRealt.GetID();
+    	hObj_Realt = objRealt.GetAdvertismentData();
+    	hObj_Realt2 = objRealt.GetCustomfieldData();
+    	
+///////////////////////////////////////////////////////////////////////////////////////////////// 
+    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU = objTIY.GetID();
+    	hObj_TIY = objTIY.GetAdvertismentData();
+    	hObj_TIY2 = objTIY.GetCustomfieldData();
+    	
+    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	
+    	// получаем фильтрованный листинг для  рубрик и региона
+    	print("\r\nШАГ 2");
+    	print("Получаем фильтрованный листинг для категорий".toUpperCase());
+    	
+    	print("\r\nФормируем запрос для категории Авто с пробегом. Регион Москва");
+    	
+    	print(GetStringFilterAuto(hObj_Auto, hObj_Auto2));
+    	
+	}
+	// Получение строки фильтра для поиска для автотеста
+	private String GetStringFilterAuto(HM<String, String> hObj, HM<String, String> hObj2)
+	{
+		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+				"/car-year="+ hObj2.GetValue("car-year") +"/hasimages=1/" ;
+		return sDataForSearch;
+	}
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
