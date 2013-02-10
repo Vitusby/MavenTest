@@ -3106,7 +3106,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(hObj2.GetValue("state").equals("типовой"))
 			sState = "2378016691";
 		
-		/*if(hObj2.GetValue("private").equals("null"))
+		/*if(hObj2.GetValue("private") == null)
 			sPrivate = "0";
 		else
 			sPrivate = "1";
@@ -3136,7 +3136,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(hObj2.GetValue("used-or-new").equals("новый"))
 			sUsedornew = "1272127973";
 		
-		/*if(hObj2.GetValue("vacuumclean_wash").equals("null"))
+		/*if(hObj2.GetValue("vacuumclean_wash") == null)
 			sVacuumclean = "0";
 		else
 			sVacuumclean = "1";
@@ -3436,7 +3436,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			ValidateRegion(sRegionNameAuto, jData, sId, "", hCities);
     		}
     		if(bFlagAdvert == true)
-    			print("Все объявления в листинге категории активны (status = 1), принадлежат категории \"" + sCategoryNameAuto + "\" и региону" + sRegionNameAuto + ". В листинге так же найдено, только что поданное объявления. Корректно");
+    			print("Все объявления в листинге категории активны (status = 1), принадлежат категории \"" + sCategoryNameAuto + "\" и региону \"" + sRegionNameAuto + "\". В листинге так же найдено, только что поданное объявления. Корректно");
     		else
     		{
     			print("В листинге категории отсутствует, только что поданное объявление");
@@ -3521,7 +3521,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		else
 		{
-			if(hCities.GetValue(sRegion).equals("null"))
+			if(hCities.GetValue(sRegion) == null)
 			{
 				print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " не совпал с ожидаемым регионом  = " + sWaitStatus + sText);
 				print("Тест провален".toUpperCase());
