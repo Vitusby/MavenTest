@@ -38,7 +38,7 @@ public class HM<K,V>
 		s = hm.entrySet();
 		for(Map.Entry<K,V>me :s)
 		{
-			System.out.println(me.getKey()+" = "+me.getValue());
+			System.out.println(me.getKey()+"="+me.getValue());
 		}
 	}
 	
