@@ -510,7 +510,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
-    	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
+    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы".toUpperCase());
     	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
     	sIdTIU = objTIY.GetID();
     	hObj_TIY = objTIY.GetAdvertismentData();
@@ -2256,7 +2256,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
-    			print("Объявление №" + i);
+    			print("Объявление №" + (i+1));
     			jsonObject = (JSONObject) ar.get(i);
     			print(jsonObject.toString(10));
     		
@@ -3334,8 +3334,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//Подача , получения листинга категории и проверка объявлений на статус, категорию, регион
-	public void AddAdvertGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
+	//Подача , получение списка городов водящих в субъект, получения листинга категории и проверка объявлений на статус, категорию, регион
+	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		String sIdAuto, sIdRealt, sIdTIU;
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -3344,6 +3344,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONObject jData;
 		InnerDataHM objAuto, objRealt, objTIY;
 		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sRegionUriAuto = "russia/moskva-gorod/";
+		String sRegionNameAuto = "Москва";
+		String sCategoryNameAuto = "Автомобили с пробегом";
+		HM<String, String> hChildren;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
@@ -3353,37 +3357,49 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("\r\nШАГ 1");
 		print("Подача трех объявлений".toUpperCase());
 	
-		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+		print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
 		print("Объявление №1");	
 		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
 		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+    	print("Объявление №2");	
     	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
     	sIdRealt = objRealt.GetID();
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
-    	print("\r\nПодача объявления в рубрику Электроника и техника - Вторичный рынок".toUpperCase());
+    	print("\r\nПодача объявления в рубрику Электроника и техника - пылесосы. Регион Казань".toUpperCase());
+    	print("Объявление №3");	
     	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
     	sIdTIU = objTIY.GetID();
     	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+    	//print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+    	//Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
-    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежать этому листингу
+    	// получение и сохранение списка городов входящих в регион
     	print("\r\nШАГ 2");
+    	print("Получаем список городов входящих в регион Москва".toUpperCase());
+    	jData = GetChildrenCities(sHost, sRegionUriAuto);
+    	print("Сохраняем список городов входящих в регион Москва. Используем его для проверки корректности нахождения объявления в листинге");
+    	hChildren = GetAllChildrenCities(jData);
+    	
+    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу
+    	
+    	print("\r\nШАГ 3");
     	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
     	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
     	jData = GetListCategory(sHost, sDataForListAuto);
+    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, hChildren);
    
 	}
 	// проверка листинга на содержимое
-	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegion, String sCategory) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegionNameAuto, String sCategoryNameAuto, HM<String, String>hCities) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		JSONObject jTemp, jData;
 		String sId;
-		boolean bFlagAdvert = false;
+		boolean bFlagAdvert = true;
 
 		jTemp = jObj;
 		
@@ -3397,10 +3413,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else
 		{
 			print("Проверяем status объявлений в листинге, region объявлений, category объявлений." +
-					" Все объявления должны иметь статус равный 1," +
-					" Регион должен быть равен " + sRegion + "или принадлежать " + sRegion +
-					" Категория должна быть равна " + sCategory +
-					" и так же ищем в листинге только что поданное в данную рубрику и регион объявление, для данного пользователя");
+					"\r\nВсе объявления должны иметь статус равный 1," +
+					"\r\nРегион должен быть равен \"" + sRegionNameAuto + "\" или принадлежать региону \"" + sRegionNameAuto + "\"" +
+					"\r\nКатегория должна быть равна \"" + sCategoryNameAuto + "\"" +
+					"\r\nВ листинге должно быть только что поданное в данную рубрику и регион объявление, для данного пользователя");
 			JSONArray ar = jTemp.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
@@ -3413,17 +3429,84 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print("Получаем данные по объявлению с ID = " + sId);
     			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя");
     			print("Проверяем статус активность для объявления ID = " + sId);
-    			ValidateStatus("1", jData, sId, "");	
+    			ValidateStatus("1", jData, sId, "");
+    			print("Проверяем категорию объявления для объявления ID = " + sId);
+    			ValidateCategory(sCategoryNameAuto, jData, sId, "");
     		}
     		if(bFlagAdvert == true)
-    			print("Все объявления в листинге пользователя активны (status = 1). В листинге так же найдены, только что поданные объявления. Корректно");
+    			print("Все объявления в листинге категории активны (status = 1) и принадлежат категории" + sCategoryNameAuto + " . В листинге так же найдено, только что поданное объявления. Корректно");
     		else
     		{
-    			print("В листинге активных объявлений пользователя отсутствуют, только что поданные объявления");
+    			print("В листинге категори отсутствует, только что поданное объявление");
     			print("Тест провален");
     			throw new ExceptFailTest("Тест провален");
     		}
 			
+		}
+	}
+	// получаем список городов принадлежащих региону листинга
+	private  JSONObject GetChildrenCities(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
+		print("Параметры для запроса");
+		print("region = "+ sRegion);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/cities")
+    	.setParameter("region", sRegion);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок городов принадледащих " + sRegion+ " получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить популярных городов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение HM городов входящих в регион
+	private HM<String, String> GetAllChildrenCities(JSONObject jObj) throws JSONException
+	{
+		HM<String, String> hCities = new HM<String, String>();
+		JSONObject jTemp;
+		JSONArray ar;
+		ar =  jObj.getJSONArray("regions");
+		for(int i=0; i<ar.length(); i++)
+		{
+			jTemp = ar.getJSONObject(i);
+			hCities.SetValue(jTemp.getString("full_name"), jTemp.getString("full_name"));
+		}
+		hCities.PrintKeyAndValue();
+		return hCities;
+	}
+	// проверка категории
+	private void ValidateCategory(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText) throws JSONException, ExceptFailTest
+	{
+		String sCategory = jObj.getJSONObject("advertisement").getString("category");
+		if(sCategory.equals(sWaitStatus))
+		{
+			print("Текущая категория объявления ID = " + sIdAdvert + ",  = " + sCategory + " совпала с ожидаемой категорией  = " + sWaitStatus + sText);
+		}
+		else
+		{
+			print("Текущая категория объявления ID = " + sIdAdvert + ",  = " + sCategory + " не совпала с ожидаемой категорией  = " + sWaitStatus + sText);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
 		}
 	}
 	
@@ -4851,7 +4934,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	//4.2.	Получение списка популярных городов
+	//4.2.	Получение списка городов принадлежащих какому либо региону
 	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -4885,7 +4968,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	//4.2.1.	Получение списка городов, для которых заведены поддомены
+	//4.2.1. Получение списка городов, для которых заведены поддомены
 	public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 		{
 
