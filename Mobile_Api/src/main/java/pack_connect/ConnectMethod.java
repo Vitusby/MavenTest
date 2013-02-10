@@ -2989,8 +2989,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_TIY2;
 		JSONObject jData;
 		InnerDataHM objAuto, objRealt, objTIY;
-		String sDataForListing = "{category=cars/passenger/new/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
-		
+		String sDataForListing = "{category=cars/passenger/used/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
+		String sDataForListing2 = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
+		String sDataForListing3 = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
@@ -3029,19 +3030,159 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nШАГ 2");
     	print("Получаем фильтрованный листинг для категорий".toUpperCase());
     	
-    	print("\r\nФормируем запрос для категории Авто с пробегом. Регион Москва");
+    	print("\r\nФормируем запрос для категории Авто с пробегом. Регион Москва. Ищем поданное объявление с ID = " + sIdAuto);
+    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterAuto(hObj_Auto, hObj_Auto2));
+    	print("Производим поиск");
+    	jData = GetListSearchCategory(sHost, sDataForListing, GetStringFilterAuto(hObj_Auto, hObj_Auto2));
+    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdAuto);
+    	FindAdvertFromListAfterPost(jData, sIdAuto);
     	
-    	print(GetStringFilterAuto(hObj_Auto, hObj_Auto2));
+    	print("\r\nФормируем запрос для категории Недвижимость - Вторичный рынок. Регион Архангельск. Ищем поданное объявление с ID = " + sIdRealt);
+    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterRealt(hObj_Realt, hObj_Realt2));
+    	print("Производим поиск");
+    	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2));
+    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdRealt);
+    	FindAdvertFromListAfterPost(jData, sIdRealt);
+    	
+    	print("\r\nФормируем запрос для категории Электроника и техника - Пылесосы. Регион Казань. Ищем поданное объявление с ID = " + sIdTIU);
+    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterRealt(hObj_TIY, hObj_TIY2));
+    	print("Производим поиск");
+    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2));
+    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
+    	FindAdvertFromListAfterPost(jData, sIdTIU);
     	
 	}
-	// Получение строки фильтра для поиска для автотеста
+	// получение строки фильтра для поиска для Авто для автотеста
 	private String GetStringFilterAuto(HM<String, String> hObj, HM<String, String> hObj2)
 	{
+		String sBody="", sTransmittion="";
+		
+		if(hObj2.GetValue("bodytype").equals("комби"))
+			sBody = "1992672760";
+		if(hObj2.GetValue("bodytype").equals("купе"))
+			sBody = "444284667";
+		if(hObj2.GetValue("bodytype").equals("седан"))
+			sBody = "1992061258";
+		
+		if(hObj2.GetValue("transmittion").equals("автоматическая"))
+			sTransmittion = "2026863058";
+		if(hObj2.GetValue("transmittion").equals("механическая"))
+			sTransmittion = "3954947837";
+		if(hObj2.GetValue("transmittion").equals("вариатор"))
+			sTransmittion = "3852782480";
+			
+		String sMileage = hObj2.GetValue("mileage");
+		int m = Integer.parseInt(sMileage);
+		m = m/1000;
+		sMileage = Integer.toString(m);
+	
 		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-				"/car-year="+ hObj2.GetValue("car-year") +"/hasimages=1/" ;
+				"/car-year="+ hObj2.GetValue("car-year") +"/hasimages=1/bodytype=" + sBody + 
+				"/transmittion=" + sTransmittion + "/mileage=" + sMileage +"/" ;
 		return sDataForSearch;
 	}
-	
+	// получение строки фильтра для поиска для Недвижимости для автотеста
+	private String GetStringFilterRealt(HM<String, String> hObj, HM<String, String> hObj2)
+	{
+		String sState = ""/*, sPrivate = ""*/;
+		if(hObj2.GetValue("state").equals("евроремонт"))
+			sState = "31075303";
+		if(hObj2.GetValue("state").equals("типовой"))
+			sState = "2378016691";
+		
+		/*if(hObj2.GetValue("private").equals("null"))
+			sPrivate = "0";
+		else
+			sPrivate = "1";
+		*/
+		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+				"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
+				"/currency=RUR/keywords=" + hObj.GetValue("text") + "/hasimages=1" +
+				"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/";
+		// /private=" +sPrivate+ "
+		
+		return sDataForSearch;
+	}
+	// получение строки фильтра для поиска для Электроники - пылесосы для автотеста
+	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2)
+	{
+		String sOffertype = "", sUsedornew = "" /*,sVacuumclean=""*/;
+		if(hObj2.GetValue("state").equals("куплю"))
+			sOffertype = "4014823978";
+		if(hObj2.GetValue("state").equals("продам"))
+			sOffertype = "475467989";
+		if(hObj2.GetValue("state").equals("обменяю"))
+			sOffertype = "1934995446";
+		
+		
+		if(hObj2.GetValue("used-or-new").equals("б/у"))
+			sUsedornew = "899319458";
+		if(hObj2.GetValue("used-or-new").equals("новый"))
+			sUsedornew = "1272127973";
+		
+		/*if(hObj2.GetValue("vacuumclean_wash").equals("null"))
+			sVacuumclean = "0";
+		else
+			sVacuumclean = "1";
+		*/
+		
+		
+		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+				"/offertype=" + sOffertype + "/used-or-new= " + sUsedornew + "/keywords=" + hObj.GetValue("text") + "/hasimages=1/";
+		// vacuumclean_wash=1/
+		return sDataForSearch;
+	}
+	// фильтрация получение листинга
+	private  JSONObject GetListSearchCategory(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		JSONObject jTemp;
+		print("Фильтрация/поиск объявлений по критериям".toUpperCase());
+		print("Параметры для запроса");
+		print("DataForListing = "+ sDataForListing);
+		print("sDataForSearch = "+ sDataForSearch);
+		
+		String sQuery = CreateSimpleRequest(sDataForListing);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
+    		.setQuery(sQuery);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+   
+    	String ss =	"/&filters=/search/"+sDataForSearch;
+    	String s1 = uri.toString()+ss;
+    	uri = new URI(s1);
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Листинг объявлений получен");
+    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		}
+    		return jTemp;
+    	}
+    	else
+    	{
+    		print("Не удалось получить фильтр-листинг по критериям \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 	
 // Параметризированные тесты
@@ -4006,6 +4147,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Фильтрация/поиск объявлений по критериям 
 	public void GetListSearchCategory_2_19(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		
+		
 		print("2.19.	Фильтрация/поиск объявлений по критериям");
 		print("Параметры для запроса");
 		print("DataForListing = "+ sDataForListing);
@@ -4031,9 +4174,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
+    	
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера: Листинг объявлений получен");
+    		
+    		
+    		print("Ответ сервера: Фильтр-листинг  объявлений получен");
     		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
@@ -4044,6 +4190,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}
+    
     	}
     	else
     	{
