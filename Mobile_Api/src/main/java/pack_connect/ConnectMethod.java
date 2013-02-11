@@ -3738,6 +3738,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return sR;
 	}
 	
+	//Получение и проверка списка полей рубрики для подачи
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -4933,16 +4935,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "рубрикатора сайта получен");
-    		print("");
-    		JSONArray ar = jsonObject.getJSONArray("categories");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:" + jsonObject.toString(10) + "рубрикатора сайта получен");
     	}
     	else
     	{
     		print("Не удалось получить рубрикатора сайта \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}	
