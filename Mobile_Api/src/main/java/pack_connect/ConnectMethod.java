@@ -3607,7 +3607,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sIdealRubricator = LoadJson("Rubricator.txt");
 		
-		print("Сравниваем рубрикатор сайта полученный запросом с рубрикатором из сохранения");
+		print("\r\nШАГ 1");
+		print("Сравниваем рубрикатор сайта полученный запросом с рубрикатором из сохранения".toUpperCase());
 		if(sCurrentRubricator.equals(sIdealRubricator))
 		{
 			print("Рубрикаторы идентичны. Корректно");
