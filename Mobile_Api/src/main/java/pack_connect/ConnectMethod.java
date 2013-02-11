@@ -1,9 +1,12 @@
 package pack_connect;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Calendar;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 import org.apache.http.client.utils.URIBuilder;
 import com.google.appengine.repackaged.org.json.*;
@@ -3069,93 +3072,59 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// получение строки фильтра для поиска для Авто для автотеста
-	private String GetStringFilterAuto(HM<String, String> hObj, HM<String, String> hObj2)
+	private String GetStringFilterAuto(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
 	{
-		String sBody="", sTransmittion="";
-		
-		if(hObj2.GetValue("bodytype").equals("комби"))
-			sBody = "1992672760";
-		if(hObj2.GetValue("bodytype").equals("купе"))
-			sBody = "444284667";
-		if(hObj2.GetValue("bodytype").equals("седан"))
-			sBody = "1992061258";
-		
-		if(hObj2.GetValue("transmittion").equals("автоматическая"))
-			sTransmittion = "2026863058";
-		if(hObj2.GetValue("transmittion").equals("механическая"))
-			sTransmittion = "3954947837";
-		if(hObj2.GetValue("transmittion").equals("вариатор"))
-			sTransmittion = "3852782480";
-			
+
 		String sMileage = hObj2.GetValue("mileage");
 		int m = Integer.parseInt(sMileage);
 		m = m/1000;
 		sMileage = Integer.toString(m);
 	
 		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-				"/car-year="+ hObj2.GetValue("car-year") +"/hasimages=1/bodytype=" + sBody + 
-				"/transmittion=" + sTransmittion + "/mileage=" + sMileage +"/" ;
+				"/car-year="+ hObj2.GetValue("car-year") +"/hasimages=1/bodytype=" + GetCrc32(hObj2.GetValue("bodytype")).toString() + 
+				"/transmittion=" + GetCrc32(hObj2.GetValue("transmittion")).toString() + "/mileage=" + sMileage +"/" ;
+		
 		return sDataForSearch;
 	}
 	// получение строки фильтра для поиска для Недвижимости для автотеста
-	private String GetStringFilterRealt(HM<String, String> hObj, HM<String, String> hObj2)
+	private String GetStringFilterRealt(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
 	{
-		hObj.PrintKeyAndValue();
-		String sDataForSearch = "";
-		
-		String sState = "", sPrivate = "1";
-		if(hObj2.GetValue("state").equals("евроремонт"))
-			sState = "31075303";
-		if(hObj2.GetValue("state").equals("типовой"))
-			sState = "2378016691";
-		
+		String sDataForSearch = "";	
+		String sPrivate = "1";
+
 		if(hObj2.GetValue("private").equals("0"))
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
 			"/currency=RUR/hasimages=1" +
-			"/state=" + sState + "/etage-all=" + hObj2.GetValue("etage-all") + "/" +
+			"/state=" + GetCrc32(hObj2.GetValue("state")).toString() + "/etage-all=" + hObj2.GetValue("etage-all") + "/" +
 			"/keywords=" + hObj.GetValue("text") + "/";
 		else
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
 			"/currency=RUR/hasimages=1" +
-			"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/private=" + sPrivate +
+			"/state=" + GetCrc32(hObj2.GetValue("state")).toString() + "/etage-all=" +hObj2.GetValue("etage-all")+ "/private=" + sPrivate +
 			"/keywords=" + hObj.GetValue("text") + "/";
 		
-		//  /keywords=" + hObj.GetValue("text") + ""
-		
+	
 		return sDataForSearch;
 	}
 	// получение строки фильтра для поиска для Электроники - пылесосы для автотеста
-	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2)
+	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
 	{
 		String sDataForSearch = "";
-		String sOffertype = "", sUsedornew = "" ,sVacuumclean="1";
-		if(hObj2.GetValue("offertype").equals("куплю"))
-			sOffertype = "4014823978";
-		if(hObj2.GetValue("offertype").equals("продам"))
-			sOffertype = "475467989";
-		if(hObj2.GetValue("offertype").equals("обменяю"))
-			sOffertype = "1934995446";
-		
-		
-		if(hObj2.GetValue("used-or-new").equals("б/у"))
-			sUsedornew = "899319458";
-		if(hObj2.GetValue("used-or-new").equals("новый"))
-			sUsedornew = "1272127973";
+		String sVacuumclean="1";
 		
 		if(hObj2.GetValue("vacuumclean_wash").equals("0"))
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/" +
+			"/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + "/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() +
+			"/hasimages=1/" +
 			"/keywords=" + hObj.GetValue("text") + "/";
 		else
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/vacuumclean_wash=" + sVacuumclean + 
+			"/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + "/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + 
+			"/hasimages=1/vacuumclean_wash=" + sVacuumclean + 
 			"/keywords=" + hObj.GetValue("text") + "/";
 		
-		
-		
-		// /
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
@@ -3209,6 +3178,16 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	// перевод строи в crc32
+	private Long GetCrc32(String sData) throws UnsupportedEncodingException
+	{
+         byte bytes[] = sData.getBytes("UTF-8");
+         Checksum cs = new CRC32();
+         cs.update(bytes,0,bytes.length);        
+         Long l = cs.getValue();
+         return l;
+	}
+	
 	
 	//Подача, голосование + , голосование -
 	public void AddVoteHighLower(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
@@ -5519,7 +5498,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}
 		   	return tempJsonObject;
 	   }
-	
+
 	
 }
 
