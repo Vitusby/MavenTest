@@ -3100,9 +3100,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// получение строки фильтра для поиска для Недвижимости для автотеста
 	private String GetStringFilterRealt(HM<String, String> hObj, HM<String, String> hObj2)
 	{
+		hObj.PrintKeyAndValue();
 		String sDataForSearch = "";
 		
-		String sState = "", sPrivate = "";
+		String sState = "", sPrivate = "1";
 		if(hObj2.GetValue("state").equals("евроремонт"))
 			sState = "31075303";
 		if(hObj2.GetValue("state").equals("типовой"))
@@ -3112,12 +3113,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
 			"/currency=RUR/hasimages=1" +
-			"/state=" + sState + "/etage-all=" + hObj2.GetValue("etage-all") + "/";
+			"/state=" + sState + "/etage-all=" + hObj2.GetValue("etage-all") + "/" +
+			"/keywords=" + hObj.GetValue("text") + "/";
 		else
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
 			"/currency=RUR/hasimages=1" +
-			"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/private=" + sPrivate +"/";
+			"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/private=" + sPrivate +
+			"/keywords=" + hObj.GetValue("text") + "/";
 		
 		//  /keywords=" + hObj.GetValue("text") + ""
 		
@@ -3127,7 +3130,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2)
 	{
 		String sDataForSearch = "";
-		String sOffertype = "", sUsedornew = "" ,sVacuumclean="";
+		String sOffertype = "", sUsedornew = "" ,sVacuumclean="1";
 		if(hObj2.GetValue("offertype").equals("куплю"))
 			sOffertype = "4014823978";
 		if(hObj2.GetValue("offertype").equals("продам"))
@@ -3143,14 +3146,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(hObj2.GetValue("vacuumclean_wash").equals("0"))
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/";
+			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/" +
+			"/keywords=" + hObj.GetValue("text") + "/";
 		else
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/vacuumclean_wash=" + sVacuumclean + "/";
+			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/vacuumclean_wash=" + sVacuumclean + 
+			"/keywords=" + hObj.GetValue("text") + "/";
 		
 		
 		
-		// keywords=" + hObj.GetValue("text")/
+		// /
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
