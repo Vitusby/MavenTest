@@ -22,6 +22,7 @@ import pack_utils.JString;
 import pack_utils.Proper;
 import pack_utils.RamdomData;
 
+
 public class ConnectMethod extends Connect_Request_Abstract
 {
 	private URIBuilder builder;; 
@@ -3589,40 +3590,88 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка рубрикатора
 	public void GetAndCheckRubricator(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
-		String sCategory = "cars/";
+		String sCategory = "/", sCategoryCars = "cars/", sCategoryRealt = "real-estate/";
 		JSONObject jData;
+		@SuppressWarnings("unused")
 		JString Js;
+		String smas[] = new String [3];
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Получение и проверка рубрикатора - Тест".toUpperCase());
 
 		print("\r\nШАГ 1");
-		print("Получаем рубрикатор сайта".toUpperCase());
+		print("Получаем рубрикатор основных рубрик сайта".toUpperCase());
 		jData = GetRubricator(sHost, sCategory);
-		
 		String sCurrentRubricator = jData.toString(10); 
 		
-		//Js = new JString(jData.toString(10)); // запись рубрикатора в файл
-		//SaveJson(Js, "Rubricator.txt");
+		print("Получаем рубрикатор рубрики Авто сайта".toUpperCase());
+		jData = GetRubricator(sHost, sCategoryCars);
+		String sCurrentRubricatorCars = jData.toString(10); 
 		
-		String sIdealRubricator = LoadJson("Rubricator.txt");
+		print("Получаем рубрикатор рубрики Недвижимость сайта".toUpperCase());
+		jData = GetRubricator(sHost, sCategoryRealt);
+		String sCurrentRubricatorRealt = jData.toString(10); 
+		
+		smas[0] = sCurrentRubricator;
+		smas[1] = sCurrentRubricatorCars;
+		smas[2] = sCurrentRubricatorRealt;
+		
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "Rubricators.txt");
+		
+		String sIdealRubricator[] = LoadJson("Rubricators.txt");
 		
 		print("\r\nШАГ 2");
-		print("Сравниваем рубрикатор сайта полученный запросом с рубрикатором из сохранения".toUpperCase());
-		if(sCurrentRubricator.equals(sIdealRubricator))
+		print("Сравниваем основной рубрикатор сайта полученный запросом с основным рубрикатором сайта из сохранения".toUpperCase());
+		if(sIdealRubricator[0].equals(sCurrentRubricator))
 		{
 			print("Рубрикаторы идентичны. Корректно");
 			print("Полученный из сохранения рубрикатор");
-			print(sIdealRubricator);
+			print(sIdealRubricator[0]);
 		}
 		else 
 		{
 			print("Рубрикаторы не совпадают");
-			print("Полученный из сохранения рубрикатор");
-			print(sIdealRubricator);
+			print("Полученный из сохранения рубрикатор:");
+			print(sIdealRubricator[0]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
+		
+		print("Сравниваем рубрикатор рубрики Авто сайта полученный запросом с рубрикатором Авто из сохранения".toUpperCase());
+		if(sIdealRubricator[1].equals(sCurrentRubricatorCars))
+		{
+			print("Рубрикаторы идентичны. Корректно");
+			print("Полученный из сохранения рубрикатор:");
+			print(sIdealRubricator[1]);
+		}
+		else 
+		{
+			print("Рубрикаторы не совпадают");
+			print("Полученный из сохранения рубрикатор:");
+			print(sIdealRubricator[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("Сравниваем рубрикатор рубрики Недвижимость сайта полученный запросом с рубрикатором Недвижимости из сохранения".toUpperCase());
+		if(sIdealRubricator[2].equals(sCurrentRubricatorRealt))
+		{
+			print("Рубрикаторы идентичны. Корректно");
+			print("Полученный из сохранения рубрикатор:");
+			print(sIdealRubricator[2]);
+		}
+		else 
+		{
+			print("Рубрикаторы не совпадают");
+			print("Полученный из сохранения рубрикатор:");
+			print(sIdealRubricator[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 		
 	}
 	//получение рубрикатора для автотеста
@@ -3662,6 +3711,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// сохранение данных в виде объекта класса JSON (в нем храним json ответ списка категорий корневых рубрик)
+	@SuppressWarnings("unused")
 	private void SaveJson(JString obj , String sNameFile) throws IOException
 	{
 		FileOutputStream fos = new FileOutputStream(sNameFile);
@@ -3672,10 +3722,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		fos.close();
 	}
 	// восстановление данных 
-	private String LoadJson(String sNameFile) throws IOException, ClassNotFoundException
+	private String[] LoadJson(String sNameFile) throws IOException, ClassNotFoundException
 	{
 		JString Js;
-		String sR = "";
+		String sR[];
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 
