@@ -95,7 +95,7 @@ public class Test_Mobile
 	{
 			cM.AddAvdertGetListUserOP(sBaseHost); //Подача/получение листинга объявлений пользователя
 	}
-*/	
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -104,7 +104,7 @@ public class Test_Mobile
 			cM.AddGetFilterList(sBaseHost); //Подача/получение фильтрованного листинга объявлений категории
 	}
 
-/*	
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -121,6 +121,15 @@ public class Test_Mobile
 			cM.AddAdvertGetCitiesGetListCategory(sBaseHost); //Подача/Получение и проверка листинга категории 
 	}
 	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetAndCheckRubricator(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetAndCheckRubricator(sBaseHost); //Получение и проверка рубрикатора
+	}
+	
+	
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

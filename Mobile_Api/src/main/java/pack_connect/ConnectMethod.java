@@ -1,6 +1,11 @@
 package pack_connect;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,6 +18,7 @@ import com.google.appengine.repackaged.org.json.*;
 
 import pack_utils.ExceptFailTest;
 import pack_utils.HM;
+import pack_utils.JString;
 import pack_utils.Proper;
 import pack_utils.RamdomData;
 
@@ -3579,6 +3585,108 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 		}
 	}
+	
+	//Получение и проверка рубрикатора
+	public void GetAndCheckRubricator(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		String sCategory = "cars/";
+		JSONObject jData;
+		JString Js;
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка рубрикатора - Тест".toUpperCase());
+
+		print("\r\nШАГ 1");
+		print("Получаем рубрикатор сайта".toUpperCase());
+		jData = GetRubricator(sHost, sCategory);
+		
+		String sCurrentRubricator = jData.toString(10); 
+		
+		//Js = new JString(jData.toString(10)); // запись рубрикатора в файл
+		//SaveJson(Js, "Rubricator.txt");
+		
+		String sIdealRubricator = LoadJson("Rubricator.txt");
+		
+		print("Сравниваем рубрикатор сайта полученный запросом с рубрикатором из сохранения");
+		if(sCurrentRubricator.equals(sIdealRubricator))
+		{
+			print("Рубрикаторы идентичны. Корректно");
+			print("Полученный из сохранения рубрикатор");
+			print(sIdealRubricator);
+		}
+		else 
+		{
+			print("Рубрикаторы не совпадают");
+			print("Полученный из сохранения рубрикатор");
+			print(sIdealRubricator);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+	}
+	//получение рубрикатора для автотеста
+	private JSONObject GetRubricator(String sHost, String sRubricator) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("Получение рубрикатора сайта".toUpperCase());
+		print("Параметры для запроса");
+		print("category = "+ sRubricator);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories")
+    		.setParameter("category", sRubricator);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + "рубрикатора сайта получен");
+    		return jsonObject;
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить рубрикатора сайта \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// сохранение данных в виде объекта класса JSON (в нем храним json ответ списка категорий корневых рубрик)
+	private void SaveJson(JString obj , String sNameFile) throws IOException
+	{
+		FileOutputStream fos = new FileOutputStream(sNameFile);
+		ObjectOutputStream ous = new ObjectOutputStream(fos);
+		ous.writeObject(obj);
+		ous.flush();
+		ous.close();
+		fos.close();
+	}
+	// восстановление данных 
+	private String LoadJson(String sNameFile) throws IOException, ClassNotFoundException
+	{
+		JString Js;
+		String sR = "";
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+
+		fis = new FileInputStream(sNameFile);
+		in = new ObjectInputStream(fis);
+		Js = (JString) in.readObject(); 
+		in.close();
+		fis.close();
+		sR = Js.GetJsonString();
+		return sR;
+	}
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
