@@ -3100,29 +3100,34 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// получение строки фильтра для поиска для Недвижимости для автотеста
 	private String GetStringFilterRealt(HM<String, String> hObj, HM<String, String> hObj2)
 	{
-		String sState = ""/*, sPrivate = ""*/;
+		String sDataForSearch = "";
+		
+		String sState = "", sPrivate = "";
 		if(hObj2.GetValue("state").equals("евроремонт"))
 			sState = "31075303";
 		if(hObj2.GetValue("state").equals("типовой"))
 			sState = "2378016691";
 		
-		/*if(hObj2.GetValue("private") == null)
-			sPrivate = "0";
+		if(hObj2.GetValue("private").equals("0"))
+			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
+			"/currency=RUR/hasimages=1" +
+			"/state=" + sState + "/etage-all=" + hObj2.GetValue("etage-all") + "/";
 		else
-			sPrivate = "1";
-		*/
-		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-				"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
-				"/currency=RUR/hasimages=1" +
-				"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/";
-		// /private=" +sPrivate+ /keywords=" + hObj.GetValue("text") + ""
+			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
+			"/currency=RUR/hasimages=1" +
+			"/state=" + sState + "/etage-all=" +hObj2.GetValue("etage-all")+ "/private=" + sPrivate +"/";
+		
+		//  /keywords=" + hObj.GetValue("text") + ""
 		
 		return sDataForSearch;
 	}
 	// получение строки фильтра для поиска для Электроники - пылесосы для автотеста
 	private String GetStringFilterTIY(HM<String, String> hObj, HM<String, String> hObj2)
 	{
-		String sOffertype = "", sUsedornew = "" /*,sVacuumclean=""*/;
+		String sDataForSearch = "";
+		String sOffertype = "", sUsedornew = "" ,sVacuumclean="";
 		if(hObj2.GetValue("offertype").equals("куплю"))
 			sOffertype = "4014823978";
 		if(hObj2.GetValue("offertype").equals("продам"))
@@ -3136,16 +3141,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(hObj2.GetValue("used-or-new").equals("новый"))
 			sUsedornew = "1272127973";
 		
-		/*if(hObj2.GetValue("vacuumclean_wash") == null)
-			sVacuumclean = "0";
+		if(hObj2.GetValue("vacuumclean_wash").equals("0"))
+			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/";
 		else
-			sVacuumclean = "1";
-		*/
+			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
+			"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/vacuumclean_wash=" + sVacuumclean + "/";
 		
 		
-		String sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
-				"/offertype=" + sOffertype + "/used-or-new=" + sUsedornew + "/hasimages=1/";
-		// vacuumclean_wash=1/keywords=" + hObj.GetValue("text")/
+		
+		// keywords=" + hObj.GetValue("text")/
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга

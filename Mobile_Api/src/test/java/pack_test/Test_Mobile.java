@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-	@Test (groups = { "AutoTest" })
+/*	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -57,18 +57,14 @@ public class Test_Mobile
 	{
 			cM.AddGetListDeleteOP(sBaseHost);  // подача/получение листинга ЛК/удаление/ получение листинга ЛК 
 	}
-	
-	
-	
+		
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddFavGetListFavDeleteFavOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/добавление в избранное/удаление из избранного
 	}
-	
-	
-	
+		
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
@@ -99,7 +95,7 @@ public class Test_Mobile
 	{
 			cM.AddAvdertGetListUserOP(sBaseHost); //Подача/получение листинга объявлений пользователя
 	}
-	
+*/	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -107,7 +103,8 @@ public class Test_Mobile
 	{
 			cM.AddGetFilterList(sBaseHost); //Подача/получение фильтрованного листинга объявлений категории
 	}
-	
+
+/*	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -115,7 +112,7 @@ public class Test_Mobile
 	{
 			cM.AddVoteHighLower(sBaseHost); //Подача/голосование+/голосование-
 	}
-	
+
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -123,7 +120,7 @@ public class Test_Mobile
 	{
 			cM.AddAdvertGetCitiesGetListCategory(sBaseHost); //Подача/Получение и проверка листинга категории 
 	}
-	
+	*/
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
