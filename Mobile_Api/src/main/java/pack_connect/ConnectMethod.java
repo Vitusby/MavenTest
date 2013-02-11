@@ -3739,7 +3739,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//Получение и проверка списка полей рубрики для подачи
-	
+	public void GetFieldsForAdd(String sHost)
+	{
+		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
+		String sSearchRealtNewMasslenikovo = "{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}";
+		String sSearchDataRealtNewKapovo = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/kargopolskiy-r_n/kapovo-derevnya/, advert_type=realty_new}";
+		String sSearchDataRealtNewArhangelsk = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, advert_type=realty_new}";
+		String sSearchDataTIYBookreaderKazan = "{category=electronics-technics/bookreader/, region=russia/tatarstan-resp/kazan-gorod/, advert_type=bookreader}";
+		
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [3];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка рубрикатора - Тест".toUpperCase());
+
+		print("\r\nШАГ 1");
+		print("Получаем рубрикатор основных рубрик сайта".toUpperCase());
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
