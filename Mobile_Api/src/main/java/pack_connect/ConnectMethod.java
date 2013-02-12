@@ -3739,7 +3739,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//Получение и проверка списка полей рубрики для подачи
-	public void GetFieldsForAddAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetFieldsForAddAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
 		String sSearchRealtNewMasslenikovo = "{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}";
@@ -3758,27 +3758,115 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("\r\nШАГ 1");
 		print("Получаем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва.".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchCarsNewMoskva);
-		smas[0] = jData.toString(10);
+		String sCusAutoMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Масленниково(Московская обл)".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchRealtNewMasslenikovo);
-		smas[1] = jData.toString(10);
+		String sCusRealtMasslenikovo = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Капово(Архангельская обл)".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewKapovo);
-		smas[2] = jData.toString(10);
+		String sCusRealtKapovo = jData.toString(10);;
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Архангельск".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewArhangelsk);
-		smas[3] = jData.toString(10);
+		String sCusRealtArxangelsk = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для подачи Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataTIYBookreaderKazan);
-		smas[4] = jData.toString(10);
+		String sCusTIYKazan = jData.toString(10);
 		
-		Js = new JString(smas); // запись рубрикаторов в файл
-		SaveJson(Js, "CustomfieldsForAdd.txt");
+		smas[0] = sCusAutoMoskva;
+		smas[1] = sCusRealtMasslenikovo;
+		smas[2] = sCusRealtKapovo;
+		smas[3] = sCusRealtArxangelsk;
+		smas[4] = sCusTIYKazan;
 		
+		//Js = new JString(smas); // запись полей для рубрик в файл
+		//SaveJson(Js, "CustomfieldsForAdd.txt");
+		
+		String sIdealFields[] = LoadJson("CustomfieldsForAdd.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealFields[0].equals(sCusAutoMoskva))
+		{
+			print("Списки полей для подачи идентичны. Корректно");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[0]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список полей рубрики для подачи Недвижимость - Новостройки. Регион Масленниково(Московская обл), полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealFields[1].equals(sCusRealtMasslenikovo))
+		{
+			print("Списки полей для подачи идентичны. Корректно");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[1]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список полей рубрики для подачи Недвижимость - Новостройки. Регион Капово(Архангельская обл), полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealFields[2].equals(sCusRealtKapovo))
+		{
+			print("Списки полей для подачи идентичны. Корректно");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[2]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список полей рубрики для подачи Недвижимость - Новостройки. Регион Архангельск, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealFields[3].equals(sCusRealtArxangelsk))
+		{
+			print("Списки полей для подачи идентичны. Корректно");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[3]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[3]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список полей рубрики для подачи Электроника и техника - Пылесосы. Регион Казань, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealFields[4].equals(sCusTIYKazan))
+		{
+			print("Списки полей для подачи идентичны. Корректно");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[4]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для подачи:");
+			print(sIdealFields[4]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
 	}
 	//получение списка полей рубрики для подачи для автотеста
 	public JSONObject GetCustomfieldsForAddAdvert(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
