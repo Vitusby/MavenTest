@@ -121,6 +121,11 @@ public abstract class Connect_Request_Abstract
 				.replaceAll("\"", "");
 		String s1[] = sDataForArrayRequest.split(",");
 		
+		for(int i=0; i<s1.length; i++)
+		{
+			s1[i] = s1[i].replaceAll("\\+", " ");
+		}
+		
 		for(String sTemp: s1)
 			System.out.println(sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
 		
