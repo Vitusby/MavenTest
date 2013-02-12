@@ -145,6 +145,12 @@ public abstract class Connect_Request_Abstract
 				.replace("{", "[").replaceAll("\"", "");
 		String s1[] = sDataForDoubleArrayRequest.split(",");
 		String request ="";
+		
+		for(int i=0; i<s1.length; i++)
+		{
+			s1[i] = s1[i].replaceAll("\\+", " ");
+		}
+		
 		for(int i=0; i<s1.length; i++)
 		{
 			String temp = "&"+URLEncoder.encode((sMainParam)+"["+(sChildMainParam)+"]"+(s1[i]),"UTF-8");
