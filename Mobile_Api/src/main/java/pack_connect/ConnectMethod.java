@@ -4567,7 +4567,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sStreetsSuggest = "{region=russia/moskva-gorod/, search_string=кам}";
 		String sHouseSugeest = "{street_id=9230, search_string=2}";
 		String sDistrictSuggets = "{region=russia/sankt-peterburg-gorod/, search_string=кра}";
-		String sMicroDistrictSuggest = 
+		String sMicroDistrictSuggest = "";
 		
 		JSONObject jData;
 		@SuppressWarnings("unused")
