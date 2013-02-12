@@ -4437,7 +4437,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//Получение и прорверка списка городов принадлежащего субъекту РФ
+	//Получение и проверка списка городов принадлежащего субъекту РФ
 	public void GetCitiesInsideRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		String sRegionMoskva = "russia/moskva-gorod/";
@@ -4559,6 +4559,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 
+	
+	// Получение и проверка всех саджестов
+	public void GetAllSuggest(String sHost)
+	{
+		
+	}
+	
 	
 	
 	
