@@ -4561,13 +4561,241 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 	
 	// Получение и проверка всех саджестов
-	public void GetAllSuggest(String sHost)
+	public void GetAllSuggest(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		String sCitiesSuggest = "{region=russia/moskovskaya-obl/, search_string=кам}";
+		String sStreetsSuggest = "{region=russia/moskva-gorod/, search_string=кам}";
+		String sHouseSugeest = "{street_id=9230, search_string=2}";
+		String sDistrictSuggets = "{region=russia/sankt-peterburg-gorod/, search_string=кра}";
+		String sMicroDistrictSuggest = 
+		
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [9];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка Населенных пунктов, улиц, домов, районов, микрорайонов, АО, направлений, шоссе, ст. метро Suggest - Тест".toUpperCase());
+		
+		print("\r\nШАГ 1");
+		print("Получаем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область.".toUpperCase());		
+		jData = GetCitiesSuggest(sHost, sCitiesSuggest);
+		String sCurrentCitiesSuggest = jData.toString(10); 
+		
+		smas[0] = sCurrentCitiesSuggest;
+		
+		print("\r\nПолучаем suggest для улицы при поиске по слову \"кам\" для региона Москва.".toUpperCase());		
+		jData = GetStreetsSuggest(sHost, sStreetsSuggest);
+		String sCurrentStreetSuggest = jData.toString(10); 
+		
+		smas[1] = sCurrentStreetSuggest;
+		
+		print("\r\nПолучаем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230).".toUpperCase());		
+		jData = GetHousesSuggest(sHost, sHouseSugeest);
+		String sCurrentHouseSuggest = jData.toString(10); 
+		
+		smas[2] = sCurrentHouseSuggest;
+		
+		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона \"Санкт-Петербург\".".toUpperCase());	
+		jData = GetDistrictSuggest(sHost, sDistrictSuggets);
+		String sCurrentDistrictSuggest = jData.toString(10); 
+		
+		smas[3] = sCurrentDistrictSuggest;
+		
+		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона \"Санкт-Петербург\".".toUpperCase());	
+		jData = GetMicroDistrictSuggest(sHost, sDistrictSuggets);
+		String sCurrentMicroDistrictSuggest = jData.toString(10); 
+		
+		smas[4] = sCurrentMicroDistrictSuggest;
+		
 		
 	}
+	// получение саджеста городов и нас. пунктов для автотеста
+	private JSONObject GetCitiesSuggest(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataCitiesSuggest = "+ sDataCitiesSuggest);
 	
+		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/search")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\n список городов и населенных пунктов по названию (саджест) получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить городов и населенных пунктов по названию (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение саджеста улицы для автотеста
+	private JSONObject GetStreetsSuggest(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка улиц (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataStreetsSuggest = "+ sDataStreetsSuggest);
 	
+		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/streets")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок улиц (саджест) получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список улиц (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}	
+	// получение саджеста улицы для автотеста
+	private JSONObject GetHousesSuggest(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка домов улицы (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataHousesSuggest = "+ sDataHousesSuggest);
 	
+		String sQuery = CreateSimpleRequest(sDataHousesSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/houses")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\n список домов улицы (саджест) получен");
+    		return jsonObject;  		
+    	}
+    	else
+    	{
+    		print("Не удалось получить список домов улицы (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}	
+	// получение саджестов районов для автотестов
+	public JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка районов (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDistrictSuggest = "+ sDataDistrictSuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/districts")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок районов (саджест) получен \r\n");
+    		return jsonObject;
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить список районов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}	
+	// получение саджестов микрорайона для автотестов
+	public JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка микрорайонов (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDistrictSuggest = "+ sDataMicroDistrictSuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/microdistricts")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок микрорайонов (саджест) получен \r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список микрорайонов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

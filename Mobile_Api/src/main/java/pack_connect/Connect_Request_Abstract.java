@@ -104,9 +104,14 @@ public abstract class Connect_Request_Abstract
 		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
 		String s0[] = sDataForSimpleRequest.split(",");
 		String request = "";
+		
 		for(int i=0; i<s0.length; i++)
 		{
-			s0[i].replaceAll(" ", "");
+			s0[i] = s0[i].replaceAll("\\+", " ");
+		}
+		
+		for(int i=0; i<s0.length; i++)
+		{
 			String temp = "&"+URLEncoder.encode(s0[i],"UTF-8");
 			request  +=temp;
 		}
