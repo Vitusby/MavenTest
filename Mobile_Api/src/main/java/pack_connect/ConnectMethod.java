@@ -4108,27 +4108,27 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем список полей фильтрации для рубрики Авто - Главная. Регион Москва".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchCarsMainMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsMainMoskva);
 		String sCusAutoMainMoskva = jData.toString(10);
 
 		print("\r\nПолучаем список полей фильтрации для рубрики Авто - Новые автомобили. Регион Москва".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchCarsNewMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsNewMoskva);
 		String sCusAutoNewMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей фильтрации для рубрики Недвижимость - Главная. Регион Архангельск".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataRealtMainArhangelsk);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataRealtMainArhangelsk);
 		String sCusRealtMainArxangelsk = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Москва".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchRealtNewMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchRealtNewMoskva);
 		String sCusRealtNewMoskva = jData.toString(10);;
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Электроника и техника - Главная. Регион Казань".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataTIYMainKazan);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYMainKazan);
 		String sCusTIYMainKazan = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataTIYBookreaderKazan);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYBookreaderKazan);
 		String sCusTIYBookReaderKazan = jData.toString(10);
 		
 		smas[0] = sCusAutoMainMoskva;
