@@ -4119,15 +4119,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataRealtMainArhangelsk);
 		String sCusRealtMainArxangelsk = jData.toString(10);
 		
-		print("\r\nПолучаем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Москва".toUpperCase());
+		print("\r\nПолучаем список полей фильтрации для рубрики Недвижимость - Новостройки. Регион Москва".toUpperCase());
 		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchRealtNewMoskva);
 		String sCusRealtNewMoskva = jData.toString(10);;
 		
-		print("\r\nПолучаем список полей рубрики для редактирования Электроника и техника - Главная. Регион Казань".toUpperCase());
+		print("\r\nПолучаем список полей фильтрации для рубрики Электроника и техника - Главная. Регион Казань".toUpperCase());
 		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYMainKazan);
 		String sCusTIYMainKazan = jData.toString(10);
 		
-		print("\r\nПолучаем список полей рубрики для редактирования Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		print("\r\nПолучаем список полей фильтрации для рубрики Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
 		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYBookreaderKazan);
 		String sCusTIYBookReaderKazan = jData.toString(10);
 		
@@ -4139,96 +4139,114 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[5] = sCusTIYBookReaderKazan;
 
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		Js = new JString(smas); // запись полей для рубрик в файл
-		SaveJson(Js, "CustomfieldsForSearch.txt");
+		//Js = new JString(smas); // запись полей для рубрик в файл
+		//SaveJson(Js, "CustomfieldsForSearch.txt");
 		
-		/*	
-		String sIdealFields[] = LoadJson("CustomfieldsForSearch.txt");
+		
+		String sIdealSearchFields[] = LoadJson("CustomfieldsForSearch.txt");
 		
 		print("\r\nШАГ 2");
-		print("Сравниваем список полей рубрики для редактирования Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
-		if(sIdealFields[0].equals(sCusAutoMoskva))
+		print("Сравниваем список полей рубрики для фильтрации Авто - Главная. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[0].equals(sCusAutoMainMoskva))
 		{
-			print("Списки полей для редактирования идентичны. Корректно");
-			print("Полученный из сохранения список полей для подачи:");
-			print(sIdealFields[0]);
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[0]);
 		}
 		else 
 		{
 			print("Списки полей не совпадают");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[0]);
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[0]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Масленниково(Московская обл), полученных запросом, со списком полей из сохранения".toUpperCase());
-		if(sIdealFields[1].equals(sCusRealtMasslenikovo))
+		
+		print("Сравниваем список полей рубрики для фильтрации Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[1].equals(sCusAutoNewMoskva))
 		{
-			print("Списки полей для редактирования идентичны. Корректно");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[1]);
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[1]);
 		}
 		else 
 		{
 			print("Списки полей не совпадают");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[1]);
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[1]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Капово(Архангельская обл), полученных запросом, со списком полей из сохранения".toUpperCase());
-		if(sIdealFields[2].equals(sCusRealtKapovo))
+		print("\r\"Сравниваем список полей рубрики для фильтрации Недвижимость - Главная. Регион Архангельск, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[2].equals(sCusRealtMainArxangelsk))
 		{
-			print("Списки полей для редактирования идентичны. Корректно");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[2]);
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[2]);
 		}
 		else 
 		{
 			print("Списки полей не совпадают");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[2]);
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[2]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Архангельск, полученных запросом, со списком полей из сохранения".toUpperCase());
-		if(sIdealFields[3].equals(sCusRealtArxangelsk))
+		print("\r\nСравниваем список полей рубрики для фильтрации Недвижимость - Новостройки. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[3].equals(sCusRealtNewMoskva))
 		{
-			print("Списки полей для редактирования идентичны. Корректно");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[3]);
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[3]);
 		}
 		else 
 		{
 			print("Списки полей не совпадают");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[3]);
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[3]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список полей рубрики для редактирования Электроника и техника - Пылесосы. Регион Казань, полученных запросом, со списком полей из сохранения".toUpperCase());
-		if(sIdealFields[4].equals(sCusTIYKazan))
+		
+		print("\r\nСравниваем список полей рубрики для фильтрации Электроника и техника - Главная. Регион Казань, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[4].equals(sCusTIYMainKazan))
 		{
-			print("Списки полей для редактирования идентичны. Корректно");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[4]);
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[4]);
 		}
 		else 
 		{
 			print("Списки полей не совпадают");
-			print("Полученный из сохранения список полей для редактирования:");
-			print(sIdealFields[4]);
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[4]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список полей рубрики для фильтрации Электроника и техника - Электронные книги. Регион Казань, полученных запросом, со списком полей из сохранения".toUpperCase());
+		if(sIdealSearchFields[5].equals(sCusTIYBookReaderKazan))
+		{
+			print("Списки полей для фильтрации идентичны. Корректно");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[5]);
+		}
+		else 
+		{
+			print("Списки полей не совпадают");
+			print("Полученный из сохранения список полей для фильтрации:");
+			print(sIdealSearchFields[5]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
 		
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
-		*/
+		
 	}
 	// получение полей для фильтрации для автотестов
 	public JSONObject GetCustomfieldsForSearchAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
