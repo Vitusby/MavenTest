@@ -4286,6 +4286,159 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//Получение и проверка списка субъектов
+	public void GetRegionRussionFederation(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		//String sRegion = "/", sRegionMoskva = "russia/moskva-gorod/", sRegionArxangObl = "russia/arhangelskaya-obl/";
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [1];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка списка субъектов РФ - Тест".toUpperCase());
+
+		print("\r\nШАГ 1");
+		print("Получаем cисок субъектов РФ".toUpperCase());
+		jData = GetRegions(sHost);
+		String sCurrentRegion = jData.toString(10); 
+		
+		smas[0] = sCurrentRegion;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "Region.txt");
+		
+		String sIdealRegion[] = LoadJson("Region.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем список субъектов РФ полученный запросом, со списком субъектов РФ из сохранения".toUpperCase());
+		if(sIdealRegion[0].equals(sCurrentRegion))
+		{
+			print("Списки идентичны. Корректно");
+			print("Полученный из сохранения список субъектов РФ");
+			print(sIdealRegion[0]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения список субъектов РФ");
+			print(sIdealRegion[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
+	// получение списка субъектов РФ для атвотеста
+	public JSONObject GetRegions(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		print("Получение списка субъектов РФ".toUpperCase());
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions");
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок субъектов РФ получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список субъектов РФ \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	
+	//Получени и проверка списка регионов с поддоменами
+	public void GetRegionsWithDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [1];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка списка регионов для которых заведены поддомены - Тест".toUpperCase());
+
+		print("\r\nШАГ 1");
+		print("Получаем cписок регионов с поддоменами РФ".toUpperCase());
+		jData = GetRegionWithDomen(sHost);
+		String sCurrentRegionDomen = jData.toString(10); 
+		
+		smas[0] = sCurrentRegionDomen;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		Js = new JString(smas); // запись рубрикаторов в файл
+		SaveJson(Js, "RegionDomen.txt");
+		
+		String sIdealRegionDomen[] = LoadJson("RegionDomen.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем список регионов с поддоменами полученный запросом, со списком регионов с поддоменами из сохранения".toUpperCase());
+		if(sIdealRegionDomen[0].equals(sCurrentRegionDomen))
+		{
+			print("Списки идентичны. Корректно");
+			print("Полученный из сохранения список регионов с поддоменами");
+			print(sIdealRegionDomen[0]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения регионов с поддоменами");
+			print(sIdealRegionDomen[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
+	// получение списка регинов с поддоменами для автотестов
+	public JSONObject GetRegionWithDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка городов, для которых заведены поддомены".toUpperCase());
+		print("Параметры для запроса");
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/popular_cities");
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок городов, для которых заведены поддомены");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список городов, для которых заведены поддомены \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

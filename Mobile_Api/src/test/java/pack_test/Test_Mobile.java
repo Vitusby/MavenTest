@@ -144,7 +144,7 @@ public class Test_Mobile
 	{
 			cM.GetFieldsForEditAdvert(sBaseHost); //Получение и проверка полей для редактирования
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -153,6 +153,20 @@ public class Test_Mobile
 			cM.GetFieldsForSearchAdvert(sBaseHost); //Получение и проверка полей для фильтрации
 	}
 	
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetRegionRussionFederation(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetRegionRussionFederation(sBaseHost); //Получение и проверка списка  регионов РФ
+	}
+	*/
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetRegionsWithDomen(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetRegionsWithDomen(sBaseHost); //Получение и проверка списка  регионов c поддоменами
+	}
 	
 	
 	// Параметризированные тесты
