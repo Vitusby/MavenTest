@@ -1,7 +1,6 @@
 package pack_connect;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -5147,7 +5146,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
-		String smas[] = new String [9];
+		String smas[] = new String [1];
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Получение списка валют - Тест".toUpperCase());
@@ -5160,8 +5159,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[0] = sCurrency;
 		
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		Js = new JString(smas); // запись рубрикаторов в файл
-		SaveJson(Js, "Currency.txt");
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "Currency.txt");
 		
 		String sIdealCurr[] = LoadJson("Currency.txt");
 		
@@ -5169,22 +5168,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
 		if(sIdealCurr[0].equals(sCurrency))
 		{
-			print("Suggest идентичны. Корректно");
+			print("Списки валют идентичны. Корректно");
 			print("Полученный из сохранения список валют :");
 			print(sIdealCurr[0]);
 		}
 		else 
 		{
-			print("Списки не совпадают");
+			print("Списки валют не совпадают");
 			print("Полученный из сохранения список валют :");
 			print(sIdealCurr[0]);
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 
 		
 	}
-	// получение списка валют
+	// получение списка валют для автотеста
 	private JSONObject GetCur(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -5219,6 +5221,138 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
+	//Получение и проверка словарей
+	public void GetDictionary(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		String sNameDictionaryCarCom = "Car makers commercial";
+		String sNameDictionaryCarBody = "cfd_bodytype";
+		String sNameDictionaryColor = "cf_color";
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [3];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение словарей - Тест".toUpperCase());
+		
+		print("\r\nШАГ 1");
+		print("Получаем словарь Car makers commercial.".toUpperCase());		
+		jData = GetDic(sHost, sNameDictionaryCarCom);
+		String sCurrentDicCarCom = jData.toString(10); 
+		
+		smas[0] = sCurrentDicCarCom;
+		
+		print("Получаем словарь cfd_bodytype.".toUpperCase());		
+		jData = GetDic(sHost, sNameDictionaryCarBody);
+		String sCurrentDicCarBody = jData.toString(10); 
+		
+		smas[1] = sCurrentDicCarBody;
+		
+		
+		print("Получаем словарь cf_color.".toUpperCase());		
+		jData = GetDic(sHost, sNameDictionaryColor);
+		String sCurrentDicColor = jData.toString(10); 
+		
+		smas[2] = sCurrentDicColor;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		//Js = new JString(smas); // запись в файл
+		//SaveJson(Js, "Dictionary.txt");
+		
+		String sIdealDic[] = LoadJson("Dictionary.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем словарь Car makers commercial полученный запросом, со словарем Car makers commercial из сохранения".toUpperCase());
+		if(sIdealDic[0].equals(sCurrentDicCarCom))
+		{
+			print("Словари идентичны. Корректно");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[0]);
+		}
+		else 
+		{
+			print("Словари не совпадают");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		
+		print("\r\nСравниваем словарь cfd_bodytype полученный запросом, со словарем cfd_bodytype из сохранения".toUpperCase());
+		if(sIdealDic[1].equals(sCurrentDicCarBody))
+		{
+			print("Словари идентичны. Корректно");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[1]);
+		}
+		else 
+		{
+			print("Словари не совпадают");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		
+		print("\r\nСравниваем словарь cf_color полученный запросом, со словарем cf_color из сохранения".toUpperCase());
+		if(sIdealDic[2].equals(sCurrentDicColor))
+		{
+			print("Словари идентичны. Корректно");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[2]);
+		}
+		else 
+		{
+			print("Словари не совпадают");
+			print("Полученный из сохранения словарь:");
+			print(sIdealDic[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+
+		
+	}
+	// получение словаря
+	private JSONObject GetDic(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение значений словаря".toUpperCase());
+		print("Параметры для запроса");
+		print("NameDictinary = "+ sNameDict);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nзначения словаря получены\r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить значения словаря \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

@@ -183,12 +183,20 @@ public class Test_Mobile
 	{
 			cM.GetAllSuggest(sBaseHost); //Получение и проверка саджествов
 	}
-	*/
+	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetCurrencies(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
 			cM.GetCurrencies(sBaseHost); //Получение и проверка списка валют
+	}
+	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetDictionary(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetDictionary(sBaseHost); //Получение и проверка словарей
 	}
 	
 	
