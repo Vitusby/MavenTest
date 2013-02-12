@@ -128,7 +128,7 @@ public class Test_Mobile
 	{
 			cM.GetAndCheckRubricator(sBaseHost); //Получение и проверка рубрикатора
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -136,6 +136,15 @@ public class Test_Mobile
 	{
 			cM.GetFieldsForAddAdvert(sBaseHost); //Получение и проверка полей для подачи 
 	}
+	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetFieldsForEditAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetFieldsForEditAdvert(sBaseHost); //Получение и проверка полей для редактирования
+	}
+	
 	
 	
 	// Параметризированные тесты
