@@ -160,12 +160,21 @@ public class Test_Mobile
 	{
 			cM.GetRegionRussionFederation(sBaseHost); //Получение и проверка списка  регионов РФ
 	}
-	*/
+	
+	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetRegionsWithDomen(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
 			cM.GetRegionsWithDomen(sBaseHost); //Получение и проверка списка  регионов c поддоменами
+	}
+	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetCitiesInsideRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetCitiesInsideRegion(sBaseHost); //Получение и проверка списка  городов принадлежащих опредлеленному региону
 	}
 	
 	

@@ -3874,7 +3874,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	//получение списка полей рубрики для подачи для автотеста
-	public JSONObject GetCustomfieldsForAddAdvert(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCustomfieldsForAddAdvert(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для подачи объявления".toUpperCase());
@@ -4048,7 +4048,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// полусение полей для редактирования для автотеста
-	public JSONObject GetCastomfieldsForEditAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCastomfieldsForEditAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для редактирования объявления".toUpperCase());
@@ -4091,7 +4091,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка полей рубрики для фильтрации
 	public void GetFieldsForSearchAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
-		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-gorod/}";
+		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-goro/}";
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/}";
 		String sSearchRealtNewMoskva = "{category=real-estate/apartments-sale/new/, region=russia/moskva-gorod/}";
 		String sSearchDataRealtMainArhangelsk = "{category=real-estate/, region=russia/arhangelskaya-obl/arhangelsk-gorod/}";
@@ -4249,7 +4249,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// получение полей для фильтрации для автотестов
-	public JSONObject GetCustomfieldsForSearchAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCustomfieldsForSearchAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для фильтрации объявлений".toUpperCase());
@@ -4329,7 +4329,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// получение списка субъектов РФ для атвотеста
-	public JSONObject GetRegions(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetRegions(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("Получение списка субъектов РФ".toUpperCase());
 		
@@ -4375,14 +4375,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем cписок регионов с поддоменами РФ".toUpperCase());
-		jData = GetRegionWithDomen(sHost);
+		jData = GetRegionDomen(sHost);
 		String sCurrentRegionDomen = jData.toString(10); 
 		
 		smas[0] = sCurrentRegionDomen;
 		
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		Js = new JString(smas); // запись рубрикаторов в файл
-		SaveJson(Js, "RegionDomen.txt");
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "RegionDomen.txt");
 		
 		String sIdealRegionDomen[] = LoadJson("RegionDomen.txt");
 		
@@ -4404,7 +4404,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// получение списка регинов с поддоменами для автотестов
-	public JSONObject GetRegionWithDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetRegionDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка городов, для которых заведены поддомены".toUpperCase());
@@ -4437,6 +4437,128 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//Получение и прорверка списка городов принадлежащего субъекту РФ
+	public void GetCitiesInsideRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		String sRegionMoskva = "russia/moskva-gorod/";
+		String sRegionMoskObl = "russia/moskovskaya-obl";
+		String sRegionArxangelskObl = "russia/arhangelskaya-obl/";
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [3];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение и проверка списка городов принадлежащих региону - Тест".toUpperCase());
+
+		print("\r\nШАГ 1");
+		print("Получаем cписок городов принадлежащих региону Москва".toUpperCase());		
+		jData = GetCitiesInReg(sHost, sRegionMoskva);
+		String sCurrentCitiesInRegMoskva = jData.toString(10); 
+		
+		print("\r\nПолучаем cписок городов принадлежащих региону Московская область".toUpperCase());
+		jData = GetCitiesInReg(sHost, sRegionMoskObl);
+		String sCurrentCitiesInRegMoskovObl = jData.toString(10); 
+		
+		print("\r\nПолучаем cписок городов принадлежащих региону Архангельская область".toUpperCase());
+		jData = GetCitiesInReg(sHost, sRegionArxangelskObl);
+		String sCurrentCitiesInRegArxangelObl = jData.toString(10); 
+		
+		smas[0] = sCurrentCitiesInRegMoskva;
+		smas[1] = sCurrentCitiesInRegMoskovObl;
+		smas[2] = sCurrentCitiesInRegArxangelObl;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "CitiesInRegion.txt");
+		
+		String sIdealCitiesInReg[] = LoadJson("CitiesInRegion.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем список городов принадлежащих региону Москва, со списком городов принадлежащих региону Москва из сохранения".toUpperCase());
+		if(sIdealCitiesInReg[0].equals(sCurrentCitiesInRegMoskva))
+		{
+			print("Списки идентичны. Корректно");
+			print("Полученный из сохранения список городов принадлежащих региону Москва");
+			print(sIdealCitiesInReg[0]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения список городов принадлежащих региону Москва");
+			print(sIdealCitiesInReg[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список городов принадлежащих региону Московская область, со списком городов принадлежащих региону Московская область из сохранения".toUpperCase());
+		if(sIdealCitiesInReg[1].equals(sCurrentCitiesInRegMoskovObl))
+		{
+			print("Списки идентичны. Корректно");
+			print("Полученный из сохранения список городов принадлежащих региону Московская область");
+			print(sIdealCitiesInReg[1]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения список городов принадлежащих региону Московская область");
+			print(sIdealCitiesInReg[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем список городов принадлежащих региону Архангельская область, со списком городов принадлежащих региону Архангельская область из сохранения".toUpperCase());
+		if(sIdealCitiesInReg[2].equals(sCurrentCitiesInRegArxangelObl))
+		{
+			print("Списки идентичны. Корректно");
+			print("Полученный из сохранения список городов принадлежащих региону Архангельская область");
+			print(sIdealCitiesInReg[2]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения список городов принадлежащих региону Архангельская область");
+			print(sIdealCitiesInReg[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
+	// получение списка городов принадлежащего определенному субъекту РФ
+	private JSONObject GetCitiesInReg(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
+		print("Параметры для запроса");
+		print("region = "+ sRegion);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/cities")
+    	.setParameter("region", sRegion);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\nсписок популярных городов получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить популярных городов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+
 	
 	
 	
