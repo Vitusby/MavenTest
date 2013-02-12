@@ -4567,7 +4567,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sStreetsSuggest = "{region=russia/moskva-gorod/, search_string=кам}";
 		String sHouseSugeest = "{street_id=9230, search_string=2}";
 		String sDistrictSuggets = "{region=russia/sankt-peterburg-gorod/, search_string=кра}";
-		String sMicroDistrictSuggest = "";
+		String sMicroDistrictSuggest = "{region=russia/sankt-peterburg-gorod/, search_string=N+4}";
+		String sAOSuggest = "{region=russia/moskva-gorod/, search_string=сев}";
+		String sDirectionSuggest = "{region=russia/moskovskaya-obl/, search_string=кур}";
+		String sHighWaySuggest = "{region=russia/moskovskaya-obl/, search_string=мин}";
+		String sMetroSuggest = "{region=russia/nizhegorodskaya-obl/nizhniy-novgorod-gorod/, search_string=бур}";
 		
 		JSONObject jData;
 		@SuppressWarnings("unused")
@@ -4602,11 +4606,38 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		smas[3] = sCurrentDistrictSuggest;
 		
-		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона \"Санкт-Петербург\".".toUpperCase());	
-		jData = GetMicroDistrictSuggest(sHost, sDistrictSuggets);
+		print("\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона \"Санкт-Петербург\".".toUpperCase());	
+		jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest);
 		String sCurrentMicroDistrictSuggest = jData.toString(10); 
 		
 		smas[4] = sCurrentMicroDistrictSuggest;
+		
+		print("\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона \"Москва\".".toUpperCase());	
+		jData = GetAOSuggest(sHost, sAOSuggest);
+		String sCurrentAOSuggest = jData.toString(10); 
+		
+		smas[5] = sCurrentAOSuggest;
+		
+		print("\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона \"Московская область\".".toUpperCase());	
+		jData = GetDirectionSuggest(sHost, sDirectionSuggest);
+		String sCurrentDirectionSuggest = jData.toString(10); 
+		
+		smas[6] = sCurrentDirectionSuggest;
+		
+		print("\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона \"Московская область\".".toUpperCase());	
+		jData = GetHighwaySuggest(sHost, sHighWaySuggest);
+		String sCurrentHighWaySuggest = jData.toString(10); 
+		
+		smas[7] = sCurrentHighWaySuggest;
+		
+		print("\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона \"Нижний Новгород\".".toUpperCase());	
+		jData = GetMetroSuggest(sHost, sMetroSuggest);
+		String sCurrentMetroSuggest = jData.toString(10); 
+		
+		smas[7] = sCurrentMetroSuggest;
+		
+		
+		
 		
 		
 	}
@@ -4722,7 +4753,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджестов районов для автотестов
-	public JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка районов (саджест)".toUpperCase());
@@ -4760,7 +4791,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджестов микрорайона для автотестов
-	public JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка микрорайонов (саджест)".toUpperCase());
@@ -4792,6 +4823,154 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else
     	{
     		print("Не удалось получить список микрорайонов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение саджестов АО для автотестов
+	private JSONObject GetAOSuggest(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка административных округов (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDistrictSuggest = "+ sAOSuggest);
+	
+		String sQuery = CreateSimpleRequest(sAOSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок административных округов (саджест) получен \r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список административных округов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение саджестов направлений для автотестов
+	private JSONObject GetDirectionSuggest(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка направлений (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDirectionSuggest = "+ sDataDirectionSuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/directions")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок направлений (саджест) получен \r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список направлений (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}	
+	// получение саджестов шоссе для автотеста
+	private JSONObject GetHighwaySuggest(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка шоссе (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataHighwaySuggest = "+ sDataHighwaySuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/highway")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок шоссе (саджест) получен\r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список шоссе (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение саджестов станций метро для автотеста
+	private JSONObject GetMetroSuggest(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка станций метро (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataMetroSuggest = "+ sDataMetroSuggest);
+	
+		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/metro")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок станций метро (саджест) получен\r\n");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список станций метро (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
