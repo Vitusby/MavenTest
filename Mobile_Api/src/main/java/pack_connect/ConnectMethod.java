@@ -4327,7 +4327,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
-	}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+		
+	}	
 	// получение списка субъектов РФ для атвотеста
 	private JSONObject GetRegions(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -4402,6 +4406,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	// получение списка регинов с поддоменами для автотестов
 	private JSONObject GetRegionDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -4522,6 +4529,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 	}
 	// получение списка городов принадлежащего определенному субъекту РФ
 	private JSONObject GetCitiesInReg(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -4561,7 +4571,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 	
 	// Получение и проверка всех саджестов
-	public void GetAllSuggest(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetAllSuggest(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		String sCitiesSuggest = "{region=russia/moskovskaya-obl/, search_string=кам}";
 		String sStreetsSuggest = "{region=russia/moskva-gorod/, search_string=кам}";
@@ -4600,45 +4610,199 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		smas[2] = sCurrentHouseSuggest;
 		
-		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона \"Санкт-Петербург\".".toUpperCase());	
+		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург.".toUpperCase());	
 		jData = GetDistrictSuggest(sHost, sDistrictSuggets);
 		String sCurrentDistrictSuggest = jData.toString(10); 
 		
 		smas[3] = sCurrentDistrictSuggest;
 		
-		print("\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона \"Санкт-Петербург\".".toUpperCase());	
+		print("\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург.".toUpperCase());	
 		jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest);
 		String sCurrentMicroDistrictSuggest = jData.toString(10); 
 		
 		smas[4] = sCurrentMicroDistrictSuggest;
 		
-		print("\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона \"Москва\".".toUpperCase());	
+		print("\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона Москва.".toUpperCase());	
 		jData = GetAOSuggest(sHost, sAOSuggest);
 		String sCurrentAOSuggest = jData.toString(10); 
 		
 		smas[5] = sCurrentAOSuggest;
 		
-		print("\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона \"Московская область\".".toUpperCase());	
+		print("\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона Московская область.".toUpperCase());	
 		jData = GetDirectionSuggest(sHost, sDirectionSuggest);
 		String sCurrentDirectionSuggest = jData.toString(10); 
 		
 		smas[6] = sCurrentDirectionSuggest;
 		
-		print("\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона \"Московская область\".".toUpperCase());	
+		print("\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона Московская область.".toUpperCase());	
 		jData = GetHighwaySuggest(sHost, sHighWaySuggest);
 		String sCurrentHighWaySuggest = jData.toString(10); 
 		
 		smas[7] = sCurrentHighWaySuggest;
 		
-		print("\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона \"Нижний Новгород\".".toUpperCase());	
+		print("\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород.".toUpperCase());	
 		jData = GetMetroSuggest(sHost, sMetroSuggest);
 		String sCurrentMetroSuggest = jData.toString(10); 
 		
-		smas[7] = sCurrentMetroSuggest;
+		smas[8] = sCurrentMetroSuggest;
+
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		//Js = new JString(smas); // запись рубрикаторов в файл
+		//SaveJson(Js, "Suggest.txt");
+		
+		String sIdealSuggest[] = LoadJson("Suggest.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область, с suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область из сохранения".toUpperCase());
+		if(sIdealSuggest[0].equals(sCurrentCitiesSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
+			print(sIdealSuggest[0]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
+			print(sIdealSuggest[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+
+		
+		print("\r\nСравниваем suggest для улицы при поиске по слову \"кам\" для региона Москва., с suggest для улицы при поиске по слову \"кам\" для региона Москва из сохранения.".toUpperCase());
+		if(sIdealSuggest[1].equals(sCurrentStreetSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
+			print(sIdealSuggest[1]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
+			print(sIdealSuggest[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230), с suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) из сохранения.".toUpperCase());
+		if(sIdealSuggest[2].equals(sCurrentHouseSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
+			print(sIdealSuggest[2]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
+			print(sIdealSuggest[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург, с suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+		if(sIdealSuggest[3].equals(sCurrentDistrictSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
+			print(sIdealSuggest[3]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
+			print(sIdealSuggest[3]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург, с suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+		if(sIdealSuggest[4].equals(sCurrentMicroDistrictSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
+			print(sIdealSuggest[4]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
+			print(sIdealSuggest[4]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем suggest для АО при поиске по слову \"сев\" для региона Москва, с suggest для АО при поиске по слову \"сев\" для региона Москва из сохранения.".toUpperCase());
+		if(sIdealSuggest[5].equals(sCurrentAOSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
+			print(sIdealSuggest[5]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
+			print(sIdealSuggest[5]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
 		
 		
+		print("\r\nСравниваем suggest для направлений при поиске по слову \"кур\" для региона Московская область, с suggest для направлений при поиске по слову \"кур\" для региона Московская область из сохранения.".toUpperCase());
+		if(sIdealSuggest[6].equals(sCurrentDirectionSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
+			print(sIdealSuggest[6]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
+			print(sIdealSuggest[6]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("\r\nСравниваем suggest для шоссе при поиске по слову \"мин\" для региона Московская область, с suggest для шоссе при поиске по слову \"мин\" для региона Московская область из сохранения.".toUpperCase());
+		if(sIdealSuggest[7].equals(sCurrentHighWaySuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
+			print(sIdealSuggest[7]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
+			print(sIdealSuggest[7]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
 		
 		
+		print("\r\nСравниваем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород, с suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород из сохранения.".toUpperCase());
+		if(sIdealSuggest[8].equals(sCurrentMetroSuggest))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
+			print(sIdealSuggest[8]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
+			print(sIdealSuggest[8]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
 		
 	}
 	// получение саджеста городов и нас. пунктов для автотеста
