@@ -176,15 +176,20 @@ public class Test_Mobile
 	{
 			cM.GetCitiesInsideRegion(sBaseHost); //Получение и проверка списка  городов принадлежащих опредлеленному региону
 	}
-	*/
+	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetAllSuggest(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetAllSuggest(sBaseHost); //Получение и проверка списка  городов принадлежащих опредлеленному региону
+			cM.GetAllSuggest(sBaseHost); //Получение и проверка саджествов
 	}
-	
-	
+	*/
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetCurrencies(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetCurrencies(sBaseHost); //Получение и проверка списка валют
+	}
 	
 	
 	// Параметризированные тесты

@@ -4482,7 +4482,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sIdealCitiesInReg[] = LoadJson("CitiesInRegion.txt");
 		
 		print("\r\nШАГ 2");
-		print("Сравниваем список городов принадлежащих региону Москва, со списком городов принадлежащих региону Москва из сохранения".toUpperCase());
+		print("Сравниваем список городов принадлежащих региону Москва полученных запросом, со списком городов принадлежащих региону Москва из сохранения".toUpperCase());
 		if(sIdealCitiesInReg[0].equals(sCurrentCitiesInRegMoskva))
 		{
 			print("Списки идентичны. Корректно");
@@ -4498,7 +4498,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список городов принадлежащих региону Московская область, со списком городов принадлежащих региону Московская область из сохранения".toUpperCase());
+		print("\r\nСравниваем список городов принадлежащих региону Московская область полученных запросом, со списком городов принадлежащих региону Московская область из сохранения".toUpperCase());
 		if(sIdealCitiesInReg[1].equals(sCurrentCitiesInRegMoskovObl))
 		{
 			print("Списки идентичны. Корректно");
@@ -4514,7 +4514,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем список городов принадлежащих региону Архангельская область, со списком городов принадлежащих региону Архангельская область из сохранения".toUpperCase());
+		print("\r\nСравниваем список городов принадлежащих региону Архангельская область полученных запросом, со списком городов принадлежащих региону Архангельская область из сохранения".toUpperCase());
 		if(sIdealCitiesInReg[2].equals(sCurrentCitiesInRegArxangelObl))
 		{
 			print("Списки идентичны. Корректно");
@@ -4654,7 +4654,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sIdealSuggest[] = LoadJson("Suggest.txt");
 		
 		print("\r\nШАГ 2");
-		print("Сравниваем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область, с suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область из сохранения".toUpperCase());
+		print("Сравниваем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область полученных запросом, с suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область из сохранения".toUpperCase());
 		if(sIdealSuggest[0].equals(sCurrentCitiesSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4671,7 +4671,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 
 		
-		print("\r\nСравниваем suggest для улицы при поиске по слову \"кам\" для региона Москва., с suggest для улицы при поиске по слову \"кам\" для региона Москва из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для улицы при поиске по слову \"кам\" для региона Москва полученных запросом, с suggest для улицы при поиске по слову \"кам\" для региона Москва из сохранения.".toUpperCase());
 		if(sIdealSuggest[1].equals(sCurrentStreetSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4687,7 +4687,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230), с suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) полученных запросом, с suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) из сохранения.".toUpperCase());
 		if(sIdealSuggest[2].equals(sCurrentHouseSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4703,7 +4703,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург, с suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург полученных запросом, с suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург из сохранения.".toUpperCase());
 		if(sIdealSuggest[3].equals(sCurrentDistrictSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4719,7 +4719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург, с suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург полученных запросом, с suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург из сохранения.".toUpperCase());
 		if(sIdealSuggest[4].equals(sCurrentMicroDistrictSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4735,7 +4735,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем suggest для АО при поиске по слову \"сев\" для региона Москва, с suggest для АО при поиске по слову \"сев\" для региона Москва из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для АО при поиске по слову \"сев\" для региона Москва полученных запросом, с suggest для АО при поиске по слову \"сев\" для региона Москва из сохранения.".toUpperCase());
 		if(sIdealSuggest[5].equals(sCurrentAOSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4752,7 +4752,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		
-		print("\r\nСравниваем suggest для направлений при поиске по слову \"кур\" для региона Московская область, с suggest для направлений при поиске по слову \"кур\" для региона Московская область из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для направлений при поиске по слову \"кур\" для региона Московская область полученных запросом, с suggest для направлений при поиске по слову \"кур\" для региона Московская область из сохранения.".toUpperCase());
 		if(sIdealSuggest[6].equals(sCurrentDirectionSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4768,7 +4768,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 		
-		print("\r\nСравниваем suggest для шоссе при поиске по слову \"мин\" для региона Московская область, с suggest для шоссе при поиске по слову \"мин\" для региона Московская область из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для шоссе при поиске по слову \"мин\" для региона Московская область полученных запросом, с suggest для шоссе при поиске по слову \"мин\" для региона Московская область из сохранения.".toUpperCase());
 		if(sIdealSuggest[7].equals(sCurrentHighWaySuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -4785,7 +4785,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		
-		print("\r\nСравниваем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород, с suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород из сохранения.".toUpperCase());
+		print("\r\nСравниваем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород полученных запросом, с suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород из сохранения.".toUpperCase());
 		if(sIdealSuggest[8].equals(sCurrentMetroSuggest))
 		{
 			print("Suggest идентичны. Корректно");
@@ -5139,6 +5139,86 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
+	
+	//Получение и проверка списка валют
+	public void GetCurrencies(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	{
+		JSONObject jData;
+		@SuppressWarnings("unused")
+		JString Js;
+		String smas[] = new String [9];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение списка валют - Тест".toUpperCase());
+		
+		print("\r\nШАГ 1");
+		print("Получаем список валют.".toUpperCase());		
+		jData = GetCur(sHost);
+		String sCurrency = jData.toString(10); 
+		
+		smas[0] = sCurrency;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+		Js = new JString(smas); // запись рубрикаторов в файл
+		SaveJson(Js, "Currency.txt");
+		
+		String sIdealCurr[] = LoadJson("Currency.txt");
+		
+		print("\r\nШАГ 2");
+		print("Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
+		if(sIdealCurr[0].equals(sCurrency))
+		{
+			print("Suggest идентичны. Корректно");
+			print("Полученный из сохранения список валют :");
+			print(sIdealCurr[0]);
+		}
+		else 
+		{
+			print("Списки не совпадают");
+			print("Полученный из сохранения список валют :");
+			print(sIdealCurr[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+
+		
+	}
+	// получение списка валют
+	private JSONObject GetCur(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение списка валют".toUpperCase());
+	
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/currencies");
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок валют получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список валют \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(1));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
