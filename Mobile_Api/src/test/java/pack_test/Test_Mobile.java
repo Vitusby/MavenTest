@@ -106,7 +106,7 @@ public class Test_Mobile
 
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_13" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddVoteHighLower(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
@@ -114,7 +114,7 @@ public class Test_Mobile
 	}
 
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_14" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddAdvertGetCitiesGetListCategory(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
