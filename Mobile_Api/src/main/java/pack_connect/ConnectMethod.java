@@ -2504,7 +2504,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		JSONObject jData, jData2, jDataPostAsvert;
-		InnerDataHM objRealt;
+		InnerDataHM objCar;
 		String sDataForList = "{category=cars/passenger/new/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		int nNumberList, nNumberList2;
 		
@@ -2520,13 +2520,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача двух объявлений в платную рубрику Авто - Новые авто".toUpperCase());
 		print("\r\nПодача объявления в рубрику Авто - Новые авто");
 		print("Объявление №1");
-    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
-    	sIdAdvert = objRealt.GetID();
+		objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+    	sIdAdvert = objCar.GetID();
    	
     	print("\r\nПодача объявления в рубрику Авто - Новые авто");
 		print("Объявление №2");
-    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
-    	sIdAdvert2 = objRealt.GetID();
+		objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+    	sIdAdvert2 = objCar.GetID();
     	
     	// проверка статуса объявлений поданных в платную рубрику
     	print("\r\nШАГ 2");
@@ -5352,6 +5352,339 @@ public class ConnectMethod extends Connect_Request_Abstract
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
+	}
+	
+	
+	//Проверка платных продуктов на этапе подачи и в ЛК, проверка бесплатных продуктов в ЛК
+	public void AddAdvertCheckPaidAndFreeProducts(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException, ClassNotFoundException
+	{
+		String sIdAutoPaid, sIdTIU_Free, sIdTIU_Free2, sIdTIU_Paid; 
+		String sLogin = Proper.GetProperty("login_authOP3");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objAuto, objTIY;
+		@SuppressWarnings("unused")
+		JString Js, Js2; // объекты для хранения ответов на запросы
+		String smasInStepAdd[] = new String [3];
+		String smasInLK[] = new String [12];
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача платного объявления, подача трех бесплатных объявлений, подача платного объявления сверх лимита бесплатных - Тест".toUpperCase()+"\r\n");
+
+		// авторизация
+		print("\r\nАвторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		
+		// подача платного объявлений
+		print("\r\nШАГ 1");
+		print("Подача 1 платного объявления".toUpperCase());  	
+		print("\r\nПодача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
+		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+		sIdAutoPaid = objAuto.GetID();
+    	
+		print("\r\nШАГ 1-1");
+		print("\r\nПодача 1 бесплатного объявления");
+    	print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU_Free = objTIY.GetID();
+    	
+    	print("\r\nШАГ 1-2");
+    	print("\r\nПодача 2 бесплатного объявления");
+    	print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU_Free2 = objTIY.GetID();
+    	
+    	print("\r\nШАГ 1-3");
+    	print("\r\nПодача 3 бесплатного объявления");
+    	print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+    	PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	
+    	print("\r\nШАГ 1-4");
+    	print("\r\nПодача 4 объявления, объявление платное, сверх лимита бесплатных");
+    	print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+    	sIdTIU_Paid = objTIY.GetID();
+  
+    	
+    	// проверка платных продуктов на этапе подачи
+    	print("\r\nШАГ 2");
+		print("Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
+		print("\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
+		jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
+		smasInStepAdd[0] = sCurrentAutoPaid;
+	
+		print("\r\nШАГ 2-1");
+		print("\r\nПолучаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+		jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free);
+		String sCurrentElectronFree = jData.toString(10); 
+		CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
+		sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+		smasInStepAdd[1] = sCurrentElectronFree;
+    	
+		print("\r\nШАГ 2-2");
+		print("\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+		jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid);
+		String sCurrentElectronPaid = jData.toString(10); 
+		CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 2,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");
+		sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
+		smasInStepAdd[2] = sCurrentElectronPaid;
+    	
+    	//Раскоментить если надо будет обновить значения и закомментить после обновления
+    	//Js = new JString(smasInStepAdd); // запись в файл
+    	//SaveJson(Js, "PaidProductInAddStep.txt");
+    			
+    	String sIdealPaid[] = LoadJson("PaidProductInAddStep.txt");
+    	
+    	print("\r\nШАГ 3");
+		print("Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва полученных запросом для рубрики, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва".toUpperCase());
+		if(sIdealPaid[0].equals(sCurrentAutoPaid))
+		{
+			print("Списки продуктов идентичны. Корректно");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[0]);
+		}
+		else 
+		{
+			print("Списки продуктов не совпадают");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[0]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		print("\r\nШАГ 3-1");
+		print("Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань полученных запросом для рубрики, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		if(sIdealPaid[1].equals(sCurrentElectronFree))
+		{
+			print("Списки продуктов идентичны. Корректно");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[1]);
+		}
+		else 
+		{
+			print("Списки продуктов не совпадают");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[1]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		print("\r\nШАГ 3-2");
+		print("Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань полученных запросом для рубрики, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		if(sIdealPaid[2].equals(sCurrentElectronPaid))
+		{
+			print("Списки продуктов идентичны. Корректно");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[2]);
+		}
+		else 
+		{
+			print("Списки продуктов не совпадают");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdealPaid[2]);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		
+		
+		//проверка платных продуктов в ЛК
+		print("\r\nШАГ 4");
+		print("Получение списка платных продуктов для объявлений в ЛК.".toUpperCase());	
+
+		print("\r\nШАГ 4-1");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		sCurrentAutoPaid = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
+		smasInLK[0] = sCurrentAutoPaid;
+		
+		print("\r\nШАГ 4-2");
+		print("\r\nОплачиваем(активируем объявление)".toUpperCase());
+		ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
+		
+		print("\r\nШАГ 4-3");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid2 = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid2, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid, "*****");
+		smasInLK[1] = sCurrentAutoPaid2;
+		
+		print("\r\nШАГ 4-4");
+		print("\r\nВыделяем объявление".toUpperCase());
+		HighLightAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
+		
+		print("\r\nШАГ 4-5");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid3 = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid3, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid, "*****");
+		smasInLK[2] = sCurrentAutoPaid3;
+		
+		print("\r\nШАГ 4-6");
+		print("\r\nДеактивируем объявление".toUpperCase());
+		DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1);
+		
+		print("\r\nШАГ 4-7");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid4 = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid4, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid, "*****");
+		smasInLK[3] = sCurrentAutoPaid4;
+		
+		print("\r\nШАГ 4-8");
+		print("\r\nНазначаем премиум объявлению".toUpperCase());
+		SetPremiumAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
+		
+		print("\r\nШАГ 4-9");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid5 = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid5, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid, "*****");
+		smasInLK[4] = sCurrentAutoPaid5;
+		
+		
+		print("\r\nШАГ 4-10");
+		print("\r\nДеактивируем объявление".toUpperCase());
+		DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1);
+		
+		print("\r\nШАГ 4-11");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+		String sCurrentAutoPaid6 = jData.toString(10); 
+		CheckCountId(sCurrentAutoPaid6, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+		sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid, "*****");
+		smasInLK[5] = sCurrentAutoPaid6;
+		
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+
+    	
+    	
+	}
+	// получение платных продуктов на этапе подачи для автотеста
+	private JSONObject GetPaidProductsToStepToAdd(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("Получение списка платных продуктов для объявления доступных на этапе подачи объявления".toUpperCase());
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products");
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nСписок получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список продуктов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение платных продуктов в ЛК
+	private JSONObject GetPaidProductsFromLK(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		print("Получение списка платных продуктов для объявления доступных в личном кабинете пользователя".toUpperCase());
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc");
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nСписок получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список продуктов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// получение бесплатных продуктов в ЛК
+	private JSONObject GetFreeProductsForAdvert(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		print("Получение списка бесплатных действий над объявлением".toUpperCase());
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions");
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + " Список получен");
+    		return jsonObject;
+    	}
+    	else
+    	{
+    		print("Не удалось получить список продуктов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	// проверка наличия в ответах правильной id и правильного количества id 
+	private void CheckCountId(String sJson, String sId, int nCount, String sText) throws ExceptFailTest
+	{
+		print("Проверяем совпадения в ответе для конфига платных продуктов, наличия правильного ID объявления и правильного количества повторений ID");
+		print("Проверяем рубрику " + sText + "Ищем в ответе совпадение поданного объявления с ID = " + sId + " и повторения данного ID " + nCount +" раз");
+		int l = sJson.length();
+		int k=0;
+		while(sJson.lastIndexOf(sId, l) != -1)
+		{
+			k++;
+			l = sJson.lastIndexOf(sId, l) - 1;
+
+		}
+		if(k == nCount)
+		{
+			print("В ответе присутствует ID = " + sId + " количество записей ID равно " + k + " что совпало с ожидаемым количеством равным " + nCount + " Корректно.");
+		}
+		else
+		{
+			print("В ответе либо не присутствует ID = " + sId + " либо количество записей ID равное " + k + " не совпало с ожидаемым количеством равным " + nCount);
+			print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+		}
 	}
 	
 // Параметризированные тесты

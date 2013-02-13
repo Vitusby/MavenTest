@@ -190,7 +190,7 @@ public class Test_Mobile
 	{
 			cM.GetCurrencies(sBaseHost); //Получение и проверка списка валют
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -198,6 +198,15 @@ public class Test_Mobile
 	{
 			cM.GetDictionary(sBaseHost); //Получение и проверка словарей
 	}
+	*/
+	
+	@Test (groups = { "AutoTest" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddAdvertCheckPaidAndFreeProducts(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
+	}
+	
 	
 	
 	// Параметризированные тесты
