@@ -73,7 +73,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_9" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
@@ -81,7 +81,7 @@ public class Test_Mobile
 	}
 	 
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_10" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
