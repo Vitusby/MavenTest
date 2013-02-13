@@ -3330,7 +3330,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	//Подача , получение списка городов водящих в субъект, получения листинга категории и проверка объявлений на статус, категорию, регион
+	//Подача, получение списка городов вxодящих в субъект, получения листинга категории и проверка объявлений на статус, категорию, регион
 	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		String sIdAuto, sIdRealt, sIdTIU;
@@ -3342,16 +3342,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
-		String sRegionUriAuto = "russia/moskva-gorod/";
 		String sRegionNameAuto = "Москва";
 		String sCategoryNameAuto = "Автомобили с пробегом";
-		String sRegionUriRealt = "russia/arhangelskaya-obl/arhangelsk-gorod/";
 		String sRegionNameRealt = "Архангельск";
 		String sCategoryNameRealt = "Вторичный рынок";
-		String sRegionUriTIY = "russia/tatarstan-resp/kazan-gorod/";
 		String sRegionNameTIY = "Казань";
 		String sCategoryNameTIY = "Пылесосы";
-		HM<String, String> hChildren;
 	
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
@@ -3382,12 +3378,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
     	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
     	
-    	// получение и сохранение списка городов входящих в регион
-    	print("\r\nШАГ 2");
-    	print("Получаем список городов входящих в регион Москва".toUpperCase());
-    	jData = GetChildrenCities(sHost, sRegionUriAuto);
-    	print("Сохраняем список городов входящих в регион Москва. Используем его для проверки корректности нахождения объявления в листинге");
-    	hChildren = GetAllChildrenCities(jData);
     	
     	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
     	print("\r\nШАГ 3");
@@ -3395,42 +3385,30 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
     	jData = GetListCategory(sHost, sDataForListAuto);
     	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, hChildren);
+    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
     	
     	
-    	// получение и сохранение списка городов входящих в регион Архангельск
-    	print("\r\nШАГ 4");
-    	print("Получаем список городов входящих в регион Архангельск".toUpperCase());
-    	jData = GetChildrenCities(sHost, sRegionUriRealt);
-    	print("Сохраняем список городов входящих в регион Архангельск. Используем его для проверки корректности нахождения объявления в листинге");
-    	hChildren = GetAllChildrenCities(jData);
-    	
+    
     	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-    	print("\r\nШАГ 5");
+    	print("\r\nШАГ 4");
     	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
     	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
     	jData = GetListCategory(sHost, sDataForListRealt);
     	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, hChildren);
+    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
     	
 ///////////////////////   	
-    	// получение и сохранение списка городов входящих в регион Казань
-    	print("\r\nШАГ 6");
-    	print("Получаем список городов входящих в регион Казань".toUpperCase());
-    	jData = GetChildrenCities(sHost, sRegionUriTIY);
-    	print("Сохраняем список городов входящих в регион Казань. Используем его для проверки корректности нахождения объявления в листинге");
-    	hChildren = GetAllChildrenCities(jData);
-    	
+    
     	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-    	print("\r\nШАГ 7");
+    	print("\r\nШАГ 5");
     	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
     	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
     	jData = GetListCategory(sHost, sDataForListTIY);
     	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, hChildren);
+    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
     	
     	// удаляем объявления 
-    	print("\r\nШАГ 8");
+    	print("\r\nШАГ 6");
     	print("Удаление поданных объявлений пользователя".toUpperCase());
     	print("Удаляем объявление с ID = " + sIdAuto);
     	DeleteAdvert(sHost, sAuth_token, sIdAuto);
@@ -3446,12 +3424,11 @@ public class ConnectMethod extends Connect_Request_Abstract
    
 	}
 	// проверка листинга на содержимое
-	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegionNameAuto, String sCategoryNameAuto, HM<String, String>hCities) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegionNameAuto, String sCategoryNameAuto, String sWaitUrl) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		JSONObject jTemp, jData;
 		String sId;
 		boolean bFlagAdvert = false;
-
 		jTemp = jObj;
 		
 		
@@ -3484,7 +3461,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print("Проверяем категорию объявления для объявления ID = " + sId);
     			ValidateCategory(sCategoryNameAuto, jData, sId, "");
     			print("Проверяем регион объявления для объявления ID = " + sId);
-    			ValidateRegion(sRegionNameAuto, jData, sId, "", hCities);
+    			ValidateRegion(sRegionNameAuto, jData, sId, "", sWaitUrl);
     		}
     		if(bFlagAdvert == true)
     			print("Все объявления в листинге категории активны (status = 1), принадлежат категории \"" + sCategoryNameAuto + "\" и региону \"" + sRegionNameAuto + "\". В листинге так же найдено, только что поданное объявления. Корректно");
@@ -3498,6 +3475,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// получаем список городов принадлежащих региону листинга
+	@SuppressWarnings("unused")
 	private  JSONObject GetChildrenCities(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -3533,6 +3511,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение HM городов входящих в регион
+	@SuppressWarnings("unused")
 	private HM<String, String> GetAllChildrenCities(JSONObject jObj) throws JSONException
 	{
 		HM<String, String> hCities = new HM<String, String>();
@@ -3563,16 +3542,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// проверка региона для автотеста
-	private void ValidateRegion(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText , HM<String,String> hCities) throws JSONException, ExceptFailTest
+	private void ValidateRegion(String sWaitStatus, JSONObject jObj, String sIdAdvert, String sText, String sWaitUrl) throws JSONException, ExceptFailTest
 	{
 		String sRegion = jObj.getJSONObject("advertisement").getString("region");
+		String sUrlRegion = jObj.getJSONObject("advertisement").getString("region_url");
+		print(sUrlRegion);
 		if(sRegion.equals(sWaitStatus))
 		{
 			print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " совпал с ожидаемым регионом  = " + sWaitStatus + sText);
 		}
 		else
 		{
-			if(hCities.GetValue(sRegion) == null)
+			if(sUrlRegion.lastIndexOf(sWaitUrl) == -1)
 			{
 				print("Текущий регион объявления ID = " + sIdAdvert + ",  = " + sRegion + " не совпал с ожидаемым регионом  = " + sWaitStatus + sText);
 				print("Тест провален".toUpperCase());
