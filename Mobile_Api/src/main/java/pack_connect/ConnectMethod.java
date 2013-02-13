@@ -5365,11 +5365,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONObject jData;
 		InnerDataHM objAuto, objTIY;
 		@SuppressWarnings("unused")
-		JString Js, Js2, Js3; // объекты для хранения ответов на запросы
+		JString Js, Js2, Js3, Js4; // объекты для хранения ответов на запросы
 		String smasInStepAdd[] = new String [3];
 		String smasAutoInLK[] = new String [6];
 		String smasElectronInLK[] = new String [6];
 		String smasElectronPaidInLK[] = new String [6];
+		String smasFree[] = new String [2];
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача платного объявления, подача трех бесплатных объявлений, подача платного объявления сверх лимита бесплатных - Тест".toUpperCase()+"\r\n");
@@ -5763,11 +5764,101 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smasElectronPaidInLK[5] = sCurrentElectronPaid6;
 		
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-    	Js3 = new JString(smasElectronPaidInLK); // запись в файл
-    	SaveJson(Js3, "PaidProductElectronPaidLK.txt");
+    	//Js3 = new JString(smasElectronPaidInLK); // запись в файл
+    	//SaveJson(Js3, "PaidProductElectronPaidLK.txt");
 		
     	String sIdealPaidElectronPaidLK[] = LoadJson("PaidProductElectronPaidLK.txt");
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    	print("\r\nШАГ 9");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление неоплачено, неактивно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[0],sCurrentElectronPaid);
 		
+    	print("\r\nШАГ 9-1");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление оплачено, активно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[1],sCurrentElectronPaid2);
+    	
+		print("\r\nШАГ 9-2");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление выделено, активно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[2],sCurrentElectronPaid3);
+		
+		print("\r\nШАГ 9-3");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление выделено, неактивно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[3],sCurrentElectronPaid4);
+		
+		print("\r\nШАГ 9-4");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление премиум, активно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[4],sCurrentElectronPaid5);
+    	
+		print("\r\nШАГ 9-5");
+		print("Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление премиум, активно");
+		CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[5],sCurrentElectronPaid6);
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		print("\r\nШАГ 10");
+		print("Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление активно".toUpperCase());
+		jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2);
+		String sCurrentFree = jData.toString(10); 
+		smasFree[0] = sCurrentFree;
+		
+		print("\r\nШАГ 10-1");
+		print("\r\nДеактивируем объявление".toUpperCase());
+		DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free2, 1);
+		
+		print("\r\nШАГ 10-1");
+		print("Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление неактивно.".toUpperCase());
+		jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2);
+		String sCurrentFree2 = jData.toString(10); 
+		smasFree[1] = sCurrentFree2;
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+    	//Js4 = new JString(smasFree); // запись в файл
+    	//SaveJson(Js4, "FreeProductElectron.txt");
+		
+    	String sIdealFreeElectron[] = LoadJson("FreeProductElectron.txt");
+		
+    	print("\r\nШАГ 11");
+		print("Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление активно");
+		CheckAnswerForPaidProduct(sIdealFreeElectron[0],sCurrentFree);
+		
+		print("\r\nШАГ 11-1");
+		print("Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление неактивно");
+		CheckAnswerForPaidProduct(sIdealFreeElectron[1],sCurrentFree2);
+		
+		
+		// удаляем объявления 
+    	print("\r\nШАГ 12");
+    	print("Удаление поданных объявлений пользователя".toUpperCase());
+    	print("Удаляем объявление с ID = " + sIdAutoPaid);
+    	DeleteAdvert(sHost, sAuth_token, sIdAutoPaid);
+    	
+    	print("Удаляем объявление с ID = " + sIdTIU_Free);
+    	DeleteAdvert(sHost, sAuth_token, sIdTIU_Free);
+    	
+    	print("Удаляем объявление с ID = " + sIdTIU_Free2);
+    	DeleteAdvert(sHost, sAuth_token, sIdTIU_Free2);
+    	
+    	print("Удаляем объявление с ID = " + sIdTIU_Free3);
+    	DeleteAdvert(sHost, sAuth_token, sIdTIU_Free3);
+    	
+    	print("Удаляем объявление с ID = " + sIdTIU_Paid);
+    	DeleteAdvert(sHost, sAuth_token, sIdTIU_Paid);
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Тест завершен успешно".toUpperCase());
