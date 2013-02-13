@@ -89,7 +89,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_11" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddAvdertGetListUserOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
@@ -97,7 +97,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_12" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetFilterList(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
