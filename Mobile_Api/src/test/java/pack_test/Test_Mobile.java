@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-	@Test (groups = { "AutoTest_1" })
+	/*@Test (groups = { "AutoTest_1" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -129,15 +129,15 @@ public class Test_Mobile
 			cM.GetAndCheckRubricator(sBaseHost); //Получение и проверка рубрикатора
 	}
 	
-	
-	@Test (groups = { "AutoTest_16" })
+	*/
+	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForAddAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
 			cM.GetFieldsForAddAdvert(sBaseHost); //Получение и проверка полей для подачи 
 	}
 	
-	
+	/*
 	@Test (groups = { "AutoTest_17" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForEditAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
@@ -206,7 +206,7 @@ public class Test_Mobile
 	{
 			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
 	}
-	
+	*/
 	
 	
 	// Параметризированные тесты
