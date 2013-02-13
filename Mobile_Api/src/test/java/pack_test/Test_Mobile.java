@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-/*	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_1" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -113,14 +113,14 @@ public class Test_Mobile
 			cM.AddVoteHighLower(sBaseHost); //Подача/голосование+/голосование-
 	}
 
-	*/
+	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddAdvertGetCitiesGetListCategory(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
 			cM.AddAdvertGetCitiesGetListCategory(sBaseHost); //Подача/Получение и проверка листинга категории 
 	}
-	/*
+	
 	
 	@Test (groups = { "AutoTest" })
 	@Parameters({"sBaseHost"})
@@ -206,7 +206,7 @@ public class Test_Mobile
 	{
 			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
 	}
-	*/
+	
 	
 	
 	// Параметризированные тесты
