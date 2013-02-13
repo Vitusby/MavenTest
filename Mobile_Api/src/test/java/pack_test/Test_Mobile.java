@@ -23,7 +23,7 @@ public class Test_Mobile
 			cM.CreateProfileReqeust(sBaseHost); // Создание профиля
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_2" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_Authorization(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
