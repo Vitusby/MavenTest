@@ -30,21 +30,21 @@ public class Test_Mobile
 			cM.Authorization(sBaseHost); // Авторизация	
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_3" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetAndEditProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.GetAndEditProfile(sBaseHost); // Получение и редактирование профиля
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_4" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_RestorePassworde(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 			cM.RestorePassword(sBaseHost); // Восстановление пароля
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_5" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
