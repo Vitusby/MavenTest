@@ -130,7 +130,7 @@ public class Test_Mobile
 	}
 	
 	*/
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_16" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForAddAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
