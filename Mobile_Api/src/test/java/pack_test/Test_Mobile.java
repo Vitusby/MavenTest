@@ -138,7 +138,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_17" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForEditAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -146,7 +146,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_18" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForSearchAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
