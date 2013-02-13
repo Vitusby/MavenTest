@@ -177,14 +177,14 @@ public class Test_Mobile
 			cM.GetCitiesInsideRegion(sBaseHost); //Получение и проверка списка  городов принадлежащих опредлеленному региону
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_22" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetAllSuggest(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
 			cM.GetAllSuggest(sBaseHost); //Получение и проверка саджествов
 	}
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_23" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetCurrencies(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -192,7 +192,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_24" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetDictionary(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -200,7 +200,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_25" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_AddAdvertCheckPaidAndFreeProducts(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
