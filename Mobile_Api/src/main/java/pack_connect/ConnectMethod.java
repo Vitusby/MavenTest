@@ -5367,7 +5367,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		@SuppressWarnings("unused")
 		JString Js, Js2; // объекты для хранения ответов на запросы
 		String smasInStepAdd[] = new String [3];
-		String smasInLK[] = new String [12];
+		String smasAutoInLK[] = new String [6];
+		String smasElectronInLK[] = new String [6];
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача платного объявления, подача трех бесплатных объявлений, подача платного объявления сверх лимита бесплатных - Тест".toUpperCase()+"\r\n");
@@ -5441,127 +5442,168 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sIdealPaid[] = LoadJson("PaidProductInAddStep.txt");
     	
     	print("\r\nШАГ 3");
-		print("Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва полученных запросом для рубрики, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва".toUpperCase());
-		if(sIdealPaid[0].equals(sCurrentAutoPaid))
-		{
-			print("Списки продуктов идентичны. Корректно");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[0]);
-		}
-		else 
-		{
-			print("Списки продуктов не совпадают");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[0]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
+		print("Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва из сохранения".toUpperCase());
+		CheckAnswerForPaidProduct(sIdealPaid[0],sCurrentAutoPaid);
+		
 		print("\r\nШАГ 3-1");
-		print("Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань полученных запросом для рубрики, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		if(sIdealPaid[1].equals(sCurrentElectronFree))
-		{
-			print("Списки продуктов идентичны. Корректно");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[1]);
-		}
-		else 
-		{
-			print("Списки продуктов не совпадают");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[1]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
+		print("Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+		CheckAnswerForPaidProduct(sIdealPaid[1],sCurrentElectronFree);
+		
 		print("\r\nШАГ 3-2");
-		print("Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань полученных запросом для рубрики, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		if(sIdealPaid[2].equals(sCurrentElectronPaid))
-		{
-			print("Списки продуктов идентичны. Корректно");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[2]);
-		}
-		else 
-		{
-			print("Списки продуктов не совпадают");
-			print("Полученный из сохранения список продуктов :");
-			print(sIdealPaid[2]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
+		print("Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+		CheckAnswerForPaidProduct(sIdealPaid[2],sCurrentElectronPaid);
 		
 		
-		//проверка платных продуктов в ЛК
+		
+		//проверка платных продуктов в ЛК Авто (платное объявление)
 		print("\r\nШАГ 4");
-		print("Получение списка платных продуктов для объявлений в ЛК.".toUpperCase());	
-
-		print("\r\nШАГ 4-1");
+		print("Получение списка платных продуктов для объявлений в ЛК. Рубрика Авто - Новые автомобили. Регион Москва.".toUpperCase());	
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		sCurrentAutoPaid = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
-		smasInLK[0] = sCurrentAutoPaid;
+		smasAutoInLK[0] = sCurrentAutoPaid;
 		
-		print("\r\nШАГ 4-2");
+		print("\r\nШАГ 4-1");
 		print("\r\nОплачиваем(активируем объявление)".toUpperCase());
 		ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
 		
-		print("\r\nШАГ 4-3");
+		print("\r\nШАГ 4-2");
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		String sCurrentAutoPaid2 = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid2, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid, "*****");
-		smasInLK[1] = sCurrentAutoPaid2;
+		smasAutoInLK[1] = sCurrentAutoPaid2;
 		
-		print("\r\nШАГ 4-4");
+		print("\r\nШАГ 4-3");
 		print("\r\nВыделяем объявление".toUpperCase());
 		HighLightAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
 		
-		print("\r\nШАГ 4-5");
+		print("\r\nШАГ 4-4");
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		String sCurrentAutoPaid3 = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid3, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid, "*****");
-		smasInLK[2] = sCurrentAutoPaid3;
+		smasAutoInLK[2] = sCurrentAutoPaid3;
 		
-		print("\r\nШАГ 4-6");
+		print("\r\nШАГ 4-5");
 		print("\r\nДеактивируем объявление".toUpperCase());
 		DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1);
 		
-		print("\r\nШАГ 4-7");
+		print("\r\nШАГ 4-6");
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		String sCurrentAutoPaid4 = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid4, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid, "*****");
-		smasInLK[3] = sCurrentAutoPaid4;
+		smasAutoInLK[3] = sCurrentAutoPaid4;
 		
-		print("\r\nШАГ 4-8");
+		print("\r\nШАГ 4-7");
 		print("\r\nНазначаем премиум объявлению".toUpperCase());
 		SetPremiumAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
 		
-		print("\r\nШАГ 4-9");
+		print("\r\nШАГ 4-8");
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		String sCurrentAutoPaid5 = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid5, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid, "*****");
-		smasInLK[4] = sCurrentAutoPaid5;
+		smasAutoInLK[4] = sCurrentAutoPaid5;
 		
-		
-		print("\r\nШАГ 4-10");
+		print("\r\nШАГ 4-9");
 		print("\r\nДеактивируем объявление".toUpperCase());
 		DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1);
 		
-		print("\r\nШАГ 4-11");
+		print("\r\nШАГ 4-10");
 		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
 		jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
 		String sCurrentAutoPaid6 = jData.toString(10); 
 		CheckCountId(sCurrentAutoPaid6, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 		sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid, "*****");
-		smasInLK[5] = sCurrentAutoPaid6;
+		smasAutoInLK[5] = sCurrentAutoPaid6;
+		
+		
+		//Раскоментить если надо будет обновить значения и закомментить после обновления
+    	//Js2 = new JString(smasAutoInLK); // запись в файл
+    	//SaveJson(Js2, "PaidProductAutoLK.txt");
+    			
+    	String sIdealPaidAutoLK[] = LoadJson("PaidProductAutoLK.txt");
+		
+    	print("\r\nШАГ 5");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление неоплачено, неактивно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[0],sCurrentAutoPaid);
+		
+		print("\r\nШАГ 5-1");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление оплачено, активно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[1],sCurrentAutoPaid2);
+		
+		print("\r\nШАГ 5-2");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление выделено, активно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[2],sCurrentAutoPaid3);
+		
+		print("\r\nШАГ 5-3");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление выделено, неактивно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[3],sCurrentAutoPaid4);
+		
+		print("\r\nШАГ 5-4");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление премиум, активно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[4],sCurrentAutoPaid5);
+		
+		print("\r\nШАГ 5-5");
+		print("Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+				"с таким же списком из сохранения".toUpperCase());
+		print("Объявление премиум, неактивно");
+		CheckAnswerForPaidProduct(sIdealPaidAutoLK[5],sCurrentAutoPaid6);
+		
+		
+		//проверка платных продуктов в ЛК Пылесосы (бесплатное объявление)
+		print("\r\nШАГ 6");
+		print("Получение списка платных продуктов для объявлений в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+		sCurrentElectronFree = jData.toString(10); 
+		CheckCountId(sCurrentElectronFree, sIdTIU_Free, 4,  " Электроника и техника - Пылесосы. Регион Казань ");
+		sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+		smasElectronInLK[0] = sCurrentElectronFree;
+		
+		print("\r\nШАГ 6-1");
+		print("\r\nДеактивируем объявление".toUpperCase());
+		DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1);
+		
+		print("\r\nШАГ 6-2");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, неактивно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+		String sCurrentElectronFree2 = jData.toString(10); 
+		CheckCountId(sCurrentElectronFree2, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+		sCurrentElectronFree2 = sCurrentElectronFree2.replace(sIdTIU_Free, "*****");
+		smasElectronInLK[1] = sCurrentElectronFree2;
+		
+		print("\r\nШАГ 6-3");
+		print("\r\nНазначаем премиум объявлению".toUpperCase());
+		SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1);
+		
+		print("\r\nШАГ 6-4");
+		print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
+		jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+		String sCurrentElectronFree3 = jData.toString(10); 
+		CheckCountId(sCurrentElectronFree3, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+		sCurrentElectronFree3 = sCurrentElectronFree3.replace(sIdTIU_Free, "*****");
+		smasElectronInLK[2] = sCurrentElectronFree3;
+		
+		
 		
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -5677,7 +5719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		if(k == nCount)
 		{
-			print("В ответе присутствует ID = " + sId + " количество записей ID равно " + k + " что совпало с ожидаемым количеством равным " + nCount + " Корректно.");
+			print("В ответе присутствует ID(если ожидаемое количество не равно 0) = " + sId + " количество записей ID равно " + k + " что совпало с ожидаемым количеством равным " + nCount + " Корректно.");
 		}
 		else
 		{
@@ -5686,6 +5728,25 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
 		}
 	}
+	// валидация  ответа на запрос с сохраненным ответом на запрос
+	private void CheckAnswerForPaidProduct(String sIdeal , String sCurrent) throws ExceptFailTest
+	{
+		if(sIdeal.equals(sCurrent))
+		{
+			print("Списки продуктов идентичны. Корректно");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdeal);
+		}
+		else 
+		{
+			print("Списки продуктов не совпадают");
+			print("Полученный из сохранения список продуктов :");
+			print(sIdeal);
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+	}
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
