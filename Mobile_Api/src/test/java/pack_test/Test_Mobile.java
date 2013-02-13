@@ -16,7 +16,7 @@ public class Test_Mobile
 	ConnectMethod cM = new ConnectMethod();
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
-	/*@Test (groups = { "AutoTest_1" })
+	@Test (groups = { "AutoTest_1" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -136,7 +136,7 @@ public class Test_Mobile
 	{
 			cM.GetFieldsForAddAdvert(sBaseHost); //Получение и проверка полей для подачи 
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest_17" })
 	@Parameters({"sBaseHost"})
@@ -145,7 +145,7 @@ public class Test_Mobile
 			cM.GetFieldsForEditAdvert(sBaseHost); //Получение и проверка полей для редактирования
 	}
 	
-	/*
+	
 	@Test (groups = { "AutoTest_18" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForSearchAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
@@ -154,7 +154,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_19" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetRegionRussionFederation(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -162,7 +162,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_20" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetRegionsWithDomen(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -170,7 +170,7 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest" })
+	@Test (groups = { "AutoTest_21" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetCitiesInsideRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -206,7 +206,7 @@ public class Test_Mobile
 	{
 			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
 	}
-	*/
+	
 	
 	
 	// Параметризированные тесты
