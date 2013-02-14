@@ -7332,9 +7332,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
-    	JSONObject jsonTemp;
     	jsonObject = ParseResponse(sResponse);
-    	jsonTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
     	
