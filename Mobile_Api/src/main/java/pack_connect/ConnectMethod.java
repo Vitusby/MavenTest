@@ -7337,6 +7337,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
+    	
     		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
     		print("");
     		JSONArray ar = jsonTemp.getJSONArray("default");
@@ -7389,10 +7390,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список субъектов РФ получен");
-    		JSONArray ar = jsonObject.getJSONArray("regions");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:" + jsonObject.toString(10) + "список субъектов РФ получен");
+    		
     	}
     	else
     	{
