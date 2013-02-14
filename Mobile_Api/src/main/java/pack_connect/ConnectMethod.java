@@ -7843,6 +7843,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("NameDictinary = "+ sNameDict);
 		
+		
+		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict);
     	
@@ -7872,6 +7874,45 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
+	//.	Получение значений словаря
+	public void GetPromo7_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("7.1.	Получение промо-блока");
+		print("Параметры для запроса");
+		print("sParam = "+ sParam);
+		
+		String sQuery = CreateSimpleRequest(sParam);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/promo").setQuery(sQuery);
+    	
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nданные о промо-блоке получены\r\n");
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить данные о промо-блоке \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+
 	
 	private JSONObject ParseResponse(String sResponse) throws ExceptFailTest
 	   {

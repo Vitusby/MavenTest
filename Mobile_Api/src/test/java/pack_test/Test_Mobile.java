@@ -528,5 +528,13 @@ public class Test_Mobile
 		//"Car makers commercial"
 	} 
 	
+	@Test (groups = { "GetPromo7_1" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test42(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetPromo7_1(sBaseHost, sParam);
+	
+	} 
+	
 	
 }
