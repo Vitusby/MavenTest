@@ -7339,25 +7339,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     	
     		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
-    		print("");
-    		JSONArray ar = jsonTemp.getJSONArray("default");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("default");
-    			jsonObject = (JSONObject) ar.get(i);
-    			print(jsonObject.toString(10));
+    		print(jsonObject.toString(10));
     		
-    		}
-    		ar = jsonTemp.getJSONArray("extended");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("extended");
-    			jsonObject = (JSONObject) ar.get(i);
-    			print(jsonObject.toString(10));
-    		
-    		}
     	}
     	else
     	{
@@ -7875,7 +7858,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	//.	Получение значений словаря
+	//7.1	Получение промо-блока
 	public void GetPromo7_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
