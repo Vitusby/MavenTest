@@ -7,7 +7,7 @@
    <parameter name="sPassword" value="retry2"/> 
   <groups>
     <run>
-      <include name="AutoTest_18"/>
+      <include name="AutoTest_16"/>
     </run>
   </groups>
     <classes>
