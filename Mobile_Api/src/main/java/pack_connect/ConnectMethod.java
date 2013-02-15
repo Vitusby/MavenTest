@@ -3763,8 +3763,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[3] = sCusRealtArxangelsk;
 		smas[4] = sCusTIYKazan;
 		
-		Js = new JString(smas); // запись полей для рубрик в файл
-		SaveJson(Js, "CustomfieldsForAdd2.txt");
+		//Js = new JString(smas); // запись полей для рубрик в файл
+		//SaveJson(Js, "CustomfieldsForAdd2.txt");
 		
 		String sIdealFields[] = LoadJson("CustomfieldsForAdd2.txt");
 		
