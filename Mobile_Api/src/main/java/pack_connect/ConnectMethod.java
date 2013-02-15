@@ -3737,7 +3737,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение и проверка списка полей рубрики для подачи - Тест".toUpperCase());
 
 		print("\r\nШАГ 1");
-		print("Получаем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва.".toUpperCase());
+	/*	print("Получаем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва.".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchCarsNewMoskva);
 		String sCusAutoMoskva = jData.toString(10);
 		
@@ -3752,24 +3752,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Архангельск".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewArhangelsk);
 		String sCusRealtArxangelsk = jData.toString(10);
-		
+	*/	
 		print("\r\nПолучаем список полей рубрики для подачи Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
 		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataTIYBookreaderKazan);
 		String sCusTIYKazan = jData.toString(10);
 		
-		smas[0] = sCusAutoMoskva;
+		/*smas[0] = sCusAutoMoskva;
 		smas[1] = sCusRealtMasslenikovo;
 		smas[2] = sCusRealtKapovo;
-		smas[3] = sCusRealtArxangelsk;
+		smas[3] = sCusRealtArxangelsk;*/
 		smas[4] = sCusTIYKazan;
 		
 		//Js = new JString(smas); // запись полей для рубрик в файл
-		//SaveJson(Js, "CustomfieldsForAdd5.txt");
+		//SaveJson(Js, "CustomfieldsForAdd.txt");
 		
-		String sIdealFields[] = LoadJson("CustomfieldsForAdd5.txt");
+		String sIdealFields[] = LoadJson("CustomfieldsForAdd.txt");
 		
 		print("\r\nШАГ 2");
-		print("Сравниваем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
+		/*print("Сравниваем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
 		if(sIdealFields[0].equals(sCusAutoMoskva))
 		{
 			print("Списки полей для подачи идентичны. Корректно");
@@ -3832,7 +3832,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Тест провален".toUpperCase());
 			throw new ExceptFailTest("Тест провален");
 		}
-		
+		*/
 		print("\r\nСравниваем список полей рубрики для подачи Электроника и техника - Пылесосы. Регион Казань, полученных запросом, со списком полей из сохранения".toUpperCase());
 		if(sIdealFields[4].equals(sCusTIYKazan))
 		{
