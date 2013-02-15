@@ -3764,9 +3764,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[4] = sCusTIYKazan;
 		
 		//Js = new JString(smas); // запись полей для рубрик в файл
-		//SaveJson(Js, "CustomfieldsForAdd2.txt");
+		//SaveJson(Js, "CustomfieldsForAdd5.txt");
 		
-		String sIdealFields[] = LoadJson("CustomfieldsForAdd2.txt");
+		String sIdealFields[] = LoadJson("CustomfieldsForAdd5.txt");
 		
 		print("\r\nШАГ 2");
 		print("Сравниваем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
