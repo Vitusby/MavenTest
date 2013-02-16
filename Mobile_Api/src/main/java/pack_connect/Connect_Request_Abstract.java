@@ -95,7 +95,7 @@ public abstract class Connect_Request_Abstract
         //StringBody.create(sBodyRequest, "application/x-www-form-urlencoded",Charset.forName("utf-8"));
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("image", bin);
-        reqEntity.addPart("comment", comment);
+        reqEntity.addPart("auth_token", comment);
         
        
         post.setEntity(reqEntity);
