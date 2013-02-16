@@ -90,7 +90,7 @@ public abstract class Connect_Request_Abstract
     	
     	post.setURI(uri);
     	
-    	FileBody bin = new FileBody(new File(sPath));
+    /*	FileBody bin = new FileBody(new File(sPath));
         StringBody comment = new StringBody(sBodyRequest ,"application/x-www-form-urlencoded",Charset.forName("utf-8"));
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("image", bin);
@@ -99,9 +99,18 @@ public abstract class Connect_Request_Abstract
         reqEntity.addPart("category", new StringBody("cars/passenger/new/", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
         reqEntity.addPart("region", new StringBody("russia/moskva-gorod/", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
         reqEntity.addPart("advert_type", new StringBody("auto_new", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        
+        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        
+        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
+        
+        
        
-        post.setEntity(reqEntity);
-        //post.setEntity(se);
+        post.setEntity(reqEntity);*/
+        post.setEntity(se);
     	
     	
     	response = hClient.execute(post);
