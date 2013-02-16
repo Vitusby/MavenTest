@@ -16,6 +16,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -34,6 +35,24 @@ public abstract class Connect_Request_Abstract
     	String sTempResponse;
     	
     	post.setURI(uri);
+    	response = hClient.execute(post);
+    	sTempResponse = GetContentResponse(response);
+    	return sTempResponse;
+    }
+    
+    
+    public String HttpPostRequest2(URI uri, String sBodyRequest) throws URISyntaxException, IOException
+    {
+    	String sTempResponse;
+    	HttpResponse response;
+    	HttpClient hClient = new DefaultHttpClient();
+    	HttpPost post = new HttpPost();
+    	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
+    	
+    	post.setURI(uri);
+    	se.setContentType("application/x-www-form-urlencoded");
+    	post.setEntity(se);
+    	
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
@@ -97,6 +116,29 @@ public abstract class Connect_Request_Abstract
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     }
+    
+ // ?param=value
+ 	public final String CreateSimpleRequestForPost(String sDataForSimpleRequest) throws UnsupportedEncodingException
+ 	{
+ 		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
+ 		String s0[] = sDataForSimpleRequest.split(",");
+ 		String request = "";
+ 		
+ 		for(int i=0; i<s0.length; i++)
+ 		{
+ 			s0[i] = s0[i].replaceAll("\\+", " ");
+ 		}
+ 		
+ 		for(int i=0; i<s0.length; i++)
+ 		{
+ 			String temp = "&"+s0[i];
+ 			request  +=temp;
+ 		}
+ 		//request = request.replaceAll("%3D", "=");
+ 		return request;	
+ 	}
+    
+    
     
 	// ?param=value
 	public final String CreateSimpleRequest(String sDataForSimpleRequest) throws UnsupportedEncodingException

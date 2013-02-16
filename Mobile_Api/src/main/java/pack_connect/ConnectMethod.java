@@ -4118,8 +4118,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[5] = sCusTIYBookReaderKazan;
 
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		Js = new JString(smas); // запись полей для рубрик в файл
-		SaveJson(Js, "CustomfieldsForSearch2.txt");
+		//Js = new JString(smas); // запись полей для рубрик в файл
+		//SaveJson(Js, "CustomfieldsForSearch2.txt");
 		
 		
 		String sIdealSearchFields[] = LoadJson("CustomfieldsForSearch2.txt");
@@ -6024,10 +6024,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ sUsername);
 		print("password = "+ sPassword);
+		String sE = "username=" + sUsername + "&password=" + sPassword;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", sUsername)
-    		.setParameter("password", sPassword);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    		//.setParameter("username", sUsername)
+    		//.setParameter("password", sPassword);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6035,7 +6036,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri,sE);
     	print("Парсим ответ....");
     	
     	

@@ -3,11 +3,11 @@
 <suite name="Suite" parallel="none">
   <test name="Test">
    <parameter name="sBaseHost" value="design.prontosoft.by"/>
-   <parameter name="sLogin" value="Timon2181"/> 
+   <parameter name="sLogin" value="api1@yopmail.com"/> 
    <parameter name="sPassword" value="retry2"/> 
   <groups>
     <run>
-      <include name="AutoTest_18"/>
+      <include name="Authorization_1_1"/>
     </run>
   </groups>
     <classes>
