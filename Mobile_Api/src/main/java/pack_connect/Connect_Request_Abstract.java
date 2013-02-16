@@ -141,7 +141,7 @@ public abstract class Connect_Request_Abstract
     	HttpPut put = new HttpPut();
     	HttpResponse response;
     	String sTempResponse;  	
-    	
+    	print(sBodyRequest);
     	put.setURI(uri);
     	
     	FileBody bin = new FileBody(new File(sPath)); 
