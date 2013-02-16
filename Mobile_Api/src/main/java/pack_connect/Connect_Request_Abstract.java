@@ -89,13 +89,13 @@ public abstract class Connect_Request_Abstract
     	se.setContentType("application/x-www-form-urlencoded");
     	post.setEntity(se);
     	
-    	FileBody bin = new FileBody(new File(sPath));
+    	/*FileBody bin = new FileBody(new File(sPath));
         StringBody comment = new StringBody("Filename: Image" );
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("image1", bin);
         reqEntity.addPart("comment", comment);
         post.setEntity(reqEntity);
-    	
+    	*/
     	
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
