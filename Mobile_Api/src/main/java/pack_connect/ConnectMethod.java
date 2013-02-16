@@ -6306,21 +6306,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
 			sQuery = sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage + "&auth_token=" + sAuth_token;
     	}
-    		//.setQuery(sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
-
     	else
     	{
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
     		sQuery = sRequest1 + sRequest + sVideo + "&auth_token=" + sAuth_token;
     	}
-    		//.setQuery(sRequest1 + sRequest + sVideo).setParameter("auth_token", sAuth_token);
+ 
     	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
+    	/*if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
-    	}
+    	}*/
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPutRequest2(uri, sQuery);
     	print("Парсим ответ....");
