@@ -91,7 +91,7 @@ public abstract class Connect_Request_Abstract
     	FileBody bin = new FileBody(new File(sPath));
         StringBody comment = new StringBody(sBodyRequest);
         MultipartEntity reqEntity = new MultipartEntity();
-        reqEntity.addPart("image1", bin);
+        reqEntity.addPart(sBodyRequest, bin);
         reqEntity.addPart("comment", comment);
         
        
