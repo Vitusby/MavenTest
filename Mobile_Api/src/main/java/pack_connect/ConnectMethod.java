@@ -6203,6 +6203,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sAdvertisement);
 		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
 		String sE = sRequest+sRequest1+sRequest2+sVideo+"&auth_token=" + sAuth_token;
+		print(sE);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
     		//.setQuery(sRequest+sRequest1+sRequest2+sVideo)
@@ -6214,7 +6215,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}*/
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage(uri, sPathImage);
+    	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
