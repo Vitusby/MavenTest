@@ -6304,12 +6304,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(!sUrlImage.equals("false"))
     	{
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
-			sQuery = sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage + "&auth_token=" + sAuth_token;
+			sQuery = "auth_token=" + sAuth_token + sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage;
     	}
     	else
     	{
     		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
-    		sQuery = sRequest1 + sRequest + sVideo + "&auth_token=" + sAuth_token;
+    		sQuery = "auth_token=" + sAuth_token + sRequest1 + sRequest + sVideo;
     	}
     	uri = builder.build();
     	
