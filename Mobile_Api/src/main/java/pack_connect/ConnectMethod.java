@@ -6126,12 +6126,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("user_info = "+ sUser_info);
-		String sQuery = CreateArrayRequest("user_info", sUser_info);
+		String sQuery = CreateArrayRequestForPostAndPut("user_info", sUser_info);
+		sQuery = sQuery + "&auth_token=" + sAuth_token;
+		print(sQuery);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
-    		.setQuery(sQuery)
-    		.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    		//.setQuery(sQuery)
+    		//.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6140,7 +6142,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
-    	String sResponse = HttpPutRequest(uri);
+    	String sResponse = HttpPutRequest2(uri, sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);

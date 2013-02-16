@@ -133,7 +133,7 @@ public abstract class Connect_Request_Abstract
     }
     
     // generate ?param=value for post/put request
- 	public final String CreateSimpleRequestForPost(String sDataForSimpleRequest) throws UnsupportedEncodingException
+ 	public final String CreateSimpleRequestForPostAndPut(String sDataForSimpleRequest) throws UnsupportedEncodingException
  	{
  		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
  		String s0[] = sDataForSimpleRequest.split(",");
@@ -199,6 +199,35 @@ public abstract class Connect_Request_Abstract
 		request = request.replaceAll("%3D", "=");
 		return request;
 	}
+	
+	// generate ?param[value_param1]=value1 for post/put
+	public final String CreateArrayRequestForPostAndPut(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
+	{
+		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[")
+				.replaceAll("\"", "");
+		String s1[] = sDataForArrayRequest.split(",");
+		
+		for(int i=0; i<s1.length; i++)
+		{
+			s1[i] = s1[i].replaceAll("\\+", " ");
+		}
+		
+		for(String sTemp: s1)
+			System.out.println(sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
+		
+		String request = "";
+		for(int i=0; i<s1.length; i++)
+		{
+			String temp = "&" + sMainParam + s1[i];
+			request  +=temp;
+		}
+		
+		return request;
+	}
+
+	
+	
+	
 	// ?param[value_param1][value1_param2][0]=value2
 	public final String CreateDoubleArrayRequest(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
 	{
