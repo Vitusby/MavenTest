@@ -6128,18 +6128,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ sUser_info);
 		String sQuery = CreateArrayRequestForPostAndPut("user_info", sUser_info);
 		sQuery = sQuery + "&auth_token=" + sAuth_token;
-		print(sQuery);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
-    		//.setQuery(sQuery)
-    		//.setParameter("auth_token", sAuth_token);
+    
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
+    	/*if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
-    	}
+    	}*/
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpPutRequest2(uri, sQuery);
