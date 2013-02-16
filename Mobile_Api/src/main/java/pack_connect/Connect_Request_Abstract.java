@@ -91,12 +91,12 @@ public abstract class Connect_Request_Abstract
     	FileBody bin = new FileBody(new File(sPath));
         StringBody comment = new StringBody(sBodyRequest);
         MultipartEntity reqEntity = new MultipartEntity();
-        reqEntity.addPart(sBodyRequest, bin);
+        reqEntity.addPart("image", bin);
         reqEntity.addPart("comment", comment);
         
        
         post.setEntity(reqEntity);
-        //post.setEntity(se);
+        post.setEntity(se);
     	
     	
     	response = hClient.execute(post);
