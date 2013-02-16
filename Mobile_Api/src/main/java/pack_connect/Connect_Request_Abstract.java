@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,6 +17,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -89,14 +91,15 @@ public abstract class Connect_Request_Abstract
     	post.setURI(uri);
     	
     	FileBody bin = new FileBody(new File(sPath));
-        StringBody comment = new StringBody(sBodyRequest);
+        StringBody comment = new StringBody(sBodyRequest,"application/x-www-form-urlencoded",Charset.forName("utf-8"));
+        //StringBody.create(sBodyRequest, "application/x-www-form-urlencoded",Charset.forName("utf-8"));
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("image", bin);
         reqEntity.addPart("comment", comment);
         
        
         post.setEntity(reqEntity);
-        post.setEntity(se);
+        //post.setEntity(se);
     	
     	
     	response = hClient.execute(post);
