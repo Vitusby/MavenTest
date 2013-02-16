@@ -89,14 +89,14 @@ public abstract class Connect_Request_Abstract
     	post.setURI(uri);
     	
     	FileBody bin = new FileBody(new File(sPath));
-        StringBody comment = new StringBody("Filename: Image" );
+        StringBody comment = new StringBody(sBodyRequest);
         MultipartEntity reqEntity = new MultipartEntity();
         reqEntity.addPart("image1", bin);
         reqEntity.addPart("comment", comment);
         
-        
+       
         post.setEntity(reqEntity);
-        post.setEntity(se);
+        //post.setEntity(se);
     	
     	
     	response = hClient.execute(post);
