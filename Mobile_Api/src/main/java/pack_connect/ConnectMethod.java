@@ -6156,16 +6156,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("1.4.	Восстановление пароля");
 		print("Параметры для запроса");
 		print("email = "+ sEmail);
+		
 		String sE = "email="+sEmail;
+		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
-    		//.setParameter("email", sEmail);
     	uri = builder.build();
-    	/*if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}*/
+    	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
@@ -6202,20 +6199,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sVideoUrl = "+ sVideoUrl);
 		
 		String sVideo = "&advertisement[video]="+sVideoUrl;
-		String sRequest = CreateSimpleRequest(sCatRegAdv);
-		String sRequest1 = CreateArrayRequest("advertisement" ,sAdvertisement);
-		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
-		
+		String sRequest = CreateSimpleRequestForPostAndPut(sCatRegAdv);
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sAdvertisement);
+		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
+		String sE = sRequest+sRequest1+sRequest2+sVideo+"&auth_token=" + sAuth_token;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+    		//.setQuery(sRequest+sRequest1+sRequest2+sVideo)
+    		//.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
+    	/*if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
     		uri = new URI(sTempUri);			
-    	}
+    	}*/
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequestImage(uri, sPathImage);
     	print("Парсим ответ....");

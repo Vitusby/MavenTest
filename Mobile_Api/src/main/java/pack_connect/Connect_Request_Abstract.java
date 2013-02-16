@@ -77,6 +77,31 @@ public abstract class Connect_Request_Abstract
     	return sTempResponse;
     }
     
+    public String HttpPostRequestImage2(URI uri , String sPath, String sBodyRequest) throws URISyntaxException, IOException
+    {
+    	HttpClient hClient = new DefaultHttpClient();
+    	HttpPost post = new HttpPost();
+    	HttpResponse response;
+    	String sTempResponse;  	
+    	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
+    	
+    	post.setURI(uri);
+    	se.setContentType("application/x-www-form-urlencoded");
+    	post.setEntity(se);
+    	
+    	FileBody bin = new FileBody(new File(sPath));
+        StringBody comment = new StringBody("Filename: Image" );
+        MultipartEntity reqEntity = new MultipartEntity();
+        reqEntity.addPart("image1", bin);
+        reqEntity.addPart("comment", comment);
+        post.setEntity(reqEntity);
+    	
+    	
+    	response = hClient.execute(post);
+    	sTempResponse = GetContentResponse(response);
+    	return sTempResponse;
+    }
+    
     public String HttpPutRequest(URI uri) throws URISyntaxException, IOException 
     {
 		HttpClient hClient = new DefaultHttpClient();
@@ -175,7 +200,7 @@ public abstract class Connect_Request_Abstract
 		return request;	
 	}
 	
-	// ?param[value_param1]=value1
+	// generate ?param[value_param1]=value1 for get and delete
 	public final String CreateArrayRequest(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
 	{
 		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[")
@@ -228,7 +253,7 @@ public abstract class Connect_Request_Abstract
 	
 	
 	
-	// ?param[value_param1][value1_param2][0]=value2
+	//generate ?param[value_param1][value1_param2][0]=value2 for get and delete
 	public final String CreateDoubleArrayRequest(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
 	{
 		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=")
@@ -249,6 +274,29 @@ public abstract class Connect_Request_Abstract
 		request = request.replaceAll("%3D", "=");
 		return request;
 	}
+	
+	
+	//generate ?param[value_param1][value1_param2][0]=value2 for put and post request
+	public final String CreateDoubleArrayRequestForPostAndPut(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
+	{
+		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=")
+				.replace("{", "[").replaceAll("\"", "");
+		String s1[] = sDataForDoubleArrayRequest.split(",");
+		String request ="";
+		
+		for(int i=0; i<s1.length; i++)
+		{
+			s1[i] = s1[i].replaceAll("\\+", " ");
+		}
+		
+		for(int i=0; i<s1.length; i++)
+		{
+			String temp = "&" + sMainParam + "[" + sChildMainParam + "]" + s1[i];
+			request  +=temp;
+		}
+		return request;
+	}
+	
 
 	private String GetContentResponse(HttpResponse response) throws IOException
 	{
