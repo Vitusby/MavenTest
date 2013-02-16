@@ -6274,6 +6274,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sVideo = "&advertisement[video]="+sVideoUrl;
 		String  sAuth_token= "";
+		String sQuery ="";
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
@@ -6295,18 +6296,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("UrlImage = "+ sUrlImage +"\r\n");
 		}
 		
-		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
-		String sRequest1 = CreateArrayRequest("advertisement" , sAdvertisement);
+		String sRequest = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" , sAdvertisement);
 		
 		builder = new URIBuilder();
 		
 		if(!sUrlImage.equals("false"))
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
+    	{
+			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
+			sQuery = sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage + "&auth_token=" + sAuth_token;
+    	}
+    		//.setQuery(sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
 
     	else
-    		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest1 + sRequest + sVideo).setParameter("auth_token", sAuth_token);
+    	{
+    		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
+    		sQuery = sRequest1 + sRequest + sVideo + "&auth_token=" + sAuth_token;
+    	}
+    		//.setQuery(sRequest1 + sRequest + sVideo).setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -6315,7 +6322,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPutRequest(uri);
+    	String sResponse = HttpPutRequest2(uri, sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
