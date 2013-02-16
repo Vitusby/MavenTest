@@ -84,9 +84,9 @@ public abstract class Connect_Request_Abstract
     	HttpResponse response;
     	String sTempResponse;  	
     	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
+    	se.setContentType("application/x-www-form-urlencoded");
     	
     	post.setURI(uri);
-    	post.setEntity(se);
     	
     	FileBody bin = new FileBody(new File(sPath));
         StringBody comment = new StringBody("Filename: Image" );
@@ -94,9 +94,9 @@ public abstract class Connect_Request_Abstract
         reqEntity.addPart("image1", bin);
         reqEntity.addPart("comment", comment);
         
-        se.setContentType("application/x-www-form-urlencoded");
         
         post.setEntity(reqEntity);
+        post.setEntity(se);
     	
     	
     	response = hClient.execute(post);
