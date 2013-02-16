@@ -5,14 +5,14 @@
    <parameter name="sBaseHost" value="design.prontosoft.by"/>
    <parameter name="sLogin" value="api1@yopmail.com"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="sParam" value="{category=cars/passenger/new/, region=russia/moskva-gorod/ ,advert_type=auto_new}"/> 
-   <parameter name="sParam1" value="{phone=343434343434, email=mail@mail.com, contact=Петя, phone2=1111111, phone_add2=2222, title=Заголовок+супер, text=Текст, currency=RUR, price=1000}"/>
-   <parameter name="sParam2" value="{make=Audi, model=100, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
+   <parameter name="sIdAdvert" value="251717856"/> 
+   <parameter name="sParam1" value="{title=Тайтл}"/>
+   <parameter name="sParam2" value="{make=BMW, model=116}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
   <groups>
     <run>
-      <include name="PostAdvert_2_1"/>
+      <include name="EditAdvert_2_3"/>
     </run>
   </groups>
     <classes>
