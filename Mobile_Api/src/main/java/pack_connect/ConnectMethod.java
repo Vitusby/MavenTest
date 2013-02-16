@@ -5990,11 +5990,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ sEmail);
 		print("password = "+ sPassword);
+		
+		String sE = "email=" + sEmail + "&password=" + sPassword;
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
-    		.setParameter("email", sEmail)
-    		.setParameter("password", sPassword);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    		
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6003,7 +6004,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	// Проверка что получили
@@ -6027,8 +6028,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "username=" + sUsername + "&password=" + sPassword;
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
-    		//.setParameter("username", sUsername)
-    		//.setParameter("password", sPassword);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{

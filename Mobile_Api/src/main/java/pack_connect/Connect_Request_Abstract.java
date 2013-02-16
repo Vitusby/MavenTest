@@ -117,7 +117,7 @@ public abstract class Connect_Request_Abstract
     	return sTempResponse;
     }
     
- // ?param=value
+    // generate ?param=value for post/put request
  	public final String CreateSimpleRequestForPost(String sDataForSimpleRequest) throws UnsupportedEncodingException
  	{
  		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
@@ -134,13 +134,12 @@ public abstract class Connect_Request_Abstract
  			String temp = "&"+s0[i];
  			request  +=temp;
  		}
- 		//request = request.replaceAll("%3D", "=");
  		return request;	
  	}
     
     
     
-	// ?param=value
+	// generate ?param=value for get/delete request
 	public final String CreateSimpleRequest(String sDataForSimpleRequest) throws UnsupportedEncodingException
 	{
 		sDataForSimpleRequest = sDataForSimpleRequest.replaceAll(" ", "").replaceAll("}", "").replace("{", "").replaceAll("}", "").replaceAll("\"", "");
