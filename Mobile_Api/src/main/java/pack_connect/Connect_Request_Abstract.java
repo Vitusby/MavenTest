@@ -39,8 +39,6 @@ public abstract class Connect_Request_Abstract
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     }
-    
-    
     public String HttpPostRequest2(URI uri, String sBodyRequest) throws URISyntaxException, IOException
     {
     	String sTempResponse;
@@ -56,8 +54,7 @@ public abstract class Connect_Request_Abstract
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
-    }
-    
+    }  
     public String HttpPostRequestImage(URI uri , String sPath) throws URISyntaxException, IOException
     {
     	HttpClient hClient = new DefaultHttpClient();
@@ -92,6 +89,24 @@ public abstract class Connect_Request_Abstract
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     } 
+    public String HttpPutRequest2(URI uri, String sBodyRequest) throws URISyntaxException, IOException 
+    {
+		HttpClient hClient = new DefaultHttpClient();
+    	HttpPut put = new HttpPut();
+    	HttpResponse response;
+    	String sTempResponse;
+    	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
+   
+    	put.setURI(uri);
+    	se.setContentType("application/x-www-form-urlencoded");
+    	put.setEntity(se);
+    	
+    	response = hClient.execute(put);
+    	sTempResponse = GetContentResponse(response);
+    	return sTempResponse;
+    } 
+    
+    
     public String HttpGetRequest(URI uri) throws URISyntaxException, IOException 
     {
 		HttpClient hClient = new DefaultHttpClient();
