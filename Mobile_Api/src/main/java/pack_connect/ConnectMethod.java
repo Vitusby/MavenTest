@@ -6202,18 +6202,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest = CreateSimpleRequestForPostAndPut(sCatRegAdv);
 		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sAdvertisement);
 		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
-		String sE = /*"auth_token=" + */sAuth_token/* + sRequest + sRequest1 + sRequest2 + sVideo*/;
-		print(sE);
+		String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
+	
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
-    		//.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		//.setParameter("auth_token", sAuth_token);
+    		
     	uri = builder.build();
-    	/*if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%").replace("%3D", "=").replace("%3F", "?");
-    		uri = new URI(sTempUri);			
-    	}*/
+    	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
     	print("Парсим ответ....");

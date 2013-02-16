@@ -85,40 +85,22 @@ public abstract class Connect_Request_Abstract
     	HttpPost post = new HttpPost();
     	HttpResponse response;
     	String sTempResponse;  	
-    	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
-    	se.setContentType("application/x-www-form-urlencoded");
     	
     	post.setURI(uri);
     	
-    	FileBody bin = new FileBody(new File(sPath));
-        StringBody comment = new StringBody(sBodyRequest ,"application/x-www-form-urlencoded",Charset.forName("utf-8"));
+    	FileBody bin = new FileBody(new File(sPath)); 
         MultipartEntity reqEntity = new MultipartEntity();
+        
         reqEntity.addPart("image", bin);
-        reqEntity.addPart("auth_token", comment);
-        
-        reqEntity.addPart("category", new StringBody("cars/passenger/new/", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("region", new StringBody("russia/moskva-gorod/", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advert_type", new StringBody("auto_new", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        
-        reqEntity.addPart("advertisement[phone]", new StringBody("1111111111", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[contact]", new StringBody("Вася", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[title]", new StringBody("Заголовок", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[text]", new StringBody("Текст", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[currency]", new StringBody("RUR", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[price]", new StringBody("5", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[video]", new StringBody("http://www.youtube.com/watch?v=AMpZ0TGjbWE", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        
-        reqEntity.addPart("advertisement[custom_fields][make][0]", new StringBody("BMW", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[custom_fields][model][0]", new StringBody("116", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[custom_fields][make][0]", new StringBody("внедорожник", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[custom_fields][car-year][0]", new StringBody("2006", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        reqEntity.addPart("advertisement[custom_fields][transmittion][0]", new StringBody("механическая", "application/x-www-form-urlencoded", Charset.forName("utf-8")));
-        
-       
+        String smas[] =  sBodyRequest.split("&");
+        for(String s : smas)
+        {
+        	String smas2[] = s.split("=", 2);
+        	for(int j=0; j<smas2.length; j++)
+        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
+        }
         post.setEntity(reqEntity);
-       // post.setEntity(se);
-    	
-    	
+    		
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
