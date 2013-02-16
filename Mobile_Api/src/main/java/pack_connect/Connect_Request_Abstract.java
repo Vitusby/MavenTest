@@ -2,7 +2,6 @@ package pack_connect;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,8 +17,6 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -137,41 +134,7 @@ public abstract class Connect_Request_Abstract
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     } 
-    
-    public String HttpPutRequestImage2(URI uri , String sPath, String sBodyRequest) throws URISyntaxException, IOException
-    {
-    	HttpClient hClient = new DefaultHttpClient();
-    	HttpPut put = new HttpPut();
-    	HttpResponse response;
-    	String sTempResponse;  	
-    	print(sBodyRequest);
-    	put.setURI(uri);
-    	
-    	FileBody bin = new FileBody(new File(sPath)); 
-        MultipartEntity reqEntity = new MultipartEntity();
-        
-        
-        
-        
-        reqEntity.addPart("auth_token", new StringBody("922cbad51d1e53eba2cfe2a06fbe3617", "text/plain",Charset.forName("utf-8")));
-        reqEntity.addPart("image", bin);
-        
-        /*String smas[] =  sBodyRequest.split("&");
-        for(String s : smas)
-        {
-        	String smas2[] = s.split("=", 2);
-        	for(int j=0; j<smas2.length; j++)
-        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
-        }
-        */
-        put.setEntity(reqEntity);
-    		
-    		
-    	response = hClient.execute(put);
-    	sTempResponse = GetContentResponse(response);
-    	return sTempResponse;
-    }
-    
+ 
     
     public String HttpGetRequest(URI uri) throws URISyntaxException, IOException 
     {

@@ -6314,7 +6314,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
-    	String sResponse = HttpPutRequestImage2(uri, "4.jpg" ,sQuery);
+    	String sResponse = HttpPutRequest2(uri, sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
