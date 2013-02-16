@@ -6313,8 +6313,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	uri = builder.build();
     	
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPutRequest2(uri, sQuery);
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPutRequestImage2(uri, "4.jpg" ,sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -6324,7 +6324,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else
     	{
     		print("Не удалось отредактировать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
 		
