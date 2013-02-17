@@ -1452,7 +1452,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение листинга из избранного(П2)/Подача(П1)/Попытка добавить в избранное()
 	public void AddFavGetListFavDeleteFavOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sIdAdvert; 
+		String sIdAdvert=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sLogin2 =  Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
@@ -1464,42 +1464,45 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
 		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
-		
-		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-		sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
-		
-		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
-		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
-		AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
-		
-		print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
-		jData = GetListFavourite(sHost, sAuth_token);
-		
-		print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
-		FindAdvertFromListAfterPost(jData, sIdAdvert);
-		
-		print("\r\nУдаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
-		DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
-		
-		print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
-		jData = GetListFavourite(sHost, sAuth_token);
-		
-		print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
-		FindAdvertFromListAfterDelete(jData, sIdAdvert);
-		
-		print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
-		
-		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
-		print("Авторизация пользователем - " + sLogin2);
-		print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
-		AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
-		
-		print("\r\nУдаляем поданное объявление");
-		DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-		
+		try
+		{
+			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
+			
+			print("\r\nАвторизация пользователем - " + sLogin);
+			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+			
+			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
+			AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+			
+			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
+			jData = GetListFavourite(sHost, sAuth_token);
+			
+			print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
+			FindAdvertFromListAfterPost(jData, sIdAdvert);
+			
+			print("\r\nУдаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
+			DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
+			
+			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
+			jData = GetListFavourite(sHost, sAuth_token);
+			
+			print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
+			FindAdvertFromListAfterDelete(jData, sIdAdvert);
+			
+			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
+			
+			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+			print("Авторизация пользователем - " + sLogin2);
+			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
+			AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+		}
+		finally
+		{
+			print("\r\nУдаляем поданное объявление");
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+		}
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}	
