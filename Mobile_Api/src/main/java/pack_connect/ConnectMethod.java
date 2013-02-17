@@ -455,7 +455,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
-		String sIdAuto, sIdRealt, sIdTIU, sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
+		String sIdAuto="", sIdRealt="", sIdTIU="", sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -471,78 +471,81 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
+		try
+		{
 /////////////////////////////////////////////////////////////////////////////////////////////////		
-		print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
-		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
-		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
-
-
+			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
+			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
+	
+	
 /////////////////////////////////////////////////////////////////////////////////////////////////    	
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
-    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
-    	sIdRealt = objRealt.GetID();
-    	hObj_Realt = objRealt.GetAdvertismentData();
-    	hObj_Realt2 = objRealt.GetCustomfieldData();
-    	
-    	
+	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+	    	sIdRealt = objRealt.GetID();
+	    	hObj_Realt = objRealt.GetAdvertismentData();
+	    	hObj_Realt2 = objRealt.GetCustomfieldData();
+	    	
+	    	
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
-    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы".toUpperCase());
-    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
-    	sIdTIU = objTIY.GetID();
-    	hObj_TIY = objTIY.GetAdvertismentData();
-    	hObj_TIY2 = objTIY.GetCustomfieldData();
-    
-    	
+	    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы".toUpperCase());
+	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	sIdTIU = objTIY.GetID();
+	    	hObj_TIY = objTIY.GetAdvertismentData();
+	    	hObj_TIY2 = objTIY.GetCustomfieldData();
+	    
+	    	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
-    	print("Проверяем корректность указанных данных при подаче объявления");
-    	sImageUrlAuto = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
-		print("");
-    	
-		jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
-    	print("Проверяем корректность указанных данных при подаче объявления");
-    	sImageUrlRealt = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
-		print("");
-		
-		jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
-    	print("Проверяем корректность указанных данных при подаче объявления");
-    	sImageUrlTIY = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
-		print("");
-		
+	    
+	    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlAuto = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
+			print("");
+	    	
+			jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlRealt = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
+			print("");
+			
+			jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlTIY = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
+			print("");
+			
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		print("\r\nРедактирование объявления. Авто с пробегом");
-		objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto);
-		sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
-		hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
-		hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
-		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2);
-		
-		print("\r\nРедактирование объявления. Вторичный рынок");
-		objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
-		sIdRealt = objRealt.GetID(); // сюда сохраняем значение id
-		hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
-		hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
-		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2);
-		
-		print("\r\nРедактирование объявления. Пылесосы");
-		objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY);
-		sIdTIU = objTIY.GetID(); // сюда сохраняем значение id
-		hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
-		hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
-		ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2);
+			print("\r\nРедактирование объявления. Авто с пробегом");
+			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto);
+			sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
+			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2);
+			
+			print("\r\nРедактирование объявления. Вторичный рынок");
+			objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
+			sIdRealt = objRealt.GetID(); // сюда сохраняем значение id
+			hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2);
+			
+			print("\r\nРедактирование объявления. Пылесосы");
+			objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY);
+			sIdTIU = objTIY.GetID(); // сюда сохраняем значение id
+			hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2);
 		
 ///////////////////////////////////////////////////////////////////////////////////////
-		Sleep(10000);
-		
-		print("\r\nУдаляем поданные объявления");
-		DeleteAdvert(sHost, sAuth_token, sIdAuto);
-		DeleteAdvert(sHost, sAuth_token, sIdRealt);
-		DeleteAdvert(sHost, sAuth_token, sIdTIU);
-		
+			Sleep(10000);
+		}
+		finally
+		{
+			print("\r\nУдаляем поданные объявления");
+			DeleteAdvert(sHost, sAuth_token, sIdAuto);
+			DeleteAdvert(sHost, sAuth_token, sIdRealt);
+			DeleteAdvert(sHost, sAuth_token, sIdTIU);
+		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
