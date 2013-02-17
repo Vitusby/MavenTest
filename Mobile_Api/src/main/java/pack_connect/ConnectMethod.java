@@ -1971,7 +1971,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate");
     		
-    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
@@ -2046,7 +2046,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/prolong");
     		
-    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -2120,7 +2120,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
     		
-    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
@@ -2249,7 +2249,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
     		
-    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
@@ -2340,7 +2340,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/premium");
     	
-    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token + "&number=7" ;
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token + "&number=7" ;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
