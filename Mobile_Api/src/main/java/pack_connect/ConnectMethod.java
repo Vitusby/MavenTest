@@ -6756,33 +6756,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/premium")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token)
-    		.setParameter("number", sNumberDays);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/premium");
+    	
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token + "&number=" + sNumberDays;
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
     		if(jsonObject.toString().equals("{\"error\":null,\"actions\":false}"))
-    			print("Ответ сервера:" + jsonObject.toString() + " Объявление не назначен премиум (возможно оно неактивно, неоплачено)");
+    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление не назначен премиум (возможно оно неактивно, неоплачено)");
     		else 
-    			print("Ответ сервера:" + jsonObject.toString() + " Объявление назначен премиум");
+    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление назначен премиум");
     	}
     	else
     	{
     		print("Не удалось назначить премиум объявление \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
