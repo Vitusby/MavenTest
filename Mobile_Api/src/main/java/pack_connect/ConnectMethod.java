@@ -335,22 +335,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), jData.getString(mas[i])));
 		}
 		
-		String sQuery = CreateArrayRequest("user_info", hObj.GetStringFromAllHashMap());
+		String sQuery = CreateArrayRequestForPostAndPut("user_info", hObj.GetStringFromAllHashMap());
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
-    		.setQuery(sQuery)
-    		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    		//.setQuery(sQuery)
+    		//.setParameter("auth_token", sAuth_token);
     	
-    	sResponse = HttpPutRequest(uri);
+    	String sE = "auth_token=" + sAuth_token + sQuery;
+    	
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	sResponse = HttpPutRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
