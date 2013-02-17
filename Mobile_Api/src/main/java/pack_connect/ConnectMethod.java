@@ -2420,7 +2420,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
-		String sIdAdvert, sIdAdvert2; 
+		String sIdAdvert="", sIdAdvert2=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -2435,246 +2435,249 @@ public class ConnectMethod extends Connect_Request_Abstract
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
-		// подача двух объявлений
-		print("\r\nШАГ 1");
-		print("Подача двух объявлений в платную рубрику Авто - Новые авто".toUpperCase());
-		print("\r\nПодача объявления в рубрику Авто - Новые авто");
-		print("Объявление №1");
-		objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
-    	sIdAdvert = objCar.GetID();
-   	
-    	print("\r\nПодача объявления в рубрику Авто - Новые авто");
-		print("Объявление №2");
-		objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
-    	sIdAdvert2 = objCar.GetID();
-    	
-    	// проверка статуса объявлений поданных в платную рубрику
-    	print("\r\nШАГ 2");
-    	print("Проверяем статус объявлений подданых в платную рубрику и неоплаченных".toUpperCase());
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после подачи объявления");
-    	ValidateStatus("2", jData, sIdAdvert, " после подачи объявления");
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после подачи объявления");
-    	ValidateStatus("2", jData, sIdAdvert2, " после подачи объявления");
-    	
-    	
-    	// проверка попытки  активации объявления без оплаты
-    	print("\r\nШАГ 3");
-    	print("Проверка попытки активации объявления без оплаты".toUpperCase());
-    	
-    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после попытки активации объявления, без передачи ключа оплаты");
-    	ValidateStatus("2", jData, sIdAdvert, " после попытки активации объявления, без передачи ключа оплаты");
-    	
-    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после попытки активации объявления, без передачи ключа оплаты");
-    	ValidateStatus("2", jData, sIdAdvert2, " после попытки активации объявления, без передачи ключа оплаты");
-    	
-    	
-    	// Проверка активации объявлений с оплатой
-    	print("\r\nШАГ 4");
-    	print("Активации объявления с оплатой".toUpperCase());
-    	
-    	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации с оплатой");
-    	ValidateStatus("1", jData, sIdAdvert, " после активации с оплатой");
-    	
-    	print("\r\nАктивируем объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после активации с оплатой");
-    	ValidateStatus("1", jData, sIdAdvert2, " после активации с оплатой");
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	// проверка их появления в листинге и коректного расположения 
-    	print("\r\nШАГ 5");
-    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
-    	print("\r\nПолучаем листинг категории объявлений рубрики  Авто - Новые авто");
-    	jData = GetListCategory(sHost, sDataForList);
-    	
-    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
-    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
-    	print("Объявление номер 1(поданное первым) распологается в листинге на " + nNumberList + " месте");
-    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
-    	print("Объявление номер 2(поданное вторым) распологается в листинге на " + nNumberList2 + " месте");
-    	
-    	print("Сравниваем расположения первого подданного объявления с ID = " + sIdAdvert + " со вторым поданным объявлением с ID = " + sIdAdvert2);
-    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
-    	
-    	// проверка попытки продления объявления без оплаты
-    	print("\r\nШАГ 6");
-    	print("Проверка попытки продления объявления без передачи ключа оплаты".toUpperCase());
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
-    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );// запоминаем json объект в нем время окончания размещения сраз после подачи
-    	
-    	print("\r\nПытаемя продлить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после попытки продления");
-    	jData2 = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("Сравниваем время окончания размещения объявления до и после попытки продления");
-    	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 2);   	
-    	
-    	
-    	// проверка продления объявления
-    	print("\r\nШАГ 7");
-    	print("Проверка продления объявления".toUpperCase());
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
-    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );// запоминаем json объект в нем время окончания размещения сраз после подачи
-    	
-    	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
-    	jData2 = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	print("Сравниваем время окончания размещения объявления до и после продления");
-    	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 1);   	
-    	
-    	// проверка попытки поднять объявление без оплаты
-    	print("\r\nШАГ 8");
-    	print("Проверка попытки поднять объявление без оплаты".toUpperCase());
-    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
-    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-    	jData = GetListCategory(sHost, sDataForList);
-    	
-    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
-    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
-    	print("Объявление номер 1(которое мы пытались поднять без оплаты) распологается в листинге на " + nNumberList + " месте");
-    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
-    	print("Объявление номер 2(которое распологалось в листинге выше, чем то которое мы пытались поднять) распологается в листинге на " + nNumberList2 + " месте");
-    	
-    	print("Сравниваем расположения объявления которое мы пытались поднять без оплаты  ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
-    			" которое распологалось в листинге выше, чем то которое мы пытались поднять");
-    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
-    	
-    	
-    	//   проверка поднятия объявления
-    	print("\r\nШАГ 9");
-    	print("Проверка поднятия объявления".toUpperCase());
-    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
-    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-    	jData = GetListCategory(sHost, sDataForList);
-    	
-    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
-    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
-    	print("Объявление номер 1 распологается в листинге на " + nNumberList + " месте");
-    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
-    	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + " месте");
-    	print("Сравниваем расположения поднятого объявления с ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
-    			" которое распологалось до поднятия выше поднятого ");
-    	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
-    	
-    	
-    	// попытка выделения объявления без оплаты
-    	print("\r\nШАГ 10");
-    	print("Проверка попытки выделить объявление без оплаты".toUpperCase());
-    	print("\r\nПытаемся выделить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	
-    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
-    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
-    	
-    	// выделение объявления
-    	print("\r\nШАГ 11");
-    	print("Проверка выделения объявление".toUpperCase());
-    	print("\r\nВыделяем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключ оплаты");
-    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	
-    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
-    	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
-    	
-    	//попытка назначения премиум объявления без оплаты
-    	print("\r\nШАГ 12");
-    	print("Проверка попытки назначить премиум объявлению без оплаты".toUpperCase());
-    	print("\r\nПытаемся назначить премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
-    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
-    	
-    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после попытки назначить премиум объявлению без передачи ключа оплаты");
-    	ValidatePremiun("false", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
-    	
-    	// назначение премиума
-    	print("\r\nШАГ 13");
-    	print("Проверка назначения премиум объявлению".toUpperCase());
-    	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
-    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
-    	
-    	Sleep(2000);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
-    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
-    	
-    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после назначения премиума объявлению");
-    	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
-    	
-    	
-    	//проверка деактиивации объявления
-    	print("\r\nШАГ 14");
-    	print("Проверка деактивации объявления".toUpperCase());
-    	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
-    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1);
-    	
-    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
-    	
-    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
-    	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	print("\r\nИщем деактивированное объявление в листинге категории");
-    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-    	jData = GetListCategory(sHost, sDataForList);
-    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
-    	
-    	
-    	//удаляем поданные обяъвления
-    	print("\r\nШАГ 15");
-    	print("Удаляем поданные объявления".toUpperCase());
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
-    	
+		try
+		{
+			// подача двух объявлений
+			print("\r\nШАГ 1");
+			print("Подача двух объявлений в платную рубрику Авто - Новые авто".toUpperCase());
+			print("\r\nПодача объявления в рубрику Авто - Новые авто");
+			print("Объявление №1");
+			objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+	    	sIdAdvert = objCar.GetID();
+	   	
+	    	print("\r\nПодача объявления в рубрику Авто - Новые авто");
+			print("Объявление №2");
+			objCar = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+	    	sIdAdvert2 = objCar.GetID();
+	    	
+	    	// проверка статуса объявлений поданных в платную рубрику
+	    	print("\r\nШАГ 2");
+	    	print("Проверяем статус объявлений подданых в платную рубрику и неоплаченных".toUpperCase());
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после подачи объявления");
+	    	ValidateStatus("2", jData, sIdAdvert, " после подачи объявления");
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после подачи объявления");
+	    	ValidateStatus("2", jData, sIdAdvert2, " после подачи объявления");
+	    	
+	    	
+	    	// проверка попытки  активации объявления без оплаты
+	    	print("\r\nШАГ 3");
+	    	print("Проверка попытки активации объявления без оплаты".toUpperCase());
+	    	
+	    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после попытки активации объявления, без передачи ключа оплаты");
+	    	ValidateStatus("2", jData, sIdAdvert, " после попытки активации объявления, без передачи ключа оплаты");
+	    	
+	    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после попытки активации объявления, без передачи ключа оплаты");
+	    	ValidateStatus("2", jData, sIdAdvert2, " после попытки активации объявления, без передачи ключа оплаты");
+	    	
+	    	
+	    	// Проверка активации объявлений с оплатой
+	    	print("\r\nШАГ 4");
+	    	print("Активации объявления с оплатой".toUpperCase());
+	    	
+	    	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации с оплатой");
+	    	ValidateStatus("1", jData, sIdAdvert, " после активации с оплатой");
+	    	
+	    	print("\r\nАктивируем объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после активации с оплатой");
+	    	ValidateStatus("1", jData, sIdAdvert2, " после активации с оплатой");
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	// проверка их появления в листинге и коректного расположения 
+	    	print("\r\nШАГ 5");
+	    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики  Авто - Новые авто");
+	    	jData = GetListCategory(sHost, sDataForList);
+	    	
+	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+	    	print("Объявление номер 1(поданное первым) распологается в листинге на " + nNumberList + " месте");
+	    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+	    	print("Объявление номер 2(поданное вторым) распологается в листинге на " + nNumberList2 + " месте");
+	    	
+	    	print("Сравниваем расположения первого подданного объявления с ID = " + sIdAdvert + " со вторым поданным объявлением с ID = " + sIdAdvert2);
+	    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
+	    	
+	    	// проверка попытки продления объявления без оплаты
+	    	print("\r\nШАГ 6");
+	    	print("Проверка попытки продления объявления без передачи ключа оплаты".toUpperCase());
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
+	    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );// запоминаем json объект в нем время окончания размещения сраз после подачи
+	    	
+	    	print("\r\nПытаемя продлить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после попытки продления");
+	    	jData2 = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("Сравниваем время окончания размещения объявления до и после попытки продления");
+	    	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 2);   	
+	    	
+	    	
+	    	// проверка продления объявления
+	    	print("\r\nШАГ 7");
+	    	print("Проверка продления объявления".toUpperCase());
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
+	    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );// запоминаем json объект в нем время окончания размещения сраз после подачи
+	    	
+	    	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
+	    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
+	    	jData2 = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	print("Сравниваем время окончания размещения объявления до и после продления");
+	    	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 1);   	
+	    	
+	    	// проверка попытки поднять объявление без оплаты
+	    	print("\r\nШАГ 8");
+	    	print("Проверка попытки поднять объявление без оплаты".toUpperCase());
+	    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
+	    	jData = GetListCategory(sHost, sDataForList);
+	    	
+	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+	    	print("Объявление номер 1(которое мы пытались поднять без оплаты) распологается в листинге на " + nNumberList + " месте");
+	    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+	    	print("Объявление номер 2(которое распологалось в листинге выше, чем то которое мы пытались поднять) распологается в листинге на " + nNumberList2 + " месте");
+	    	
+	    	print("Сравниваем расположения объявления которое мы пытались поднять без оплаты  ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
+	    			" которое распологалось в листинге выше, чем то которое мы пытались поднять");
+	    	ValidetePlaceAdvert(nNumberList2, sIdAdvert2, nNumberList, sIdAdvert);
+	    	
+	    	
+	    	//   проверка поднятия объявления
+	    	print("\r\nШАГ 9");
+	    	print("Проверка поднятия объявления".toUpperCase());
+	    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
+	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
+	    	jData = GetListCategory(sHost, sDataForList);
+	    	
+	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
+	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
+	    	print("Объявление номер 1 распологается в листинге на " + nNumberList + " месте");
+	    	nNumberList2 = FindAdvertFromListAfterPost(jData, sIdAdvert2);
+	    	print("Объявление номер 2 распологается в листинге на " + nNumberList2 + " месте");
+	    	print("Сравниваем расположения поднятого объявления с ID = " + sIdAdvert + " с объявлением с ID = " + sIdAdvert2 +
+	    			" которое распологалось до поднятия выше поднятого ");
+	    	ValidetePlaceAdvert(nNumberList, sIdAdvert, nNumberList2, sIdAdvert2);
+	    	
+	    	
+	    	// попытка выделения объявления без оплаты
+	    	print("\r\nШАГ 10");
+	    	print("Проверка попытки выделить объявление без оплаты".toUpperCase());
+	    	print("\r\nПытаемся выделить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	
+	    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
+	    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
+	    	
+	    	// выделение объявления
+	    	print("\r\nШАГ 11");
+	    	print("Проверка выделения объявление".toUpperCase());
+	    	print("\r\nВыделяем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключ оплаты");
+	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	
+	    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
+	    	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
+	    	
+	    	//попытка назначения премиум объявления без оплаты
+	    	print("\r\nШАГ 12");
+	    	print("Проверка попытки назначить премиум объявлению без оплаты".toUpperCase());
+	    	print("\r\nПытаемся назначить премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
+	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
+	    	
+	    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после попытки назначить премиум объявлению без передачи ключа оплаты");
+	    	ValidatePremiun("false", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
+	    	
+	    	// назначение премиума
+	    	print("\r\nШАГ 13");
+	    	print("Проверка назначения премиум объявлению".toUpperCase());
+	    	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
+	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
+	    	
+	    	Sleep(2000);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто" );
+	    	
+	    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после назначения премиума объявлению");
+	    	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
+	    	
+	    	
+	    	//проверка деактиивации объявления
+	    	print("\r\nШАГ 14");
+	    	print("Проверка деактивации объявления".toUpperCase());
+	    	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
+	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1);
+	    	
+	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
+	    	
+	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
+	    	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	print("\r\nИщем деактивированное объявление в листинге категории");
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
+	    	jData = GetListCategory(sHost, sDataForList);
+	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
+		}
+		finally
+		{
+	    	
+	    	//удаляем поданные обяъвления
+	    	print("\r\nШАГ 15");
+	    	print("Удаляем поданные объявления".toUpperCase());
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
     	
