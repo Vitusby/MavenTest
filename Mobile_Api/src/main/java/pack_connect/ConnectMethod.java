@@ -3236,7 +3236,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявлению -1 голос");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявлению -1 голос");
     		return jsonObject;
     	}
     	else
