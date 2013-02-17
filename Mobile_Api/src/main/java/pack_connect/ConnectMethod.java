@@ -1190,24 +1190,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		
-		
-		String sRequest = CreateDoubleArrayRequest("advertisement", "custom_fields", sCustom_fields);
-		String sRequest1 = CreateArrayRequest("advertisement" , sAdvertisement);
+		String sRequest = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" , sAdvertisement);
 		
 		builder = new URIBuilder();
-		
-		
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert)
-    		.setQuery(sRequest1 + sRequest).setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
+    	
+    	String sE = "auth_token=" + sAuth_token + sRequest1 + sRequest;
     	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
+    	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPutRequest(uri);
+    	String sResponse = HttpPutRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
