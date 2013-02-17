@@ -428,25 +428,22 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore")
-    		.setParameter("email", Proper.GetProperty("login_authOP"));
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
+    	
+    	String sE = "email=" + Proper.GetProperty("login_authOP");
+    
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\n На указанный email отправлено письмо восстановления с инструкцией по восстановлению пароля");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nНа указанный email отправлено письмо восстановления с инструкцией по восстановлению пароля");
     	else
     	{
     		print("Не удалось восстановить пароль\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");
     	}
