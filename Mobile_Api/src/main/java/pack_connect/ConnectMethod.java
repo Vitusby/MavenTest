@@ -572,7 +572,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			else
 				hObj_Adv_New.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), obj_old.GetAdvertismentData().GetValue(sMas_Adv[i])));
 		}
-		String sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv_New.GetStringFromAllHashMap());
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement",  hObj_Adv_New.GetStringFromAllHashMap());
 
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj_Cust_New = new HM<String, String>(); 
@@ -581,20 +581,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj_Cust_New.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), obj_old.GetCustomfieldData().GetValue(sMas_Cust[i])));
 		}
 		hObj_Cust_New.PrintKeyAndValue();
-		String sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust_New.GetStringFromAllHashMap());
+		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust_New.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ obj_old.GetID())
-			.setQuery(sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage).setParameter("auth_token", sAuth_token);
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ obj_old.GetID());
+		
+		String sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage;
+		
 		uri = builder.build();
-		if(uri.toString().indexOf("%25") != -1)
-		{
-			String sTempUri = uri.toString().replace("%25", "%");
-			uri = new URI(sTempUri);			
-		}
 		print("Отправляем запрос. Uri Запроса: " + uri.toString());
 		
-    	String sResponse = HttpPutRequest(uri);
+    	String sResponse = HttpPutRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -607,7 +604,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else
     	{
     		print("Не удалось отредактировать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
