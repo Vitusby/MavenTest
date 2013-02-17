@@ -1865,18 +1865,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/deactivate")
-    		.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/deactivate");
+    	
+    	String sE = "auth_token=" + sAuth_token;
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
     	
 
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -1972,18 +1969,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate");
+    		
+    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
     	
-    	String sResponse = HttpPostRequest(uri);
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -2051,19 +2044,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/prolong")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token);;
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/prolong");
+    		
+    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
-
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -2130,19 +2118,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pushup")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token);;
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
+    		
+    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
     	
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
 
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -2264,18 +2247,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/highlight")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token);;
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
+    		
+    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token;
     	
-    	String sResponse = HttpPostRequest(uri);
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -2359,19 +2338,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/premium")
-    		.setParameter("auth_token", sAuth_token)
-    		.setParameter("app_token", sApp_token)
-    		.setParameter("number", "7");
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/premium");
     	
-    	String sResponse = HttpPostRequest(uri);
+    	String sE = "auth_token=" + sAuth_token + "&app_token" + sApp_token + "&number=7" ;
+    	
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
