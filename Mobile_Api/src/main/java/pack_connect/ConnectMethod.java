@@ -6307,8 +6307,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert)
-    			.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert);
+    			//.setParameter("auth_token", sAuth_token);
+    	String sE = "auth_token=" + sAuth_token;
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -6317,7 +6318,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpDeleteRequest(uri);
+    	String sResponse = HttpPutRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
