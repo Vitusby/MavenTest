@@ -2685,7 +2685,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение листинга пользователя
 	public void AddAvdertGetListUserOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAdvert, sIdAdvert2, sIdAdvert3; 
+		String sIdAdvert="", sIdAdvert2="", sIdAdvert3=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -2699,67 +2699,69 @@ public class ConnectMethod extends Connect_Request_Abstract
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
-		// подача трех объявлений
-		print("\r\nШАГ 1");
-		print("Подача трех объявлений одно в платную рубрику Авто - Новые авто, два в бесплатную рубрику Недвижимость - Вторичный рынок".toUpperCase());
-		print("\r\nПодача объявления в рубрику Авто - Новые авто");
-		print("Объявление №1");
-		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
-		sIdAdvert = objAuto.GetID();
-		
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
-		print("Объявление №2");
-		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
-    	sIdAdvert2 = objRealt.GetID();
-    	
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
-		print("Объявление №3");
-		objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
-    	sIdAdvert3 = objRealt.GetID();
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
-    	print("\r\nШАГ 2");
-    	print("Получаем листинг объявлений пользователя".toUpperCase());
-    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
-    	print("\r\nПроверяем статус объявлений в листинге");
-    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1);
-    	
-    	// деактивируем первое объявление и удаляем второе
-    	print("\r\nШАГ 3");
-    	print("Деактивируем первое из поданных активных объявлений и удаляем второе из поданных активных объявлений".toUpperCase());
-    	print("Деактивируем объявлени с ID = " + sIdAdvert2);
-    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1);
-
-    	print("Удаляем объявлени с ID = " + sIdAdvert3);
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
-    	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
-    	print("\r\nШАГ 4");
-    	print("Получаем листинг объявлений пользователя".toUpperCase());
-    	print("\r\nПолучаем листинг объявлений для пользователя " + sLogin + " и проверяем статус активности объявлений в листинге");
-    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
-    	print("\r\nПроверяем статус объявлений в листинге");
-    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2);
-    	
-    	
-    	// удаляем еще не удаленное объявление
-    	print("\r\nШАГ 5");
-    	print("Удаление поданных объявлений пользователя".toUpperCase());
-    	print("Удаляем объявление с ID = " + sIdAdvert2);
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
-    	
-    	print("Удаляем объявление с ID = " + sIdAdvert);
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-    	
+		try
+		{
+			// подача трех объявлений
+			print("\r\nШАГ 1");
+			print("Подача трех объявлений одно в платную рубрику Авто - Новые авто, два в бесплатную рубрику Недвижимость - Вторичный рынок".toUpperCase());
+			print("\r\nПодача объявления в рубрику Авто - Новые авто");
+			print("Объявление №1");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+			sIdAdvert = objAuto.GetID();
+			
+	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
+			print("Объявление №2");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+	    	sIdAdvert2 = objRealt.GetID();
+	    	
+	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
+			print("Объявление №3");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4");
+	    	sIdAdvert3 = objRealt.GetID();
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
+	    	print("\r\nШАГ 2");
+	    	print("Получаем листинг объявлений пользователя".toUpperCase());
+	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
+	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+	    	print("\r\nПроверяем статус объявлений в листинге");
+	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1);
+	    	
+	    	// деактивируем первое объявление и удаляем второе
+	    	print("\r\nШАГ 3");
+	    	print("Деактивируем первое из поданных активных объявлений и удаляем второе из поданных активных объявлений".toUpperCase());
+	    	print("Деактивируем объявлени с ID = " + sIdAdvert2);
+	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1);
+	
+	    	print("Удаляем объявлени с ID = " + sIdAdvert3);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
+	    	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
+	    	print("\r\nШАГ 4");
+	    	print("Получаем листинг объявлений пользователя".toUpperCase());
+	    	print("\r\nПолучаем листинг объявлений для пользователя " + sLogin + " и проверяем статус активности объявлений в листинге");
+	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
+	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+	    	print("\r\nПроверяем статус объявлений в листинге");
+	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2);
+		}
+		finally
+		{
+	    	// удаляем еще не удаленное объявление
+	    	print("\r\nШАГ 5");
+	    	print("Удаление поданных объявлений пользователя".toUpperCase());
+	    	print("Удаляем объявление с ID = " + sIdAdvert2);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
