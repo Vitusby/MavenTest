@@ -3248,10 +3248,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	//Подача, получение списка городов вxодящих в субъект, получения листинга категории и проверка объявлений на статус, категорию, регион
+	//Подача, получения листинга категории и проверка объявлений на статус, категорию, регион
 	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto, sIdRealt, sIdTIU;
+		String sIdAuto="", sIdRealt="", sIdTIU="";
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -3274,69 +3274,72 @@ public class ConnectMethod extends Connect_Request_Abstract
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
 		print("Подача трех объявлений".toUpperCase());
+		try
+		{
+			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
+			print("Объявление №1");	
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+			
 	
-		print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
-		print("Объявление №1");	
-		objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
-		sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
-		
-
-/////////////////////////////////////////////////////////////////////////////////////////////////    	
-    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
-    	print("Объявление №2");	
-    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
-    	sIdRealt = objRealt.GetID();
-    	
-///////////////////////////////////////////////////////////////////////////////////////////////// 
-    	print("\r\nПодача объявления в рубрику Электроника и техника - пылесосы. Регион Казань".toUpperCase());
-    	print("Объявление №3");	
-    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
-    	sIdTIU = objTIY.GetID();
-   	
-    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
-    	
-    	
-    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-    	print("\r\nШАГ 3");
-    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
-    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
-    	jData = GetListCategory(sHost, sDataForListAuto);
-    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
-    	
-    	
-    
-    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-    	print("\r\nШАГ 4");
-    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
-    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-    	jData = GetListCategory(sHost, sDataForListRealt);
-    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
-    	
-///////////////////////   	
-    
-    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-    	print("\r\nШАГ 5");
-    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
-    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
-    	jData = GetListCategory(sHost, sDataForListTIY);
-    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
-    	
-    	// удаляем объявления 
-    	print("\r\nШАГ 6");
-    	print("Удаление поданных объявлений пользователя".toUpperCase());
-    	print("Удаляем объявление с ID = " + sIdAuto);
-    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
-    	
-    	print("Удаляем объявление с ID = " + sIdRealt);
-    	DeleteAdvert(sHost, sAuth_token, sIdRealt);
-    	
-    	print("Удаляем объявление с ID = " + sIdTIU);
-    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
-    	
+	/////////////////////////////////////////////////////////////////////////////////////////////////    	
+	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+	    	print("Объявление №2");	
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+	    	sIdRealt = objRealt.GetID();
+	    	
+	///////////////////////////////////////////////////////////////////////////////////////////////// 
+	    	print("\r\nПодача объявления в рубрику Электроника и техника - пылесосы. Регион Казань".toUpperCase());
+	    	print("Объявление №3");	
+	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	sIdTIU = objTIY.GetID();
+	   	
+	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	
+	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
+	    	print("\r\nШАГ 3");
+	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
+	    	jData = GetListCategory(sHost, sDataForListAuto);
+	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
+	    	
+	    	
+	    
+	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
+	    	print("\r\nШАГ 4");
+	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
+	    	jData = GetListCategory(sHost, sDataForListRealt);
+	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
+	    	
+	///////////////////////   	
+	    
+	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
+	    	print("\r\nШАГ 5");
+	    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
+	    	jData = GetListCategory(sHost, sDataForListTIY);
+	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
+		}
+		finally
+		{
+	    	// удаляем объявления 
+	    	print("\r\nШАГ 6");
+	    	print("Удаление поданных объявлений пользователя".toUpperCase());
+	    	print("Удаляем объявление с ID = " + sIdAuto);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdRealt);
+	    	DeleteAdvert(sHost, sAuth_token, sIdRealt);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdTIU);
+	    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
    
