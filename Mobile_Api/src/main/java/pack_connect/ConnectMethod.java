@@ -68,18 +68,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("password = "+ sPassword);
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
-    		.setParameter("email", sEmail)
-    		.setParameter("password", sPassword);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
     	
+    	String sE = "email=" + sEmail + "&password=" + sPassword;
+    	
+    	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -6833,7 +6828,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote")
     		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
+
     	if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%");
