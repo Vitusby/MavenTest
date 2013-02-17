@@ -1511,25 +1511,22 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = " + sAuth_token);
 		print("sIdAdvert = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
-    			.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	
+    	String sE = "auth_token=" + sAuth_token;
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление c ID = " + sIdAdvert + " добавлено в избранное");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление c ID = " + sIdAdvert + " добавлено в избранное");
     	else
     	{
     		print("Не удалось добавить объявление \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
