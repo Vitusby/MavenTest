@@ -1113,7 +1113,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// подача ИП для автотестов
 	private void PostAdvertIP(String sHost, String sMas_Adv[], String sMas_Cust[], String sAuth_token, String sCategoryData, String sImage) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
-		
 		String sRequest, sRequest1, sRequest2;
 		
 		print("Параметры для запроса");
@@ -1123,7 +1122,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Генерируем данные");
 		
 		String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
-		sRequest = CreateSimpleRequest(Proper.GetProperty(sCategoryData)); //category_auto
+		sRequest = CreateSimpleRequestForPostAndPut(Proper.GetProperty(sCategoryData)); //category_auto
 		
 		//генерим advertisement 
 		HM<String, String> hObj_Adv = new HM<String, String>(); //здесь будем хранить {param=value} для advertisement
@@ -1131,7 +1130,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			hObj_Adv.SetValue(sMas_Adv[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Adv[i]), ""));
 		}
-		sRequest1 = CreateArrayRequest("advertisement",  hObj_Adv.GetStringFromAllHashMap());
+		sRequest1 = CreateArrayRequestForPostAndPut("advertisement",  hObj_Adv.GetStringFromAllHashMap());
 		
 		// генерим advertisement [custom_fields]
 		HM<String, String> hObj_Cust = new HM<String, String>();  //здесь будем хранить {param=value} для advertisement [customfields]
@@ -1140,20 +1139,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 				hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
 		}
 		hObj_Cust.PrintKeyAndValue();
-		sRequest2 = CreateDoubleArrayRequest("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
+		sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert")
-    		.setQuery(sRequest+sRequest1+sRequest2+sVideo)
-    		.setParameter("auth_token", sAuth_token);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+    	
+    	String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage(uri, Proper.GetProperty(sImage));
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequestImage2(uri, Proper.GetProperty(sImage), sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -1166,7 +1161,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	else
     	{
     		print("Не удалось создать объявление. Корректно. ИП не имеет право создавать объявления\r\n"+
-    				"Ответ сервера:\r\n" + jsonObject.toString() + "\r\n");
+    				"Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\n");
     	}	
 	}
 	// подсчет объявлений в листинге ЛК для автотеста
