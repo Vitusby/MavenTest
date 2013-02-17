@@ -5,7 +5,7 @@
    <parameter name="sBaseHost" value="design.prontosoft.by"/>
    <parameter name="sLogin" value="api1@yopmail.com"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="sIdAdvert" value="251717856"/> 
+   <parameter name="sIdAdvert" value="251717857"/> 
    <parameter name="sParam1" value="{title=Тайтл}"/>
    <parameter name="sParam2" value="{make=BMW, model=116}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 

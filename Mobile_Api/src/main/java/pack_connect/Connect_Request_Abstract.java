@@ -135,6 +135,38 @@ public abstract class Connect_Request_Abstract
     	return sTempResponse;
     } 
  
+    /*public String HttpPutRequestImage2(URI uri , String sPath, String sBodyRequest) throws URISyntaxException, IOException
+    {
+    	HttpClient hClient = new DefaultHttpClient();
+    	HttpPut put = new HttpPut();
+    	HttpResponse response;
+    	String sTempResponse;  	
+    	
+    	put.setURI(uri);
+    	
+    	FileBody bin = new FileBody(new File(sPath)); 
+        MultipartEntity reqEntity = new MultipartEntity();
+        
+
+        
+        reqEntity.addPart("image", bin);
+        String smas[] =  sBodyRequest.split("&");
+        for(String s : smas)
+        {
+        	String smas2[] = s.split("=", 2);
+        	for(int j=0; j<smas2.length; j++)
+        	{
+        	
+        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
+        	}
+        }
+        put.setEntity(reqEntity);
+    		
+    	response = hClient.execute(put);
+    	sTempResponse = GetContentResponse(response);
+    	return sTempResponse;
+    }*/
+    
     
     public String HttpGetRequest(URI uri) throws URISyntaxException, IOException 
     {
@@ -160,6 +192,7 @@ public abstract class Connect_Request_Abstract
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     }
+    
     
     // generate ?param=value for post/put request
  	public final String CreateSimpleRequestForPostAndPut(String sDataForSimpleRequest) throws UnsupportedEncodingException
