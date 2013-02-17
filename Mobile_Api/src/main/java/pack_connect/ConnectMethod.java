@@ -1258,7 +1258,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение листинга ЛК/Удаление
 	public void AddGetListDeleteOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sIdAdvert; 
+		String sIdAdvert=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -1269,28 +1269,34 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача,получение листинга ЛК, удаление объявления ОП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
-		
-		print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
-    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
-    	sIdAdvert = objRealt.GetID();
-    	
-    	print("\r\nПолучаем листинг объявлений в ЛК");
-    	jData = GetListOwnAdvert(sHost, sAuth_token);
-    	
-    	print("\r\nИщем поданное объявление в листинге ЛК");
-    	print("ID искомого объявления = " + sIdAdvert);
-    	FindAdvertFromListAfterPost(jData, sIdAdvert);
-    	
-    	print("\r\nУдаляем объявление в ЛК");
-    	print("ID удаляемого объявления = " + sIdAdvert);
-    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-    	
-    	print("\r\nПолучаем листинг объявлений в ЛК");
-    	jData = GetListOwnAdvert(sHost, sAuth_token);
-    	
-    	print("\r\nИщем удаленное из ЛК объявление");
-    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
-    	
+		try
+		{
+			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
+	    	sIdAdvert = objRealt.GetID();
+	    	
+	    	print("\r\nПолучаем листинг объявлений в ЛК");
+	    	jData = GetListOwnAdvert(sHost, sAuth_token);
+	    	
+	    	print("\r\nИщем поданное объявление в листинге ЛК");
+	    	print("ID искомого объявления = " + sIdAdvert);
+	    	FindAdvertFromListAfterPost(jData, sIdAdvert);
+			
+	    	print("\r\nУдаляем объявление в ЛК");
+	    	print("ID удаляемого объявления = " + sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	
+	    	print("\r\nПолучаем листинг объявлений в ЛК");
+	    	jData = GetListOwnAdvert(sHost, sAuth_token);
+	    	
+	    	print("\r\nИщем удаленное из ЛК объявление");
+	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
+		}
+		finally
+		{
+			print("\r\nУдаляем поданное объявление(если тест провалился)");
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());	
 	}
