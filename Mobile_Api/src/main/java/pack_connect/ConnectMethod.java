@@ -3816,7 +3816,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sSearchRealtNewMasslenikovo = "{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}";
 		String sSearchDataRealtNewKapovo = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/kargopolskiy-r_n/kapovo-derevnya/, advert_type=realty_new}";
 		String sSearchDataRealtNewArhangelsk = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, advert_type=realty_new}";
-		String sSearchDataTIYBookreaderKazan = "{category=electronics-technics/bookreader/, region=russia/tatarstan-resp/kazan-gorod/, advert_type=bookreader}";
+		String sSearchDataTIYBookreaderKazan = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, advert_type=vacuum_cleaner}";
 		
 		JSONObject jData;
 		@SuppressWarnings("unused")
