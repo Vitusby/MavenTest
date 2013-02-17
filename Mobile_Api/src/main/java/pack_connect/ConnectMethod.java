@@ -6386,11 +6386,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sE = "auth_token=" + sAuth_token;
     	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
