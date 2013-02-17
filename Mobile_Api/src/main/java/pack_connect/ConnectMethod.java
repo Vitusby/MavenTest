@@ -102,20 +102,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		print("password = "+ Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", Proper.GetProperty("login_authOP"))
-    		.setParameter("password", Proper.GetProperty("password"));
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password");
+    		
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest(uri);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
-    	
     	
     	if(jsonObject.isNull("error"))
     	{
@@ -145,17 +140,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = "+ Proper.GetProperty("login_authIP"));
 		print("password = "+ Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", Proper.GetProperty("login_authIP"))
-    		.setParameter("password", Proper.GetProperty("password"));
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password");
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequest(uri);
+    	sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
     	
@@ -188,17 +179,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotExist"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", Proper.GetProperty("login_authNotExist"))
-    		.setParameter("password", Proper.GetProperty("password"));
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + Proper.GetProperty("login_authNotExist") + "&password=" + Proper.GetProperty("password");
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequest(uri);
+    	sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
     	
@@ -221,17 +208,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-    		.setParameter("username", Proper.GetProperty("login_authBan"))
-    		.setParameter("password", Proper.GetProperty("password"));
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
+    	
     	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	sResponse = HttpPostRequest(uri);
+    	sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	jsonObject = ParseResponse(sResponse);
     	
@@ -254,17 +237,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login")
-		.setParameter("username", Proper.GetProperty("login_authNotActive"))
-		.setParameter("password", Proper.GetProperty("password"));
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+		
+		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
+		
 		uri = builder.build();
-		if(uri.toString().indexOf("%25") != -1)
-		{
-		String sTempUri = uri.toString().replace("%25", "%");
-		uri = new URI(sTempUri);			
-		}
-		print("Отправляем запрос. Uri Запроса: "+uri.toString());
-		sResponse = HttpPostRequest(uri);
+		print("Отправляем запрос. Uri Запроса: "+ uri.toString());
+		sResponse = HttpPostRequest2(uri, sE);
 		print("Парсим ответ....");
 		jsonObject = ParseResponse(sResponse);
 		
