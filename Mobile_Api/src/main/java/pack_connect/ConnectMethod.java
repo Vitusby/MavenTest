@@ -574,11 +574,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		finally
 		{
-		/*	print("\r\nУдаляем поданные объявления");
+			print("\r\nУдаляем поданные объявления");
 			DeleteAdvert(sHost, sAuth_token, sIdAuto);
 			DeleteAdvert(sHost, sAuth_token, sIdRealt);
+			DeleteAdvert(sHost, sAuth_token, sIdTIU);
 			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile);
-		 */
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
