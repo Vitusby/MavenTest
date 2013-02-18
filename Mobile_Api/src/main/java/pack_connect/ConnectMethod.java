@@ -33,7 +33,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
 	String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
 			"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
-	String mas_TIY2[] = {"used-or-new", "vacuumclean_wash", "offertype", "model"};
+	String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model"};
 	
 	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
 	{
@@ -541,10 +541,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		finally
 		{
-			print("\r\nУдаляем поданные объявления");
+		/*	print("\r\nУдаляем поданные объявления");
 			DeleteAdvert(sHost, sAuth_token, sIdAuto);
 			DeleteAdvert(sHost, sAuth_token, sIdRealt);
-			DeleteAdvert(sHost, sAuth_token, sIdTIU);
+			DeleteAdvert(sHost, sAuth_token, sIdTIU);*/
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -581,7 +581,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Cust_New = new HM<String, String>(); 
 		for(int i=0; i<sMas_Cust.length; i++)
 		{
-			hObj_Cust_New.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), obj_old.GetCustomfieldData().GetValue(sMas_Cust[i])));
+			if(sMas_Cust[i].equals("make_mobile") || sMas_Cust[i].equals("make_vacuum"))
+				hObj_Cust_New.SetValue("make", RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), obj_old.GetCustomfieldData().GetValue("make")));
+			else
+				hObj_Cust_New.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), obj_old.GetCustomfieldData().GetValue(sMas_Cust[i])));
 		}
 		hObj_Cust_New.PrintKeyAndValue();
 		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust_New.GetStringFromAllHashMap());
@@ -640,6 +643,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			HM<String, String> hObj_Cust = new HM<String, String>();  //здесь будем хранить {param=value} для advertisement [customfields]
 			for(int i=0; i<sMas_Cust.length; i++)
 			{
+				if(sMas_Cust[i].equals("make_mobile") || sMas_Cust[i].equals("make_vacuum"))
+					hObj_Cust.SetValue("make", RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
+				else
 					hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
 			}
 			hObj_Cust.PrintKeyAndValue();
