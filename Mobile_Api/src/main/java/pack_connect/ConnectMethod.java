@@ -729,8 +729,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 			builder = new URIBuilder();
 	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
 	    		
-	    	String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
-	    	
+	    	String sE="";
+	    	if(sCategoryData.equals("category_jobs"))
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + 
+	    		"&advertisement[custom_fields][job_specialization][0]=архитектура&advertisement[custom_fields][job_specialization][1]=дизайн";
+	    	else
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
+	    		
 	    	uri = builder.build();
 	    	
 	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
