@@ -7216,44 +7216,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
-    	JSONObject jsonTemp;
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "список полей рубрики для подачи объявления получен");
-    		print("--------------------------------------------------------------------------------------------------------------");
-			print("group_custom_fields");
-			jsonTemp = jsonObject.getJSONObject("group_custom_fields");
-			print(jsonTemp.toString(10));
-			
-			
-			JSONArray ar = jsonObject.getJSONArray("video");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("video");
-    			jsonTemp = (JSONObject) ar.get(i);
-    			print(jsonTemp.toString(10));
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок полей рубрики для подачи объявления получен");
     		
-    		}
-			
-    		ar = jsonObject.getJSONArray("contacts");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("contacts");
-    			jsonTemp = (JSONObject) ar.get(i);
-    			print(jsonTemp.toString(10));
-    		
-    		}
     	}
     	else
     	{
     		print("Не удалось получить список полей рубрики для подачи объявления \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
