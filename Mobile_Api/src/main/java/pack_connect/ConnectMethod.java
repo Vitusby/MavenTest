@@ -36,6 +36,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model"};
 	String mas_TIY_Mobile[] = {"make_mobile", "used-or-new", "offertype", "model", "corpus_type", "mobile_two_sim_card"};
 	String mas_Darom[] = {"mapStreet", "mapHouseNr", "used-or-new", "otdam_za", "pochti_darom", "goodorpet"};
+	String mas_Job[] = {"schedule", "car"};
 	
 	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
 	{
@@ -457,8 +458,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU="", sIdTIUMobile="", sIdDarom="";
-		String sImageUrlAuto, sImageUrlRealt, sImageUrlTIY, sImageUrlTIYMobile, sImageUrlDarom; 
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdTIUMobile="", sIdDarom="", sIdJob="";
+		String sImageUrlAuto, sImageUrlRealt, sImageUrlTIY, sImageUrlTIYMobile, sImageUrlDarom, sImageUrlJob; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -472,8 +473,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_TIY_Mobile2;
 		HM<String, String> hObj_Darom;
 		HM<String, String> hObj_Darom2;
+		HM<String, String> hObj_Job;
+		HM<String, String> hObj_Job2;
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY, objTIY_Mobile, objDarom;
+		InnerDataHM objAuto, objRealt, objTIY, objTIY_Mobile, objDarom, objJob;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
@@ -518,10 +521,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 			print("\r\nШАГ №1-4");
 			print("Подача объявления в рубрику Отдам даром".toUpperCase());
-			objDarom = PostAdvert(sHost, mas_Advertisment, mas_Darom, sAuth_token, "category_darom", "image6");
+			objDarom = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7");
 			sIdDarom = objDarom.GetID();
 			hObj_Darom = objDarom.GetAdvertismentData();
 			hObj_Darom2 = objDarom.GetCustomfieldData();
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////	
+			print("\r\nШАГ №1-5");
+			print("Подача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет)".toUpperCase());
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Darom, sAuth_token, "category_darom", "image6");
+			sIdJob = objJob.GetID();
+			hObj_Job = objJob.GetAdvertismentData();
+			hObj_Job2 = objJob.GetCustomfieldData();
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
