@@ -1020,6 +1020,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		}
 		// если рубрика работа и образование то мы должны проверить значения специализации и языка (кастыль)
+		jTemp = jObj.getJSONObject("advertisement");
 		if(jTemp.getString("category").equals("Бытовые и коммунальные услуги, муниципалитет"))
 		{
 			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн"))
