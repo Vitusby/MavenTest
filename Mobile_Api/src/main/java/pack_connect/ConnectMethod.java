@@ -521,7 +521,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 			print("\r\nШАГ №1-4");
 			print("Подача объявления в рубрику Отдам даром".toUpperCase());
-			objDarom = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7");
+			objDarom = PostAdvert(sHost, mas_Advertisment, mas_Darom, sAuth_token, "category_darom", "image6");
 			sIdDarom = objDarom.GetID();
 			hObj_Darom = objDarom.GetAdvertismentData();
 			hObj_Darom2 = objDarom.GetCustomfieldData();
@@ -530,7 +530,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 			print("\r\nШАГ №1-5");
 			print("Подача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет)".toUpperCase());
-			objJob = PostAdvert(sHost, mas_Advertisment, mas_Darom, sAuth_token, "category_darom", "image6");
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7");
 			sIdJob = objJob.GetID();
 			hObj_Job = objJob.GetAdvertismentData();
 			hObj_Job2 = objJob.GetCustomfieldData();
