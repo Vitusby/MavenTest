@@ -34,6 +34,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	String mas_Realt2[] = {"etage", "rooms", "private", "meters-total", "mapStreet", "mapHouseNr", "etage-all",
 			"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
 	String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model"};
+	String mas_TIY_Mobile[] = {"make_mobile", "used-or-new", "offertype", "model", "corpus_type", "mobile_two_sim_card"};
 	
 	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
 	{
@@ -455,7 +456,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU="", sImageUrlAuto, sImageUrlRealt, sImageUrlTIY; 
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdTIUMobile="", sImageUrlAuto, sImageUrlRealt, sImageUrlTIY, sImageUrlTIYMobile; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -465,24 +466,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Realt2;
 		HM<String, String> hObj_TIY;
 		HM<String, String> hObj_TIY2;
+		HM<String, String> hObj_TIY_Mobile;
+		HM<String, String> hObj_TIY_Mobile2;
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY;
+		InnerDataHM objAuto, objRealt, objTIY, objTIY_Mobile;
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		try
 		{
-/////////////////////////////////////////////////////////////////////////////////////////////////		
-			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
+/////////////////////////////////////////////////////////////////////////////////////////////////	
+			print("\r\nШАГ №1");
+			print("Подача объявления в рубрику Авто с пробегом".toUpperCase());
 			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
 			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
 	
 	
-/////////////////////////////////////////////////////////////////////////////////////////////////    	
-	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
+/////////////////////////////////////////////////////////////////////////////////////////////////  
+			print("\r\nШАГ №1-1");
+	    	print("Подача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
 	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2");
 	    	sIdRealt = objRealt.GetID();
 	    	hObj_Realt = objRealt.GetAdvertismentData();
@@ -490,51 +495,79 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
-	    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы".toUpperCase());
+	    	print("\r\nШАГ №1-2");
+	    	print("Подача объявления в рубрику Электроника и техника - Пылесосы".toUpperCase());
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
 	    	sIdTIU = objTIY.GetID();
 	    	hObj_TIY = objTIY.GetAdvertismentData();
 	    	hObj_TIY2 = objTIY.GetCustomfieldData();
 	    
+/////////////////////////////////////////////////////////////////////////////////////////////////	
+	    	print("\r\nШАГ №1-3");
+	    	print("Подача объявления в рубрику Телефоны и связь - Мобильные телефоны".toUpperCase());
+	    	objTIY_Mobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5");
+	    	sIdTIUMobile = objTIY_Mobile.GetID();
+	    	hObj_TIY_Mobile = objTIY_Mobile.GetAdvertismentData();
+	    	hObj_TIY_Mobile2 = objTIY_Mobile.GetCustomfieldData();
+	    	
 	    	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	    
+	    	print("\r\nШАГ №2");
 	    	jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
 	    	print("Проверяем корректность указанных данных при подаче объявления");
 	    	sImageUrlAuto = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2, jData);
 			print("");
 	    	
+			print("\r\nШАГ №2-1");
 			jData = GetAdvert(sHost, sIdRealt, "Вторичный рынок");
 	    	print("Проверяем корректность указанных данных при подаче объявления");
 	    	sImageUrlRealt = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2, jData);
 			print("");
 			
+			print("\r\nШАГ №2-2");
 			jData = GetAdvert(sHost, sIdTIU, "Пылесосы");
 	    	print("Проверяем корректность указанных данных при подаче объявления");
 	    	sImageUrlTIY = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2, jData);
 			print("");
 			
+			print("\r\nШАГ №2-3");
+			jData = GetAdvert(sHost, sIdTIUMobile, "Мобильные телефоны");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlTIYMobile = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY_Mobile, hObj_TIY_Mobile, hObj_TIY_Mobile2, jData);
+			print("");
+			
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			print("\r\nРедактирование объявления. Авто с пробегом");
+			print("\r\nШАГ №3");
+			print("\r\nРедактирование объявления. Авто с пробегом".toUpperCase());
 			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto);
 			sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
 			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Auto2, hObj_Auto, hObj_Auto2);
 			
-			print("\r\nРедактирование объявления. Вторичный рынок");
+			print("\r\nШАГ №3-1");
+			print("\r\nРедактирование объявления. Вторичный рынок".toUpperCase());
 			objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
 			sIdRealt = objRealt.GetID(); // сюда сохраняем значение id
 			hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Realt2, hObj_Realt, hObj_Realt2);
 			
-			print("\r\nРедактирование объявления. Пылесосы");
+			print("\r\nШАГ №3-2");
+			print("\r\nРедактирование объявления. Пылесосы".toUpperCase());
 			objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY);
 			sIdTIU = objTIY.GetID(); // сюда сохраняем значение id
 			hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY2, hObj_TIY, hObj_TIY2);
+			
+			print("\r\nШАГ №3-3");
+			print("\r\nРедактирование объявления. Мобильные телефоны".toUpperCase());
+			objTIY_Mobile = EditAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, objTIY_Mobile, sAuth_token, sImageUrlTIYMobile);
+			sIdTIUMobile = objTIY_Mobile.GetID(); // сюда сохраняем значение id
+			hObj_TIY_Mobile = objTIY_Mobile.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_TIY_Mobile2 = objTIY_Mobile.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY_Mobile, hObj_TIY_Mobile, hObj_TIY_Mobile2);
 		
 ///////////////////////////////////////////////////////////////////////////////////////
 			Sleep(10000);
@@ -544,7 +577,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		/*	print("\r\nУдаляем поданные объявления");
 			DeleteAdvert(sHost, sAuth_token, sIdAuto);
 			DeleteAdvert(sHost, sAuth_token, sIdRealt);
-			DeleteAdvert(sHost, sAuth_token, sIdTIU);*/
+			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile);
+		 */
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
