@@ -754,28 +754,45 @@ public class ConnectMethod extends Connect_Request_Abstract
 		// Сравниваем значения
 		for(int i=0; i<mas_Cust.length; i++)
 		{
-			
-			if(obj_Cust.GetValue(mas_Cust[i]).equals(objHM.GetValue(mas_Cust[i])))
+			if(mas_Cust[i].equals("make_mobile") || mas_Cust[i].equals("make_vacuum"))
 			{
-				print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
-						" совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));		
-			}
-			else
-			{
-				if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+				if(obj_Cust.GetValue("make").equals(objHM.GetValue("make")))
 				{
-					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при редактировании, не найдено в" +
-							" объявление так как является булевским и при значении = 0, в объявление удаляется. Корректно.");
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue("make") + " указанное для при редактировании объявления," +
+							" совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue("make"));		
 				}
 				else
 				{
-					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
-							" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));	
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue("make") + " указанное для при редактировании объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue("make"));	
 					print("Тест провален".toUpperCase());
 		    		throw new ExceptFailTest("Тест провален");
 				}
 			}
+			else
+			{
 			
+				if(obj_Cust.GetValue(mas_Cust[i]).equals(objHM.GetValue(mas_Cust[i])))
+				{
+					print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
+							" совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));		
+				}
+				else
+				{
+					if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+					{
+						print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при редактировании, не найдено в" +
+								" объявление так как является булевским и при значении = 0, в объявление удаляется. Корректно.");
+					}
+					else
+					{
+						print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное для при редактировании объявления," +
+								" не совпало со значение после получения данного объявления " + mas_Cust[i] + " = " + objHM.GetValue(mas_Cust[i]));	
+						print("Тест провален".toUpperCase());
+			    		throw new ExceptFailTest("Тест провален");
+					}
+				}
+			}
 		}	
 		// Проверяем наличие видео
 		
