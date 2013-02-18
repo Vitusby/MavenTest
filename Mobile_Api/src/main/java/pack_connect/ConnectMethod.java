@@ -731,8 +731,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		
 	    	String sE="";
 	    	if(sCategoryData.equals("category_jobs"))
-	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + 
-	    		"&advertisement[custom_fields][job_specialization][0]=архитектура&advertisement[custom_fields][job_specialization][1]=дизайн";
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special") +
+	    				Proper.GetProperty("language") + Proper.GetProperty("language2");
 	    	else
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 	    		
