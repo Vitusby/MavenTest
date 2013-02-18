@@ -576,7 +576,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			print("\r\nШАГ №3");
 			print("\r\nРедактирование объявления. Авто с пробегом".toUpperCase());
-			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto);
+			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto, "category_auto");
 			sIdAuto = objAuto.GetID(); // сюда сохраняем значение id
 			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
@@ -584,7 +584,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №3-1");
 			print("\r\nРедактирование объявления. Вторичный рынок".toUpperCase());
-			objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt);
+			objRealt = EditAdvert(sHost, mas_Advertisment, mas_Realt2, objRealt, sAuth_token, sImageUrlRealt, "category_realt");
 			sIdRealt = objRealt.GetID(); // сюда сохраняем значение id
 			hObj_Realt = objRealt.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Realt2 = objRealt.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
@@ -592,7 +592,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №3-2");
 			print("\r\nРедактирование объявления. Пылесосы".toUpperCase());
-			objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY);
+			objTIY = EditAdvert(sHost, mas_Advertisment, mas_TIY2, objTIY, sAuth_token, sImageUrlTIY, "category_electron");
 			sIdTIU = objTIY.GetID(); // сюда сохраняем значение id
 			hObj_TIY = objTIY.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_TIY2 = objTIY.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
@@ -600,7 +600,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №3-3");
 			print("\r\nРедактирование объявления. Мобильные телефоны".toUpperCase());
-			objTIY_Mobile = EditAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, objTIY_Mobile, sAuth_token, sImageUrlTIYMobile);
+			objTIY_Mobile = EditAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, objTIY_Mobile, sAuth_token, sImageUrlTIYMobile, "category_mobile");
 			sIdTIUMobile = objTIY_Mobile.GetID(); // сюда сохраняем значение id
 			hObj_TIY_Mobile = objTIY_Mobile.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_TIY_Mobile2 = objTIY_Mobile.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
@@ -609,11 +609,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №3-4");
 			print("\r\nРедактирование объявления. Отдам даром".toUpperCase());
-			objDarom = EditAdvert(sHost, mas_Advertisment, mas_Darom, objDarom, sAuth_token, sImageUrlDarom);
+			objDarom = EditAdvert(sHost, mas_Advertisment, mas_Darom, objDarom, sAuth_token, sImageUrlDarom, "category_darom");
 			sIdDarom = objDarom.GetID(); // сюда сохраняем значение id
 			hObj_Darom = objDarom.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Darom2 = objDarom.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Darom, hObj_Darom, hObj_Darom2);
+			
+			print("\r\nШАГ №3-5");
+			print("\r\nРедактирование объявления. Резюме - Бытовые и коммунальные услуги, муниципалитет".toUpperCase());
+			objJob = EditAdvert(sHost, mas_Advertisment, mas_Job, objJob, sAuth_token, sImageUrlJob, "category_jobs");
+			sIdJob = objJob.GetID(); // сюда сохраняем значение id
+			hObj_Job = objJob.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_Job2 = objJob.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			//ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Job, hObj_Job, hObj_Job2);
 		
 ///////////////////////////////////////////////////////////////////////////////////////
 			Sleep(10000);
@@ -632,7 +640,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// редактирование объявления автотест
-	private InnerDataHM EditAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], InnerDataHM obj_old,  String sAuth_token, String sUrlImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private InnerDataHM EditAdvert(String sHost, String sMas_Adv[], String sMas_Cust[], InnerDataHM obj_old,  String sAuth_token, String sUrlImage, String sCategoryData) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
 		InnerDataHM obj_after_edit;
@@ -673,7 +681,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
 		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ obj_old.GetID());
 		
-		String sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage;
+		String sE="";
+    	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
+    		sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage
+    		+ Proper.GetProperty("job_special_edit") + Proper.GetProperty("language_edit") + Proper.GetProperty("language2_edit");
+    	else
+    		sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage;
 		
 		uri = builder.build();
 		print("Отправляем запрос. Uri Запроса: " + uri.toString());
@@ -1023,7 +1036,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = jObj.getJSONObject("advertisement");
 		if(jTemp.getString("category").equals("Бытовые и коммунальные услуги, муниципалитет"))
 		{
-			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн2"))
+			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн"))
 				print("Значение job_specialization = \"архитектура;дизайн\", указанное при подаче объявления," +
 						" совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
 			else 
