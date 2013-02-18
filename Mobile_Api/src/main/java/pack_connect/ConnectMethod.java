@@ -458,7 +458,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		String sIdAuto="", sIdRealt="", sIdTIU="", sIdTIUMobile="", sIdDarom="";
-		String sImageUrlAuto, sImageUrlRealt, sImageUrlTIY, sImageUrlTIYMobile, sImageDarom; 
+		String sImageUrlAuto, sImageUrlRealt, sImageUrlTIY, sImageUrlTIYMobile, sImageUrlDarom; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -547,6 +547,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			jData = GetAdvert(sHost, sIdTIUMobile, "Мобильные телефоны");
 	    	print("Проверяем корректность указанных данных при подаче объявления");
 	    	sImageUrlTIYMobile = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_TIY_Mobile, hObj_TIY_Mobile, hObj_TIY_Mobile2, jData);
+			print("");
+			
+			print("\r\nШАГ №2-4");
+			jData = GetAdvert(sHost, sIdDarom, "Отдам даром");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlDarom = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Darom, hObj_Darom, hObj_Darom2, jData);
 			print("");
 			
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -650,7 +656,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\n Объявление отредактировано");
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление отредактировано");
     		obj_after_edit = new InnerDataHM(hObj_Adv_New, hObj_Cust_New, sId); // сохраняем значения данных после редактирования
     		return obj_after_edit;
     	}
