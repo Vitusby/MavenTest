@@ -621,7 +621,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdJob = objJob.GetID(); // сюда сохраняем значение id
 			hObj_Job = objJob.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_Job2 = objJob.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
-			//ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Job, hObj_Job, hObj_Job2);
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Job, hObj_Job, hObj_Job2);
 		
 ///////////////////////////////////////////////////////////////////////////////////////
 			Sleep(10000);
@@ -634,6 +634,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			DeleteAdvert(sHost, sAuth_token, sIdTIU);
 			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile);
 			DeleteAdvert(sHost, sAuth_token, sIdDarom);
+			//DeleteAdvert(sHost, sAuth_token, sIdJob);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -893,6 +894,44 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 			}
 		}	
+		
+		
+		// если рубрика работа и образование то мы должны проверить значения специализации и языка (кастыль)
+		jTemp = jsonObject.getJSONObject("advertisement");
+		if(jTemp.getString("category").equals("Бытовые и коммунальные услуги, муниципалитет"))
+		{
+			if(objHM.GetValue("job_specialization").equals("строительство;экология"))
+				print("Значение job_specialization = \"строительство;экология\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
+			else 
+			{	
+				print("Значение job_specialization = \"строительство;экология\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			if(objHM.GetValue("language_type").equals("немецкий;испанский"))
+				print("Значение language_type = \"немецкий;испанский\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
+			else 
+			{	
+				print("Значение language_type = \"немецкий;испанский\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			if(objHM.GetValue("study_level").equals("свободный;свободный"))
+				print("Значение study_level = \"свободный;свободный\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
+			else 
+			{	
+				print("Значение study_level = \"свободный;свободный\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
+				throw new ExceptFailTest("Тест провален");
+			}
+		}
+			
+		
 		// Проверяем наличие видео
 		
 	 	print("\r\nПроверяем наличие видео");
