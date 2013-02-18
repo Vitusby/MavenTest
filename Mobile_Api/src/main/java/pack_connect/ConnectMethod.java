@@ -1023,7 +1023,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = jObj.getJSONObject("advertisement");
 		if(jTemp.getString("category").equals("Бытовые и коммунальные услуги, муниципалитет"))
 		{
-			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн"))
+			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн2"))
 				print("Значение job_specialization = \"архитектура;дизайн\", указанное при подаче объявления," +
 						" совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
 			else 
