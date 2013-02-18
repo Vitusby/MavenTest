@@ -587,17 +587,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj_TIY_Mobile = objTIY_Mobile.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
 			hObj_TIY_Mobile2 = objTIY_Mobile.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
 			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_TIY_Mobile, hObj_TIY_Mobile, hObj_TIY_Mobile2);
+			
+			
+			print("\r\nШАГ №3-4");
+			print("\r\nРедактирование объявления. Отдам даром".toUpperCase());
+			objDarom = EditAdvert(sHost, mas_Advertisment, mas_Darom, objDarom, sAuth_token, sImageUrlDarom);
+			sIdDarom = objDarom.GetID(); // сюда сохраняем значение id
+			hObj_Darom = objDarom.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при редактировании )  
+			hObj_Darom2 = objDarom.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при редактировании
+			ValidateDataFromAdvertAfterEdit(mas_Advertisment, mas_Darom, hObj_Darom, hObj_Darom2);
 		
 ///////////////////////////////////////////////////////////////////////////////////////
 			Sleep(10000);
 		}
 		finally
 		{
-			print("\r\nУдаляем поданные объявления");
+		/*	print("\r\nУдаляем поданные объявления");
 			DeleteAdvert(sHost, sAuth_token, sIdAuto);
 			DeleteAdvert(sHost, sAuth_token, sIdRealt);
 			DeleteAdvert(sHost, sAuth_token, sIdTIU);
 			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile);
+			DeleteAdvert(sHost, sAuth_token, sIdDarom);
+			*/
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
