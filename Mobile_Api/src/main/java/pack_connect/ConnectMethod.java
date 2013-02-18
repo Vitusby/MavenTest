@@ -567,6 +567,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	sImageUrlDarom = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Darom, hObj_Darom, hObj_Darom2, jData);
 			print("");
 			
+			print("\r\nШАГ №2-5");
+			jData = GetAdvert(sHost, sIdJob, "Резюме - Бытовые и коммунальные услуги, муниципалитет");
+	    	print("Проверяем корректность указанных данных при подаче объявления");
+	    	sImageUrlJob = ValidateDataFromAdvertAfterPost(mas_Advertisment, mas_Job, hObj_Job, hObj_Job2, jData);
+			print("");
+			
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			print("\r\nШАГ №3");
 			print("\r\nРедактирование объявления. Авто с пробегом".toUpperCase());
@@ -730,7 +736,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
 	    		
 	    	String sE="";
-	    	if(sCategoryData.equals("category_jobs"))
+	    	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special") +
 	    				Proper.GetProperty("language") + Proper.GetProperty("language2");
 	    	else
@@ -1013,6 +1019,41 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 		
 		}
+		// если рубрика работа и образование то мы должны проверить значения специализации и языка (кастыль)
+		if(jTemp.getString("category").equals("Бытовые и коммунальные услуги, муниципалитет"))
+		{
+			if(objHM.GetValue("job_specialization").equals("архитектура;дизайн"))
+				print("Значение job_specialization = \"архитектура;дизайн\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
+			else 
+			{	
+				print("Значение job_specialization = \"архитектура;дизайн\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления job_specialization = " + objHM.GetValue("job_specialization"));
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			if(objHM.GetValue("language_type").equals("английский;греческий"))
+				print("Значение language_type = \"английский;греческий\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
+			else 
+			{	
+				print("Значение language_type = \"английский;греческий\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			if(objHM.GetValue("study_level").equals("базовый;базовый"))
+				print("Значение study_level = \"английский;греческий\", указанное при подаче объявления," +
+						" совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
+			else 
+			{	
+				print("Значение study_level = \"базовый;базовый\", указанное при подаче объявления," +
+						" не совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
+				throw new ExceptFailTest("Тест провален");
+			}
+		}
+		
+		
 		// Проверяем наличие видео
 		print("Проверяем наличие видео");
 		String sVideo = Proper.GetProperty("video");
