@@ -3492,21 +3492,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача, получения листинга категории и проверка объявлений на статус, категорию, регион
 	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU="";
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="";
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY;
+		InnerDataHM objAuto, objRealt, objTIY, objMobile;
 		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListTIYMobile = "{category=communication/mobile/mobiles/, region=russia/sverdlovskaya-obl/ekaterinburg-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListDarom = "{category=otdam-darom/, region=russia/vladimirskaya-obl/aleksandrovskiy-r_n/karabanovo-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sRegionNameAuto = "Москва";
 		String sCategoryNameAuto = "Автомобили с пробегом";
 		String sRegionNameRealt = "Архангельск";
 		String sCategoryNameRealt = "Вторичный рынок";
 		String sRegionNameTIY = "Казань";
 		String sCategoryNameTIY = "Пылесосы";
+		String sRegionNameMobile = "Санкт-Петербург";
+		String sCategoryNameMobile = "Мобильные телефоны";
 	
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
@@ -3514,7 +3518,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
-		print("Подача трех объявлений".toUpperCase());
+		print("Подача четырёх объявлений".toUpperCase());
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
@@ -3534,13 +3538,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Объявление №3");	
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
 	    	sIdTIU = objTIY.GetID();
+	    	
+	    	
+	///////////////////////////////////////////////////////////////////////////////////////////////// 
+			print("\r\nПодача объявления в рубрику Телефоны и связь - сотовые телефоны. Регион Екатеринбург".toUpperCase());
+			print("Объявление №4");	
+			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5");
+			sIdMobile = objMobile.GetID();    	
 	   	
+
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-	    	print("\r\nШАГ 3");
+	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
 	    	jData = GetListCategory(sHost, sDataForListAuto);
@@ -3550,7 +3562,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-	    	print("\r\nШАГ 4");
+	    	print("\r\nШАГ 3");
 	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
 	    	jData = GetListCategory(sHost, sDataForListRealt);
@@ -3560,17 +3572,29 @@ public class ConnectMethod extends Connect_Request_Abstract
 	///////////////////////   	
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
-	    	print("\r\nШАГ 5");
+	    	print("\r\nШАГ 4");
 	    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
 	    	jData = GetListCategory(sHost, sDataForListTIY);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
+	    	
+	    	
+	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
+	    	print("\r\nШАГ 5");
+	    	print("Получаем листинг категории Телефоны и связь - сотовые телефоны. Регион Екатеринбург".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Телефоны и связь - сотовые телефоны.");
+	    	jData = GetListCategory(sHost, sDataForListTIYMobile);
+	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+	    	ValidateListCategory(sHost, jData, sIdMobile, sRegionNameMobile, sCategoryNameMobile, "russia/sverdlovskaya-obl/ekaterinburg-gorod/");
 		}
+		
+		
+		
 		finally
 		{
 	    	// удаляем объявления 
-	    	print("\r\nШАГ 6");
+	    	print("\r\nШАГ 5");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAuto);
 	    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
@@ -3580,6 +3604,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
 	    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdMobile);
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
