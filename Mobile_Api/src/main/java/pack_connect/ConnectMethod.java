@@ -6296,7 +6296,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpPostRequest2(uri,sE);
     	print("Парсим ответ....");
     	
-    	
+    	print(sResponse);
     	jsonObject = ParseResponse(sResponse);
     	String sTempResponse = jsonObject.toString();
     	
