@@ -3492,17 +3492,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача, получения листинга категории и проверка объявлений на статус, категорию, регион
 	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdDarom="", sIdJob="";
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob="";
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY, objMobile, objDarom, objJob;
+		InnerDataHM objAuto, objRealt, objTIY, objMobile, objJob;
 		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIYMobile = "{category=communication/mobile/mobiles/, region=russia/permskiy-kray/perm-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
-		String sDataForListDarom = "{category=otdam-darom/, region=russia/vladimirskaya-obl/aleksandrovskiy-r_n/karabanovo-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListJob = "{category=jobs-education/resumes/communal/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sRegionNameAuto = "Москва";
 		String sCategoryNameAuto = "Автомобили с пробегом";
@@ -3512,10 +3511,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sCategoryNameTIY = "Пылесосы";
 		String sRegionNameMobile = "Пермь";
 		String sCategoryNameMobile = "Мобильные телефоны";
-		String sRegionNameDarom = "Карабаново";
-		String sCategoryNameDarom = "Отдам даром";
 		String sRegionNameJob = "Москва";
-		String sCategoryNameJob = "";
+		String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
 		
 		
 	
@@ -3525,7 +3522,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
-		print("Подача четырёх объявлений".toUpperCase());
+		print("Подача пяти объявлений".toUpperCase());
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
@@ -3554,11 +3551,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdMobile = objMobile.GetID();    
 			
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
-			print("\r\nПодача объявления в рубрику Отдам даром. Регион Карабаново(Владимирская обл)".toUpperCase());
+			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 			print("Объявление №5");	
-			objDarom = PostAdvert(sHost, mas_Advertisment, mas_Darom, sAuth_token, "category_darom", "image6");
-			sIdDarom = objDarom.GetID();    
-	   	
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7");
+			sIdJob = objJob.GetID();    
+			
+			
 
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
@@ -3572,7 +3570,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
 	    	
-	    	
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 3");
@@ -3581,8 +3578,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetListCategory(sHost, sDataForListRealt);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
-	    	
-	///////////////////////   	
+	    		
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 4");
@@ -3604,14 +3600,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 6");
-	    	print("Получаем листинг категории Отдам даром. Регион Карабаново(Владимирская обл)".toUpperCase());
-	    	print("\r\nПолучаем листинг категории объявлений рубрики Отдам даром.");
-	    	jData = GetListCategory(sHost, sDataForListDarom);
+	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
+	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
+	    	jData = GetListCategory(sHost, sDataForListJob);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdDarom, sRegionNameDarom, sCategoryNameDarom, "russia/vladimirskaya-obl/aleksandrovskiy-r_n/karabanovo-gorod/");
+	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/");
+	    		
 		}
-		
-		
 		
 		finally
 		{
@@ -3630,8 +3625,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Удаляем объявление с ID = " + sIdMobile);
 	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
 	    	
-	    	//print("Удаляем объявление с ID = " + sIdDarom);
-	    	//DeleteAdvert(sHost, sAuth_token, sIdDarom);
+	    	print("Удаляем объявление с ID = " + sIdJob);
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -6425,7 +6420,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
     		
     	uri = builder.build();
-    	
+    	print(sE);
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
     	print("Парсим ответ....");
