@@ -6572,9 +6572,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
-    	//String sResponse = HttpPutRequest2(uri, sQuery);
     	print(sQuery);
-    	String sResponse = HttpPutRequestImage2(uri, "2.jpg", sQuery);
+    	String sResponse = HttpPutRequest2(uri, sQuery);
+    	//String sResponse = HttpPutRequestImage2(uri, "2.jpg", sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
