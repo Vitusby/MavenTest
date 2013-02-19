@@ -12,7 +12,7 @@
    <parameter name="bAuthFlag" value="true"/>
   <groups>
     <run>
-      <include name="AutoTest_14"/>
+      <include name="AutoTest_12"/>
     </run>
   </groups>
     <classes>

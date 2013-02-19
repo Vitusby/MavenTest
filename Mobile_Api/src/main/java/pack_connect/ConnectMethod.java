@@ -3142,7 +3142,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача, получение листинга с фильтрацией 
 	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU=""; 
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -3152,11 +3152,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Realt2;
 		HM<String, String> hObj_TIY;
 		HM<String, String> hObj_TIY2;
+		HM<String, String> hObj_Mobile;
+		HM<String, String> hObj_Mobile2;
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY;
+		InnerDataHM objAuto, objRealt, objTIY, objMobile;
 		String sDataForListing = "{category=cars/passenger/used/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		String sDataForListing2 = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		String sDataForListing3 = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
+		String sDataForListing4 = "{category=communication/mobile/mobiles/, region=russia/permskiy-kray/perm-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc}";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
@@ -3166,7 +3169,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// подача трех объявлений
 		print("\r\nШАГ 1");
-		print("Подача трех объявлений".toUpperCase());
+		print("Подача пяти объявлений".toUpperCase());
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва ".toUpperCase());
@@ -3189,6 +3192,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	hObj_TIY = objTIY.GetAdvertismentData();
 	    	hObj_TIY2 = objTIY.GetCustomfieldData();
 	    	
+///////////////////////////////////////////////////////////////////////////////////////////////// 
+			print("\r\nПодача объявления в рубрику Телефоны и связь - Мобильные телефоны. Регион Пермь".toUpperCase());
+			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5");
+			sIdMobile = objMobile.GetID();
+			hObj_Mobile = objMobile.GetAdvertismentData();
+			hObj_Mobile2 = objMobile.GetCustomfieldData();
+	    	
+			
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
@@ -3217,6 +3228,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2));
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
 	    	FindAdvertFromListAfterPost(jData, sIdTIU);
+	    	
+	    	
+	    	print("\r\nФормируем запрос для категории Телефоны и связь - Мобильные телефоны. Регион Пермь. Ищем поданное объявление с ID = " + sIdMobile);
+	    	print("Строка для поиска в рубрике Телефоны и связь - Мобильные телефоны для только что поданного объявления = "+ GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
+	    	print("Производим поиск");
+	    	Sleep(5000);
+	    	jData = GetListSearchCategory(sHost, sDataForListing4, GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
+	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdMobile);
+	    	FindAdvertFromListAfterPost(jData, sIdMobile);
+	    	
 		}
 		finally
 		{
@@ -3231,6 +3252,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
 	    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdTIU);
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3289,6 +3313,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 			"/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + "/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + 
 			"/hasimages=1/vacuumclean_wash=" + sVacuumclean + 
 			"/keywords=" + hObj.GetValue("text") + "/";
+		
+		return sDataForSearch;
+	}
+	// получение строки фильтра для поиска для Телефоны - сотовые для автотеста
+	private String GetStringFilterMobile(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
+	{
+
+		//{"make_mobile"};
+		String sDataForSearch;
+		String sMobile_two_sim_card = "1";
+
+		if(hObj2.GetValue("mobile_two_sim_card").equals("0"))
+			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
+				"/used-or-new=" + hObj2.GetValue("used-or-new") + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+				"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
+				+ "/keywords=" + hObj.GetValue("text") + "/";
+		else
+			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
+			"/used-or-new=" + hObj2.GetValue("used-or-new") + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+			"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
+			+ "/keywords=" + hObj.GetValue("text") + "/mobile_two_sim_card=" + sMobile_two_sim_card +"/";
+				
 		
 		return sDataForSearch;
 	}
@@ -3511,8 +3557,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sCategoryNameTIY = "Пылесосы";
 		String sRegionNameMobile = "Пермь";
 		String sCategoryNameMobile = "Мобильные телефоны";
-		String sRegionNameJob = "Москва";
-		String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
+		//String sRegionNameJob = "Москва";
+		//String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
 		
 		
 	
