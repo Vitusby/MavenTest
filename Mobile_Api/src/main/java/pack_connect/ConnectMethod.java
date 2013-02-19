@@ -6420,7 +6420,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
     		
     	uri = builder.build();
-    	print(sE);
+    	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
     	print("Парсим ответ....");
