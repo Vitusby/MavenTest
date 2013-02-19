@@ -157,7 +157,7 @@ public abstract class Connect_Request_Abstract
         	for(int j=0; j<smas2.length; j++)
         	{
         	
-        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
+        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"text/plain",Charset.forName("utf-8")));
         	}
         }
         put.setEntity(reqEntity);

@@ -3142,7 +3142,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача, получение листинга с фильтрацией 
 	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
-		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile=""; 
+		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -3154,12 +3154,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_TIY2;
 		HM<String, String> hObj_Mobile;
 		HM<String, String> hObj_Mobile2;
+		HM<String, String> hObj_Job;
+		HM<String, String> hObj_Job2;
 		JSONObject jData;
-		InnerDataHM objAuto, objRealt, objTIY, objMobile;
+		InnerDataHM objAuto, objRealt, objTIY, objMobile, objJob;
 		String sDataForListing = "{category=cars/passenger/used/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		String sDataForListing2 = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		String sDataForListing3 = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		String sDataForListing4 = "{category=communication/mobile/mobiles/, region=russia/permskiy-kray/perm-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc}";
+		String sDataForListing5 = "{category=jobs-education/resumes/communal/, region=russia/moskva-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
@@ -3198,6 +3201,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdMobile = objMobile.GetID();
 			hObj_Mobile = objMobile.GetAdvertismentData();
 			hObj_Mobile2 = objMobile.GetCustomfieldData();
+			
+			
+///////////////////////////////////////////////////////////////////////////////////////////////// 
+			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7");
+			sIdJob = objJob.GetID();
+			hObj_Job = objJob.GetAdvertismentData();
+			hObj_Job2 = objJob.GetCustomfieldData();
 	    	
 			
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
@@ -3326,7 +3337,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		if(hObj2.GetValue("mobile_two_sim_card").equals("0"))
 			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
-				"/used-or-new=" + hObj2.GetValue("used-or-new") + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+				"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
 				"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
 				+ "/keywords=" + hObj.GetValue("text") + "/";
 		else
@@ -6575,6 +6586,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print(sQuery);
     	String sResponse = HttpPutRequest2(uri, sQuery);
     	//String sResponse = HttpPutRequestImage2(uri, "2.jpg", sQuery);
+    	
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);

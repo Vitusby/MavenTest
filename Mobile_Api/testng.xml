@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
   <test name="Test">
-   <parameter name="sBaseHost" value="ae.irr.rumaster.devel.ps"/>
+   <parameter name="sBaseHost" value="design.prontosoft.by"/>
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="245367351"/> 
@@ -12,7 +12,7 @@
    <parameter name="bAuthFlag" value="true"/>
   <groups>
     <run>
-      <include name="EditAdvert_2_3"/>
+      <include name="AutoTest_12"/>
     </run>
   </groups>
     <classes>
