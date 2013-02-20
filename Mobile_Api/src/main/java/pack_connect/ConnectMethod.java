@@ -6393,7 +6393,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
-		sAuth_token = GetProfile_1_2(sHost, sUsername, sPassword, bAuthFlag);
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("1.3.	Редактирование профиля");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
@@ -6446,6 +6450,43 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Не удалось восстановить пароль\r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+	}
+	// Смена пароля
+	public void ChangePassword1_5(String sHost, String sUsername, String sPassword, String sNewPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		print("1.5. Смена пароля пользователя");
+		print("Параметры для запроса");
+		print("password = "+ sPassword);
+		print("auth_token = "+ sAuth_token);
+		print("new password = "+ sNewPassword);
+		
+		String sE = "auth_token=" + sAuth_token + "&old_password=" + sPassword + "&new_password=" + sNewPassword;
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпароль для пользователя " + sUsername + " изменен на " + sNewPassword);
+    	else
+    	{
+    		print("Не удалось изменить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}
     	

@@ -33,6 +33,7 @@
 						<sBaseHost>${sBaseHost}</sBaseHost>
 						<sLogin>${sLogin}</sLogin>
 						<sPassword>${sPassword}</sPassword>
+						<sNewPassword>${sNewPassword}</sNewPassword>
 						<sParam>${sParam}</sParam>
 						<sParam1>${sParam1}</sParam1>
 						<sParam2>${sParam2}</sParam2>

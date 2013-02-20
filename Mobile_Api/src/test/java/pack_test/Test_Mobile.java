@@ -246,6 +246,13 @@ public class Test_Mobile
 		cM.RestorePassword1_4(sBaseHost, sLogin);
 	}
 	
+	@Test (groups = { "ChangePassword1_5" })
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sNewPassword", "bAuthFlag"})
+	public void Test1_5(String sBaseHost, String sLogin, String sPassword, String sNewPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.ChangePassword1_5(sBaseHost, sLogin, sPassword, sNewPassword, bAuthFlag);
+	}
+	
 	@Test (groups = { "PostAdvert_2_1" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam",  "sParam1",  "sParam2", "sVideoUrl", "bAuthFlag"})
 	public void Test5(String sBaseHost, String sLogin, String sPassword, String sParam, String sParam1, String sParam2, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
