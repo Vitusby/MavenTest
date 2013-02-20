@@ -94,7 +94,12 @@ public abstract class Connect_Request_Abstract
     	FileBody bin = new FileBody(new File(sPath)); 
         MultipartEntity reqEntity = new MultipartEntity();
         
+        FileBody bin1 = new FileBody(new File("6.jpg"));
+        
+        
         reqEntity.addPart("image", bin);
+        reqEntity.addPart("image1", bin1);
+        
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {
