@@ -32,7 +32,7 @@ public abstract class Connect_Request_Abstract
 {	  
     public Connect_Request_Abstract(){}
     //Post, Put, Get, Delete
-    public String HttpPostRequest(URI uri) throws URISyntaxException, IOException
+    /*public String HttpPostRequest(URI uri) throws URISyntaxException, IOException
     {
     	HttpClient hClient = new DefaultHttpClient();
     	HttpPost post = new HttpPost();
@@ -43,7 +43,7 @@ public abstract class Connect_Request_Abstract
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
-    }
+    }*/
     public String HttpPostRequest2(URI uri, String sBodyRequest) throws URISyntaxException, IOException
     {
     	String sTempResponse;
@@ -59,8 +59,8 @@ public abstract class Connect_Request_Abstract
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
-    }  
-    public String HttpPostRequestImage(URI uri , String sPath) throws URISyntaxException, IOException
+    } 
+   /* public String HttpPostRequestImage(URI uri , String sPath) throws URISyntaxException, IOException
     {
     	HttpClient hClient = new DefaultHttpClient();
     	HttpPost post = new HttpPost();
@@ -80,7 +80,7 @@ public abstract class Connect_Request_Abstract
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
-    }
+    }*/
     
     public String HttpPostRequestImage2(URI uri , String sPath, String sBodyRequest) throws URISyntaxException, IOException
     {
@@ -94,12 +94,8 @@ public abstract class Connect_Request_Abstract
     	FileBody bin = new FileBody(new File(sPath)); 
         MultipartEntity reqEntity = new MultipartEntity();
         
-        FileBody bin1 = new FileBody(new File("6.jpg"));
-        
-        
         reqEntity.addPart("image", bin);
-        reqEntity.addPart("image1", bin1);
-        
+
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {
@@ -114,7 +110,7 @@ public abstract class Connect_Request_Abstract
     	return sTempResponse;
     }
     
-    public String HttpPutRequest(URI uri) throws URISyntaxException, IOException 
+   /* public String HttpPutRequest(URI uri) throws URISyntaxException, IOException 
     {
 		HttpClient hClient = new DefaultHttpClient();
     	HttpPut put = new HttpPut();
@@ -125,7 +121,7 @@ public abstract class Connect_Request_Abstract
     	response = hClient.execute(put);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
-    } 
+    } */
     public String HttpPutRequest2(URI uri, String sBodyRequest) throws URISyntaxException, IOException 
     {
 		HttpClient hClient = new DefaultHttpClient();
