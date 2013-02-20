@@ -18,10 +18,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 
 
 
@@ -141,15 +144,14 @@ public abstract class Connect_Request_Abstract
     	HttpPut put = new HttpPut();
     	HttpResponse response;
     	String sTempResponse;  	
-    	
+    	HttpContext localContext = new BasicHttpContext();
     	put.setURI(uri);
+   
     	
     	FileBody bin = new FileBody(new File(sPath)); 
-        MultipartEntity reqEntity = new MultipartEntity();
-        
-
-        
+        MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
         reqEntity.addPart("image", bin);
+        
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {
@@ -157,12 +159,13 @@ public abstract class Connect_Request_Abstract
         	for(int j=0; j<smas2.length; j++)
         	{
         	
-        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"text/plain",Charset.forName("utf-8")));
+        		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
         	}
         }
+
         put.setEntity(reqEntity);
     		
-    	response = hClient.execute(put);
+    	response = hClient.execute(put, localContext);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     }

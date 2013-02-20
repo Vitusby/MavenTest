@@ -3266,6 +3266,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
 	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdJob);
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -6584,9 +6587,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
     	print(sQuery);
-    	String sResponse = HttpPutRequest2(uri, sQuery);
+    	//String sResponse = HttpPutRequest2(uri, sQuery);
     	//String sResponse = HttpPutRequestImage2(uri, "2.jpg", sQuery);
-    	
+    	String sResponse = HttpPostRequestImage2(uri, "2.jpg", sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
