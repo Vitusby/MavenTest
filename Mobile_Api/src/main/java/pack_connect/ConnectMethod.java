@@ -6310,7 +6310,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpPostRequest2(uri,sE);
     	print("Парсим ответ....");
     	
-    	print(sResponse);
+    	//print(sResponse);
     	jsonObject = ParseResponse(sResponse);
     	String sTempResponse = jsonObject.toString();
     	
@@ -6340,11 +6340,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
     	         return sAuth_token;
     	}
+    	
     	else 
     	{
     		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
     		throw new ExceptFailTest("Тест провален");
     	}
+    	
 	}
 	// Получение профиля
 	public String GetProfile_1_2(String sHost,String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -6491,7 +6493,77 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
 	}
-
+	// Получение ссылки на активацию аккаунта
+	public void GetUrlActivasion_1_6(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("1.6. Получение ссылки для активации аккаунта".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ sUsername);
+		print("password = "+ sPassword);
+		String sE = "username=" + sUsername + "&password=" + sPassword;
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri,sE);
+    	print("Парсим ответ....");
+    	
+    	print(sResponse);
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\ncсылка на активацию отправлена на почтовый ящик пользователя");
+    	else
+    	{
+    		print("Не удалось повторно запросить ссылку на активацию аккаунта\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
+	// Смена пароля
+	public void LogOut1_7(String sHost, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		print("1.7. Выход из приложения");
+		print("Параметры для запроса");
+		print("password = "+ sPassword);
+		print("auth_token = "+ sAuth_token);
+	
+		
+		String sE = "auth_token=" + sAuth_token;
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/logout");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпользователь успешно вылогинился");
+    	else
+    	{
+    		print("Не удалось вылогиниться\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+	}
+	
+	
 	// Подача объявления
 	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{

@@ -253,6 +253,20 @@ public class Test_Mobile
 		cM.ChangePassword1_5(sBaseHost, sLogin, sPassword, sNewPassword, bAuthFlag);
 	}
 	
+	@Test (groups = { "GetUrlActivasion_1_6" })
+	@Parameters({"sBaseHost", "sLogin", "sPassword"})
+	public void Test1_6(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.GetUrlActivasion_1_6(sBaseHost, sLogin, sPassword);
+	}
+	
+	@Test (groups = { "LogOut1_7" })
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test1_7(String sBaseHost, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+			cM.LogOut1_7(sBaseHost, sLogin, sPassword, bAuthFlag);
+	}
+	
 	@Test (groups = { "PostAdvert_2_1" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam",  "sParam1",  "sParam2", "sVideoUrl", "bAuthFlag"})
 	public void Test5(String sBaseHost, String sLogin, String sPassword, String sParam, String sParam1, String sParam2, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
