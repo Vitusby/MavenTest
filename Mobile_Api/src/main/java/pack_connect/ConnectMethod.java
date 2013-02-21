@@ -772,7 +772,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE="";
     	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
     		sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage
-    		+ Proper.GetProperty("job_special_edit") + Proper.GetProperty("language_edit") + Proper.GetProperty("language2_edit");
+    		+ Proper.GetProperty("job_special_edit")/* + Proper.GetProperty("language_edit") + Proper.GetProperty("language2_edit")*/;
     	else
     		sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sVideo + "&deleted_images[0]=" + sUrlImage;
 		
@@ -838,8 +838,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		
 	    	String sE="";
 	    	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
-	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special") +
-	    				Proper.GetProperty("language") + Proper.GetProperty("language2");
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special")// +
+	    				/*Proper.GetProperty("language") + Proper.GetProperty("language2")*/;
 	    	else
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 	    		
