@@ -266,64 +266,38 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
     	
 	}
-	// Получение/Редактирование профиля Автотест
+	// Редактирование профиля Автотест
 	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONObject jTemp, jData;
 		String jLogin="", jEmail="";
-		
+		String sResponse;
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
-		print("Авторизация, получение, редактирование профиля - Тест".toUpperCase()+"\r\n");
+		print("Авторизация, редактирование профиля - Тест".toUpperCase()+"\r\n");
 		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 		
-		print("\r\nПолучение профиля".toUpperCase());
-		print("Параметры для запроса");
-		print("auth_token = "+ sAuth_token);
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
-    		.setParameter("auth_token", sAuth_token);
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
-    	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\nПрофиль получен.");
-    		print("Проверяем совпадение логина и email");
-    		jTemp = jsonObject.getJSONObject("user_info"); 
-    		jData = jTemp; // для проверки и сравнения данных
-    		jLogin = jTemp.getString("login"); // используем при сравнени после редактирования профиля
-    		jEmail = jTemp.getString("email"); // используем при сравнени после редактирования профиля
-    		
-    		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
-    		{
-    			print("Логин пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
-    			print("Email пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
-    		}
-    		else
-    		{
-    			print("Тест провален. Логин: " + sLogin +" или Email: " + sLogin + " пользователя для котрого запрашивалсяя профиль," +
-    					" не совпали с полученным логином: "+ jTemp.getString("login") + " или Email: " + jTemp.getString("email"));	
-    			print("Тест провален".toUpperCase());
-    			throw new ExceptFailTest("Тест провален");
-    		}
-    	}
-    	else
-    	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10)+"");
-    		print("Тест провален");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	
+		print("Проверяем совпадение логина и email");
+		jTemp = jsonObject.getJSONObject("user_info"); 
+		jData = jTemp; // для проверки и сравнения данных
+		jLogin = jTemp.getString("login"); // используем при сравнени после редактирования профиля
+		jEmail = jTemp.getString("email"); // используем при сравнени после редактирования профиля
+		
+		if(jTemp.getString("login").equals(sLogin) && jTemp.getString("email").equals(sLogin))
+		{
+			print("Логин пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("login") + " полученным в профиле");
+			print("Email пользователя: "+ sLogin + " для которого запрашивается профиль, совпал с логином: "+ jTemp.getString("email") + " полученным в профиле");
+		}
+		else
+		{
+			print("Тест провален. Логин: " + sLogin +" или Email: " + sLogin + " пользователя для котрого запрашивалсяя профиль," +
+					" не совпали с полученным логином: "+ jTemp.getString("login") + " или Email: " + jTemp.getString("email"));	
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+    
     	print("\r\nРедактирование профиля".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
@@ -343,8 +317,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
-    		//.setQuery(sQuery)
-    		//.setParameter("auth_token", sAuth_token);
+    		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;
     	
