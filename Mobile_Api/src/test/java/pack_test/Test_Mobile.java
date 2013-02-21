@@ -214,6 +214,13 @@ public class Test_Mobile
 			cM.GetLinkActivasion(sBaseHost); //Получение ссылки для активации аккаунта
 	}
 	
+	@Test (groups = { "AutoTest_27" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_ChangePassword(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.ChangePassword(sBaseHost); //Смена пароля
+	}
+	
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

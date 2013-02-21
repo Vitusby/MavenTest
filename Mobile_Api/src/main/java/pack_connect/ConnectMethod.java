@@ -459,6 +459,69 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
+	// Смена пароля пользователя
+	public void ChangePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	{
+		JString Js;
+		String sAuth_token = "", sCh="";
+		String smas[] = new String[2];
+		//smas[0] = "retry2";
+		//smas[1] = "retry1";
+		
+		//Js = new JString(smas); // запись паролей файл
+		//SaveJson(Js, "Passwords.txt");
+						
+		smas = LoadJson("Passwords.txt");
+		
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизация,смена пароля - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), smas[0]);
+		
+		
+		print("Смена пароля пользователя - Тест".toUpperCase());
+		print("Смена пароля пользователя".toUpperCase());
+		print("Параметры для запроса");
+		print("login = "+ Proper.GetProperty("login_changePassword"));
+		print("password = "+ smas[0]);
+		print("new password = "+ smas[1]);
+		print("auth_token = "+ sAuth_token);
+		
+		String sE = "auth_token=" + sAuth_token + "&old_password=" + smas[0] + "&new_password=" + smas[1];
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпароль для пользователя " + Proper.GetProperty("login_changePassword") + " изменен на " + smas[1]);
+    		sCh = smas[0];
+    		smas[0] = smas[1];
+    		smas[1] = sCh;
+    		Js = new JString(smas);
+    		SaveJson(Js, "Passwords.txt");
+    	}
+    	else
+    	{
+    		print("Не удалось изменить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	print("\r\nАвторизуемся пользователем " + Proper.GetProperty("login_changePassword") + " используя новый пароль " + smas[0]);
+    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), smas[0]);
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+	}
+	
+	
 	
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
