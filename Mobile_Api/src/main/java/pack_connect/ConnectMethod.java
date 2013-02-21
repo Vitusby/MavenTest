@@ -7618,16 +7618,24 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	//3.2.	Получение списка полей рубрики для подачи объявления
-	public void GetCastomfieldsForAddAdvert_3_2(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetCastomfieldsForAddAdvert_3_2(String sHost, String sDataCustomfieldsAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
+		String  sAuth_token= "";	
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		
 		print("3.2.	Получение списка полей рубрики для подачи объявления");
 		print("Параметры для запроса");
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/post")
-    		.setQuery(sQuery);
+    		.setQuery(sQuery + "&auth_token=" + sAuth_token);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)

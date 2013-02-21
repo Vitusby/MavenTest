@@ -443,10 +443,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetCastomfieldsForAddAdvert_3_2" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test28(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test28(String sBaseHost, String sParam, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCastomfieldsForAddAdvert_3_2(sBaseHost, sParam);
+		cM.GetCastomfieldsForAddAdvert_3_2(sBaseHost, sParam, sLogin, sPassword, bAuthFlag);
 	}
 	
 	@Test (groups = { "GetCastomfieldsForEditAdvert_3_3" })
