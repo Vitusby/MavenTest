@@ -426,7 +426,39 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
-	
+	// Получение ссылки активации Автотест
+	public void GetLinkActivasion(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Получение ссылки активации аккаунта - Тест".toUpperCase()+"\r\n");
+		print("Получение ссылки активации аккаунта".toUpperCase());
+		print("Параметры для запроса");
+		print("login = "+ Proper.GetProperty("login_authNotActive"));
+		print("password = "+ Proper.GetProperty("password"));
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	
+    	String sE = "login=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
+    
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nНа email пользователя отправлено письмо со ссылкой на активацию");
+    	else
+    	{
+    		print("Не удалось запросить ссылку\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+	}
 	
 	// Подача/Получение/Редактирование объявление ОП Автотест
 	public void AddGetEditAdvertOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException

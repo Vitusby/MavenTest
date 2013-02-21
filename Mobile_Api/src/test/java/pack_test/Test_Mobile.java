@@ -207,6 +207,12 @@ public class Test_Mobile
 			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
 	}
 	
+	@Test (groups = { "AutoTest_26" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_GetLinkActivasion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.GetLinkActivasion(sBaseHost); //Получение ссылки для активации аккаунта
+	}
 	
 	
 	// Параметризированные тесты
