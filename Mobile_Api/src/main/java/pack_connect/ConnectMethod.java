@@ -6586,7 +6586,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("1.6. Получение ссылки для активации аккаунта".toUpperCase());
 		print("Параметры для запроса");
-		print("email = "+ sUsername);
+		print("login = "+ sUsername);
 	
 		String sE = "login=" + sUsername;
 		builder = new URIBuilder();
