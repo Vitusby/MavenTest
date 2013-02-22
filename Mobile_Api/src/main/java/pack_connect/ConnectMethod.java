@@ -6788,8 +6788,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
     	print(sQuery);
-    	//String sResponse = HttpPutRequest2(uri, sQuery);
-    	//String sResponse = HttpPutRequestImage2(uri, "2.jpg", sQuery);
     	String sResponse = HttpPostRequestImage2(uri, "2.jpg", sQuery);
     	print("Парсим ответ....");
     	
