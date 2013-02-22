@@ -7375,9 +7375,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Фильтрация/поиск объявлений по критериям 
-	public void GetListSearchCategory_2_19(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListSearchCategory_2_19(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		
+		String sAuth_token="";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.19.	Фильтрация/поиск объявлений по критериям");
 		print("Параметры для запроса");
@@ -7386,6 +7391,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
+    		.setParameter("auth_token", sAuth_token)
     		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
