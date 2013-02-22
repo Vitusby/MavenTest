@@ -838,7 +838,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		
 	    	String sE="";
 	    	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
-	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special")// +
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special") +
+	    				"&advertisement[custom_fields][language_type:1][0]=английский&advertisement[custom_fields][study_level:1][0]=базовый"
 	    				/*Proper.GetProperty("language") + Proper.GetProperty("language2")*/;
 	    	else
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
@@ -997,7 +998,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				throw new ExceptFailTest("Тест провален");
 			}
 			
-			if(objHM.GetValue("language_type").equals("немецкий;испанский"))
+			/*if(objHM.GetValue("language_type").equals("немецкий;испанский"))
 				print("Значение language_type = \"немецкий;испанский\", указанное при подаче объявления," +
 						" совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
 			else 
@@ -1015,7 +1016,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				print("Значение study_level = \"свободный;свободный\", указанное при подаче объявления," +
 						" не совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
 				throw new ExceptFailTest("Тест провален");
-			}
+			}*/
 		}
 			
 		
@@ -1172,7 +1173,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				throw new ExceptFailTest("Тест провален");
 			}
 			
-			if(objHM.GetValue("language_type").equals("английский;греческий"))
+			/*if(objHM.GetValue("language_type").equals("английский;греческий"))
 				print("Значение language_type = \"английский;греческий\", указанное при подаче объявления," +
 						" совпало со значением, после получения данного объявления language_type = " + objHM.GetValue("language_type"));
 			else 
@@ -1190,7 +1191,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				print("Значение study_level = \"базовый;базовый\", указанное при подаче объявления," +
 						" не совпало со значением, после получения данного объявления study_level = " + objHM.GetValue("study_level"));
 				throw new ExceptFailTest("Тест провален");
-			}
+			}*/
 		}
 		
 		
