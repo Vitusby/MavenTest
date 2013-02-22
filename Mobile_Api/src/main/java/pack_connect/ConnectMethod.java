@@ -6582,13 +6582,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Получение ссылки на активацию аккаунта
-	public void GetUrlActivasion_1_6(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetUrlActivasion_1_6(String sHost, String sUsername) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("1.6. Получение ссылки для активации аккаунта".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ sUsername);
-		print("password = "+ sPassword);
-		String sE = "username=" + sUsername + "&password=" + sPassword;
+	
+		String sE = "login=" + sUsername;
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
     	uri = builder.build();
