@@ -7391,8 +7391,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
-    		.setParameter("auth_token", sAuth_token)
-    		.setQuery(sQuery);
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
