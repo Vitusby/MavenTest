@@ -7387,7 +7387,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("2.19.	Фильтрация/поиск объявлений по критериям");
 		print("Параметры для запроса");
 		print("DataForListing = "+ sDataForListing);
-		
+		print("sAuth_token = " + sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
