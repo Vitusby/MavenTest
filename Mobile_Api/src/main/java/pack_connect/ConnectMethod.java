@@ -7389,11 +7389,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataForListing = "+ sDataForListing);
 		print("sAuth_token = " + sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
-		String sQueryAuth = "&auth_token=" +  sAuth_token;
+		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
     		.setQuery(sQuery)
-    		.setQuery(sQueryAuth);
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
