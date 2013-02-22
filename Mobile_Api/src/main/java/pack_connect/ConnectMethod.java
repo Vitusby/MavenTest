@@ -434,12 +434,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение ссылки активации аккаунта".toUpperCase());
 		print("Параметры для запроса");
 		print("login = "+ Proper.GetProperty("login_authNotActive"));
-		print("password = "+ Proper.GetProperty("password"));
+		
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
     	
-    	String sE = "login=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
+    	String sE = "login=" + Proper.GetProperty("login_authNotActive");
     
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
