@@ -7331,16 +7331,25 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение листинга объявлений категории
-	public void GetListForCategory_2_18(String sHost, String sDataForListing) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListForCategory_2_18(String sHost, String sDataForListing, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		String sAuth_token="";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		
 		print("2.18.	Получение листинга объявлений категории");
 		print("Параметры для запроса");
 		print("DataForListing = "+ sDataForListing);
-		
+		print("sAuth_token = "+ sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/category")
-    		.setQuery(sQuery);
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
