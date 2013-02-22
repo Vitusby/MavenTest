@@ -7389,10 +7389,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataForListing = "+ sDataForListing);
 		print("sAuth_token = " + sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
+		String sQueryAuth = "&auth_token=" +  sAuth_token;
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
     		.setQuery(sQuery)
-    		.setParameter("auth_token", sAuth_token);
+    		.setQuery(sQueryAuth);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -7400,7 +7401,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
    
-    	String ss =	"/&filters=/search/"+sDataForSearch;
+    	String ss =	"&filters=/search/"+sDataForSearch;
     	String s1 = uri.toString()+ss;
     	uri = new URI(s1);
     	
