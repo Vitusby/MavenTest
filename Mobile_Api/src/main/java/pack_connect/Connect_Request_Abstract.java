@@ -95,7 +95,7 @@ public abstract class Connect_Request_Abstract
         MultipartEntity reqEntity = new MultipartEntity();
         
         reqEntity.addPart("image", bin);
-
+        print(sBodyRequest);
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {
