@@ -972,10 +972,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 				else
 				{
-					if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+					if( (obj_Cust.GetValue(mas_Cust[i]).equals("false")) && (objHM.GetValue(mas_Cust[i])==null) )
 					{
 						print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при редактировании, не найдено в" +
-								" объявление так как является булевским и при значении = 0, в объявление удаляется. Корректно.");
+								" объявление так как является булевским и при значении = false, в объявление удаляется. Корректно.");
 					}
 					else
 					{
@@ -1148,10 +1148,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 				else
 				{
-					if( (obj_Cust.GetValue(mas_Cust[i]).equals("0")) && (objHM.GetValue(mas_Cust[i])==null) )
+					if( (obj_Cust.GetValue(mas_Cust[i]).equals("false")) && (objHM.GetValue(mas_Cust[i])==null) )
 					{
 						print("Значение " + mas_Cust[i] +" = " + obj_Cust.GetValue(mas_Cust[i]) + " указанное при подаче, не найдено в" +
-								" объявление так как является булевским и при значении = 0, в объявление не добавляется. Корректно.");
+								" объявление так как является булевским и при значении = false, в объявление не добавляется. Корректно.");
 					}
 					else
 					{
@@ -6418,7 +6418,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//Выход из приложения, проверка что ключ более не доступен.
-	public void LogoutAndCheckAuthTokken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void LogoutAndCheckAuthToken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
