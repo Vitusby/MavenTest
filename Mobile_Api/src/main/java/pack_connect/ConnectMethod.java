@@ -37,7 +37,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model"};
 	String mas_TIY_Mobile[] = {"make_mobile", "used-or-new", "offertype", "model", "corpus_type", "mobile_two_sim_card"};
 	String mas_Darom[] = {"mapStreet", "mapHouseNr", "used-or-new", "otdam_za", "pochti_darom", "goodorpet"};
-	String mas_Job[] = {"schedule", "car"};
+	String mas_Job[] = {"schedule", "car", "language_type-1", "study_level-1"};
 	
 	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
 	{
@@ -843,9 +843,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		
 	    	String sE="";
 	    	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
-	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special") +
-	    				"&advertisement[custom_fields][language_type:1][0]=английский&advertisement[custom_fields][study_level:1][0]=базовый"
-	    				/*Proper.GetProperty("language") + Proper.GetProperty("language2")*/;
+	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special");
 	    	else
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 	    		
@@ -6850,8 +6848,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
-		
-		
+			
 		print("2.2.	Получение объявления");
 		print("sAuth_token = " + sAuth_token);
 		builder = new URIBuilder();
