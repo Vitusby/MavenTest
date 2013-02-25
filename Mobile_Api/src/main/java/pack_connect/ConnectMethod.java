@@ -4630,7 +4630,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка субъектов
 	public void GetRegionRussionFederation(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
-		//String sRegion = "/", sRegionMoskva = "russia/moskva-gorod/", sRegionArxangObl = "russia/arhangelskaya-obl/";
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
