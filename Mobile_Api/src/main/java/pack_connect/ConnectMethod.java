@@ -1511,7 +1511,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPutRequest2(uri, sE);
+    	String sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
