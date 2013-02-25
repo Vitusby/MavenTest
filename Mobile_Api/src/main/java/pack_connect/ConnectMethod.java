@@ -3440,7 +3440,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				+ "/keywords=" + hObj.GetValue("text") + "/";
 		else
 			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
-			"/used-or-new=" + hObj2.GetValue("used-or-new") + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+			"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
 			"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
 			+ "/keywords=" + hObj.GetValue("text") + "/mobile_two_sim_card=" + sMobile_two_sim_card +"/";
 				
