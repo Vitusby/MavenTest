@@ -6368,7 +6368,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 		
 			print("\r\nШАГ №2");
-			print("Получаем данные поп поданному объявлению.".toUpperCase());
+			print("Получаем данные по поданному объявлению.".toUpperCase());
 			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
 			
 			print("\r\nШАГ №3");
