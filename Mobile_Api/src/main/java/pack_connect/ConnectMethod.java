@@ -2548,6 +2548,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// перевод времени подачи в миллисекунды для автотеста
 	private long GetTimesMillisec(String sDateFinish)
 	{
+		print(sDateFinish);
 		Calendar c = Calendar.getInstance();
 		String mas[] = sDateFinish.split(" ");
 		String mas2[] = mas[0].split("-");
