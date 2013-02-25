@@ -229,6 +229,15 @@ public class Test_Mobile
 			cM.AddAndEditWithImage(sBaseHost); //Подача объявления без изображения и редактирование с добавлением изображения
 	}
 	
+	@Test (groups = { "AutoTest_29" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_LogoutAndCheckAuthTokken(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.LogoutAndCheckAuthTokken(sBaseHost); //Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута
+	}
+	
+	
+	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })

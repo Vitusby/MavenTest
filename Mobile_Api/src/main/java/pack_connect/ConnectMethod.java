@@ -1465,13 +1465,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано. Но ИП партнер не имеет право подавать объявления.");
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано. Но ИП партнер не имеет право подавать объявления." +
+    				" Или если это ОП то нельзя подавать объявления с истекшим ключем после логаута");
     		print("Тест провален".toUpperCase());
     		throw new ExceptFailTest("Тест провален");	
     	}
     	else
     	{
-    		print("Не удалось создать объявление. Корректно. ИП не имеет право создавать объявления\r\n"+
+    		print("Не удалось создать объявление. Корректно. Так как данное объявление подовалось либо ИП." +
+    				" ИП не имеет право создавать объявления. Или пользователь ОП но вылогинился из приложения и ключ авторизации более не доступен \r\n"+
     				"Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\n");
     	}	
 	}
@@ -6415,6 +6417,72 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	
+	//Выход из приложения, проверка что ключ более не доступен.
+	public void LogoutAndCheckAuthTokken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sLogin = Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "", sId;
+		boolean bFlag = false;
+		JSONObject jTemp;
+		
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		print("\r\nШАГ №1");
+		print("Вылогиниваемя из приложения".toUpperCase());
+		LogOut(sHost, sAuth_token);
+		
+		try
+		{
+			print("\r\nШАГ №2");
+			print("Проверяем что ключ авторизации больше не рабочий".toUpperCase());
+			print("Пробуем подать объявление");
+			PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+			bFlag = true;
+		}
+		finally
+		{
+			if(!bFlag)
+			{
+				jTemp = jsonObject.getJSONObject("advertisement");
+				sId =  jTemp.getString("id");
+				print("Удаляем поданное объявление с ID = " + sId);
+				DeleteAdvert(sHost, sAuth_token, sId);
+				
+			}
+		}
+		
+	}
+	// метод логаута для автотестов
+	private void LogOut(String sHost, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("Выход из приложения");
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+	
+		String sE = "auth_token=" + sAuth_token;
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/logout");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпользователь успешно вылогинился");
+    	else
+    	{
+    		print("Не удалось вылогиниться\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
