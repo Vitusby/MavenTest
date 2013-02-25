@@ -222,6 +222,13 @@ public class Test_Mobile
 	}
 	
 	
+	@Test (groups = { "AutoTest_28" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddAndEditWithImage(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.AddAndEditWithImage(sBaseHost); //Подача объявления без изображения и редактирование с добавлением изображения
+	}
+	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })

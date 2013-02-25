@@ -89,13 +89,15 @@ public abstract class Connect_Request_Abstract
     	HttpResponse response;
     	String sTempResponse;  	
     	
+    	MultipartEntity reqEntity = new MultipartEntity();
+
     	post.setURI(uri);
+    	if(!sPath.equals("not_image")) // если передаем картинку то грузим ее в тело
+    	{	
+    		FileBody bin = new FileBody(new File(sPath)); 
+    		reqEntity.addPart("image", bin);
+    	} // иначе без картинки
     	
-    	FileBody bin = new FileBody(new File(sPath)); 
-        MultipartEntity reqEntity = new MultipartEntity();
-        
-        reqEntity.addPart("image", bin);
-       
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {

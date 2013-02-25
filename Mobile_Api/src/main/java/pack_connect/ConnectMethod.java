@@ -733,6 +733,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		InnerDataHM obj_after_edit;
 		String sId = obj_old.GetID();
+		String sResponse = "";
 		
 		print("Параметры для запроса");
 		print("sAuth_token = "+ sAuth_token);
@@ -779,7 +780,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		uri = builder.build();
 		print("Отправляем запрос. Uri Запроса: " + uri.toString());
 		
-    	String sResponse = HttpPostRequest2(uri, sE);
+		if(sUrlImage.equals("")) // если ссылки на изображения нет то мы должны добавить его в объявление при редактировании (для теста проверки редакт с добавл изображения)
+			sResponse = HttpPostRequestImage2(uri, Proper.GetProperty("image"), sE);
+		else
+			sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
@@ -6340,7 +6344,76 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	
-	
+	//Проверка подачи без картинки и редактиования с добавлением картинки
+	public void AddAndEditWithImage(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	{
+		String sIdAuto="";
+		String sImageUrlAuto="", sImage; 
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "";
+		JSONObject jData;
+		InnerDataHM objAuto;
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача объявления без изображения и редактирование с добавлением изображения - Тест".toUpperCase()+"\r\n");
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		try
+		{
+			print("\r\nШАГ №1");
+			print("Подача объявления в рубрику Авто с пробегом".toUpperCase());
+			print("Подаем объявление без изображений");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "not_image");
+			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
+		
+			print("\r\nШАГ №2");
+			print("Получаем данные поп поданному объявлению.".toUpperCase());
+			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+			
+			print("\r\nШАГ №3");
+			print("Проверяем отсутствие изображений в объявлении.".toUpperCase());
+			sImage = jData.getJSONObject("advertisement").getString("images");
+			if(sImage.equals("[]"))
+			{
+				print("В объявлении отсутствуют изображения. Корректно");
+			}
+			else
+			{
+				print("В объявлении присутствуют изображения, хотя мы подавали объявление без изображений.");
+				print(sImage);
+				print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			print("\r\nШАГ №4");
+			print("Редактируем объявление, добавляем изображение при редактировании.".toUpperCase());
+			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto, "category_auto");
+			
+			print("\r\nШАГ №5");
+			print("Проверяем наличие изображения после редактировании.".toUpperCase());
+			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом");
+			sImage = jData.getJSONObject("advertisement").getString("images");
+			if(sImage.equals("[]"))
+			{
+				print("В объявлении отсутствуют изображения, хотя при редактировании мы добавляли изображение");
+				print(sImage);
+				print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			else
+			{
+				print("В объявлении присутствуют изображения. Корректно");
+				print(sImage);
+			}
+			
+		}
+		finally
+		{
+			print("\r\nУдаляем поданные объявления");
+			DeleteAdvert(sHost, sAuth_token, sIdAuto);
+		}
+	}
 	
 	
 // Параметризированные тесты
