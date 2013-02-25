@@ -2549,17 +2549,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// перевод времени подачи в миллисекунды для автотеста
 	private long GetTimesMillisec(String sDateFinish)
 	{
-		print(sDateFinish);
 		Calendar c;
 		String mas[] = sDateFinish.split(" ");
 		String mas2[] = mas[0].split("-");
 		String mas3[] = mas[1].split(":"); 
-		//c.set(Integer.parseInt(mas2[0]), Integer.parseInt(mas2[1]), Integer.parseInt(mas2[2]), Integer.parseInt(mas3[0]), Integer.parseInt(mas3[1]), Integer.parseInt(mas3[2]));
 		c = new GregorianCalendar(Integer.parseInt(mas2[0]), Integer.parseInt(mas2[1]), Integer.parseInt(mas2[2]), Integer.parseInt(mas3[0]), Integer.parseInt(mas3[1]), Integer.parseInt(mas3[2]));
 		long l = c.getTimeInMillis();
-		print("---------------------------------------");
-		print("Время продления объявления "+ l);
-		print("---------------------------------------");
 		return l;
 	}
 	// выделения объявления для автотеста
