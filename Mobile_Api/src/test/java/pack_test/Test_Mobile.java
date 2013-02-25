@@ -304,10 +304,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetAdvert_2_2" })
-	@Parameters({"sBaseHost", "sIdAdvert"})
-	public void Test6(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test6(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetAdvert_2_2(sBaseHost, sIdAdvert);
+		cM.GetAdvert_2_2(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
 	}
 	
 	@Test (groups = { "EditAdvert_2_3" })

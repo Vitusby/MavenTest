@@ -6842,11 +6842,22 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Получение объявления
-	public String GetAdvert_2_2(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public String GetAdvert_2_2(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		
 		print("2.2.	Получение объявления");
+		print("sAuth_token = " + sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert)
+    		.setParameter("auth_token", sAuth_token);
+    	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6896,7 +6907,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
-		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert);
+		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert, sUsername, sPassword, false);
 		print("");
 		print("2.3.	Редактирование объявления");
 		print("Параметры для запроса");
