@@ -3390,7 +3390,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDataForSearch = "";	
 		String sPrivate = "1";
 
-		if(hObj2.GetValue("private").equals("0"))
+		if(hObj2.GetValue("private").equals("false"))
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/rooms=" + hObj2.GetValue("rooms") + "/meters-total=" + hObj2.GetValue("meters-total") + 
 			"/currency=RUR/hasimages=1" +
@@ -3412,7 +3412,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDataForSearch = "";
 		String sVacuumclean="1";
 		
-		if(hObj2.GetValue("vacuumclean_wash").equals("0"))
+		if(hObj2.GetValue("vacuumclean_wash").equals("false"))
 			sDataForSearch = "currency="+hObj.GetValue("currency")+"/price="+ hObj.GetValue("price") +
 			"/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + "/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() +
 			"/hasimages=1/" +
@@ -3433,7 +3433,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDataForSearch;
 		String sMobile_two_sim_card = "1";
 
-		if(hObj2.GetValue("mobile_two_sim_card").equals("0"))
+		if(hObj2.GetValue("mobile_two_sim_card").equals("false"))
 			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
 				"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
 				"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
