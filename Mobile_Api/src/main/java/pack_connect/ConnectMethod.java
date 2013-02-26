@@ -3305,6 +3305,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdMobile);
 	    	FindAdvertFromListAfterPost(jData, sIdMobile);
 	    	
+	    	
+	    	
+	    	
 		}
 		finally
 		{
@@ -3391,6 +3394,26 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 
 		//{"make_mobile"};
+		String sDataForSearch;
+		String sMobile_two_sim_card = "1";
+
+		if(hObj2.GetValue("mobile_two_sim_card").equals("false"))
+			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
+				"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+				"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
+				+ "/keywords=" + hObj.GetValue("text") + "/";
+		else
+			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
+			"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
+			"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
+			+ "/keywords=" + hObj.GetValue("text") + "/mobile_two_sim_card=" + sMobile_two_sim_card +"/";
+				
+		
+		return sDataForSearch;
+	}
+	// получение строки фильтра для поиска для Телефоны - сотовые для автотеста
+	private String GetStringFilterJob(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
+	{
 		String sDataForSearch;
 		String sMobile_two_sim_card = "1";
 
@@ -6478,8 +6501,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 			
 			print("\r\nШАГ №3");
-			//print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
-			//AddAdvertToFavourite(sHost, sAuth_token, sId);
+			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
+			AddAdvertToFavourite(sHost, sAuth_token, sId);
 			
 			print("\r\nШАГ №4");
 			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6536,8 +6559,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 		
 	}
-	//
-	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
+	//поиск  объявления по id в листингах  после добавления объявления (возвращаем json объявки)
 	private JSONObject FindAndReturnAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData = null;
