@@ -6478,8 +6478,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
 			
 			print("\r\nШАГ №3");
-			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
-			AddAdvertToFavourite(sHost, sAuth_token, sId);
+			//print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
+			//AddAdvertToFavourite(sHost, sAuth_token, sId);
 			
 			print("\r\nШАГ №4");
 			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6506,31 +6506,30 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Получаем фильтрованный листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
 			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token);
 			
+			print("\r\nШАГ №8");
+			print("Ищем объявление с ID = " + sId + " в фильтрованном листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sId);
 			
-			/*
-			print("\r\nУдаляем объявление c ID = " + sId + " из вкладки «Избранное» для пользователя" + sLogin);
-			DeleteAdvertFromFavourite(sHost, sAuth_token, sId);
+			print("\r\nШАГ №9");
+			print("Проверяем объявление с ID = " + sId + " на наличие флага isfavorited равного true ".toUpperCase());
+			if(jData.getBoolean("isfavorited") == true)
+			{
+				print("У объявления с ID = " + sId + " присутсвует флаг isfavorited равный true. Корректно");
+			}
+			else
+			{
+				print("У объявления с ID = " + sId + " флаг isfavorited не равен true.");
+				print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");	
+			}
 			
-			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
-			jData = GetListFavourite(sHost, sAuth_token);
-			
-			print("\r\nИщем объявление с ID = " + sId + " в листинге «Избранное» для пользоватея " + sLogin);
-			FindAdvertFromListAfterDelete(jData, sId);
-			
-			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
-			
-			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
-			print("Авторизация пользователем - " + sLogin2);
-			print("\r\nДобавляем объявление с ID = " + sId + " в вкладку «Избранное» для пользователя " + sLogin2);
-			AddOwnAdvertToFavourite(sHost, sAuth_token, sId);
-			*/
 		}
 		finally
 		{
 			if(!sId.equals(""))
 			{
-				//print("\r\nУдаляем поданное объявление");
-				//DeleteAdvert(sHost, sAuth_token2, sId);
+				print("\r\nУдаляем поданное объявление");
+				DeleteAdvert(sHost, sAuth_token2, sId);
 			}
 		}
 		print("------------------------------------------------------------------------------------------------------------");
