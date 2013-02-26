@@ -1968,7 +1968,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2011,7 +2011,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
 	    	
 	    	// проверка активации объявления
@@ -2032,7 +2032,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем активированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	FindAdvertFromListAfterPost(jData, sIdAdvert);
 	
 	    	// проверка попытки поднять объявление без оплаты
@@ -2046,7 +2046,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2069,7 +2069,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2447,17 +2447,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// получение листинга категории для автотеста
-	private JSONObject GetListCategory(String sHost, String sDataForList) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private JSONObject GetListCategory(String sHost, String sDataForList, String sAuth_token) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		JSONObject jTemp;	
 		print("Получение листинга объявлений категории".toUpperCase());
 		print("Параметры для запроса");
 		print("sDataForList = "+ sDataForList);
+		print("sAuth_token = " + sAuth_token);
 		
 		String sQuery = CreateSimpleRequest(sDataForList);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/category")
-    		.setQuery(sQuery);
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -2793,7 +2795,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики  Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2846,7 +2848,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2870,7 +2872,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2950,7 +2952,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList);
+	    	jData = GetListCategory(sHost, sDataForList, "");
 	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
 		}
 		finally
@@ -3275,14 +3277,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nФормируем запрос для категории Авто с пробегом. Регион Москва. Ищем поданное объявление с ID = " + sIdAuto);
 	    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterAuto(hObj_Auto, hObj_Auto2));
 	    	print("Производим поиск");
-	    	jData = GetListSearchCategory(sHost, sDataForListing, GetStringFilterAuto(hObj_Auto, hObj_Auto2));
+	    	jData = GetListSearchCategory(sHost, sDataForListing, GetStringFilterAuto(hObj_Auto, hObj_Auto2), "");
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdAuto);
 	    	FindAdvertFromListAfterPost(jData, sIdAuto);
 	    	
 	    	print("\r\nФормируем запрос для категории Недвижимость - Вторичный рынок. Регион Архангельск. Ищем поданное объявление с ID = " + sIdRealt);
 	    	print("Строка для поиска в рубрике Недвижимость - Вторичный рынок для только что поданного объявления = "+ GetStringFilterRealt(hObj_Realt, hObj_Realt2));
 	    	print("Производим поиск");
-	    	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2));
+	    	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2), "");
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdRealt);
 	    	FindAdvertFromListAfterPost(jData, sIdRealt);
 	    	
@@ -3290,7 +3292,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Строка для поиска в рубрике Электроника и техника - Пылесосы для только что поданного объявления = "+ GetStringFilterTIY(hObj_TIY, hObj_TIY2));
 	    	print("Производим поиск");
 	    	Sleep(10000);
-	    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2));
+	    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2), "");
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
 	    	FindAdvertFromListAfterPost(jData, sIdTIU);
 	    	
@@ -3299,7 +3301,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Строка для поиска в рубрике Телефоны и связь - Мобильные телефоны для только что поданного объявления = "+ GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
 	    	print("Производим поиск");
 	    	Sleep(5000);
-	    	jData = GetListSearchCategory(sHost, sDataForListing4, GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
+	    	jData = GetListSearchCategory(sHost, sDataForListing4, GetStringFilterMobile(hObj_Mobile, hObj_Mobile2), "");
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdMobile);
 	    	FindAdvertFromListAfterPost(jData, sIdMobile);
 	    	
@@ -3407,18 +3409,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
-	private  JSONObject GetListSearchCategory(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private  JSONObject GetListSearchCategory(String sHost, String sDataForListing, String sDataForSearch, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONObject jTemp;
 		print("Фильтрация/поиск объявлений по критериям".toUpperCase());
 		print("Параметры для запроса");
 		print("DataForListing = "+ sDataForListing);
 		print("sDataForSearch = "+ sDataForSearch);
+		print("sAuth_token = " + sAuth_token);
 		
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
-    		.setQuery(sQuery);
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -3426,7 +3430,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		uri = new URI(sTempUri);			
     	}
    
-    	String ss =	"/&filters=/search/"+sDataForSearch;
+    	String ss =	"&filters=/search/"+sDataForSearch; // здесь перепроверить
     	String s1 = uri.toString()+ss;
     	uri = new URI(s1);
     	
@@ -3680,7 +3684,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
-	    	jData = GetListCategory(sHost, sDataForListAuto);
+	    	jData = GetListCategory(sHost, sDataForListAuto, "");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
 	    	
@@ -3689,7 +3693,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForListRealt);
+	    	jData = GetListCategory(sHost, sDataForListRealt, "");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
 	    		
@@ -3698,7 +3702,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 4");
 	    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
-	    	jData = GetListCategory(sHost, sDataForListTIY);
+	    	jData = GetListCategory(sHost, sDataForListTIY, "");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
 	    	
@@ -3707,7 +3711,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Получаем листинг категории Телефоны и связь - сотовые телефоны. Регион Пермь".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Телефоны и связь - сотовые телефоны.");
-	    	jData = GetListCategory(sHost, sDataForListTIYMobile);
+	    	jData = GetListCategory(sHost, sDataForListTIYMobile, "");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdMobile, sRegionNameMobile, sCategoryNameMobile, "russia/permskiy-kray/perm-gorod/");
 	    	
@@ -3716,7 +3720,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 6");
 	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
-	    	jData = GetListCategory(sHost, sDataForListJob);
+	    	jData = GetListCategory(sHost, sDataForListJob, "");
 	    	//print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	//ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/"); // После исправления бага 44474 раскомментить
 	    		
@@ -6442,6 +6446,140 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
+	
+	// Подача 1 пользователем, добавление в избранное вторым  и получения листинга категории и фильтрованного авторизованным вторым пользователем
+	public void CheckFavouriteAdvertInListing(String sHost) throws NumberFormatException, InterruptedException, URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sLogin2 = Proper.GetProperty("login_authOP2");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "" , sAuth_token2 = "", sId="";
+		InnerDataHM objRealt;
+		JSONObject jData;
+		String sDataForList = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListSearch = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, offset=0, limit=30, sort_by=date_sort:desc}";
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited - Тест".toUpperCase()+"\r\n");
+		print("Авторизация пользователем - " + sLogin2);
+		sAuth_token2 = Authorization_1_1(sHost, sLogin2, sPassword);
+		try
+		{
+			print("\r\nШАГ №1");
+			print("Подача объявления в рубрику Недвижимость - Вторичное жилье. Регион Архангельск".toUpperCase() + " пользователем " + sLogin2);
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token2, "category_realt", "image2");
+			sId = objRealt.GetID();  // сюда сохраняем значение id
+			
+			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			
+	    	print("\r\nШАГ №2");
+			print("Авторизация пользователем - ".toUpperCase() + sLogin);
+			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+			
+			print("\r\nШАГ №3");
+			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
+			AddAdvertToFavourite(sHost, sAuth_token, sId);
+			
+			print("\r\nШАГ №4");
+			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
+			jData = GetListCategory(sHost, sDataForList, sAuth_token);
+			
+			print("\r\nШАГ №5");
+			print("Ищем объявление с ID = " + sId + " в листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sId);
+			
+			print("\r\nШАГ №6");
+			print("Проверяем объявление с ID = " + sId + " на наличие флага isfavorited равного true ".toUpperCase());
+			if(jData.getBoolean("isfavorited") == true)
+			{
+				print("У объявления с ID = " + sId + " присутсвует флаг isfavorited равный true. Корректно");
+			}
+			else
+			{
+				print("У объявления с ID = " + sId + " флаг isfavorited не равен true.");
+				print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");	
+			}
+			
+			print("\r\nШАГ №7");
+			print("Получаем фильтрованный листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
+			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token);
+			
+			
+			/*
+			print("\r\nУдаляем объявление c ID = " + sId + " из вкладки «Избранное» для пользователя" + sLogin);
+			DeleteAdvertFromFavourite(sHost, sAuth_token, sId);
+			
+			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
+			jData = GetListFavourite(sHost, sAuth_token);
+			
+			print("\r\nИщем объявление с ID = " + sId + " в листинге «Избранное» для пользоватея " + sLogin);
+			FindAdvertFromListAfterDelete(jData, sId);
+			
+			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
+			
+			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+			print("Авторизация пользователем - " + sLogin2);
+			print("\r\nДобавляем объявление с ID = " + sId + " в вкладку «Избранное» для пользователя " + sLogin2);
+			AddOwnAdvertToFavourite(sHost, sAuth_token, sId);
+			*/
+		}
+		finally
+		{
+			if(!sId.equals(""))
+			{
+				//print("\r\nУдаляем поданное объявление");
+				//DeleteAdvert(sHost, sAuth_token2, sId);
+			}
+		}
+		print("------------------------------------------------------------------------------------------------------------");
+    	print("Тест завершен успешно".toUpperCase());
+		
+	}
+	//
+	//поиск объявления по id в листингах  после добавления объявления short advertisment для автотестов
+	private JSONObject FindAndReturnAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
+	{
+		JSONObject jTemp = jObj, jData = null;
+		boolean bFlag = false;
+		
+		
+		if(jObj.getString("advertisements").equals("[]"))
+		{
+			print("Листинг объявлений получен, но в листинге нету неодного объявления");
+			print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+		}
+		
+		JSONArray ar = jTemp.getJSONArray("advertisements");
+		for(int i=0; i<ar.length(); i++)
+		{
+		
+			jData = (JSONObject) ar.get(i);
+			if(jData.getString("id").equals(sIdAdvert))
+			{
+				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. Корректно");
+				bFlag = true;
+				
+			}
+		
+		}
+		
+		if(!bFlag)
+		{
+			print("После подачи/добавления в избранное, объявление с ID = " + sIdAdvert + " не отображается в листинге");
+			print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+		}
+		else
+		{
+			return jData;
+		}
+	
+	}	
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

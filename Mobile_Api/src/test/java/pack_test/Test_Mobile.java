@@ -236,7 +236,12 @@ public class Test_Mobile
 			cM.LogoutAndCheckAuthToken(sBaseHost); //Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута(проверяем подачей)
 	}
 	
-	
+	@Test (groups = { "AutoTest_30" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_CheckFavouriteAdvertInListing(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.CheckFavouriteAdvertInListing(sBaseHost); //Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited
+	}
 	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
