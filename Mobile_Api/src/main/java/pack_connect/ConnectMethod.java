@@ -3296,7 +3296,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
 	    	FindAdvertFromListAfterPost(jData, sIdTIU);
 	    	
-	    	
 	    	print("\r\nФормируем запрос для категории Телефоны и связь - Мобильные телефоны. Регион Пермь. Ищем поданное объявление с ID = " + sIdMobile);
 	    	print("Строка для поиска в рубрике Телефоны и связь - Мобильные телефоны для только что поданного объявления = "+ GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
 	    	print("Производим поиск");
@@ -3305,8 +3304,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdMobile);
 	    	FindAdvertFromListAfterPost(jData, sIdMobile);
 	    	
-	    	
-	    	
+	    	print("\r\nФормируем запрос для категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва. Ищем поданное объявление с ID = " + sIdJob);
+	    	print("Строка для поиска в рубрике Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет) для только что поданного объявления = "+ GetStringFilterJob(hObj_Job, hObj_Job2));
+	    	print("Производим поиск");
+	    	jData = GetListSearchCategory(sHost, sDataForListing5, GetStringFilterJob(hObj_Job, hObj_Job2), "");
+	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdJob);
+	    	FindAdvertFromListAfterPost(jData, sIdJob);
+	    	  	
 	    	
 		}
 		finally
@@ -3415,20 +3419,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private String GetStringFilterJob(HM<String, String> hObj, HM<String, String> hObj2) throws UnsupportedEncodingException
 	{
 		String sDataForSearch;
-		String sMobile_two_sim_card = "1";
 
-		if(hObj2.GetValue("mobile_two_sim_card").equals("false"))
-			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
-				"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
-				"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
-				+ "/keywords=" + hObj.GetValue("text") + "/";
-		else
-			sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
-			"/used-or-new=" + GetCrc32(hObj2.GetValue("used-or-new")).toString() + "/hasimages=1/offertype=" + GetCrc32(hObj2.GetValue("offertype")).toString() + 
-			"/corpus_type=" + GetCrc32(hObj2.GetValue("corpus_type")).toString() + "/make=" + hObj2.GetValue("make")
-			+ "/keywords=" + hObj.GetValue("text") + "/mobile_two_sim_card=" + sMobile_two_sim_card +"/";
-				
-		
+		sDataForSearch = "currency=" + hObj.GetValue("currency") + "/price="+ hObj.GetValue("price") +
+			"/schedule=" + GetCrc32(hObj2.GetValue("schedule")).toString() + "/hasimages=1" + "/job_specialization=2944873594_1569945199" + 
+			"/keywords=" + hObj.GetValue("text") + "/";
+
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
