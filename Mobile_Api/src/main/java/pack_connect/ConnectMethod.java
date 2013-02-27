@@ -4281,8 +4281,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[4] = sCusTIYKazan;
 		
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		//Js = new JString(smas); // запись полей для рубрик в файл
-		//SaveJson(Js, "CustomfieldsForEdit.txt");
+		Js = new JString(smas); // запись полей для рубрик в файл
+		SaveJson(Js, "CustomfieldsForEdit.txt");
 		
 		String sIdealFields[] = LoadJson("CustomfieldsForEdit.txt");
 		
