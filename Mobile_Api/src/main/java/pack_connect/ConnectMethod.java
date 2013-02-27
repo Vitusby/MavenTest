@@ -6708,7 +6708,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		finally
 		{
-			/*print("\r\nШАГ №11");
+			print("\r\nШАГ №19");
 			print("Удаляем поданные объявления".toUpperCase());
 			if(!sIdTIY_Leningrad.equals(""))
 			{
@@ -6719,7 +6719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				print("\r\nУдаляем поданное объявление ID = " + sIdTIY_Moskva);
 				DeleteAdvert(sHost, sAuth_token, sIdTIY_Moskva);
-			}*/
+			}
 		}
 	}
 	// поиск объявления в волшебных регионах при указании что include_region=false
