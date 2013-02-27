@@ -243,6 +243,15 @@ public class Test_Mobile
 			cM.CheckFavouriteAdvertInListing(sBaseHost); //Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited
 	}
 	
+	@Test (groups = { "AutoTest_31" })
+	@Parameters({"sBaseHost"})
+	public void AutoTest_AddAdvertGetListAndCheckMagicRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	{
+			cM.AddAdvertGetListAndCheckMagicRegion(sBaseHost); //Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений
+	}
+	
+	
+	
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })

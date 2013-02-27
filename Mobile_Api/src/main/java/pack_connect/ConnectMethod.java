@@ -6595,6 +6595,161 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	}	
 	
+	//(Проверка волшебных регионов) Подача в Ленинградскую обл, получение листинга категории и фильтрованного листинга региона Санкт-Петрбург и обл и проверка нахожд объявл
+	public void AddAdvertGetListAndCheckMagicRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	{
+		String sLogin = Proper.GetProperty("login_authOP4");
+		String sPassword = Proper.GetProperty("password");
+		String sAuth_token = "" , sIdTIY_Leningrad = "" , sIdTIY_Moskva = "";
+		InnerDataHM objTIY_Leningrad, objTIY_Moskva;
+		JSONObject jData;
+		
+		String sDataForListSanktPeterburgWithObl = "{category=electronics-technics/vacuum/, region=russia/sankt-peterburg-gorod/, include_region=true, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListSearchSanktPeterburgWithObl = "{category=electronics-technics/vacuum/, region=/russia/sankt-peterburg-gorod/, include_region=true, offset=0, limit=30, sort_by=date_sort:desc}";
+		String sDataForListSanktPeterburg = "{category=electronics-technics/vacuum/, region=russia/sankt-peterburg-gorod/, include_region=false, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListSearchSanktPeterburg = "{category=electronics-technics/vacuum/, region=/russia/sankt-peterburg-gorod/, include_region=false, offset=0, limit=30, sort_by=date_sort:desc}";
+		
+		String sDataForListSanktMoskvaWithObl = "{category=electronics-technics/vacuum/, region=russia/moskva-gorod/, include_region=true, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListSearchMoskvaWithObl = "{category=electronics-technics/vacuum/, region=russia/moskva-gorod/, include_region=true, offset=0, limit=30, sort_by=date_sort:desc}";
+		String sDataForListSanktMoskva = "{category=electronics-technics/vacuum/, region=russia/moskva-gorod/, include_region=false, currency=RUR, offset=0, limit=45, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListSearchMoskva = "{category=electronics-technics/vacuum/, region=russia/moskva-gorod/, include_region=false, offset=0, limit=30, sort_by=date_sort:desc}";
+
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений - Тест".toUpperCase()+"\r\n");
+		print("Авторизация пользователем - " + sLogin);
+		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		
+		
+		try
+		{
+			print("\r\nШАГ №1");
+			print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Волхов, Ленинградская область".toUpperCase() + " пользователем ".toUpperCase() + sLogin);
+			objTIY_Leningrad = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_magicTIY_LeningradObl", "image3");
+			sIdTIY_Leningrad = objTIY_Leningrad.GetID();  // сюда сохраняем значение id
+			
+			print("\r\nШАГ №2");
+			print("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Кашира, Московская область".toUpperCase() + " пользователем ".toUpperCase() + sLogin);
+			objTIY_Moskva = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_magicTIY_MoskvaObl", "image3");
+			sIdTIY_Moskva = objTIY_Moskva.GetID();  // сюда сохраняем значение id
+		
+			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	
+	    	
+	    	////////////////////////////Питер//////////////////////////////////////////
+	    	
+	    	print("\r\nШАГ №3");
+			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург и область(include_region=true).".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSanktPeterburgWithObl, sAuth_token);
+			
+			print("\r\nШАГ №4");
+			print("Ищем объявление с ID = " + sIdTIY_Leningrad + " в листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург и область.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sIdTIY_Leningrad);
+			
+			print("\r\nШАГ №5");
+			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург(include_region=false)".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSanktPeterburg, sAuth_token);
+			
+			print("\r\nШАГ №6");
+			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Leningrad + " в листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
+			FindOutAdvertFromListMagicRegion(jData, sIdTIY_Leningrad);
+	    	
+			print("\r\nШАГ №7");
+			print("Получаем фильтрованный листинг категории  Электроника и техника - Пылесосы. Регион Санкт-Петербург и область(include_region=true).".toUpperCase());
+			jData = GetListSearchCategory(sHost, sDataForListSearchSanktPeterburgWithObl, "currency=RUR/", sAuth_token);
+			
+			print("\r\nШАГ №8");
+			print("Ищем объявление с ID = " + sIdTIY_Leningrad + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург и область.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sIdTIY_Leningrad);
+		
+			print("\r\nШАГ №9");
+			print("Получаем фильтрованный листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург(include_region=false)".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSearchSanktPeterburg, sAuth_token);
+			
+			print("\r\nШАГ №10");
+			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Leningrad + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
+			FindOutAdvertFromListMagicRegion(jData, sIdTIY_Leningrad);
+			
+			////////////////////////////Москва//////////////////////////////////////////
+			
+			print("\r\nШАГ №11");
+			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Москва и область(include_region=true).".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSanktMoskvaWithObl, sAuth_token);
+			
+			print("\r\nШАГ №12");
+			print("Ищем объявление с ID = " + sIdTIY_Moskva + " в листинге Электроника и техника - Пылесосы. Регион Москва и область.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sIdTIY_Moskva);
+			
+			print("\r\nШАГ №13");
+			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Москва(include_region=false).".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSanktMoskva, sAuth_token);
+			
+			print("\r\nШАГ №14");
+			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Moskva + " в листинге Электроника и техника - Пылесосы. Регион Москва.".toUpperCase());
+			FindOutAdvertFromListMagicRegion(jData, sIdTIY_Moskva);
+			
+			print("\r\nШАГ №15");
+			print("Получаем фильтрованный листинг категории  Электроника и техника - Пылесосы. Регион Москва и область(include_region=true).".toUpperCase());
+			jData = GetListSearchCategory(sHost, sDataForListSearchMoskvaWithObl, "currency=RUR/", sAuth_token);
+			
+			print("\r\nШАГ №16");
+			print("Ищем объявление с ID = " + sIdTIY_Moskva + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Москва и область.".toUpperCase());
+			jData = FindAndReturnAdvertFromListAfterPost(jData, sIdTIY_Moskva);
+		
+			print("\r\nШАГ №17");
+			print("Получаем фильтрованный листинг категории Электроника и техника - Пылесосы. Регион Москва(include_region=false).".toUpperCase());
+			jData = GetListCategory(sHost, sDataForListSearchMoskva, sAuth_token);
+			
+			print("\r\nШАГ №18");
+			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Moskva + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
+			FindOutAdvertFromListMagicRegion(jData, sIdTIY_Moskva);
+			
+			
+		}
+		finally
+		{
+			/*print("\r\nШАГ №11");
+			print("Удаляем поданные объявления".toUpperCase());
+			if(!sIdTIY_Leningrad.equals(""))
+			{
+				print("\r\nУдаляем поданное объявление ID = " + sIdTIY_Leningrad);
+				DeleteAdvert(sHost, sAuth_token, sIdTIY_Leningrad);
+			}
+			if(!sIdTIY_Moskva.equals(""))
+			{
+				print("\r\nУдаляем поданное объявление ID = " + sIdTIY_Moskva);
+				DeleteAdvert(sHost, sAuth_token, sIdTIY_Moskva);
+			}*/
+		}
+	}
+	// поиск объявления в волшебных регионах при указании что include_region=false
+	private void FindOutAdvertFromListMagicRegion(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
+	{
+		JSONObject jTemp = jObj, jData;
+		
+		if(jObj.getString("advertisements").equals("[]"))
+		{
+			print("Листинг объявлений получен, но в листинге нету ни одного объявления");
+			print("Объявление с ID = ".toUpperCase() + sIdAdvert +" отсутствует в листинге. Корректно.".toUpperCase());
+	    	return;
+		}
+		
+		JSONArray ar = jTemp.getJSONArray("advertisements");
+		for(int i=0; i<ar.length(); i++)
+		{
+		
+			jData = (JSONObject) ar.get(i);
+			if(jData.getString("id").equals(sIdAdvert))
+			{
+				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. Но мы запрашивали листинг волшебного региона без области");	
+				print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+			}
+		}
+		
+		print("Объявление с ID = " + sIdAdvert + " не отображается(не найдено) в листинге. Корректно");
+	}
+	
 	
 	
 // Параметризированные тесты
