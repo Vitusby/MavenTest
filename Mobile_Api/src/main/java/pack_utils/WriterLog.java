@@ -43,6 +43,7 @@ public class WriterLog
 				"</style>");
 	}
 	
+	
 	public void WriteString(int iTypeOfString, String sMessage) throws ExceptFailTest
 	{
 		try

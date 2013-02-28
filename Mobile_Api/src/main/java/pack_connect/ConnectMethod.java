@@ -7122,13 +7122,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
 		}
-		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		else
+		{
+			wLog.WriteString(1, "Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+			//print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		}
 		
 		try
 		{
-			wLog.WriteString(4, "2.1.	Подача объявления");
+			wLog.WriteString(4, "2.1.	Подача объявления".toUpperCase());
 			wLog.WriteString(3, "Параметры для запроса");
 			wLog.WriteString(1,"sCatRegAdv = "+ sCatRegAdv);
 			wLog.WriteString(1,"sAdvertisement = "+ sAdvertisement);
@@ -8817,6 +8821,83 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 
 	
+	// Авторизация для файлов лога
+	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		wL.WriteString(4, "1.1.	Авторизация".toUpperCase());
+		//print("1.1.	Авторизация".toUpperCase());
+		wL.WriteString(3, "Параметры для запроса");
+		//print("Параметры для запроса");
+		wL.WriteString(1, "email = "+ sUsername);
+		//print("email = "+ sUsername);
+		wL.WriteString(1, "password = "+ sPassword);
+		//print("password = "+ sPassword);
+		String sE = "username=" + sUsername + "&password=" + sPassword;
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	wL.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
+    	//print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri,sE);
+    	wL.WriteString(3,"Парсим ответ....");
+    	//print("Парсим ответ....");
+    	
+    	//print(sResponse);
+    	jsonObject = ParseResponse(sResponse);
+    	String sTempResponse = jsonObject.toString();
+    	
+    	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
+    	{
+    		wL.WriteString(2, "Не указан логин или пароль");
+    		wL.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		//print("Не указан логин или пароль");
+    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10)+ "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
+    	{
+    		wL.WriteString(2, "Пользователя с такими данными не существует");
+    		wL.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		//print("Пользователя с такими данными не существует");
+    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
+    	{
+    		wL.WriteString(2, "Пользовател неактивен или забанен");
+    		wL.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		//print("Пользовател неактивен или забанен");
+    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	String sAuth_token = (String) jsonObject.get("auth_token");
+    	if(sAuth_token != null)
+    	{
+    		wL.WriteString(1, "Auth_token = "+ sAuth_token);
+	        // print("Auth_token = "+ sAuth_token);
+    		wL.WriteString(1,"Ответ сервера:\r\n"+ jsonObject.toString(10));
+	        // print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		wL.WriteString(3, "Пользователь авторизован");
+	        return sAuth_token;
+    	}
+    	
+    	else 
+    	{
+    		wL.WriteString(2,"Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь не авторизован");
+    		wL.WriteString(2, "Тест провален");
+    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+	}
+	
+	
 	private JSONObject ParseResponse(String sResponse) throws ExceptFailTest
 	   {
 		   JSONObject tempJsonObject = null;
@@ -8854,6 +8935,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		   	return tempJsonObject;
 	   }
 
+	
+	
 	
 }
 
