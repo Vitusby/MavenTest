@@ -7117,6 +7117,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача объявления
 	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		
+		wLog.SetUpWriterLog("LogResult.html");
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
@@ -7124,40 +7126,58 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
-		print("");
-		print("2.1.	Подача объявления");
-		print("Параметры для запроса");
-		print("sCatRegAdv = "+ sCatRegAdv);
-		print("sAdvertisement = "+ sAdvertisement);
-		print("sCustom_fields = "+ sCustom_fields);
-		print("sAuth_token = "+ sAuth_token);
-		print("sVideoUrl = "+ sVideoUrl);
+		try
+		{
+			wLog.WriteString(4, "2.1.	Подача объявления");
+			wLog.WriteString(3, "Параметры для запроса");
+			wLog.WriteString(1,"sCatRegAdv = "+ sCatRegAdv);
+			wLog.WriteString(1,"sAdvertisement = "+ sAdvertisement);
+			wLog.WriteString(1,"sCustom_fields = "+ sCustom_fields);
+			wLog.WriteString(1,"sAuth_token = "+ sAuth_token);
+			wLog.WriteString(1,"sVideoUrl = "+ sVideoUrl);
+			//print("2.1.	Подача объявления");
+			//print("Параметры для запроса");
+			//print("sCatRegAdv = "+ sCatRegAdv);
+			//print("sAdvertisement = "+ sAdvertisement);
+			//print("sCustom_fields = "+ sCustom_fields);
+			//print("sAuth_token = "+ sAuth_token);
+			//print("sVideoUrl = "+ sVideoUrl);
+			
+			String sVideo = "&advertisement[video]="+sVideoUrl;
+			String sRequest = CreateSimpleRequestForPostAndPut(sCatRegAdv);
+			String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sAdvertisement);
+			String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
+			String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 		
-		String sVideo = "&advertisement[video]="+sVideoUrl;
-		String sRequest = CreateSimpleRequestForPostAndPut(sCatRegAdv);
-		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sAdvertisement);
-		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
-		String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
-	
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
-    		
-    	uri = builder.build();
-    	
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
-    	print("Парсим ответ....");
-    	
-    	jsonObject = ParseResponse(sResponse);
-    	if(jsonObject.isNull("error"))
-    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
-    		
-    	else
-    	{
-    		print("Не удалось создать объявление\r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
-    		throw new ExceptFailTest("Тест провален");
-    	}
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+	    		
+	    	uri = builder.build();
+	    	wLog.WriteString(1,"Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	//print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	String sResponse = HttpPostRequestImage2(uri, sPathImage, sE);
+	    	wLog.WriteString(1,"Парсим ответ....");
+	    	//print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse2(sResponse);
+	    	if(jsonObject.isNull("error"))
+	    	{
+	    		wLog.WriteString(5,"\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+	    		//print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+	    	}	
+	    	else
+	    	{
+	    		wLog.WriteString(2,"Не удалось создать объявление\r\n"+
+	    				"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		//print("Не удалось создать объявление\r\n"+
+	    			//	"Ответ сервера:\r\n"+ jsonObject.toString());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+		}
+		finally
+		{
+			wLog.CloseFile();
+		}
     	
 	}
 	// Получение объявления
