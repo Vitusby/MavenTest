@@ -7166,7 +7166,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jsonObject = ParseResponse2(sResponse);
 	    	if(jsonObject.isNull("error"))
 	    	{
-	    		wLog.WriteString(5,"\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+	    		wLog.WriteNewStepBegin("Ответ сервера", 1);
+	    		wLog.WriteString(5, "\r\nОтвет сервера:\r\n" + jsonObject.toString(10));
+	    		wLog.WriteString(3, "Объявление создано");
+	    		wLog.WriteNewStepEnd();
 	    		//print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
 	    	}	
 	    	else
