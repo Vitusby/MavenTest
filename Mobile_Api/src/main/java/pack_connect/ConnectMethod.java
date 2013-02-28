@@ -6821,7 +6821,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		wLog.SetUpWriterLog("LogResult.html");
 		try
 		{
-			wLog.WriteString(4, "1.1.	Авторизация23423".toUpperCase());
+			wLog.WriteString(4, "1.1.	Авторизация".toUpperCase());
 			//print("1.1.	Авторизация".toUpperCase());
 			wLog.WriteString(3, "Параметры для запроса");
 			//print("Параметры для запроса");
