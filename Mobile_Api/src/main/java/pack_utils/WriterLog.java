@@ -63,7 +63,6 @@ public class WriterLog
 					fw.write("<pre style=\"color:blue\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 4:
-					System.out.println(sMessage);
 					fw.write("<h1>" + sMessage + "</h1>");
 					break;
 				case 5:

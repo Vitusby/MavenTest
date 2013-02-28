@@ -13,7 +13,7 @@
    <parameter name="sNewPassword" value="retry2"/>
   <groups>
     <run>
-      <include name="AutoTest_23"/>
+      <include name="Authorization_1_1"/>
     </run>
   </groups>
     <classes>
