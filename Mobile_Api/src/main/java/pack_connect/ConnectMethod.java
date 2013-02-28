@@ -21,10 +21,12 @@ import pack_utils.HM;
 import pack_utils.JString;
 import pack_utils.Proper;
 import pack_utils.RamdomData;
+import pack_utils.WriterLog;
 
 
 public class ConnectMethod extends Connect_Request_Abstract
 {
+	WriterLog wLog = new WriterLog();
 	private URIBuilder builder;; 
 	private URI uri;
 	private JSONObject jsonObject;
@@ -5642,7 +5644,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		
 	}
-	// получение словаря
+	// получение словаря для автотеста
 	private JSONObject GetDic(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -6222,7 +6224,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	// получение платных продуктов в ЛК
+	// получение платных продуктов в ЛК для автотеста
 	private JSONObject GetPaidProductsFromLK(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		print("Получение списка платных продуктов для объявления доступных в личном кабинете пользователя".toUpperCase());
@@ -6253,7 +6255,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	// получение бесплатных продуктов в ЛК
+	// получение бесплатных продуктов в ЛК для автотеста
 	private JSONObject GetFreeProductsForAdvert(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		print("Получение списка бесплатных действий над объявлением".toUpperCase());
@@ -6284,7 +6286,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	// проверка наличия в ответах правильной id и правильного количества id 
+	// проверка наличия в ответах правильной id и правильного количества id для автотеста
 	private void CheckCountId(String sJson, String sId, int nCount, String sText) throws ExceptFailTest
 	{
 		print("Проверяем совпадения в ответе для конфига платных продуктов, наличия правильного ID объявления и правильного количества повторений ID");
@@ -6308,7 +6310,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
 		}
 	}
-	// валидация  ответа на запрос с сохраненным ответом на запрос
+	// валидация  ответа на запрос с сохраненным ответом на запрос для автотеста
 	private void CheckAnswerForPaidProduct(String sIdeal , String sCurrent) throws ExceptFailTest
 	{
 		if(sIdeal.equals(sCurrent))
@@ -6554,7 +6556,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 		
 	}
-	//поиск  объявления по id в листингах  после добавления объявления (возвращаем json объявки)
+	//поиск  объявления по id в листингах  после добавления объявления (возвращаем json объявки) для автотеста
 	private JSONObject FindAndReturnAdvertFromListAfterPost(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData = null;
@@ -6722,7 +6724,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 		}
 	}
-	// поиск объявления в волшебных регионах при указании что include_region=false
+	// поиск объявления в волшебных регионах при указании что include_region=false для автотестов
 	private void FindOutAdvertFromListMagicRegion(JSONObject jObj, String sIdAdvert) throws JSONException, ExceptFailTest
 	{
 		JSONObject jTemp = jObj, jData;
@@ -6792,59 +6794,85 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация
 	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		print("1.1.	Авторизация".toUpperCase());
-		print("Параметры для запроса");
-		print("email = "+ sUsername);
-		print("password = "+ sPassword);
-		String sE = "username=" + sUsername + "&password=" + sPassword;
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
-    	uri = builder.build();
-    	if(uri.toString().indexOf("%25") != -1)
-    	{
-    		String sTempUri = uri.toString().replace("%25", "%");
-    		uri = new URI(sTempUri);			
-    	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	String sResponse = HttpPostRequest2(uri,sE);
-    	print("Парсим ответ....");
-    	
-    	//print(sResponse);
-    	jsonObject = ParseResponse(sResponse);
-    	String sTempResponse = jsonObject.toString();
-    	
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
-    	{
-    		print("Не указан логин или пароль");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString());
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
-    	{
-    		print("Пользователя с такими данными не существует");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
-    	{
-    		print("Пользовател неактивен или забанен");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString() + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
-    	
-    	String sAuth_token = (String) jsonObject.get("auth_token");
-    	if(sAuth_token != null)
-    	{
-    	         print("Auth_token = "+ sAuth_token);
-    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+		
+		wLog.SetUpWriterLog("LogResult.html");
+		try
+		{
+			wLog.WriteString(4, "1.1.	Авторизация".toUpperCase());
+			//print("1.1.	Авторизация".toUpperCase());
+			wLog.WriteString(3, "Параметры для запроса");
+			//print("Параметры для запроса");
+			wLog.WriteString(1, "email = "+ sUsername);
+			//print("email = "+ sUsername);
+			wLog.WriteString(1, "password = "+ sPassword);
+			//print("password = "+ sPassword);
+			String sE = "username=" + sUsername + "&password=" + sPassword;
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+	    	uri = builder.build();
+	    	if(uri.toString().indexOf("%25") != -1)
+	    	{
+	    		String sTempUri = uri.toString().replace("%25", "%");
+	    		uri = new URI(sTempUri);			
+	    	}
+	    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	//print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	String sResponse = HttpPostRequest2(uri,sE);
+	    	wLog.WriteString(3,"Парсим ответ....");
+	    	//print("Парсим ответ....");
+	    	
+	    	//print(sResponse);
+	    	jsonObject = ParseResponse(sResponse);
+	    	String sTempResponse = jsonObject.toString();
+	    	
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Не указан логин или пароль\",\"code\":1}}"))
+	    	{
+	    		wLog.WriteString(2, "Не указан логин или пароль");
+	    		wLog.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+	    		//print("Не указан логин или пароль");
+	    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10)+ "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователя с такими данными не существует\",\"code\":3}}"))
+	    	{
+	    		wLog.WriteString(2, "Пользователя с такими данными не существует");
+	    		wLog.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+	    		//print("Пользователя с такими данными не существует");
+	    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	if(sTempResponse.equals("{\"error\":{\"description\":\"Пользователь не активный\",\"code\":6}}"))
+	    	{
+	    		wLog.WriteString(2, "Пользовател неактивен или забанен");
+	    		wLog.WriteString(2, "Ответ сервера:\r\n"+ jsonObject.toString(10));
+	    		//print("Пользовател неактивен или забанен");
+	    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	
+	    	String sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+    		 	 wLog.WriteString(1, "Auth_token = "+ sAuth_token);
+    	        // print("Auth_token = "+ sAuth_token);
+    	         wLog.WriteString(1,"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    	        // print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    	         wLog.WriteString(3, "Пользователь авторизован");
     	         return sAuth_token;
-    	}
-    	
-    	else 
-    	{
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
-    		throw new ExceptFailTest("Тест провален");
-    	}
+	    	}
+	    	
+	    	else 
+	    	{
+	    		wLog.WriteString(2,"Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь не авторизован");
+	    		wLog.WriteString(2, "Тест провален");
+	    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+		}
+		finally
+		{
+			wLog.CloseFile();
+		}
     	
 	}
 	// Получение профиля
