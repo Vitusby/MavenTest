@@ -5473,50 +5473,68 @@ public class ConnectMethod extends Connect_Request_Abstract
 		@SuppressWarnings("unused")
 		JString Js;
 		String smas[] = new String [1];
+		wLog.SetUpWriterLog("LogResult.html");
 		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Получение списка валют - Тест".toUpperCase());
-		
-		print("\r\nШАГ 1");
-		print("Получаем список валют.".toUpperCase());		
-		jData = GetCur(sHost);
-		String sCurrency = jData.toString(10); 
-		
-		smas[0] = sCurrency;
-		
-		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		//Js = new JString(smas); // запись рубрикаторов в файл
-		//SaveJson(Js, "Currency.txt");
-		
-		String sIdealCurr[] = LoadJson("Currency.txt");
-		
-		print("\r\nШАГ 2");
-		print("Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
-		if(sIdealCurr[0].equals(sCurrency))
+		try
 		{
-			print("Списки валют идентичны. Корректно");
-			print("Полученный из сохранения список валют :");
-			print(sIdealCurr[0]);
+			
+			print("------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(4, "Получение списка валют - Тест".toUpperCase());
+			//print("Получение списка валют - Тест".toUpperCase());
+			
+			wLog.WriteString(3, "\r\nШАГ 1");
+			//print("\r\nШАГ 1");
+			wLog.WriteString(1,"Получаем список валют.".toUpperCase());	
+			//print("Получаем список валют.".toUpperCase());		
+			jData = GetCur(sHost);
+			String sCurrency = jData.toString(10); 
+			
+			smas[0] = sCurrency;
+			
+			//Раскоментить если надо будет обновить значения и закомментить после обновления
+			//Js = new JString(smas); // запись рубрикаторов в файл
+			//SaveJson(Js, "Currency.txt");
+			
+			String sIdealCurr[] = LoadJson("Currency.txt");
+			
+			wLog.WriteString(3, "\r\nШАГ 2");
+			//print("\r\nШАГ 2");
+			wLog.WriteString(1,"Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
+			//print("Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
+			wLog.WriteNewTable(sCurrency, sIdealCurr[0], "Список полученный запросом", "Список из сохранения", 1, 2);
+			if(sIdealCurr[0].equals(sCurrency))
+			{
+				wLog.WriteString(1,"Списки валют идентичны. Корректно");
+				//print("Списки валют идентичны. Корректно");
+				print("Полученный из сохранения список валют :");
+				print(sIdealCurr[0]);
+			}
+			else 
+			{
+				wLog.WriteString(2,"Списки валют не совпадают");
+				//print("Списки валют не совпадают");
+				print("Полученный из сохранения список валют :");
+				print(sIdealCurr[0]);
+				wLog.WriteString(2,"Тест провален".toUpperCase());
+				//print("Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			wLog.WriteString(3,"------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(3,"Тест завершен успешно".toUpperCase());
+			//print("------------------------------------------------------------------------------------------------------------");
+	    	//print("Тест завершен успешно".toUpperCase());
 		}
-		else 
+		finally
 		{
-			print("Списки валют не совпадают");
-			print("Полученный из сохранения список валют :");
-			print(sIdealCurr[0]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
+			wLog.CloseFile();
 		}
-		
-		print("------------------------------------------------------------------------------------------------------------");
-    	print("Тест завершен успешно".toUpperCase());
 
 		
 	}
 	// получение списка валют для автотеста
 	private JSONObject GetCur(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-
-		print("Получение списка валют".toUpperCase());
 	
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/currencies");
@@ -5527,21 +5545,26 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
+    	//print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1,"Парсим ответ....");
+    	//print("Парсим ответ....");
     	
-    	jsonObject = ParseResponse(sResponse);
+    	jsonObject = ParseResponse2(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок валют получен");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
+    		wLog.WriteString(1,"Cписок валют получен");
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список валют \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString(1));
+    		wLog.WriteString(2,"Не удалось получить список валют \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		//print("Не удалось получить список валют \r\n"+
+    			//	"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
@@ -8786,6 +8809,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		print("Не удалось распарсить ответ");
 	    		print("Ответ на запрос:");
 	    		print(sResponse+"\r\n");
+	    		exc.printStackTrace();
+	    		throw new ExceptFailTest("Не удалось распарсить ответ");
+	    	}
+		   	return tempJsonObject;
+	   }
+	
+	// для файлов лога
+	private JSONObject ParseResponse2(String sResponse) throws ExceptFailTest
+	   {
+		   JSONObject tempJsonObject = null;
+		   try
+	    	{
+			   tempJsonObject = new JSONObject(sResponse);
+	    	}
+	    	catch(JSONException exc)
+	    	{
+	    		wLog.WriteString(2, "Не удалось распарсить ответ");
+	    		wLog.WriteString(2, "Ответ на запрос:");
+	    		wLog.WriteString(2, sResponse+"\r\n");
 	    		exc.printStackTrace();
 	    		throw new ExceptFailTest("Не удалось распарсить ответ");
 	    	}
