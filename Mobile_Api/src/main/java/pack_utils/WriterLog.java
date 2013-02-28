@@ -50,20 +50,20 @@ public class WriterLog
 			switch(iTypeOfString)
 			{
 				case 1:
-					
+					System.out.println(sMessage);
 					fw.write("<pre style=\"color:green\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 2:
-					
+					System.out.println(sMessage);
 					WriteNewStepEnd();
 					fw.write("<pre  style=\"color:red; padding-top:25px;\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 3:
-					
+					System.out.println(sMessage);
 					fw.write("<pre style=\"color:blue\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 4:
-					
+					System.out.println(sMessage);
 					fw.write("<h1>" + sMessage + "</h1>");
 					break;
 				case 5:
