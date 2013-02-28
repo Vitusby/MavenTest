@@ -7168,8 +7168,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    		wLog.WriteNewStepBegin("Ответ сервера", 1);
 	    		wLog.WriteString(5, "\r\nОтвет сервера:\r\n" + jsonObject.toString(10));
-	    		wLog.WriteString(3, "Объявление создано");
 	    		wLog.WriteNewStepEnd();
+	    		wLog.WriteString(3, "Объявление создано");
 	    		//print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
 	    	}	
 	    	else
