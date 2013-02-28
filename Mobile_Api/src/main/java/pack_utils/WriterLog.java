@@ -30,8 +30,9 @@ public class WriterLog
 		}
 		System.out.println("Создаем файл лога");
 		//charset=utf-8
-		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html;\"><title>Log_Result</title></head>");
+		WriteString(0, "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8;\"><title>Log_Result</title></head>");
 		WriteString(0, "<body style=\"background-color:Linen\">");
+		WriteString(0, "<style type=\"text/css\">table {width: 100%;}td {border: 1px solid;padding: 5px 10px;width: 50%;vertical-align: top;}</style>");
 		WriteString(0, "<style> pre {margin:0;padding:0; font-family:arial; font: arial 18px/16px;} </style>");
 		WriteString(0, "<style type=\"text/css\">" +
 				"input[type=checkbox] {position: absolute;margin-top: -26px;}" +
@@ -49,20 +50,16 @@ public class WriterLog
 			switch(iTypeOfString)
 			{
 				case 1:
-					System.out.println(sMessage);
 					fw.write("<pre style=\"color:green\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 2:
-					System.out.println(sMessage);
 					WriteNewStepEnd();
 					fw.write("<pre  style=\"color:red; padding-top:25px;\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 3:
-					System.out.println(sMessage);
 					fw.write("<pre style=\"color:blue\">" + sMessage + "</pre>"+"\n");
 					break;
 				case 4:
-					System.out.println(sMessage);
 					fw.write("<h1>" + sMessage + "</h1>");
 					break;
 				default:
@@ -91,6 +88,20 @@ public class WriterLog
 	{
 		WriteString(0, "</div></div>");
 		WriteString(0, "<hr>");
+	}
+
+	
+	public void WriteNewTable(String sLeftText, String sRightText, String sName, int nToogle) throws ExceptFailTest
+	{
+		WriteString(0, "<table><tr><td>");
+		WriteString(0, "<div class=\"wrap\"><label for=\"toggle-" + nToogle + "\">"+ sName +"</label>");
+		WriteString(0, "<input type=\"checkbox\" id=\"toggle-" + nToogle + "\">");
+		WriteString(0, "<div class=\"text\"><pre style=\"color:green\">" + sLeftText + "</pre></div></div>");
+		WriteString(0, "</td><td>");
+		WriteString(0, "<div class=\"wrap\"><label for=\"toggle-" + nToogle+1 + "\">"+ sName +"</label>");
+		WriteString(0, "<input type=\"checkbox\" id=\"toggle-" + nToogle+1 + "\">");
+		WriteString(0, "<div class=\"text\"><pre style=\"color:green\">" + sLeftText + "</pre></div></div>");
+		WriteString(0, "</td></tr></table>");
 	}
 	
 	public void CloseFile() throws ExceptFailTest
