@@ -6537,6 +6537,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №6");
 			print("Проверяем объявление с ID = " + sId + " на наличие флага isfavorited равного true ".toUpperCase());
+			print(jData.toString(10));
 			if(jData.getBoolean("isfavorited") == true)
 			{
 				print("У объявления с ID = " + sId + " присутсвует флаг isfavorited равный true. Корректно");
@@ -6605,6 +6606,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				print("Объявление с ID = " + sIdAdvert + " найдено в листинге. Корректно");
 				bFlag = true;
+				return jData;
 				
 			}
 		
