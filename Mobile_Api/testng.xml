@@ -13,7 +13,7 @@
    <parameter name="sNewPassword" value="retry2"/>
   <groups>
     <run>
-      <include name="GetFreeProductsForAdvert_2_9"/>
+      <include name="GetPaidProductsToStepToAdd_2_7"/>
     </run>
   </groups>
     <classes>

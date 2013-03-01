@@ -7410,13 +7410,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных на этапе подачи объявления
-	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products");
-    		
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
