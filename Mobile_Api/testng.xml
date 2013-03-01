@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
   <test name="Test">
-   <parameter name="sBaseHost" value="design.prontosoft.by"/>
+   <parameter name="sBaseHost" value="master.prontosoft.by"/>
    <parameter name="sLogin" value="Timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251726297"/> 
@@ -13,7 +13,7 @@
    <parameter name="sNewPassword" value="retry2"/>
   <groups>
     <run>
-      <include name="AutoTest_30"/>
+      <include name="AutoTest_15"/>
     </run>
   </groups>
     <classes>

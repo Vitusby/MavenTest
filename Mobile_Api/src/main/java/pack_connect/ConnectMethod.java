@@ -6599,7 +6599,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONArray ar = jTemp.getJSONArray("advertisements");
 		for(int i=0; i<ar.length(); i++)
 		{
-		
 			jData = (JSONObject) ar.get(i);
 			if(jData.getString("id").equals(sIdAdvert))
 			{
@@ -6607,7 +6606,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 				bFlag = true;
 				break;
 			}
-		
 		}
 		
 		if(!bFlag)
