@@ -6222,7 +6222,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение списка платных продуктов для объявления доступных на этапе подачи объявления".toUpperCase());
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products")
-    			.setParameter("аuth_token", sAuth_token);
+    			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6254,7 +6254,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение списка платных продуктов для объявления доступных в личном кабинете пользователя".toUpperCase());
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
-    			.setParameter("аuth_token", sAuth_token);
+    			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6286,7 +6286,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение списка бесплатных действий над объявлением".toUpperCase());
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions")
-    			.setParameter("аuth_token", sAuth_token);
+    			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
