@@ -1340,7 +1340,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jData = GetAdvert(sHost, sIdAdvert,  "Авто - б/у" );
     	
     	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после попытки выделения объявления");
-    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделения объявления");
+    	ValidateHighLight("false", jData, sIdAdvert, " после попытки выделения объявления");
     	
 //////////////////////////////////////////////////////////////////
     	
@@ -2092,7 +2092,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
 	    	
 	    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
-	    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
+	    	ValidateHighLight("false", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
 	    	
 	    	// выделение объявления
 	    	print("\r\nШАГ 9");
@@ -2104,7 +2104,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок" );
 	    	
 	    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
-	    	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
+	    	ValidateHighLight("true", jData, sIdAdvert, " после выделения объявления");
 	    	
 	    	//попытка назначения премиум объявления без оплаты
 	    	print("\r\nШАГ 10");
@@ -2896,7 +2896,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
 	    	
 	    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
-	    	ValidateHighLight("0", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
+	    	ValidateHighLight("false", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
 	    	
 	    	// выделение объявления
 	    	print("\r\nШАГ 11");
@@ -2908,7 +2908,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто" );
 	    	
 	    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
-	    	ValidateHighLight("1", jData, sIdAdvert, " после выделения объявления");
+	    	ValidateHighLight("true", jData, sIdAdvert, " после выделения объявления");
 	    	
 	    	//попытка назначения премиум объявления без оплаты
 	    	print("\r\nШАГ 12");
