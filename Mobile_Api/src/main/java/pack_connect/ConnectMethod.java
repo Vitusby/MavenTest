@@ -6876,6 +6876,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		throw new ExceptFailTest("Тест провален");
 	    	}
 	    	
+	    	if(!jsonObject.isNull("error"))
+	    	{
+	    		wLog.WriteString(2,"Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь не авторизован");
+	    		wLog.WriteString(2, "Тест провален");
+	    		//print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+	    	
+	    	
+	    	
 	    	String sAuth_token = (String) jsonObject.get("auth_token");
 	    	if(sAuth_token != null)
 	    	{
