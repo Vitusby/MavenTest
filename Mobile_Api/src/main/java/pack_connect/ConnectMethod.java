@@ -3649,8 +3649,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sCategoryNameTIY = "Пылесосы";
 		String sRegionNameMobile = "Пермь";
 		String sCategoryNameMobile = "Мобильные телефоны";
-		//String sRegionNameJob = "Москва";
-		//String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
+		String sRegionNameJob = "Москва";
+		String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
 		
 		
 	
@@ -3741,8 +3741,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
 	    	jData = GetListCategory(sHost, sDataForListJob, "");
-	    	//print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	//ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/"); // После исправления бага 44474 раскомментить
+	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
+	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/"); // После исправления бага 44474 раскомментить
 	    		
 		}
 		
