@@ -6828,7 +6828,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//print("1.1.	Авторизация".toUpperCase());
 			wLog.WriteString(3, "Параметры для запроса");
 			//print("Параметры для запроса");
-			wLog.WriteString(1, "email = "+ sUsername);
+			wLog.WriteString(1, "username = "+ sUsername);
 			//print("email = "+ sUsername);
 			wLog.WriteString(1, "password = "+ sPassword);
 			//print("password = "+ sPassword);
