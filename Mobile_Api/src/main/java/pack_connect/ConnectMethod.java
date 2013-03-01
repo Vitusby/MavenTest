@@ -7412,9 +7412,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Получение списка платных продуктов для объявления доступных на этапе подачи объявления
 	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products");
+    		
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -7437,11 +7439,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных в личном кабинете пользователя
-	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
 		print("2.8.	Получение списка платных продуктов для объявления доступных в личном кабинете пользователя");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -7464,11 +7474,20 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка бесплатных действий над объявлением
-	public void GetFreeProductsForAdvert_2_9(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException
+	public void GetFreeProductsForAdvert_2_9(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		
 		print("2.9.	Получение списка бесплатных действий над объявлением");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions")
+    		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -7482,11 +7501,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:" + jsonObject.toString() + " Список получен");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nСписок получен");
     	else
     	{
     		print("Не удалось получить список продуктов \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}

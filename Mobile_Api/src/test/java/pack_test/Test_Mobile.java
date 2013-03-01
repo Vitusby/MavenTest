@@ -360,17 +360,17 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetPaidProductsFromLK_2_8" })
-	@Parameters({"sBaseHost","sIdAdvert"})
-	public void Test12(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test12(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPaidProductsFromLK_2_8(sBaseHost, sIdAdvert);
+		cM.GetPaidProductsFromLK_2_8(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
 	}
 	
 	@Test (groups = { "GetFreeProductsForAdvert_2_9" })
-	@Parameters({"sBaseHost","sIdAdvert"})
-	public void Test13(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test13(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetFreeProductsForAdvert_2_9(sBaseHost, sIdAdvert);
+		cM.GetFreeProductsForAdvert_2_9(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
 	}
 	
 	@Test (groups = { "ActivationAdvert_2_10" })

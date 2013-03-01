@@ -3,9 +3,9 @@
 <suite name="Suite" parallel="none">
   <test name="Test">
    <parameter name="sBaseHost" value="design.prontosoft.by"/>
-   <parameter name="sLogin" value="api1@yopmail.com"/> 
+   <parameter name="sLogin" value="Timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="sIdAdvert" value="245367359"/> 
+   <parameter name="sIdAdvert" value="251726297"/> 
    <parameter name="sParam1" value="{title=апвапарапраплдрапр}"/>
    <parameter name="sParam2" value="{make=Audi, model=100}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
@@ -13,7 +13,7 @@
    <parameter name="sNewPassword" value="retry2"/>
   <groups>
     <run>
-      <include name="AutoTest_5"/>
+      <include name="GetFreeProductsForAdvert_2_9"/>
     </run>
   </groups>
     <classes>
