@@ -5766,7 +5766,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 			print("Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
 			print("\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid);
+			jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
@@ -5774,7 +5774,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 			print("\r\nШАГ 2-1");
 			print("\r\nПолучаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free);
+			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
@@ -5782,7 +5782,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 			print("\r\nШАГ 2-2");
 			print("\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 6,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");
 			sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
@@ -5812,7 +5812,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("\r\nШАГ 4");
 			print("Получение списка платных продуктов для объявлений в ЛК. Рубрика Авто - Новые автомобили. Регион Москва.".toUpperCase());	
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			sCurrentAutoPaid = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
@@ -5824,7 +5824,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 4-2");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid2 = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid2, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid, "*****");
@@ -5836,7 +5836,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 4-4");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid3 = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid3, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid, "*****");
@@ -5848,7 +5848,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 4-6");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid4 = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid4, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid, "*****");
@@ -5860,7 +5860,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 4-8");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid5 = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid5, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid, "*****");
@@ -5872,7 +5872,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 4-10");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid);
+			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid6 = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid6, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
 			sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid, "*****");
@@ -5926,7 +5926,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("\r\nШАГ 6");
 			print("Получение списка платных продуктов для объявлений в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			sCurrentElectronFree = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree, sIdTIU_Free, 4,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
@@ -5938,7 +5938,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 6-2");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree2 = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree2, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree2 = sCurrentElectronFree2.replace(sIdTIU_Free, "*****");
@@ -5954,7 +5954,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 6-5");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree3 = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree3, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree3 = sCurrentElectronFree3.replace(sIdTIU_Free, "*****");
@@ -5966,7 +5966,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 6-7");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree4 = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree4, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree4 = sCurrentElectronFree4.replace(sIdTIU_Free, "*****");
@@ -5978,7 +5978,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 6-9");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree5 = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree5, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree5 = sCurrentElectronFree5.replace(sIdTIU_Free, "*****");
@@ -5990,7 +5990,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 6-11");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree6 = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree6, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
 			sCurrentElectronFree6 = sCurrentElectronFree6.replace(sIdTIU_Free, "*****");
@@ -6047,7 +6047,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("\r\nШАГ 8");
 			print("Получение списка платных продуктов для объявлений(платное сверх лимита) в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление неоплачено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			sCurrentElectronPaid = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
 			sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
@@ -6059,7 +6059,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 8-2");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid2 = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid2, sIdTIU_Paid, 6,  " Электроника и техника - Пылесосы. Регион Казань "); 
 			sCurrentElectronPaid2 = sCurrentElectronPaid2.replace(sIdTIU_Paid, "*****");
@@ -6071,7 +6071,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 8-4");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid3 = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid3, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); 
 			sCurrentElectronPaid3 = sCurrentElectronPaid3.replace(sIdTIU_Paid, "*****");
@@ -6083,7 +6083,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 8-6");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid4 = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid4, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
 			sCurrentElectronPaid4 = sCurrentElectronPaid4.replace(sIdTIU_Paid, "*****");
@@ -6095,7 +6095,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 8-8");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid5 = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid5, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
 			sCurrentElectronPaid5 = sCurrentElectronPaid5.replace(sIdTIU_Paid, "*****");
@@ -6107,7 +6107,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 8-10");
 			print("\r\nПолучаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid);
+			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid6 = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid6, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
 			sCurrentElectronPaid6 = sCurrentElectronPaid6.replace(sIdTIU_Paid, "*****");
@@ -6159,7 +6159,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			print("\r\nШАГ 10");
 			print("Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление активно".toUpperCase());
-			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2);
+			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token);
 			String sCurrentFree = jData.toString(10); 
 			smasFree[0] = sCurrentFree;
 			
@@ -6169,7 +6169,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ 10-1");
 			print("Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление неактивно.".toUpperCase());
-			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2);
+			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token);
 			String sCurrentFree2 = jData.toString(10); 
 			smasFree[1] = sCurrentFree2;
 			
@@ -6217,11 +6217,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// получение платных продуктов на этапе подачи для автотеста
-	private JSONObject GetPaidProductsToStepToAdd(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private JSONObject GetPaidProductsToStepToAdd(String sHost, String sIdAdvert, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("Получение списка платных продуктов для объявления доступных на этапе подачи объявления".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    			.setParameter("аuth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6248,11 +6249,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение платных продуктов в ЛК для автотеста
-	private JSONObject GetPaidProductsFromLK(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private JSONObject GetPaidProductsFromLK(String sHost, String sIdAdvert, String sAuth_token) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		print("Получение списка платных продуктов для объявления доступных в личном кабинете пользователя".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
+    			.setParameter("аuth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -6279,11 +6281,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение бесплатных продуктов в ЛК для автотеста
-	private JSONObject GetFreeProductsForAdvert(String sHost, String sIdAdvert) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private JSONObject GetFreeProductsForAdvert(String sHost, String sIdAdvert, String sAuth_token) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		print("Получение списка бесплатных действий над объявлением".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions");
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions")
+    			.setParameter("аuth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
