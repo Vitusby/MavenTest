@@ -98,6 +98,12 @@ public class WriterLog
 		WriteString(0, "</div></div>");
 		WriteString(0, "<hr>");
 	}
+	
+	public void WriteHr() throws ExceptFailTest
+	{
+		WriteString(0, "<hr>");
+	}
+	
 
 	
 	public void WriteNewTable(String sLeftText, String sRightText, String sName, String sName2, int nToogle, int nToogle2) throws ExceptFailTest

@@ -5577,104 +5577,114 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sNameDictionaryCarCom = "Car makers commercial";
 		String sNameDictionaryCarBody = "cfd_bodytype";
 		String sNameDictionaryColor = "cf_color";
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
 		String smas[] = new String [3];
-		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Получение словарей - Тест".toUpperCase());
-		
-		print("\r\nШАГ 1");
-		print("Получаем словарь Car makers commercial.".toUpperCase());		
-		jData = GetDic(sHost, sNameDictionaryCarCom);
-		String sCurrentDicCarCom = jData.toString(10); 
-		
-		smas[0] = sCurrentDicCarCom;
-		
-		print("Получаем словарь cfd_bodytype.".toUpperCase());		
-		jData = GetDic(sHost, sNameDictionaryCarBody);
-		String sCurrentDicCarBody = jData.toString(10); 
-		
-		smas[1] = sCurrentDicCarBody;
-		
-		
-		print("Получаем словарь cf_color.".toUpperCase());		
-		jData = GetDic(sHost, sNameDictionaryColor);
-		String sCurrentDicColor = jData.toString(10); 
-		
-		smas[2] = sCurrentDicColor;
-		
-		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		//Js = new JString(smas); // запись в файл
-		//SaveJson(Js, "Dictionary.txt");
-		
-		String sIdealDic[] = LoadJson("Dictionary.txt");
-		
-		print("\r\nШАГ 2");
-		print("Сравниваем словарь Car makers commercial полученный запросом, со словарем Car makers commercial из сохранения".toUpperCase());
-		if(sIdealDic[0].equals(sCurrentDicCarCom))
+		Calendar c = Calendar.getInstance();
+		String sTime = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
+		try
 		{
-			print("Словари идентичны. Корректно");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[0]);
+			print("------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(4, "Получение словарей - Тест (".toUpperCase() + sTime + ")".toUpperCase());
+			
+			wLog.WriteString(3, "\r\nШАГ 1");
+			wLog.WriteString(1,"Получаем словарь Car makers commercial.".toUpperCase());		
+			jData = GetDic(sHost, sNameDictionaryCarCom);
+			String sCurrentDicCarCom = jData.toString(10); 
+			wLog.WriteHr();
+			smas[0] = sCurrentDicCarCom;
+			
+			wLog.WriteString(1,"Получаем словарь cfd_bodytype.".toUpperCase());		
+			jData = GetDic(sHost, sNameDictionaryCarBody);
+			String sCurrentDicCarBody = jData.toString(10); 
+			wLog.WriteHr();
+			smas[1] = sCurrentDicCarBody;
+			
+			
+			wLog.WriteString(1, "Получаем словарь cf_color.".toUpperCase());		
+			jData = GetDic(sHost, sNameDictionaryColor);
+			String sCurrentDicColor = jData.toString(10); 
+			wLog.WriteHr();
+			smas[2] = sCurrentDicColor;
+			
+			//Раскоментить если надо будет обновить значения и закомментить после обновления
+			//Js = new JString(smas); // запись в файл
+			//SaveJson(Js, "Dictionary.txt");
+			
+			String sIdealDic[] = LoadJson("Dictionary.txt");
+			
+			wLog.WriteString(3, "\r\nШАГ 2");
+			wLog.WriteString(1, "Сравниваем словарь Car makers commercial полученный запросом, со словарем Car makers commercial из сохранения".toUpperCase());
+			wLog.WriteNewTable(sCurrentDicCarCom, sIdealDic[0], "Список полученный запросом", "Список из сохранения", 1, 2);
+			if(sIdealDic[0].equals(sCurrentDicCarCom))
+			{
+				wLog.WriteString(1, "Словари идентичны. Корректно");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[0]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Словари не совпадают");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[0]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			wLog.WriteHr();
+			wLog.WriteString(1, "\r\nСравниваем словарь cfd_bodytype полученный запросом, со словарем cfd_bodytype из сохранения".toUpperCase());
+			wLog.WriteNewTable(sCurrentDicCarBody, sIdealDic[1], "Список полученный запросом", "Список из сохранения", 3, 4);
+			if(sIdealDic[1].equals(sCurrentDicCarBody))
+			{
+				wLog.WriteString(1, "Словари идентичны. Корректно");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[1]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Словари не совпадают");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[1]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			
+			wLog.WriteHr();
+			wLog.WriteString(1, "\r\nСравниваем словарь cf_color полученный запросом, со словарем cf_color из сохранения".toUpperCase());
+			wLog.WriteNewTable(sCurrentDicColor, sIdealDic[2], "Список полученный запросом", "Список из сохранения", 5, 6);
+			if(sIdealDic[2].equals(sCurrentDicColor))
+			{
+				wLog.WriteString(1, "Словари идентичны. Корректно");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[2]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Словари не совпадают");
+				print("Полученный из сохранения словарь:");
+				print(sIdealDic[2]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			print("------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(3, "Тест завершен успешно".toUpperCase());
+		
 		}
-		else 
+		finally
 		{
-			print("Словари не совпадают");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[0]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
+			wLog.CloseFile();
 		}
-		
-		
-		print("\r\nСравниваем словарь cfd_bodytype полученный запросом, со словарем cfd_bodytype из сохранения".toUpperCase());
-		if(sIdealDic[1].equals(sCurrentDicCarBody))
-		{
-			print("Словари идентичны. Корректно");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[1]);
-		}
-		else 
-		{
-			print("Словари не совпадают");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[1]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		
-		print("\r\nСравниваем словарь cf_color полученный запросом, со словарем cf_color из сохранения".toUpperCase());
-		if(sIdealDic[2].equals(sCurrentDicColor))
-		{
-			print("Словари идентичны. Корректно");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[2]);
-		}
-		else 
-		{
-			print("Словари не совпадают");
-			print("Полученный из сохранения словарь:");
-			print(sIdealDic[2]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		
-		print("------------------------------------------------------------------------------------------------------------");
-    	print("Тест завершен успешно".toUpperCase());
-
 		
 	}
 	// получение словаря для автотеста
 	private JSONObject GetDic(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение значений словаря".toUpperCase());
-		print("Параметры для запроса");
-		print("NameDictinary = "+ sNameDict);
+		wLog.WriteString(1, "Получение значений словаря".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "NameDictinary = "+ sNameDict);
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict);
@@ -5685,20 +5695,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
-    	jsonObject = ParseResponse(sResponse);
+    	jsonObject = ParseResponse2(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nзначения словаря получены\r\n");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
+    		wLog.WriteString(1,"Значения словаря получены");
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить значения словаря \r\n"+
+    		wLog.WriteString(2, "Не удалось получить значения словаря \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
