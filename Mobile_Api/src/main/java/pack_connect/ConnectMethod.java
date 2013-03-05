@@ -26,7 +26,7 @@ import pack_utils.WriterLog;
 
 public class ConnectMethod extends Connect_Request_Abstract
 {
-	WriterLog wLog = new WriterLog();
+	//WriterLog wLog = new WriterLog();
 	private URIBuilder builder;; 
 	private URI uri;
 	private JSONObject jsonObject;
@@ -844,7 +844,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				else
 					hObj_Cust.SetValue(sMas_Cust[i], RamdomData.GetRandomData(Proper.GetProperty(sMas_Cust[i]), ""));
 			}
-			hObj_Cust.PrintKeyAndValue();
+			//hObj_Cust.PrintKeyAndValue(); // теперь выводим в CreateDoubleArrayRequestForPostAndPut
 			sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
 			
 			builder = new URIBuilder();
@@ -855,7 +855,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo + Proper.GetProperty("job_special");
 	    	else
 	    		sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
-	    		
+	    	
 	    	uri = builder.build();
 	    	
 	    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -865,18 +865,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	jsonObject = ParseResponse2(sResponse);
 	    	if(jsonObject.isNull("error"))
 	    	{
-	    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+	    		wLog.WriteString(1, "\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
 	    		jTemp = jsonObject.getJSONObject("advertisement");
 	    		sRet =  jTemp.getString("id");
-	    		print("ID объявление = " + sRet);
+	    		wLog.WriteString(1, "ID объявление = " + sRet);
 	    		obj = new InnerDataHM(hObj_Adv, hObj_Cust, sRet); // сохраняем значения поданных данных и id созданой объявки 
 	    		return obj;
 	    	}
 	    	else
 	    	{
-	    		print("Не удалось создать объявление\r\n"+
+	    		wLog.WriteString(2, "Не удалось создать объявление\r\n"+
 	    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
-	    		print("Тест провален".toUpperCase());
+	    		wLog.WriteString(2, "Тест провален".toUpperCase());
 	    		throw new ExceptFailTest("Тест провален");
 	    	}	
 		}
@@ -5797,40 +5797,50 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			// подача платного объявлений
 			wLog.WriteString(3, "\r\nШАГ 1");
-			wLog.WriteString(1, "Подача 1 платного объявления".toUpperCase());  	
-			wLog.WriteString(1, "\r\nПодача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
+			wLog.WriteString(1, "Подача 1 платного объявления");  	
+			//wLog.WriteString(1, "Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
+			wLog.WriteNewStepBegin("Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase(), 1);
 			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image");
+			wLog.WriteNewStepEnd();
 			sIdAutoPaid = objAuto.GetID();
 	    	
 			wLog.WriteString(3, "\r\nШАГ 1-1");
-			wLog.WriteString(1, "\r\nПодача 1 бесплатного объявления");
-			wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+			wLog.WriteString(1, "Подача 1 бесплатного объявления");
+			//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+			wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 2);
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	wLog.WriteNewStepEnd();
 	    	sIdTIU_Free = objTIY.GetID();
 	    	
 	    	wLog.WriteString(3, "\r\nШАГ 1-2");
-	    	wLog.WriteString(1, "\r\nПодача 2 бесплатного объявления");
-	    	wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteString(1, "Подача 2 бесплатного объявления");
+	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 3);
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	wLog.WriteNewStepEnd();
 	    	sIdTIU_Free2 = objTIY.GetID();
 	    	
 	    	wLog.WriteString(3, "\r\nШАГ 1-3");
-	    	wLog.WriteString(1, "\r\nПодача 3 бесплатного объявления");
-	    	wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteString(1, "Подача 3 бесплатного объявления");
+	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	wLog.WriteNewStepEnd();
 	    	sIdTIU_Free3 = objTIY.GetID();
 	    	
 	    	wLog.WriteString(3, "\r\nШАГ 1-4");
-	    	wLog.WriteString(1, "\r\nПодача 4 объявления, объявление платное, сверх лимита бесплатных");
-	    	wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteString(1, "Подача 4 объявления, объявление платное, сверх лимита бесплатных");
+	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 5);
 	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3");
+	    	wLog.WriteNewStepEnd();
 	    	sIdTIU_Paid = objTIY.GetID();
 	  
     
 	    	// проверка платных продуктов на этапе подачи
 	    	wLog.WriteString(3, "\r\nШАГ 2");
 	    	wLog.WriteString(1, "Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
-	    	wLog.WriteString(1, "\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
+	    	wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
 			jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid, sAuth_token);
 			String sCurrentAutoPaid = jData.toString(10); 
 			CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
@@ -5838,7 +5848,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			smasInStepAdd[0] = sCurrentAutoPaid;
 		
 			wLog.WriteString(3, "\r\nШАГ 2-1");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+			wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
 			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free, sAuth_token);
 			String sCurrentElectronFree = jData.toString(10); 
 			CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
@@ -5846,7 +5856,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			smasInStepAdd[1] = sCurrentElectronFree;
 	    	
 			wLog.WriteString(3, "\r\nШАГ 2-2");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+			wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
 			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid, sAuth_token);
 			String sCurrentElectronPaid = jData.toString(10); 
 			CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 6,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");

@@ -26,10 +26,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
+import pack_utils.ExceptFailTest;
+import pack_utils.WriterLog;
+
 
 
 public abstract class Connect_Request_Abstract
-{	  
+{	
+	
+	WriterLog wLog = new WriterLog();
     public Connect_Request_Abstract(){}
     //Post, Put, Get, Delete
     /*public String HttpPostRequest(URI uri) throws URISyntaxException, IOException
@@ -244,7 +249,7 @@ public abstract class Connect_Request_Abstract
 	}
 	
 	// generate ?param[value_param1]=value1 for get and delete
-	public final String CreateArrayRequest(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
+	public final String CreateArrayRequest(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException, ExceptFailTest
 	{
 		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[")
 				.replaceAll("\"", "");
@@ -269,7 +274,7 @@ public abstract class Connect_Request_Abstract
 	}
 	
 	// generate ?param[value_param1]=value1 for post/put
-	public final String CreateArrayRequestForPostAndPut(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException
+	public final String CreateArrayRequestForPostAndPut(String sMainParam, String sDataForArrayRequest) throws UnsupportedEncodingException, ExceptFailTest
 	{
 		sDataForArrayRequest = sDataForArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "]=").replace("{", "[")
 				.replaceAll("\"", "");
@@ -281,7 +286,8 @@ public abstract class Connect_Request_Abstract
 		}
 		
 		for(String sTemp: s1)
-			System.out.println(sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
+			//System.out.println(sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
+			wLog.WriteString(1, sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
 		
 		String request = "";
 		for(int i=0; i<s1.length; i++)
@@ -320,7 +326,7 @@ public abstract class Connect_Request_Abstract
 	
 	
 	//generate ?param[value_param1][value1_param2][0]=value2 for put and post request
-	public final String CreateDoubleArrayRequestForPostAndPut(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException
+	public final String CreateDoubleArrayRequestForPostAndPut(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException, ExceptFailTest
 	{
 		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=")
 				.replace("{", "[").replaceAll("\"", "");
@@ -330,6 +336,13 @@ public abstract class Connect_Request_Abstract
 		for(int i=0; i<s1.length; i++)
 		{
 			s1[i] = s1[i].replaceAll("\\+", " ");
+		}
+		
+		
+		for(String sTemp: s1)
+		{	//System.out.println(sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
+			sTemp = sTemp.replaceAll("\\[0\\]", "");
+			wLog.WriteString(1, sTemp.replaceAll("\\[", "").replaceAll("\\]", ""));
 		}
 		
 		for(int i=0; i<s1.length; i++)

@@ -86,6 +86,7 @@ public class WriterLog
 	
 	public void  WriteNewStepBegin(String sNameStep, int nToogle) throws ExceptFailTest
 	{
+		System.out.println(sNameStep);
 		WriteString(0, "<div class=\"wrap\">");
 		WriteString(0, "<label for=\"toggle-" + nToogle + "\">" +sNameStep + "</label>");
 		WriteString(0, "<input type=\"checkbox\" id=\"toggle-" + nToogle + "\">");
