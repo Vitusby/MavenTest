@@ -4907,236 +4907,263 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDirectionSuggest = "{region=russia/moskovskaya-obl/, search_string=кур}";
 		String sHighWaySuggest = "{region=russia/moskovskaya-obl/, search_string=мин}";
 		String sMetroSuggest = "{region=russia/nizhegorodskaya-obl/nizhniy-novgorod-gorod/, search_string=бур}";
-		
+		Calendar c = Calendar.getInstance();
+		String sTime = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
 		String smas[] = new String [9];
-		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Получение и проверка Населенных пунктов, улиц, домов, районов, микрорайонов, АО, направлений, шоссе, ст. метро Suggest - Тест".toUpperCase());
-		
-		print("\r\nШАГ 1");
-		print("Получаем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область.".toUpperCase());		
-		jData = GetCitiesSuggest(sHost, sCitiesSuggest);
-		String sCurrentCitiesSuggest = jData.toString(10); 
-		
-		smas[0] = sCurrentCitiesSuggest;
-		
-		print("\r\nПолучаем suggest для улицы при поиске по слову \"кам\" для региона Москва.".toUpperCase());		
-		jData = GetStreetsSuggest(sHost, sStreetsSuggest);
-		String sCurrentStreetSuggest = jData.toString(10); 
-		
-		smas[1] = sCurrentStreetSuggest;
-		
-		print("\r\nПолучаем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230).".toUpperCase());		
-		jData = GetHousesSuggest(sHost, sHouseSugeest);
-		String sCurrentHouseSuggest = jData.toString(10); 
-		
-		smas[2] = sCurrentHouseSuggest;
-		
-		print("\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург.".toUpperCase());	
-		jData = GetDistrictSuggest(sHost, sDistrictSuggets);
-		String sCurrentDistrictSuggest = jData.toString(10); 
-		
-		smas[3] = sCurrentDistrictSuggest;
-		
-		print("\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург.".toUpperCase());	
-		jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest);
-		String sCurrentMicroDistrictSuggest = jData.toString(10); 
-		
-		smas[4] = sCurrentMicroDistrictSuggest;
-		
-		print("\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона Москва.".toUpperCase());	
-		jData = GetAOSuggest(sHost, sAOSuggest);
-		String sCurrentAOSuggest = jData.toString(10); 
-		
-		smas[5] = sCurrentAOSuggest;
-		
-		print("\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона Московская область.".toUpperCase());	
-		jData = GetDirectionSuggest(sHost, sDirectionSuggest);
-		String sCurrentDirectionSuggest = jData.toString(10); 
-		
-		smas[6] = sCurrentDirectionSuggest;
-		
-		print("\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона Московская область.".toUpperCase());	
-		jData = GetHighwaySuggest(sHost, sHighWaySuggest);
-		String sCurrentHighWaySuggest = jData.toString(10); 
-		
-		smas[7] = sCurrentHighWaySuggest;
-		
-		print("\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород.".toUpperCase());	
-		jData = GetMetroSuggest(sHost, sMetroSuggest);
-		String sCurrentMetroSuggest = jData.toString(10); 
-		
-		smas[8] = sCurrentMetroSuggest;
-
-		
-		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		//Js = new JString(smas); // запись рубрикаторов в файл
-		//SaveJson(Js, "Suggest.txt");
-		
-		String sIdealSuggest[] = LoadJson("Suggest.txt");
-		
-		print("\r\nШАГ 2");
-		print("Сравниваем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область полученных запросом, с suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область из сохранения".toUpperCase());
-		if(sIdealSuggest[0].equals(sCurrentCitiesSuggest))
+		try
 		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
-			print(sIdealSuggest[0]);
+			print("------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(4, "Получение и проверка Населенных пунктов, улиц, домов, районов, микрорайонов, АО, направлений, шоссе, ст. метро Suggest - Тест(".toUpperCase() + sTime + ")".toUpperCase());
+			
+			wLog.WriteString(3, "\r\nШАГ 1");
+			wLog.WriteString(1, "Получаем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область.".toUpperCase());		
+			jData = GetCitiesSuggest(sHost, sCitiesSuggest);
+			String sCurrentCitiesSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[0] = sCurrentCitiesSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для улицы при поиске по слову \"кам\" для региона Москва.".toUpperCase());		
+			jData = GetStreetsSuggest(sHost, sStreetsSuggest);
+			String sCurrentStreetSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[1] = sCurrentStreetSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230).".toUpperCase());		
+			jData = GetHousesSuggest(sHost, sHouseSugeest);
+			String sCurrentHouseSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[2] = sCurrentHouseSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург.".toUpperCase());	
+			jData = GetDistrictSuggest(sHost, sDistrictSuggets);
+			String sCurrentDistrictSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[3] = sCurrentDistrictSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург.".toUpperCase());	
+			jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest);
+			String sCurrentMicroDistrictSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[4] = sCurrentMicroDistrictSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона Москва.".toUpperCase());	
+			jData = GetAOSuggest(sHost, sAOSuggest);
+			String sCurrentAOSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[5] = sCurrentAOSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона Московская область.".toUpperCase());	
+			jData = GetDirectionSuggest(sHost, sDirectionSuggest);
+			String sCurrentDirectionSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[6] = sCurrentDirectionSuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона Московская область.".toUpperCase());	
+			jData = GetHighwaySuggest(sHost, sHighWaySuggest);
+			String sCurrentHighWaySuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[7] = sCurrentHighWaySuggest;
+			
+			wLog.WriteString(1, "\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород.".toUpperCase());	
+			jData = GetMetroSuggest(sHost, sMetroSuggest);
+			String sCurrentMetroSuggest = jData.toString(10); 
+			wLog.WriteHr();
+			smas[8] = sCurrentMetroSuggest;
+	
+			
+			//Раскоментить если надо будет обновить значения и закомментить после обновления
+			//Js = new JString(smas); // запись рубрикаторов в файл
+			//SaveJson(Js, "Suggest.txt");
+			
+			String sIdealSuggest[] = LoadJson("Suggest.txt");
+			
+			wLog.WriteString(3, "\r\nШАГ 2");
+			wLog.WriteString(1, "Сравниваем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область полученных запросом, с suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область из сохранения".toUpperCase());
+			wLog.WriteNewTable(sCurrentCitiesSuggest, sIdealSuggest[0], "Список полученный запросом", "Список из сохранения", 1, 2);
+			if(sIdealSuggest[0].equals(sCurrentCitiesSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
+				print(sIdealSuggest[0]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
+				print(sIdealSuggest[0]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для улицы при поиске по слову \"кам\" для региона Москва полученных запросом, с suggest для улицы при поиске по слову \"кам\" для региона Москва из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentStreetSuggest, sIdealSuggest[1], "Список полученный запросом", "Список из сохранения", 3, 4);
+			if(sIdealSuggest[1].equals(sCurrentStreetSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
+				print(sIdealSuggest[1]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
+				print(sIdealSuggest[1]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) полученных запросом, с suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentHouseSuggest, sIdealSuggest[2], "Список полученный запросом", "Список из сохранения", 5, 6);
+			if(sIdealSuggest[2].equals(sCurrentHouseSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
+				print(sIdealSuggest[2]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
+				print(sIdealSuggest[2]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург полученных запросом, с suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentDistrictSuggest, sIdealSuggest[3], "Список полученный запросом", "Список из сохранения", 7, 8);
+			if(sIdealSuggest[3].equals(sCurrentDistrictSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
+				print(sIdealSuggest[3]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
+				print(sIdealSuggest[3]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург полученных запросом, с suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentMicroDistrictSuggest, sIdealSuggest[4], "Список полученный запросом", "Список из сохранения", 9, 10);
+			if(sIdealSuggest[4].equals(sCurrentMicroDistrictSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
+				print(sIdealSuggest[4]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
+				print(sIdealSuggest[4]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для АО при поиске по слову \"сев\" для региона Москва полученных запросом, с suggest для АО при поиске по слову \"сев\" для региона Москва из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentAOSuggest, sIdealSuggest[5], "Список полученный запросом", "Список из сохранения", 11, 12);
+			if(sIdealSuggest[5].equals(sCurrentAOSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
+				print(sIdealSuggest[5]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
+				print(sIdealSuggest[5]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для направлений при поиске по слову \"кур\" для региона Московская область полученных запросом, с suggest для направлений при поиске по слову \"кур\" для региона Московская область из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentDirectionSuggest, sIdealSuggest[6], "Список полученный запросом", "Список из сохранения", 13, 14);
+			if(sIdealSuggest[6].equals(sCurrentDirectionSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
+				print(sIdealSuggest[6]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
+				print(sIdealSuggest[6]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для шоссе при поиске по слову \"мин\" для региона Московская область полученных запросом, с suggest для шоссе при поиске по слову \"мин\" для региона Московская область из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentHighWaySuggest, sIdealSuggest[7], "Список полученный запросом", "Список из сохранения", 15, 16);
+			if(sIdealSuggest[7].equals(sCurrentHighWaySuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
+				print(sIdealSuggest[7]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
+				print(sIdealSuggest[7]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			
+			wLog.WriteString(1, "\r\nСравниваем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород полученных запросом, с suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород из сохранения.".toUpperCase());
+			wLog.WriteNewTable(sCurrentMetroSuggest, sIdealSuggest[8], "Список полученный запросом", "Список из сохранения", 17, 18);
+			if(sIdealSuggest[8].equals(sCurrentMetroSuggest))
+			{
+				wLog.WriteString(1, "Suggest идентичны. Корректно");
+				print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
+				print(sIdealSuggest[8]);
+			}
+			else 
+			{
+				wLog.WriteString(2, "Списки не совпадают");
+				print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
+				print(sIdealSuggest[8]);
+				wLog.WriteString(2, "Тест провален".toUpperCase());
+				throw new ExceptFailTest("Тест провален");
+			}
+			wLog.WriteHr();
+			
+			print("------------------------------------------------------------------------------------------------------------");
+			wLog.WriteString(3, "Тест завершен успешно".toUpperCase());
 		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область:");
-			print(sIdealSuggest[0]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-
 		
-		print("\r\nСравниваем suggest для улицы при поиске по слову \"кам\" для региона Москва полученных запросом, с suggest для улицы при поиске по слову \"кам\" для региона Москва из сохранения.".toUpperCase());
-		if(sIdealSuggest[1].equals(sCurrentStreetSuggest))
+		finally
 		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
-			print(sIdealSuggest[1]);
+			wLog.CloseFile();
 		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для улицы при поиске по слову \"кам\" для региона Москва:");
-			print(sIdealSuggest[1]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("\r\nСравниваем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) полученных запросом, с suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230) из сохранения.".toUpperCase());
-		if(sIdealSuggest[2].equals(sCurrentHouseSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
-			print(sIdealSuggest[2]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230):");
-			print(sIdealSuggest[2]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("\r\nСравниваем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург полученных запросом, с suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург из сохранения.".toUpperCase());
-		if(sIdealSuggest[3].equals(sCurrentDistrictSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
-			print(sIdealSuggest[3]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург:");
-			print(sIdealSuggest[3]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("\r\nСравниваем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург полученных запросом, с suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург из сохранения.".toUpperCase());
-		if(sIdealSuggest[4].equals(sCurrentMicroDistrictSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
-			print(sIdealSuggest[4]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург:");
-			print(sIdealSuggest[4]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("\r\nСравниваем suggest для АО при поиске по слову \"сев\" для региона Москва полученных запросом, с suggest для АО при поиске по слову \"сев\" для региона Москва из сохранения.".toUpperCase());
-		if(sIdealSuggest[5].equals(sCurrentAOSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
-			print(sIdealSuggest[5]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для АО при поиске по слову \"сев\" для региона Москва:");
-			print(sIdealSuggest[5]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		
-		print("\r\nСравниваем suggest для направлений при поиске по слову \"кур\" для региона Московская область полученных запросом, с suggest для направлений при поиске по слову \"кур\" для региона Московская область из сохранения.".toUpperCase());
-		if(sIdealSuggest[6].equals(sCurrentDirectionSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
-			print(sIdealSuggest[6]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для направлений при поиске по слову \"кур\" для региона Московская область:");
-			print(sIdealSuggest[6]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("\r\nСравниваем suggest для шоссе при поиске по слову \"мин\" для региона Московская область полученных запросом, с suggest для шоссе при поиске по слову \"мин\" для региона Московская область из сохранения.".toUpperCase());
-		if(sIdealSuggest[7].equals(sCurrentHighWaySuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
-			print(sIdealSuggest[7]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для шоссе при поиске по слову \"мин\" для региона Московская область:");
-			print(sIdealSuggest[7]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		
-		print("\r\nСравниваем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород полученных запросом, с suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород из сохранения.".toUpperCase());
-		if(sIdealSuggest[8].equals(sCurrentMetroSuggest))
-		{
-			print("Suggest идентичны. Корректно");
-			print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
-			print(sIdealSuggest[8]);
-		}
-		else 
-		{
-			print("Списки не совпадают");
-			print("Полученный из сохранения suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород:");
-			print(sIdealSuggest[8]);
-			print("Тест провален".toUpperCase());
-			throw new ExceptFailTest("Тест провален");
-		}
-		
-		print("------------------------------------------------------------------------------------------------------------");
-    	print("Тест завершен успешно".toUpperCase());
 		
 	}
 	// получение саджеста городов и нас. пунктов для автотеста
 	private JSONObject GetCitiesSuggest(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataCitiesSuggest = "+ sDataCitiesSuggest);
+		wLog.WriteString(1, "Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataCitiesSuggest = "+ sDataCitiesSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
 		builder = new URIBuilder();
@@ -5149,20 +5176,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\n список городов и населенных пунктов по названию (саджест) получен");
+    		wLog.WriteString(1, "Cписок городов и населенных пунктов по названию (саджест) получен");
+    		print("Ответ сервера: \r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить городов и населенных пунктов по названию (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список городов и населенных пунктов по названию (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5171,9 +5199,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetStreetsSuggest(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка улиц (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataStreetsSuggest = "+ sDataStreetsSuggest);
+		wLog.WriteString(1, "Получение списка улиц (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataStreetsSuggest = "+ sDataStreetsSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
 		builder = new URIBuilder();
@@ -5186,20 +5214,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок улиц (саджест) получен");
+    		wLog.WriteString(1, "Cписок улиц (саджест) получен");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список улиц (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список улиц (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5208,9 +5237,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetHousesSuggest(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка домов улицы (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataHousesSuggest = "+ sDataHousesSuggest);
+		wLog.WriteString(1, "Получение списка домов улицы (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataHousesSuggest = "+ sDataHousesSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataHousesSuggest);
 		builder = new URIBuilder();
@@ -5223,20 +5252,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\n список домов улицы (саджест) получен");
+    		wLog.WriteString(1, "Список домов улицы (саджест) получен");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;  		
     	}
     	else
     	{
-    		print("Не удалось получить список домов улицы (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список домов улицы (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5245,9 +5275,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка районов (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataDistrictSuggest = "+ sDataDistrictSuggest);
+		wLog.WriteString(1, "Получение списка районов (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataDistrictSuggest = "+ sDataDistrictSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
 		builder = new URIBuilder();
@@ -5260,21 +5290,22 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок районов (саджест) получен \r\n");
+    		wLog.WriteString(1, "Cписок районов (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     		
     	}
     	else
     	{
-    		print("Не удалось получить список районов (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список районов (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5283,9 +5314,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка микрорайонов (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataDistrictSuggest = "+ sDataMicroDistrictSuggest);
+		wLog.WriteString(1, "Получение списка микрорайонов (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataDistrictSuggest = "+ sDataMicroDistrictSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
 		builder = new URIBuilder();
@@ -5298,20 +5329,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок микрорайонов (саджест) получен \r\n");
+    		wLog.WriteString(1, "Список микрорайонов (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список микрорайонов (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список микрорайонов (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5320,9 +5352,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetAOSuggest(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка административных округов (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataDistrictSuggest = "+ sAOSuggest);
+		wLog.WriteString(1, "Получение списка административных округов (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataDistrictSuggest = "+ sAOSuggest);
 	
 		String sQuery = CreateSimpleRequest(sAOSuggest);
 		builder = new URIBuilder();
@@ -5335,20 +5367,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок административных округов (саджест) получен \r\n");
+    		wLog.WriteString(1, "Список административных округов (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список административных округов (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список административных округов (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5357,9 +5390,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetDirectionSuggest(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка направлений (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataDirectionSuggest = "+ sDataDirectionSuggest);
+		wLog.WriteString(1, "Получение списка направлений (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataDirectionSuggest = "+ sDataDirectionSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
 		builder = new URIBuilder();
@@ -5372,20 +5405,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок направлений (саджест) получен \r\n");
+    		wLog.WriteString(1, "Список направлений (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список направлений (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список направлений (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5394,9 +5428,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetHighwaySuggest(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка шоссе (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataHighwaySuggest = "+ sDataHighwaySuggest);
+		wLog.WriteString(1, "Получение списка шоссе (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataHighwaySuggest = "+ sDataHighwaySuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
 		builder = new URIBuilder();
@@ -5409,20 +5443,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок шоссе (саджест) получен\r\n");
+    		wLog.WriteString(1, "Список шоссе (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список шоссе (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список шоссе (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
@@ -5431,9 +5466,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private JSONObject GetMetroSuggest(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("Получение списка станций метро (саджест)".toUpperCase());
-		print("Параметры для запроса");
-		print("DataMetroSuggest = "+ sDataMetroSuggest);
+		wLog.WriteString(1, "Получение списка станций метро (саджест)".toUpperCase());
+		wLog.WriteString(1, "Параметры для запроса");
+		wLog.WriteString(1, "DataMetroSuggest = "+ sDataMetroSuggest);
 	
 		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
 		builder = new URIBuilder();
@@ -5446,24 +5481,26 @@ public class ConnectMethod extends Connect_Request_Abstract
     		String sTempUri = uri.toString().replace("%25", "%");
     		uri = new URI(sTempUri);			
     	}
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	print("Парсим ответ....");
+    	wLog.WriteString(1, "Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок станций метро (саджест) получен\r\n");
+    		wLog.WriteString(1, "Список станций метро (саджест) получен.");
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10));
     		return jsonObject;
     	}
     	else
     	{
-    		print("Не удалось получить список станций метро (саджест) \r\n"+
+    		wLog.WriteString(2, "Не удалось получить список станций метро (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
 	
 	
 	//Получение и проверка списка валют
@@ -5481,12 +5518,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("------------------------------------------------------------------------------------------------------------");
 			wLog.WriteString(4, "Получение списка валют - Тест (".toUpperCase() + sTime + ")".toUpperCase());
-			//print("Получение списка валют - Тест".toUpperCase());
 			
 			wLog.WriteString(3, "\r\nШАГ 1");
-			//print("\r\nШАГ 1");
-			wLog.WriteString(1,"Получаем список валют.".toUpperCase());	
-			//print("Получаем список валют.".toUpperCase());		
+			wLog.WriteString(1,"Получаем список валют.".toUpperCase());		
 			jData = GetCur(sHost);
 			String sCurrency = jData.toString(10); 
 			
@@ -5499,38 +5533,30 @@ public class ConnectMethod extends Connect_Request_Abstract
 			String sIdealCurr[] = LoadJson("Currency.txt");
 			
 			wLog.WriteString(3, "\r\nШАГ 2");
-			//print("\r\nШАГ 2");
 			wLog.WriteString(1,"Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
-			//print("Сравниваем список валют полученных запросом, с списком валют из сохранения".toUpperCase());
 			wLog.WriteNewTable(sCurrency, sIdealCurr[0], "Список полученный запросом", "Список из сохранения", 1, 2);
 			if(sIdealCurr[0].equals(sCurrency))
 			{
 				wLog.WriteString(1,"Списки валют идентичны. Корректно");
-				//print("Списки валют идентичны. Корректно");
 				print("Полученный из сохранения список валют :");
 				print(sIdealCurr[0]);
 			}
 			else 
 			{
 				wLog.WriteString(2,"Списки валют не совпадают");
-				//print("Списки валют не совпадают");
 				print("Полученный из сохранения список валют :");
 				print(sIdealCurr[0]);
 				wLog.WriteString(2,"Тест провален".toUpperCase());
-				//print("Тест провален".toUpperCase());
 				throw new ExceptFailTest("Тест провален");
 			}
 			
 			print("------------------------------------------------------------------------------------------------------------");
 			wLog.WriteString(3,"Тест завершен успешно".toUpperCase());
-			//print("------------------------------------------------------------------------------------------------------------");
-	    	//print("Тест завершен успешно".toUpperCase());
 		}
 		finally
 		{
 			wLog.CloseFile();
 		}
-
 		
 	}
 	// получение списка валют для автотеста
@@ -5668,6 +5694,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				wLog.WriteString(2, "Тест провален".toUpperCase());
 				throw new ExceptFailTest("Тест провален");
 			}
+			wLog.WriteHr();
 			print("------------------------------------------------------------------------------------------------------------");
 			wLog.WriteString(3, "Тест завершен успешно".toUpperCase());
 		
