@@ -5474,12 +5474,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JString Js;
 		String smas[] = new String [1];
 		wLog.SetUpWriterLog("LogResult.html");
-		
+		Calendar c = Calendar.getInstance();
+		String sTime = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
 		try
 		{
 			
 			print("------------------------------------------------------------------------------------------------------------");
-			wLog.WriteString(4, "Получение списка валют - Тест".toUpperCase());
+			wLog.WriteString(4, "Получение списка валют - Тест (".toUpperCase() + sTime + ")".toUpperCase());
 			//print("Получение списка валют - Тест".toUpperCase());
 			
 			wLog.WriteString(3, "\r\nШАГ 1");
