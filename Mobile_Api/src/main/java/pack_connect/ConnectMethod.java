@@ -283,7 +283,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, редактирование профиля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 		print("Проверяем совпадение логина и email");
 		jTemp = jsonObject.getJSONObject("user_info"); 
@@ -474,7 +474,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация,смена пароля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"));
+		sAuth_token = Authorization(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), wLog);
 		
 		
 		print("Смена пароля пользователя - Тест".toUpperCase());
@@ -1255,7 +1255,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Попытка подачи, редактирования, активации, деактивации, выделения, продления, поднятия, назначения премиум ИП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 //////////////////////////////////////////////////////////////////	
 		print("\r\nШаг 1".toUpperCase());
 		print("Запоминаем количество объявлений в ЛК ИП до подачи объявления".toUpperCase());
@@ -1551,7 +1551,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача,получение листинга ЛК, удаление объявления ОП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
@@ -1753,7 +1753,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+		sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog);
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
@@ -1761,7 +1761,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
 			
 			print("\r\nАвторизация пользователем - " + sLogin);
-			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 			
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
 			AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
@@ -1958,7 +1958,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 			// подача двух объявлений
@@ -2734,7 +2734,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум, получение листингов  ОП(платное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 			// подача двух объявлений
@@ -3002,7 +3002,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 			// подача трех объявлений
@@ -3239,7 +3239,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 		
 		// подача трех объявлений
@@ -3521,7 +3521,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , голосование '+', голосование '-' - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 			// подача двух объявлений
@@ -3672,7 +3672,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
@@ -6448,7 +6448,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача объявления без изображения и редактирование с добавлением изображения - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 		try
 		{
@@ -6519,7 +6519,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 		print("\r\nШАГ №1");
 		print("Вылогиниваемя из приложения".toUpperCase());
@@ -6590,7 +6590,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token2 = Authorization_1_1(sHost, sLogin2, sPassword);
+		sAuth_token2 = Authorization(sHost, sLogin2, sPassword, wLog);
 		try
 		{
 			print("\r\nШАГ №1");
@@ -6603,7 +6603,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	    	print("\r\nШАГ №2");
 			print("Авторизация пользователем - ".toUpperCase() + sLogin);
-			sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 			
 			print("\r\nШАГ №3");
 			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
@@ -6726,7 +6726,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin);
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		
 		
 		try
