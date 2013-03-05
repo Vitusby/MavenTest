@@ -63,6 +63,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Создание профиля АвтоТест
 	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Создание профиля - Тест".toUpperCase());
 		print("\r\nСоздание профиля".toUpperCase());
@@ -100,6 +101,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация АвтоТест
 	public void Authorization(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jTemp;
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация - Тест".toUpperCase());
@@ -272,6 +274,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Редактирование профиля Автотест
 	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jTemp, jData;
 		String jLogin="", jEmail="";
 		String sResponse;
@@ -401,6 +404,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Восстановления пароля Автотест, 
 	public void RestorePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Восстановление пароля - Тест".toUpperCase()+"\r\n");
 		print("Восстановление пароля".toUpperCase());
@@ -432,6 +436,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Получение ссылки активации Автотест
 	public void GetLinkActivasion(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Получение ссылки активации аккаунта - Тест".toUpperCase()+"\r\n");
 		print("Получение ссылки активации аккаунта".toUpperCase());
@@ -465,6 +470,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Смена пароля пользователя автотест
 	public void ChangePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
 	{	
+		wLog.SetUpWriterLog("LogResult.html");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация,смена пароля - Тест".toUpperCase()+"\r\n");
@@ -567,10 +573,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hObj_Job2;
 		JSONObject jData;
 		InnerDataHM objAuto, objRealt, objTIY, objTIY_Mobile, objDarom, objJob;
+		wLog.SetUpWriterLog("LogResult.html");
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization_1_1(sHost, sLogin, sPassword);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		try
 		{
 /////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -811,11 +818,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 			JSONObject jTemp;
 			InnerDataHM obj;
 			
-			print("Параметры для запроса");
-			print("sAuth_token = "+ sAuth_token);
-			print("sCatRegAdv = "+ Proper.GetProperty(sCategoryData));
-			print("sVideo = " + Proper.GetProperty("video"));
-			print("Генерируем данные");
+			wLog.WriteString(1, "Параметры для запроса");
+			wLog.WriteString(1, "sAuth_token = "+ sAuth_token);
+			wLog.WriteString(1, "sCatRegAdv = "+ Proper.GetProperty(sCategoryData));
+			wLog.WriteString(1, "sVideo = " + Proper.GetProperty("video"));
+			wLog.WriteString(1, "Генерируем данные");
 			
 			String sVideo = "&advertisement[video]="+Proper.GetProperty("video");
 			sRequest = CreateSimpleRequestForPostAndPut(Proper.GetProperty(sCategoryData)); //category_auto
@@ -851,11 +858,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		
 	    	uri = builder.build();
 	    	
-	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	wLog.WriteString(1, "Отправляем запрос. Uri Запроса: "+uri.toString());
 	    	String sResponse = HttpPostRequestImage2(uri, Proper.GetProperty(sImage), sE);
-	    	print("Парсим ответ....");
+	    	wLog.WriteString(1, "Парсим ответ....");
 	    	
-	    	jsonObject = ParseResponse(sResponse);
+	    	jsonObject = ParseResponse2(sResponse);
 	    	if(jsonObject.isNull("error"))
 	    	{
 	    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
@@ -1238,6 +1245,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/премиум/удаления ИП 
 	public void AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authIP");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -1532,6 +1540,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение листинга ЛК/Удаление
 	public void AddGetListDeleteOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
@@ -1732,6 +1741,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение листинга из избранного(П2)/Подача(П1)/Попытка добавить в избранное()
 	public void AddFavGetListFavDeleteFavOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sLogin2 =  Proper.GetProperty("login_authOP2");
@@ -1933,6 +1943,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert="", sIdAdvert2=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
@@ -2708,6 +2719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert="", sIdAdvert2=""; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
@@ -2976,6 +2988,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача/Получение листинга пользователя
 	public void AddAvdertGetListUserOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert="", sIdAdvert2="", sIdAdvert3=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
@@ -3200,6 +3213,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача, получение листинга с фильтрацией 
 	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
@@ -3495,6 +3509,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача, голосование + , голосование -
 	public void AddVoteHighLower(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
@@ -3630,6 +3645,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Подача, получения листинга категории и проверка объявлений на статус, категорию, регион
 	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob="";
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
@@ -3917,6 +3933,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка рубрикатора
 	public void GetAndCheckRubricator(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sCategory = "/", sCategoryCars = "cars/", sCategoryRealt = "real-estate/";
 		JSONObject jData;
 		@SuppressWarnings("unused")
@@ -4069,6 +4086,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка полей рубрики для подачи
 	public void GetFieldsForAddAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
 		String sSearchRealtNewMasslenikovo = "{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}";
 		String sSearchDataRealtNewKapovo = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/kargopolskiy-r_n/kapovo-derevnya/, advert_type=realty_new}";
@@ -4241,6 +4259,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка полей рубрики для редактирования
 	public void GetFieldsForEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
 		String sSearchRealtNewMasslenikovo = "{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}";
 		String sSearchDataRealtNewKapovo = "{category=real-estate/apartments-sale/new/, region=russia/arhangelskaya-obl/kargopolskiy-r_n/kapovo-derevnya/, advert_type=realty_new}";
@@ -4417,6 +4436,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка полей рубрики для фильтрации
 	public void GetFieldsForSearchAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-goro/}";
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/}";
 		String sSearchRealtNewMoskva = "{category=real-estate/apartments-sale/new/, region=russia/moskva-gorod/}";
@@ -4615,6 +4635,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка субъектов
 	public void GetRegionRussionFederation(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
@@ -4694,6 +4715,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получени и проверка списка регионов с поддоменами
 	public void GetRegionsWithDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
 		@SuppressWarnings("unused")
 		JString Js;
@@ -4772,6 +4794,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Получение и проверка списка городов принадлежащего субъекту РФ
 	public void GetCitiesInsideRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sRegionMoskva = "russia/moskva-gorod/";
 		String sRegionMoskObl = "russia/moskovskaya-obl";
 		String sRegionArxangelskObl = "russia/arhangelskaya-obl/";
@@ -6414,6 +6437,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Проверка подачи без картинки и редактиования с добавлением картинки
 	public void AddAndEditWithImage(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="";
 		String sImageUrlAuto="", sImage; 
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -6485,6 +6509,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Выход из приложения, проверка что ключ более не доступен.
 	public void LogoutAndCheckAuthToken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "", sId;
@@ -6552,6 +6577,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Подача 1 пользователем, добавление в избранное вторым  и получения листинга категории и фильтрованного авторизованным вторым пользователем
 	public void CheckFavouriteAdvertInListing(String sHost) throws NumberFormatException, InterruptedException, URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sLogin2 = Proper.GetProperty("login_authOP2");
 		String sPassword = Proper.GetProperty("password");
@@ -6680,6 +6706,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//(Проверка волшебных регионов) Подача в Ленинградскую обл, получение листинга категории и фильтрованного листинга региона Санкт-Петрбург и обл и проверка нахожд объявл
 	public void AddAdvertGetListAndCheckMagicRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authOP4");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "" , sIdTIY_Leningrad = "" , sIdTIY_Moskva = "";
