@@ -3,6 +3,7 @@ package pack_test;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -255,10 +256,10 @@ public class Test_Mobile
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword"})
-	public void Test(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id"})
+	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("aaaaaa") String sMM_Id, @Optional("bbbbbb") String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword);
+		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id);
 	}
 
 	@Test (groups = { "Authorization_1_1" })

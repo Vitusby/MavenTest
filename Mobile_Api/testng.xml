@@ -3,7 +3,7 @@
 <suite name="Suite" parallel="none">
   <test name="Test">
    <parameter name="sBaseHost" value="master.prontosoft.by"/>
-   <parameter name="sLogin" value="Timon2181"/> 
+   <parameter name="sLogin" value="n3with@yopmail.com"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251726297"/> 
    <parameter name="sParam1" value="{title=апвапарапраплдрапр}"/>
@@ -12,9 +12,11 @@
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
    <parameter name="sParam" value="/"/>
+   <parameter name="sMM_Id" value="mm1"/>
+   <parameter name="sOD_Id" value="od1"/>
   <groups>
     <run>
-      <include name="GetRubricatorWithoutAdvertType8_1"/>
+      <include name="CreateProfileRequest_1"/>
     </run>
   </groups>
     <classes>

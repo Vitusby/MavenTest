@@ -6874,14 +6874,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
-	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword) throws URISyntaxException, IOException, ExceptFailTest
+	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword, String sMM_Id, String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.	Создание профиля");
 		print("Параметры для запроса");
 		print("email = "+ sEmail);
 		print("password = "+ sPassword);
+		print("mm_id = " + sMM_Id);
+		print("od_id = " + sOD_Id);
 		
-		String sE = "email=" + sEmail + "&password=" + sPassword;
+		String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
 		builder = new URIBuilder();
 		
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");

@@ -46,6 +46,8 @@
 						<bAuthFlag>${bAuthFlag}</bAuthFlag>
 						<bAutoTestOrParameterTest>${bAutoTestOrParameterTest}</bAutoTestOrParameterTest>
 						<sVideoUrl>${sVideoUrl}</sVideoUrl>
+						<sMM_Id>${sMM_Id}</sMM_Id>
+						<sOD_Id>${sOD_Id}</sOD_Id>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
