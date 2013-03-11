@@ -509,7 +509,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("\r\nАвторизуемся пользователем " + Proper.GetProperty("login_changePassword") + " используя новый пароль " + "retry1");
-    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), "retry1");
+    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), "retry1", "", "");
     	
     	print("Изменяем новый пароль retry1 на старый retry2");
     	print("Смена пароля пользователя".toUpperCase());
@@ -543,7 +543,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("\r\nАвторизуемся пользователем " + Proper.GetProperty("login_changePassword") + " используя новый пароль " + Proper.GetProperty("password"));
-    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"));
+    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), "", "");
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -1783,7 +1783,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
 			
-			sAuth_token = Authorization_1_1(sHost, sLogin2, sPassword);
+			sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog);
 			print("Авторизация пользователем - " + sLogin2);
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
 			AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
@@ -6911,7 +6911,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	// Авторизация
-	public String Authorization_1_1(String sHost, String sUsername, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public String Authorization_1_1(String sHost, String sUsername, String sPassword, String sMM_Id, String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
 		wLog.SetUpWriterLog("LogResult.html");
@@ -6924,8 +6924,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 			wLog.WriteString(1, "username = "+ sUsername);
 			//print("email = "+ sUsername);
 			wLog.WriteString(1, "password = "+ sPassword);
+			wLog.WriteString(1, "mm_id = " + sMM_Id);
+			wLog.WriteString(1, "od_id = " + sOD_Id);
 			//print("password = "+ sPassword);
-			String sE = "username=" + sUsername + "&password=" + sPassword;
+			String sE = "username=" + sUsername + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;;
 			builder = new URIBuilder();
 	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
 	    	uri = builder.build();
@@ -7010,7 +7012,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7053,7 +7055,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("1.3.	Редактирование профиля");
@@ -7118,7 +7120,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7187,7 +7189,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7299,7 +7301,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 			
@@ -7414,7 +7416,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
 		
@@ -7452,7 +7454,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7485,7 +7487,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("2.4.	Удаление объявления из «Избранное»");
@@ -7521,7 +7523,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7556,7 +7558,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7591,7 +7593,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7633,7 +7635,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		print("2.10.	Активация объявлений".toUpperCase());
@@ -7670,7 +7672,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7711,7 +7713,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7757,7 +7759,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7804,7 +7806,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7850,7 +7852,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7891,7 +7893,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7926,7 +7928,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -7964,7 +7966,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -8017,7 +8019,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -8079,7 +8081,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -8132,7 +8134,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -8269,7 +8271,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";	
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		

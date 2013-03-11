@@ -263,10 +263,10 @@ public class Test_Mobile
 	}
 
 	@Test (groups = { "Authorization_1_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword"})
-	public void Test1(String sBaseHost, String sLogin, String sPassword) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id"})
+	public void Test1(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.Authorization_1_1(sBaseHost, sLogin, sPassword);
+			cM.Authorization_1_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id);
 	}
 
 	@Test (groups = { "GetProfile_1_2" })

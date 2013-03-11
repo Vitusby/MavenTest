@@ -3,7 +3,7 @@
 <suite name="Suite" parallel="none">
   <test name="Test">
    <parameter name="sBaseHost" value="master.prontosoft.by"/>
-   <parameter name="sLogin" value="n4with@yopmail.com"/> 
+   <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251726297"/> 
    <parameter name="sParam1" value="{title=апвапарапраплдрапр}"/>
@@ -14,7 +14,7 @@
    <parameter name="sParam" value="/"/>
   <groups>
     <run>
-      <include name="CreateProfileRequest_1"/>
+      <include name="Authorization_1_1"/>
     </run>
   </groups>
     <classes>
