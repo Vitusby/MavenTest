@@ -8992,6 +8992,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	
+	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{

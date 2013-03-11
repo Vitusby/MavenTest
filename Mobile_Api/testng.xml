@@ -14,7 +14,7 @@
    <parameter name="sParam" value="/"/>
   <groups>
     <run>
-      <include name="Authorization_1_1"/>
+      <include name="CreateProfileRequest_1"/>
     </run>
   </groups>
     <classes>
