@@ -257,7 +257,7 @@ public class Test_Mobile
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })
 	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id"})
-	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("aaaaaa") String sMM_Id, @Optional("bbbbbb") String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id);
 	}
