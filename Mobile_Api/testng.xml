@@ -11,10 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="/cars"/>
+   <parameter name="sParam" value="/"/>
   <groups>
     <run>
-      <include name="EditAdvert_2_3"/>
+      <include name="GetRubricatorWithoutAdvertType8_1"/>
     </run>
   </groups>
     <classes>

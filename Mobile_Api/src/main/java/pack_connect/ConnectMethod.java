@@ -8952,7 +8952,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 
-	
 	//8.1 Получение рубрикатора без типов объявлений
 	public void GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
