@@ -7347,13 +7347,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Редактирование объявления
 	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		
+		wLog.SetUpWriterLog("LogResult.html");
 		String sVideo = "&advertisement[video]="+sVideoUrl;
 		String  sAuth_token= "";
 		String sQuery ="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword);
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
 		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert, sUsername, sPassword, false);
@@ -8952,6 +8952,42 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 
+	
+	//8.1 Получение рубрикатора без типов объявлений
+	public void GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		print("7.1.	Получение рубрикатора без типов объявления");
+		print("Параметры для запроса");
+		print("sParam = "+ sParam);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/navigation").setParameter("category", sParam);
+    	
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nРубрикатор без типов объявлений получен");
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить рубрикатор без типов объявлений \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException

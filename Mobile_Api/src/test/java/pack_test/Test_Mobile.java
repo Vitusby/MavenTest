@@ -597,7 +597,13 @@ public class Test_Mobile
 	public void Test42(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetPromo7_1(sBaseHost, sParam);
+	} 
 	
+	@Test (groups = { "GetRubricatorWithoutAdvertType8_1" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test43(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetRubricutorWithoutAdvertType8_1(sBaseHost, sParam);
 	} 
 	
 	

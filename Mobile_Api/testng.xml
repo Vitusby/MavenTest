@@ -11,9 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
+   <parameter name="sParam" value="/cars"/>
   <groups>
     <run>
-      <include name="AutoTest_25"/>
+      <include name="EditAdvert_2_3"/>
     </run>
   </groups>
     <classes>
