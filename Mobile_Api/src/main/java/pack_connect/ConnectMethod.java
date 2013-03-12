@@ -8139,7 +8139,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
-		
+		JSONObject jTemp = null;
 		
 		print("2.21.	Получение листинга «своих» объявлений".toUpperCase());
 		print("Параметры для запроса");
@@ -8163,12 +8163,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера: Листинг «своих» объявлений получен");
     		print("");
     		print(jsonObject.toString(10));
-    		/*JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
@@ -8176,7 +8177,22 @@ public class ConnectMethod extends Connect_Request_Abstract
     			jsonObject = (JSONObject) ar.get(i);
     			print(jsonObject.toString(10));
     		
-    		}*/
+    		}
+    		
+    		if(!jTemp.isNull("categories"))
+    		{
+    			JSONArray ar1 = jTemp.getJSONArray("categories");
+        		for(int i=0; i<ar1.length(); i++)
+        		{
+        			
+        			jsonObject = (JSONObject) ar1.get(i);
+        			print(jsonObject.toString(10));
+        			print("");
+        		
+        		}
+    		}
+    		else
+    			print(jTemp.getJSONObject("categories"));
     	}
     	else
     	{
@@ -8223,6 +8239,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}
+    		
     	}
     	else
     	{
