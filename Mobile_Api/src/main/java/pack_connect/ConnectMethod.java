@@ -8196,6 +8196,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	jTemp = jsonObject;
+    	
+    	
+    	print(jsonObject.toString(10));
+    	
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера: Листинг «своих» объявлений получен");
