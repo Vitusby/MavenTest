@@ -1680,7 +1680,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// получение листинга ЛК ОП для автотестов
 	private JSONObject GetListOwnAdvert(String sHost, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{	
-		String sDataForSearchOwnAdvert = "{offset=0, limit=25}";
+		String sDataForSearchOwnAdvert = "{offset=0, limit=25, category=/}";
 		JSONObject jTemp;
 		
 		print("Получение листинга «своих» объявлений".toUpperCase());
@@ -1826,7 +1826,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//получение листинга вкладки избранное для автотеста
 	private JSONObject GetListFavourite(String sHost, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		String sDataForFavourite =  "{offset=0, limit=25}";
+		String sDataForFavourite =  "{offset=0, limit=25, category=/}";
 		JSONObject jTemp;
 		print("\r\nПолучение листинга объявлений, добавленных в «Избранное»".toUpperCase());
 		print("Параметры для запроса");
@@ -2995,7 +2995,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		JSONObject jData;
 		InnerDataHM objRealt, objAuto;
-		String sDataForSearchUserAdvert = "{user_id=10930240, offset=0, limit=20}"; // для пользователя api12@yopmail.com
+		String sDataForSearchUserAdvert = "{user_id=10930240, offset=0, limit=20, category=/}"; // для пользователя api12@yopmail.com
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача объявлений, получение листинга активных объявлений пользователя ОП - Тест".toUpperCase()+"\r\n");
@@ -8018,6 +8018,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Фильтрация/поиск объявлений по критериям 
 	public void GetListSearchCategory_2_19(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		JSONObject jTemp = null;
 		String sAuth_token="";
 		if(bAuthFlag)
 		{
@@ -8052,11 +8053,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	
+    	jTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
-    		
-    		
     		print("Ответ сервера: Фильтр-листинг  объявлений получен");
     		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
@@ -8068,7 +8067,21 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}
-    
+    		
+    		print("");
+    		print("Категории");
+    		if(!jTemp.isNull("categories"))
+    		{
+    			JSONArray ar1 = jTemp.getJSONArray("categories");
+        		for(int i=0; i<ar1.length(); i++)
+        		{	
+        			jsonObject = (JSONObject) ar1.get(i);
+        			print(jsonObject.toString(10));
+        			print("");
+        		}
+    		}
+    		else
+    			print(jTemp.getJSONObject("categories"));
     	}
     	else
     	{
@@ -8086,7 +8099,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
-		
+		JSONObject jTemp = null;
 		
 		print("2.20.	Получение листинга объявлений, добавленных в «Избранное»");
 		print("Параметры для запроса");
@@ -8110,9 +8123,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера: Листинг объявлений, добавленных в «Избранное» получен");
+    		print("Ответ сервера: Листинг объявлений добавленных в избранное получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
@@ -8122,6 +8137,23 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}
+    		
+    		print("");
+    		print("Категории");
+    		if(!jTemp.isNull("categories"))
+    		{
+    			JSONArray ar1 = jTemp.getJSONArray("categories");
+        		for(int i=0; i<ar1.length(); i++)
+        		{
+        			
+        			jsonObject = (JSONObject) ar1.get(i);
+        			print(jsonObject.toString(10));
+        			print("");
+        		
+        		}
+    		}
+    		else
+    			print(jTemp.getJSONObject("categories"));
     	}
     	else
     	{
@@ -8206,10 +8238,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetListUserAdvert_2_22(String sHost, String sDataForSearchUserAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
+		JSONObject jTemp = null;
 		print("2.22.	Получение листинга объявлений пользователя");
 		print("Параметры для запроса");
 		print("DataForSearchUserAdvert = "+ sDataForSearchUserAdvert);
-		
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
 		builder = new URIBuilder();
@@ -8228,9 +8260,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера: Листинг объявлений пользователя получен");
+    		print("");
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
@@ -8241,6 +8275,22 @@ public class ConnectMethod extends Connect_Request_Abstract
     		
     		}
     		
+    		print("");
+    		print("Категории");
+    		if(!jTemp.isNull("categories"))
+    		{
+    			JSONArray ar1 = jTemp.getJSONArray("categories");
+        		for(int i=0; i<ar1.length(); i++)
+        		{
+        			
+        			jsonObject = (JSONObject) ar1.get(i);
+        			print(jsonObject.toString(10));
+        			print("");
+        		
+        		}
+    		}
+    		else
+    			print(jTemp.getJSONObject("categories"));
     	}
     	else
     	{
