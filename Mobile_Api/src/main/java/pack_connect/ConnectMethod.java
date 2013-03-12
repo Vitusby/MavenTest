@@ -8168,7 +8168,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Ответ сервера: Листинг «своих» объявлений получен");
     		print("");
-    		print(jsonObject.toString(10));
     		JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
@@ -8179,6 +8178,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     		
     		}
     		
+    		print("");
+    		print("Категории");
     		if(!jTemp.isNull("categories"))
     		{
     			JSONArray ar1 = jTemp.getJSONArray("categories");
