@@ -8995,7 +8995,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.2 Получение объявлений друга в соц сети
-	public void GetAdvertsFriendSocial8_2(String sHost, String sUsername, String sPassword, String sParam, boolean bAuthFlag) throws ExceptFailTest, JSONException, URISyntaxException, IOException
+	public void GetAdvertsFriendSocial8_2(String sHost, String sUsername, String sPassword, String sParam, String sParam1, boolean bAuthFlag) throws ExceptFailTest, JSONException, URISyntaxException, IOException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
@@ -9008,8 +9008,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("sAuth_token = " + sAuth_token);
 		print("sParam = " + sParam);
+		print("sParam1 = " + sParam1);
 		
-		String sQuery = CreateSimpleRequest(sParam);
+		String sQuery = CreateSimpleRequest(sParam) + sParam1;
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/friends")
