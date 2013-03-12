@@ -8961,7 +8961,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//8.1 Получение рубрикатора без типов объявлений
 	public void GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		print("7.1.	Получение рубрикатора без типов объявления");
+		print("8.1.	Получение рубрикатора без типов объявления");
 		print("Параметры для запроса");
 		print("sParam = "+ sParam);
 		
@@ -8994,6 +8994,53 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//8.2 Получение объявлений друга в соц сети
+	public void GetAdvertsFriendSocial8_2(String sHost, String sUsername, String sPassword, String sParam, boolean bAuthFlag) throws ExceptFailTest, JSONException, URISyntaxException, IOException
+	{
+		String  sAuth_token= "";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		print("8.1.	Получение объявлений, принадлежащих «друзьям» пользователя в социальной сети");
+		print("Параметры для запроса");
+		print("sAuth_token = " + sAuth_token);
+		print("sParam = " + sParam);
+		
+		String sQuery = CreateSimpleRequest(sParam);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/friends")
+    		.setQuery(sQuery)
+    		.setParameter("аuth_token", sAuth_token);
+    	
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nЛистинг объявления друзей пользователя получены");
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить листинг объявления друзей пользователя \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 	
 	// Авторизация для файлов лога

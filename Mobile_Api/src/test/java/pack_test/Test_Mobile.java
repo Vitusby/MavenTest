@@ -607,5 +607,12 @@ public class Test_Mobile
 		cM.GetRubricutorWithoutAdvertType8_1(sBaseHost, sParam);
 	} 
 	
+	@Test (groups = { "GetAdvertsFriendSocial8_2" })
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "bAuthFlag"})
+	public void Test44(String sBaseHost, String sLogin, String sPassword, String sParam, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetAdvertsFriendSocial8_2(sBaseHost, sLogin, sPassword, sParam, bAuthFlag);
+	} 
+	
 	
 }
