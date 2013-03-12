@@ -8229,7 +8229,10 @@ public class ConnectMethod extends Connect_Request_Abstract
         		}
     		}
     		else
+    		{
+    			print(jTemp.getJSONArray("categories"));
     			print(jTemp.getJSONObject("categories"));
+    		}
     	}
     	else
     	{
