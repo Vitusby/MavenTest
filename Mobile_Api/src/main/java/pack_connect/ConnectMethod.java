@@ -9015,7 +9015,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/friends")
     		.setQuery(sQuery)
-    		.setParameter("аuth_token", sAuth_token);
+    		.setParameter("auth_token", sAuth_token);
     	
     	
     	uri = builder.build();
