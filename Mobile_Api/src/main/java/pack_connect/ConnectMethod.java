@@ -6299,6 +6299,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Paid);
 	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Paid);
 	    	}
+	    	
 	    	wLog.CloseFile();
 		}
 		print("------------------------------------------------------------------------------------------------------------");
@@ -7996,7 +7997,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Ответ сервера: Листинг объявлений получен");
     		print("");
-    		JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		print(jsonObject.toString(10));
+    		/*JSONArray ar = jsonObject.getJSONArray("advertisements");
     		for(int i=0; i<ar.length(); i++)
     		{
     			print("--------------------------------------------------------------------------------------------------------------");
@@ -8004,7 +8006,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			jsonObject = (JSONObject) ar.get(i);
     			print(jsonObject.toString(10));
     		
-    		}
+    		}*/
     	}
     	else
     	{

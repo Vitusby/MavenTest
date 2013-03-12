@@ -14,7 +14,7 @@
    <parameter name="sParam" value="/"/>
   <groups>
     <run>
-      <include name="CreateProfileRequest_1"/>
+      <include name="AutoTest_25"/>
     </run>
   </groups>
     <classes>
