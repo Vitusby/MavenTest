@@ -8053,9 +8053,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	////
-    	print(jsonObject.toString(10));
-    	/////
     	jTemp = jsonObject;
     	if(jsonObject.isNull("error"))
     	{
