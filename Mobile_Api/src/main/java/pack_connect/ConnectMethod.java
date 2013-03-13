@@ -8159,7 +8159,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jTemp.getString("categories"));
     		
     		print("");
-    		print("Количчество объявлений");
+    		print("Количество объявлений(adverts_count)");
     		print(jTemp.getString("adverts_count"));
     	}
     	else
@@ -8233,6 +8233,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		{
     			print(jTemp.getString("categories"));
     		}
+    		
+    		print("");
+    		print("Количество объявлений(adverts_count)");
+    		print(jTemp.getString("adverts_count"));
     	}
     	else
     	{
