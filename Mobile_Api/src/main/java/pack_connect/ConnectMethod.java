@@ -8010,6 +8010,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonObject.toString(10));
     		
     		}*/
+    		print("");
+    		print("Количество объявлений(adverts_count)");
+    		print(jsonObject.getString("adverts_count"));
     	}
     	else
     	{
@@ -8085,6 +8088,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		}
     		else
     			print(jTemp.getString("categories"));
+    		
+    		print("");
+    		print("Количество объявлений(adverts_count)");
+    		print(jTemp.getString("adverts_count"));
     	}
     	else
     	{
