@@ -6445,7 +6445,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	
-	//Проверка подачи без картинки и редактиования с добавлением картинки
+	//Проверка подачи без картинки и редактирования с добавлением картинки
 	public void AddAndEditWithImage(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
@@ -8081,7 +8081,7 @@ public class ConnectMethod extends Connect_Request_Abstract
         		}
     		}
     		else
-    			print(jTemp.getJSONObject("categories"));
+    			print(jTemp.getString("categories"));
     	}
     	else
     	{
@@ -8153,7 +8153,7 @@ public class ConnectMethod extends Connect_Request_Abstract
         		}
     		}
     		else
-    			print(jTemp.getJSONObject("categories"));
+    			print(jTemp.getString("categories"));
     	}
     	else
     	{
@@ -8217,11 +8217,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     			JSONArray ar1 = jTemp.getJSONArray("categories");
         		for(int i=0; i<ar1.length(); i++)
         		{
-        			
         			jsonObject = (JSONObject) ar1.get(i);
         			print(jsonObject.toString(10));
         			print("");
-        		
         		}
     		}
     		else
@@ -8292,7 +8290,7 @@ public class ConnectMethod extends Connect_Request_Abstract
         		}
     		}
     		else
-    			print(jTemp.getJSONObject("categories"));
+    			print(jTemp.getString("categories"));
     	}
     	else
     	{

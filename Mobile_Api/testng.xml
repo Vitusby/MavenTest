@@ -14,7 +14,7 @@
    <parameter name="sParam" value="/"/>
   <groups>
     <run>
-      <include name="AutoTest_25"/>
+      <include name="AutoTest_18"/>
     </run>
   </groups>
     <classes>
