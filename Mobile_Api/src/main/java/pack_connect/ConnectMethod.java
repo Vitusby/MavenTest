@@ -8302,6 +8302,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		}
     		else
     			print(jTemp.getString("categories"));
+    		
+    		print("");
+    		print("Количество объявлений(adverts_count)");
+    		print(jTemp.getString("adverts_count"));
     	}
     	else
     	{
