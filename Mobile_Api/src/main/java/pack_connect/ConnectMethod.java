@@ -9121,10 +9121,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("8.1.	Подача жалобы на объявление");
 		print("Параметры для запроса");
 		print("sParam = " + sParam);
+		print("sParam1 = " + sParam1);
 		print("sIdAdvert = " + sIdAdvert);
 		
-		String sE = /*CreateSimpleRequestForPostAndPut(sParam) + */"&reason=" + sParam1;
-		print(sE);	
+		String sE = CreateSimpleRequestForPostAndPut(sParam) + "&reason=" + sParam1;	
 		
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/complain");
