@@ -5,7 +5,7 @@
    <parameter name="sBaseHost" value="master.prontosoft.by"/>
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="sIdAdvert" value="251670191"/> 
+   <parameter name="sIdAdvert" value="251711260"/> 
    <parameter name="sParam1" value="Некорректная информация, цена, фото"/>
    <parameter name="sParam2" value="{make=Audi, model=100}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
@@ -14,7 +14,7 @@
    <parameter name="sParam" value="{author_email=ma@mail.com, comment=comm}"/>
   <groups>
     <run>
-      <include name="GetAdvert_2_2"/>
+      <include name="GetRelatedAdverts8_4"/>
     </run>
   </groups>
     <classes>

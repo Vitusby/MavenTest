@@ -621,5 +621,11 @@ public class Test_Mobile
 		cM.ComplaintToAdvert8_3(sBaseHost, sParam, sParam1, sIdAdvert);
 	} 
 	
+	@Test (groups = { "GetRelatedAdverts8_4" })
+	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test46(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetRelatedAdverts8_4(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
+	} 
 	
 }
