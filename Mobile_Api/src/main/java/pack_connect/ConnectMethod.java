@@ -3060,11 +3060,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	// удаляем еще не удаленное объявление
 	    	print("\r\nШАГ 5");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
-	    	print("Удаляем объявление с ID = " + sIdAdvert2);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert);
 	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdAdvert2);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+	    	
+	    	print("Удаляем объявление с ID = " + sIdAdvert3);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -4485,8 +4489,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[5] = sCusTIYBookReaderKazan;
 
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		Js = new JString(smas); // запись полей для рубрик в файл
-		SaveJson(Js, "CustomfieldsForSearch2.txt");
+		//Js = new JString(smas); // запись полей для рубрик в файл
+		//SaveJson(Js, "CustomfieldsForSearch2.txt");
 		
 		
 		String sIdealSearchFields[] = LoadJson("CustomfieldsForSearch2.txt");
