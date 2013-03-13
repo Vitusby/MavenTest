@@ -4485,8 +4485,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		smas[5] = sCusTIYBookReaderKazan;
 
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
-		//Js = new JString(smas); // запись полей для рубрик в файл
-		//SaveJson(Js, "CustomfieldsForSearch2.txt");
+		Js = new JString(smas); // запись полей для рубрик в файл
+		SaveJson(Js, "CustomfieldsForSearch2.txt");
 		
 		
 		String sIdealSearchFields[] = LoadJson("CustomfieldsForSearch2.txt");
