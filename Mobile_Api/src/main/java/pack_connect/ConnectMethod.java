@@ -60,24 +60,29 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 // автотесты	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	// Создание профиля АвтоТест
+	// Создание профиля АвтоТест с указанием mm_id и od_id.
 	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		String sMM_Id = RamdomData.GetRamdomString(10);
+		String sOD_Id = RamdomData.GetRamdomString(10);
+		
+		
 		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Создание профиля - Тест".toUpperCase());
 		print("\r\nСоздание профиля".toUpperCase());
 		print("Параметры для запроса");
-		print("Генерируем Еmail и пароль");
+		print("Генерируем Еmail, пароль, mm_id и od_id");
 		String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
 		String sPassword = RamdomData.GetRamdomString(7);
 		print("email = "+ sEmail);
-		print("password = "+ sPassword);
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
 		
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
     	
-    	String sE = "email=" + sEmail + "&password=" + sPassword;
+    	String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -98,7 +103,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
-	// Авторизация АвтоТест
+	// Авторизация c указанием mm_id и od_id АвтоТест 
 	public void Authorization(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
