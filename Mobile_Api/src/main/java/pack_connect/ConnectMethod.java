@@ -106,7 +106,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Авторизация c указанием mm_id и od_id АвтоТест 
 	public void Authorization(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
+		
+		String sMM_Id = RamdomData.GetRamdomString(10);
+		String sOD_Id = RamdomData.GetRamdomString(10);
 		wLog.SetUpWriterLog("LogResult.html");
+		
 		JSONObject jTemp;
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация - Тест".toUpperCase());
@@ -114,10 +118,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		print("password = "+ Proper.GetProperty("password"));
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
     	
-    	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password");
+    	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
+    			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     		
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -132,6 +139,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    	         print("Auth_token получен = "+ sAuth_token);
 	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	         print("Проверяем значение mm_id и od_id, указанное при авторизации");
+	    	         if( (!jsonObject.getJSONObject("user_info").getString("od_id").equals(sOD_Id)) | (!jsonObject.getJSONObject("user_info").getString("mm_id").equals(sMM_Id)) )
+	    	         {
+	    	        	print("Значение od_id или mm_id равные в ответе " + jsonObject.getJSONObject("user_info").getString("od_id")+ " и " + 
+	    	        			jsonObject.getJSONObject("user_info").getString("mm_id") + "не совпали с отправленными в запросе");
+	    		    	print("Тест провален".toUpperCase());
+	    		    	throw new ExceptFailTest("Тест провален");
+	    	         }
+	    	         else
+	    	         {
+	    	        	 print("Значение od_id или mm_id совпали с отправленными. Корректно.");
+	    	         }
+	    	        	 
 	    	}
 	    	else
 	    	{
@@ -152,10 +172,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authIP"));
 		print("password = "+ Proper.GetProperty("password"));
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
     	
-    	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password");
+    	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
+    			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -171,6 +194,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    	         print("Auth_token получен = "+ sAuth_token);  
 	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	         print("Проверяем значение mm_id и od_id, указанное при авторизации");
+	    	         if( (!jsonObject.getJSONObject("user_info").getString("od_id").equals(sOD_Id)) | (!jsonObject.getJSONObject("user_info").getString("mm_id").equals(sMM_Id)) )
+	    	         {
+	    	        	print("Значение od_id или mm_id равные в ответе " + jsonObject.getJSONObject("user_info").getString("od_id")+ " и " + 
+	    	        			jsonObject.getJSONObject("user_info").getString("mm_id") + "не совпали с отправленными в запросе");
+	    		    	print("Тест провален".toUpperCase());
+	    		    	throw new ExceptFailTest("Тест провален");
+	    	         }
+	    	         else
+	    	         {
+	    	        	 print("Значение od_id или mm_id совпали с отправленными. Корректно.");
+	    	         }
 	    	}
 	    	else
 	    	{
@@ -205,7 +240,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jTemp = jsonObject.getJSONObject("error");
     	String sResult = jTemp.getString("description");
     	
-    	if(sResult.equals("Пользователя с такими данными не существует"))
+    	if(sResult.equals("Пользователя с логином login_authNotExist не существует"))
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
     	else 
     	{
@@ -234,7 +269,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jTemp = jsonObject.getJSONObject("error");
     	sResult = jTemp.getString("description");
     	
-    	if(sResult.equals("Пользователь не активный"))
+    	if(sResult.equals("Учетная запись заблокирована. Свяжитесь со службой поддержки по e-mail: support@irr.ru"))
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не активен");
     	else 
     	{
@@ -263,8 +298,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = jsonObject.getJSONObject("error");
 		sResult = jTemp.getString("description");
 		
-		if(sResult.equals("Пользователя с такими данными не существует"))
-		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
+		if(sResult.equals("Учетная запись зарегистрирована, но не активирована"))
+		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователь не активировал аккаунт");
 		else 
 		{
 		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");

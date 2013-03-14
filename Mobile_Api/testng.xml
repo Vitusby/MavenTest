@@ -14,7 +14,7 @@
    <parameter name="sParam" value="{author_email=ma@mail.com, comment=comm}"/>
   <groups>
     <run>
-      <include name="GetRelatedAdverts8_4"/>
+      <include name="AutoTest_2"/>
     </run>
   </groups>
     <classes>
