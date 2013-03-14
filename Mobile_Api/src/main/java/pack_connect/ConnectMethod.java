@@ -7739,8 +7739,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		builder = new URIBuilder();
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate");
     	
-    	String sE = "auth_token=" + sAuth_token + "&app_token=" + "null";
-    	print(sE);
+    	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
+    	
     	uri = builder.build();
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
