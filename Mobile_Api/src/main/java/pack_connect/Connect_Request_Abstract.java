@@ -282,6 +282,7 @@ public abstract class Connect_Request_Abstract
 		
 		for(int i=0; i<s1.length; i++)
 		{
+			System.out.println(s1[i]);
 			if(s1[i].startsWith("phone"))
 				continue;
 			s1[i] = s1[i].replaceAll("\\+", " ");
