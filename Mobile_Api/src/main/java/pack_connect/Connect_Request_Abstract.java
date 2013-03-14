@@ -364,6 +364,7 @@ public abstract class Connect_Request_Abstract
 	    while((line = br.readLine()) != null)
 	    {
 	    	sBuffer.append(line);
+	    	System.out.println(line);
 	    	sBuffer.append('\r');
 	    }
 	    br.close();
