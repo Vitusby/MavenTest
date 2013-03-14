@@ -365,10 +365,10 @@ public abstract class Connect_Request_Abstract
 	    {
 	    	sBuffer.append(line);
 	    	sBuffer.append('\r');
-	    	System.out.println(sBuffer);
 	    }
 	    br.close();
 	    s = new String(sBuffer);
+	    System.out.println(s);
 		return s;
 	}
 
