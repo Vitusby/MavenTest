@@ -368,7 +368,6 @@ public abstract class Connect_Request_Abstract
 	    }
 	    br.close();
 	    s = new String(sBuffer);
-	    System.out.println(s);
 		return s;
 	}
 

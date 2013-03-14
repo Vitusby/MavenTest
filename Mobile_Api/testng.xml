@@ -11,10 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{author_email=ma@mail.com, comment=comm}"/>
+   <parameter name="sParam" value="{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}"/>
   <groups>
     <run>
-      <include name="AutoTest_2"/>
+      <include name="AutoTest_1"/>
     </run>
   </groups>
     <classes>

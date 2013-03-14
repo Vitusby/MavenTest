@@ -101,7 +101,51 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("\r\nПопытка создать профиль на уже зарегистрированный e-mail".toUpperCase());
+    	print("Параметры для запроса");
+    	print("email = "+ sEmail);
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
+		
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
     	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+	    	{
+    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан. Но данный email уже зарегистрирован.");
+	    		print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+    	else
+    		print("Не удалось создать профилль пользователя\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\nКорректно");
+    	
+    	
+    	print("\r\nПопытка создать профиль с паролем меньше 6 символов".toUpperCase());
+    	print("Параметры для запроса");
+		print("Генерируем Еmail, пароль, mm_id и od_id");
+		sEmail = RamdomData.GetRamdomString(7)+"234@yopmail.com";
+		sPassword = RamdomData.GetRamdomString(5);
+		print("email = "+ sEmail);
+		print("password = "+ sPassword);
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
+		
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+	    	{
+    			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан. Но пароль меньше 6 символов.");
+	    		print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+    	else
+    		print("Не удалось создать профиль пользователя\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\nКорректно");
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -8429,10 +8473,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
+    	
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
-    	
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок полей рубрики для подачи объявления получен");
