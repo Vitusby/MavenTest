@@ -100,6 +100,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
     	
+    	print("\r\nПопытка создать профиль на уже зарегистрированный e-mail".toUpperCase());
+    	
+    	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
@@ -8429,6 +8432,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
+    	print("//////////////////////");
+    	print(jsonObject.toString());
+    	print("//////////////////////");
+    	
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок полей рубрики для подачи объявления получен");
