@@ -132,6 +132,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		
+		sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
+		
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	sResponse = HttpPostRequest2(uri, sE);
     	print("Парсим ответ....");
