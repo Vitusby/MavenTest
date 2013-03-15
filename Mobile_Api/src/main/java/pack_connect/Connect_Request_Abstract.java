@@ -135,8 +135,13 @@ public abstract class Connect_Request_Abstract
     	HttpPut put = new HttpPut();
     	HttpResponse response;
     	String sTempResponse;
+    	
+    	System.out.println(sBodyRequest);
+    	
     	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
    
+    	System.out.println(se.toString());
+    	
     	put.setURI(uri);
     	se.setContentType("application/x-www-form-urlencoded");
     	put.setEntity(se);
@@ -282,7 +287,6 @@ public abstract class Connect_Request_Abstract
 		
 		for(int i=0; i<s1.length; i++)
 		{
-			System.out.println(s1[i]);
 			if(s1[i].startsWith("[phone]"))
 				continue;
 			s1[i] = s1[i].replaceAll("\\+", " ");
