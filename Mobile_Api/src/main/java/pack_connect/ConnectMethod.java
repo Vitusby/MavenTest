@@ -8042,6 +8042,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote")
     		.setParameter("auth_token", sAuth_token);
 
+    	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
     		String sTempUri = uri.toString().replace("%25", "%");
