@@ -7145,39 +7145,48 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Редактирование профиля
 	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		wLog.SetUpWriterLog("LogResult.html");
 		String  sAuth_token= "";
-		if(bAuthFlag)
+		try
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
+			if(bAuthFlag)
+			{
+				//sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
+				sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
+			}
+			else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+			print("1.3.	Редактирование профиля");
+			print("Параметры для запроса");
+			print("auth_token = "+ sAuth_token);
+			print("user_info = "+ sUser_info);
+			
+			String sQuery = CreateArrayRequestForPostAndPut("user_info", sUser_info);
+			sQuery = sQuery + "&auth_token=" + sAuth_token;
+			
+			builder = new URIBuilder();
+	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account"); 
+	    	uri = builder.build();
+	   
+	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+	    	
+	    	String sResponse = HttpPutRequest2(uri, sQuery);
+	    	print("Парсим ответ....");
+	    	
+	    	jsonObject = ParseResponse(sResponse);
+	    	
+	    	if(jsonObject.isNull("error"))
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+	    	else
+	    	{
+	    		print("Тест провален");
+	    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+	    		throw new ExceptFailTest("Тест провален");
+	    	}	
 		}
-		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
-		print("1.3.	Редактирование профиля");
-		print("Параметры для запроса");
-		print("auth_token = "+ sAuth_token);
-		print("user_info = "+ sUser_info);
-		
-		String sQuery = CreateArrayRequestForPostAndPut("user_info", sUser_info);
-		sQuery = sQuery + "&auth_token=" + sAuth_token;
-		
-		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account"); 
-    	uri = builder.build();
-   
-    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-    	
-    	String sResponse = HttpPutRequest2(uri, sQuery);
-    	print("Парсим ответ....");
-    	
-    	jsonObject = ParseResponse(sResponse);
-    	
-    	if(jsonObject.isNull("error"))
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
-    	else
-    	{
-    		print("Тест провален");
-    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
-    		throw new ExceptFailTest("Тест провален");
-    	}	
+		finally
+		{
+			wLog.CloseFile();
+		}
 	}
 	// Восстановление пароля
 	public void RestorePassword1_4(String sHost, String sEmail) throws URISyntaxException, IOException, ExceptFailTest
