@@ -14,7 +14,7 @@
    <parameter name="sParam" value="{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}"/>
   <groups>
     <run>
-      <include name="PostAdvert_2_1"/>
+      <include name="AutoTest_15"/>
     </run>
   </groups>
     <classes>
