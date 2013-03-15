@@ -136,11 +136,7 @@ public abstract class Connect_Request_Abstract
     	HttpResponse response;
     	String sTempResponse;
     	
-    	System.out.println(sBodyRequest);
-    	
     	StringEntity se = new StringEntity(sBodyRequest, "UTF-8");
-   
-    	System.out.println(se.toString());
     	
     	put.setURI(uri);
     	se.setContentType("application/x-www-form-urlencoded");
