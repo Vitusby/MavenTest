@@ -4530,7 +4530,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void GetFieldsForSearchAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
-		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-goro/}";
+		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-gorod/}";
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/}";
 		String sSearchRealtNewMoskva = "{category=real-estate/apartments-sale/new/, region=russia/moskva-gorod/}";
 		String sSearchDataRealtMainArhangelsk = "{category=real-estate/, region=russia/arhangelskaya-obl/arhangelsk-gorod/}";
