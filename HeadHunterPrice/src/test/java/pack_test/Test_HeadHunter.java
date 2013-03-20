@@ -13,6 +13,7 @@ import pack_page.Page_PublicVacancy;
 import pack_utils.ExceptFailTest;
 import pack_utils.Proper;
 
+@SuppressWarnings("unused")
 public class Test_HeadHunter extends Test_Construct 
 {
 	Page_Main pageMain = PageFactory.initElements(GetWebDriver(), Page_Main.class); // главная hh.ru
@@ -49,7 +50,7 @@ public class Test_HeadHunter extends Test_Construct
 	
 	//@Test(dependsOnMethods = { "Test_Authorization", "Test_AfterLogin", "Test_Price"})
 	@Test
-	public void Test_PriceRecommended() throws ExceptFailTest
+	public void Test_PriceRecommended() throws ExceptFailTest // тест блока рекоммендуемое
 	{
 		driver.navigate().to("http://hh.ru/price");
 		print("\r\nTEST_4");
