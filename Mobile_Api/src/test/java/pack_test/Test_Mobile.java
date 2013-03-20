@@ -628,4 +628,13 @@ public class Test_Mobile
 		cM.GetRelatedAdverts8_4(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
 	} 
 	
+	@Test (groups = { "GetRegionByCoordinates8_5" })
+	@Parameters({"sBaseHost", "sParam", "sParam1"})
+	public void Test47(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetRegionByCoordinates8_5(sBaseHost, sParam, sParam1);
+	} 
+	
+	
+	
 }

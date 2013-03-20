@@ -9321,6 +9321,45 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//8.5 Получения информации о местоположении пользователя по его координатам. 
+	public void GetRegionByCoordinates8_5(String sHost, String sParam, String sParam1) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		print("8.5.	Получения информации о местоположении пользователя по его координатам");
+		print("Параметры для запроса");
+		print("sLat = " + sParam);
+		print("sLng = " + sParam1);
+		
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/geolocation")
+    		.setParameter("lat", sParam)
+    		.setParameter("lng", sParam1);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nКоординаты получены");
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить координаты пользователя \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
 	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
