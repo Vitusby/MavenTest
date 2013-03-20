@@ -7454,7 +7454,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
-		String sVideo = "&advertisement[video]="+sVideoUrl;
+		String sVideo = "&advertisement[video]=" + sVideoUrl;
 		String  sAuth_token= "";
 		String sQuery ="";
 		if(bAuthFlag)
@@ -7486,7 +7486,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(!sUrlImage.equals("false"))
     	{
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
-			sQuery = "auth_token=" + sAuth_token + sRequest1 + sRequest + sVideo + "&deleted_images[0]=" + sUrlImage;
+			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest  + "&deleted_images[0]=" + sUrlImage;
     	}
     	else
     	{
