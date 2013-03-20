@@ -8163,34 +8163,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		print("Ответ сервера: Фильтр-листинг  объявлений получен");
     		print("");
-    		JSONArray ar = jsonObject.getJSONArray("advertisements");
-    		for(int i=0; i<ar.length(); i++)
-    		{
-    			print("--------------------------------------------------------------------------------------------------------------");
-    			print("Объявление №" + i);
-    			jsonObject = (JSONObject) ar.get(i);
-    			print(jsonObject.toString(10));
-    		
-    		}
-    		
-    		print("");
-    		print("Категории");
-    		if(!jTemp.isNull("categories"))
-    		{
-    			JSONArray ar1 = jTemp.getJSONArray("categories");
-        		for(int i=0; i<ar1.length(); i++)
-        		{	
-        			jsonObject = (JSONObject) ar1.get(i);
-        			print(jsonObject.toString(10));
-        			print("");
-        		}
-    		}
-    		else
-    			print(jTemp.getString("categories"));
-    		
-    		print("");
-    		print("Количество объявлений(adverts_count)");
-    		print(jTemp.getString("adverts_count"));
+    		print(jTemp.toString(10));
     	}
     	else
     	{
