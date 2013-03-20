@@ -2,6 +2,7 @@ package pack_connect;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
+import org.apache.http.entity.mime.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -93,13 +95,14 @@ public abstract class Connect_Request_Abstract
     	HttpPost post = new HttpPost();
     	HttpResponse response;
     	String sTempResponse;  	
+    	FileBody bin = null;
     	
     	MultipartEntity reqEntity = new MultipartEntity();
 
     	post.setURI(uri);
     	if(!sPath.equals("not_image")) // если передаем картинку то грузим ее в тело
     	{	
-    		FileBody bin = new FileBody(new File(sPath)); 
+    		bin = new FileBody(new File(sPath)); 
     		reqEntity.addPart("image", bin);
     	} // иначе без картинки
     	
@@ -111,7 +114,20 @@ public abstract class Connect_Request_Abstract
         		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
         }
         post.setEntity(reqEntity);
-    		
+        ////////////////////////////////// получение тела запроса
+        /*java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream((int)reqEntity.getContentLength());
+        reqEntity.writeTo(out);
+        byte[] entityContentAsBytes = out.toByteArray();
+        // or convert to string
+        String entityContentAsString = new String(out.toByteArray());
+        print(entityContentAsString);
+        
+        File file = new File("log.txt"); 
+        FileWriter fw = new FileWriter(file);
+        fw.write(entityContentAsString);
+        fw.close();*/
+        
+        ////////////////////////////////////
     	response = hClient.execute(post);
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
