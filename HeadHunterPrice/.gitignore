@@ -1,7 +1,5 @@
 /.settings
 /bin
-/src
 /target
 /test-output
-/.classpath
-/.project
+/src
