@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import pack_utils.ExceptFailTest;
-import pack_utils.Proper;
 
 public class Page_Main extends Page
 {

@@ -52,7 +52,7 @@ public class Test_HeadHunter extends Test_Construct
 	@Test
 	public void Test_PriceRecommended() throws ExceptFailTest // тест блока рекоммендуемое
 	{
-		driver.navigate().to("http://hh.ru/price");
+		driver.navigate().to("http://hh.ru/price"); // пришлось добавить так как не работает страницы price для авторизованного пользователя
 		print("\r\nTEST_4");
 		pagePriceRecommended = PageFactory.initElements(GetWebDriver(), Page_PriceRecommended.class);
 		pagePriceRecommended.CheckElementPagePriceRecommended();
