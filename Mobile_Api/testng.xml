@@ -11,10 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="55.753559"/>
+   <parameter name="sParam" value="91.209.115.255"/>
   <groups>
     <run>
-      <include name="GetRegionByCoordinates8_5"/>
+      <include name="GetRegionByIP8_6"/>
     </run>
   </groups>
     <classes>

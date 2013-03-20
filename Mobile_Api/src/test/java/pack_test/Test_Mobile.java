@@ -635,6 +635,12 @@ public class Test_Mobile
 		cM.GetRegionByCoordinates8_5(sBaseHost, sParam, sParam1);
 	} 
 	
+	@Test (groups = { "GetRegionByIP8_6" })
+	@Parameters({"sBaseHost", "sParam"})
+	public void Test48(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetRegionByIP8_6(sBaseHost, sParam);
+	} 
 	
 	
 }
