@@ -1005,13 +1005,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 				if(obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
 				{
 					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при редактировании объявления," +
-							" изменилось после редактирования данного объявления, равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
+							" равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
 							" = " + jD.getString(mas_Adv[i]) + " Корректно." );		
 				}
 				else
 				{
 					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при редактировании объявления," +
-							" не изменилось после редактирования данного объявления, не равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
+							" не равно значение полученному в объявлени после редактирования " + mas_Adv[i] + 
 							" = " + jD.getString(mas_Adv[i]));		
 					print("Тест провален".toUpperCase());
 		    		throw new ExceptFailTest("Тест провален");
