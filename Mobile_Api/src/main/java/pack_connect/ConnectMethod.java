@@ -980,7 +980,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
 				continue;
-			
+			// теперь эти данные могут меняться
 			/*if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone_add") ||  mas_Adv[i].equals("contact") || mas_Adv[i].equals("phone2") ||  mas_Adv[i].equals("phone_add2") ||  mas_Adv[i].equals("alternative_contact"))
 			{
     			// проверяем не изменился ли phone, phone_add, contact, phone2, phone_add2, alternative_contact
