@@ -6,15 +6,15 @@
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251711260"/> 
-   <parameter name="sParam1" value="37.609219"/>
+   <parameter name="sParam1" value="{phone=343434343434, email=mail@mail.com, contact=Vasia, phone2=1111111, phone_add2=2222, title=Заголовок, text=Текст, currency=RUR, price=1000}"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="91.209.115.255"/>
+   <parameter name="sParam" value="{category=cars/passenger/new/, region=russia/moskva-gorod/ ,advert_type=auto_new, source_from=9}"/>
   <groups>
     <run>
-      <include name="GetRegionByIP8_6"/>
+      <include name="PostAdvert_2_1"/>
     </run>
   </groups>
     <classes>
