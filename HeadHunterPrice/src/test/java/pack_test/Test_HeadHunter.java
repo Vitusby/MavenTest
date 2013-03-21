@@ -1,6 +1,7 @@
 package pack_test;
 
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.annotations.AfterTest;
@@ -48,6 +49,10 @@ public class Test_HeadHunter extends Test_Construct
 	}
 	*/
 	
+	
+	
+	
+	
 	//@Test(dependsOnMethods = { "Test_Authorization", "Test_AfterLogin", "Test_Price"})
 	@Test
 	public void Test_PriceRecommended() throws ExceptFailTest // тест блока рекоммендуемое
@@ -61,6 +66,13 @@ public class Test_HeadHunter extends Test_Construct
 		pagePriceRecommended.AddToBasketSpecialOffers();
 		pagePriceRecommended.LikeAddedOffersWithOffersInBasket();
 		pagePriceRecommended.DeleteOffersFromBasket();
+	}
+	
+	
+	@AfterMethod
+	public void TestAfter()
+	{
+		print("После каждого метода");
 	}
 	
 	//@Test(dependsOnMethods = { "Test_Authorization", "Test_AfterLogin", "Test_Price"})

@@ -8458,7 +8458,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
-    	
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
