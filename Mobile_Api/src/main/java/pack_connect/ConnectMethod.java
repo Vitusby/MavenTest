@@ -981,7 +981,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
 				continue;
 			
-			if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone_add") ||  mas_Adv[i].equals("contact") || mas_Adv[i].equals("phone2") ||  mas_Adv[i].equals("phone_add2") ||  mas_Adv[i].equals("alternative_contact"))
+			/*if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone_add") ||  mas_Adv[i].equals("contact") || mas_Adv[i].equals("phone2") ||  mas_Adv[i].equals("phone_add2") ||  mas_Adv[i].equals("alternative_contact"))
 			{
     			// проверяем не изменился ли phone, phone_add, contact, phone2, phone_add2, alternative_contact
 				if(!obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
@@ -1000,7 +1000,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 			}
 			else
-			{
+			{*/
 				// проверяем что изменился title, text, web.
 				if(obj_Adv.GetValue(mas_Adv[i]).equals(jD.getString(mas_Adv[i])))
 				{
@@ -1017,7 +1017,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    		throw new ExceptFailTest("Тест провален");
 				}
 				
-			}
+			//}
 			
 		}		
 		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
