@@ -6,15 +6,15 @@
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251711260"/> 
-   <parameter name="sParam1" value="{phone=343434343434, email=mail@mail.com, contact=Vasia, phone2=1111111, phone_add2=2222, title=Заголовок, text=Текст, currency=RUR, price=1000}"/>
+   <parameter name="sParam1" value="currency=RUR/"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=real-estate/apartments-sale/secondary/, region=russia/moskva-gorod/ ,advert_type=realty_sell, source_from=9}"/>
+   <parameter name="sParam" value="{category=real-estate/out-of-town/, region=russia/moskva-gorod/, include_region=true, offset=0, limit=20, sort_by=date_sort:desc}"/>
   <groups>
     <run>
-      <include name="AutoTest_25"/>
+      <include name="GetRadiusList8_8"/>
     </run>
   </groups>
     <classes>

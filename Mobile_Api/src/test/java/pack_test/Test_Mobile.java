@@ -642,5 +642,11 @@ public class Test_Mobile
 		cM.GetRegionByIP8_6(sBaseHost, sParam);
 	} 
 	
+	@Test (groups = { "GetRadiusList8_8" })
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test49(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetRadiusList8_8(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+	}
 	
 }

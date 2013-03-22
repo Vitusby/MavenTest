@@ -9332,6 +9332,58 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//8.6 Получение листинга радиусного поиска
+	public void GetRadiusList8_8(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		JSONObject jTemp = null;
+		String sAuth_token="";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		print("8.6.	Получение листинга радиусного поиска");
+		print("Параметры для запроса");
+		print("DataForListing = "+ sDataForListing);
+		print("sAuth_token = " + sAuth_token);
+		String sQuery = CreateSimpleRequest(sDataForListing);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/nearby_regions")
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+   
+    	String ss =	"&filters=/search/"+sDataForSearch;
+    	String s1 = uri.toString()+ss;
+    	uri = new URI(s1);
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Радиусный листинг объявлений получен");
+    		print("");
+    		print(jTemp.toString(10));
+    	}
+    	else
+    	{
+    		print("Не удалось получить радиусный листинг \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 	// Получение информации о местоположении пользователя по IP-адресу
 	public void GetRegionByIP8_6(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -9369,7 +9421,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
-	
 	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
@@ -9447,7 +9498,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	
-	
 	private JSONObject ParseResponse(String sResponse) throws ExceptFailTest
 	   {
 		   JSONObject tempJsonObject = null;
@@ -9484,6 +9534,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}
 		   	return tempJsonObject;
 	   }
+	
+	// 
+	
 	
 }
 
