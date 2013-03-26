@@ -241,12 +241,12 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	*/
 	
 	@Test (groups = { "AutoTest_10" })
-	@Parameters({ "sUrl"})
-	public void Test_FindSinonim(String sUrl) throws ExceptFailTest, UnsupportedEncodingException
+	@Parameters({ "sUrl", "sImageEnable"})
+	public void Test_FindSinonim(String sUrl, String sImageEnable) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(Proper.GetProperty("N"))), Page_IrrMain.class);
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
 			print("\r\nПоиск по марке и модели и синониму на русском марке и модели".toUpperCase());
 			
 			print("Поиск по марке и модели: ".toUpperCase() + Proper.GetProperty("sFindWordIphone"));

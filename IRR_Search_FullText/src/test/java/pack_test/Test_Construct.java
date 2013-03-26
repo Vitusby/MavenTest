@@ -27,7 +27,7 @@ public class Test_Construct
 	{
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("network.http.use-cache", false);
-		profile.setPreference("permissions.default.image", n); // не грузим изображения
+		profile.setPreference("permissions.default.image", n); // не грузим изображения если = 2
 		return profile;
 	}
 	
