@@ -246,7 +246,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(Proper.GetProperty("N"))), Page_IrrMain.class);
 			print("\r\nПоиск по марке и модели и синониму на русском марке и модели".toUpperCase());
 			
 			print("Поиск по марке и модели: ".toUpperCase() + Proper.GetProperty("sFindWordIphone"));

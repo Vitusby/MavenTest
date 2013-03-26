@@ -23,19 +23,19 @@ public class Test_Construct
 	protected WebDriver driver;
 	protected EventFiringWebDriver event_driver;
 	
-	private FirefoxProfile GetFireFoxProfile()
+	private FirefoxProfile GetFireFoxProfile(int n)
 	{
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("network.http.use-cache", false);
-		profile.setPreference("permissions.default.image", 2); // не грузим изображения
+		profile.setPreference("permissions.default.image", n); // не грузим изображения
 		return profile;
 	}
 	
-	public WebDriver GetWebDriver()
+	public WebDriver GetWebDriver(int n)
 	{
 		if(driver==null)
 		{
-			driver = new FirefoxDriver(GetFireFoxProfile());
+			driver = new FirefoxDriver(GetFireFoxProfile(n));
 			if(Proper.GetProperty("lightElement").equals("yes"))  // используем ли драйвер слушатель
 			{
 				event_driver = new EventFiringWebDriver(this.driver);
