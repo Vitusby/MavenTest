@@ -240,7 +240,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	
 	*/
 	
-	@Test (groups = { "AutoTest_1" })
+	@Test (groups = { "AutoTest_10" })
 	@Parameters({ "sUrl"})
 	public void Test_FindSinonim(String sUrl) throws ExceptFailTest, UnsupportedEncodingException
 	{
