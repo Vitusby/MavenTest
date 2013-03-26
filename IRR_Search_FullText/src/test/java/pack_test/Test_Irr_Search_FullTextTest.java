@@ -4,14 +4,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterGroups;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import pack_page.Page_IrrMain;
 import pack_page.Page_Search;
 import pack_utils.ExceptFailTest;
-import pack_utils.Proper;
 
 public class Test_Irr_Search_FullTextTest extends Test_Construct
 {
@@ -151,7 +150,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		try
 		{
 			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
-			print("\r\nПроверка блока Возможно \"Вам также будет интересно\"".toUpperCase());
+			print("\r\nПроверка блока \"Возможно Вам также будет интересно\"".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
 			listFirstSuggest = pageIrrMain.GetListSuggest(sParam1); // получили названия саджестов
@@ -163,6 +162,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("SuggestInterest");
+			driver.quit();
 		}
 	}
 	
@@ -185,6 +185,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("SuggestAbsentInterest");
+			driver.quit();
 		}
 	}
 	
@@ -207,6 +208,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("BMWX5FullText");
+			driver.quit();
 		}
 	}
 	
@@ -237,6 +239,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("StopWord");
+			driver.quit();
 		}
 	}
 	
@@ -276,14 +279,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("FindSinonims");
+			driver.quit();
 		}
-	}
-	
-	
-	@AfterTest()
-	public void AfterTest()
-	{
-		print("Закрываем браузер");
-		driver.quit();
 	}
 }
