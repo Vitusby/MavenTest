@@ -31,7 +31,8 @@ public class Page_IrrMain extends Page {
 	
 	// список саджестов
 	private WebElement wLinkSuggestText[];
-	String sXpathSuggest = "//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']/li[@class='ui-menu-item']/a[@class='ui-corner-all']";
+	String sXpathSuggest = "//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']/li[@class='ui-menu-item']/a";
+	//String sXpathSuggest = "//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']/li[@class='ui-menu-item']/a[@class='ui-corner-all']";
 	
 	String sF; // слово по которому ищем здесь храним
 	
@@ -80,12 +81,12 @@ public class Page_IrrMain extends Page {
 	{
 		ArrayList<String> listTemp = new ArrayList<String>();
 		sF = sFindWord; 
-		
+		js = (JavascriptExecutor) driver;
 		driver.get(driver.getCurrentUrl());
 		CheckElementPresent(1, "//input[@id='id_keywords']");
 		print("Вводим в поле поиска текст - " + sFindWord);
 		SendText(wInputFieldSearch, sFindWord);
-		Sleep(1500);
+		Sleep(1000);
 		
 		try
 		{
@@ -99,6 +100,17 @@ public class Page_IrrMain extends Page {
 		print("\r\nСписок названий саджестов получен");
 		CaptureScreenshot("SuggestMain");
 		print(wLinkSuggestText.length);
+		
+		/*ArrayList<String> lTemp = new ArrayList<String>();
+		ArrayList<String> list = (ArrayList<String>)js.executeScript(" var dd = new Array(); $('li[role$=\"menuitem\"]').each(function(i) { dd[i] = $(this).data('item.autocomplete').title});return dd;");
+		print(list.size());
+		for(int i=0; i<list.size(); i++)
+			print(list.get(i).replaceAll("<span class=\"snippet\">", "").replaceAll("</span>", ""));
+		
+		
+		print("");
+		*/
+		
 		for(int i=0; i<wLinkSuggestText.length; i++)
 		{
 			listTemp.add(wLinkSuggestText[i].getText().toLowerCase());
