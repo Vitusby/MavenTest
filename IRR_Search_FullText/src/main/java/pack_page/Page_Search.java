@@ -40,6 +40,7 @@ public class Page_Search extends Page
 	public ArrayList<String> GetAdverts() throws ExceptFailTest
 	{
 		Sleep(500);
+		print("Получаем объявления в листинге");
 		wAdvert = GetAllWebElements("//table[@class='adListTable']//td[@class='tdTxt']/div[@class='h3']/a");
 		//print(wAdvert.length);
 		for(int i=0; i<wAdvert.length; i++)

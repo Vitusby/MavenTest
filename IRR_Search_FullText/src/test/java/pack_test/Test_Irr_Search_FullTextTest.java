@@ -21,20 +21,20 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	ArrayList<String> listSecondSuggest;
 	ArrayList<String> listLinksSuggest;
 	
-	/*
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_FindBmw(String sUrl) throws ExceptFailTest
+	
+	@Test (groups = { "AutoTest_1" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
+	public void Test_FindBmw(String sUrl, String sImageEnable, String sParam1, String sParam2) throws ExceptFailTest
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
-			print("\r\nПолнотекстовый поиск по слову BMW".toUpperCase());
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nПолнотекстовый поиск по марке".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("car_makeBMW"));
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1);
 			pageSearch.GetAdverts();
-			pageSearch.CheckAdvertByOneWords(Proper.GetProperty("sFindBmw"));
+			pageSearch.CheckAdvertByOneWords(sParam2);
 			print("Тест успешно завершен. Во всех объявлениях найдено одно из искомых слов");
 		}
 		finally
@@ -43,7 +43,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	*/
+	
 	
 	@Test (groups = { "AutoTest_2" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2", "sParam3"})
