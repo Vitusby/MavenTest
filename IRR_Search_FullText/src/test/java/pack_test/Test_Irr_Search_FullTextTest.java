@@ -4,14 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterGroups;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import pack_page.Page_IrrMain;
 import pack_page.Page_Search;
 import pack_utils.ExceptFailTest;
-import pack_utils.Proper;
 
 public class Test_Irr_Search_FullTextTest extends Test_Construct
 {
@@ -40,6 +38,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("BmwFullText");
+			driver.quit();
 		}
 	}
 	
@@ -74,6 +73,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("BummerFullText");
+			driver.quit();
 		}
 	}
 	
