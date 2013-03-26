@@ -225,7 +225,7 @@ public class Page_Search extends Page
 	{
 		print("Проверяем отображается ли марка указанная для саджестов - \"" + sFindString + "\" в фильтрах");
 		CheckElementPresent(1, "//div[@data-item-name='make']//div[@class='choseMark']//span");
-		if(Proper.GetProperty("SuggestBMW").toLowerCase().equals(wFieldMake.getText().toLowerCase()))
+		if(sFindString.toLowerCase().equals(wFieldMake.getText().toLowerCase()))
 		{
 			print("Марка отображается в фильтрах ее значение - \"" + wFieldMake.getText() + "\" совпало с искомым саджестом - \"" + sFindString + "\"");
 		}
