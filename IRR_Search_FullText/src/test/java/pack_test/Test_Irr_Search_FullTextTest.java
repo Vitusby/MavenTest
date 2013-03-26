@@ -166,17 +166,19 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_SuggestAbsentBlockInterest(String sUrl) throws ExceptFailTest, UnsupportedEncodingException
+	*/
+	
+	@Test (groups = { "AutoTest_7" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
+	public void Test_SuggestAbsentBlockInterest(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
-			print("\r\nПроверка отсутсвия блока \"Возможно Вам также будет интересно\"".toUpperCase());
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nПроверка отсутствия блока \"Возможно Вам также будет интересно\"".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageIrrMain.GetListSuggest(Proper.GetProperty("SuggestBMWX6")); // получили саджесты
+			pageIrrMain.GetListSuggest(sParam1); // получили саджесты
 			pageSearch = pageIrrMain.GoToSuggest(); // переходим по первому саджесту(должен быть bmw x6)
 			pageSearch.CheckPresentBlockInterest(1); // проверяем, что блока, Вам так же будет интересно, нет
 		}
@@ -186,7 +188,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	*/
+	
 	
 	@Test (groups = { "AutoTest_8" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
