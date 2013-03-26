@@ -31,7 +31,7 @@ public class Page_IrrMain extends Page {
 	
 	// список саджестов
 	private WebElement wLinkSuggestText[];
-	String sXpathSuggest = "//a[@class='ui-corner-all']";
+	String sXpathSuggest = "//li[@class='ui-menu-item']/a[@class='ui-corner-all']";
 	
 	String sF; // слово по которому ищем здесь храним
 	
@@ -85,7 +85,7 @@ public class Page_IrrMain extends Page {
 		CheckElementPresent(1, "//input[@id='id_keywords']");
 		print("Вводим в поле поиска текст - " + sFindWord);
 		SendText(wInputFieldSearch, sFindWord);
-		Sleep(1000);
+		Sleep(1500);
 		
 		try
 		{
