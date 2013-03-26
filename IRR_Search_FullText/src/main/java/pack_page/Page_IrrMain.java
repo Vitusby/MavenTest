@@ -97,6 +97,7 @@ public class Page_IrrMain extends Page {
 			print("Нет ни одного саджеста для слова - " + sFindWord);
 			throw new ExceptFailTest("Нет ни одного саджеста для слова - " + sFindWord);
 		}
+		print("");
 		print("\r\nСписок названий саджестов получен");
 		CaptureScreenshot("SuggestMain"); // скриншот саджестов
 		//print(wLinkSuggestText.length);
