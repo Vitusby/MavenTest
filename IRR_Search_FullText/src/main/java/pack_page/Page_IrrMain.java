@@ -98,8 +98,8 @@ public class Page_IrrMain extends Page {
 			throw new ExceptFailTest("Нет ни одного саджеста для слова - " + sFindWord);
 		}
 		print("\r\nСписок названий саджестов получен");
-		CaptureScreenshot("SuggestMain");
-		print(wLinkSuggestText.length);
+		CaptureScreenshot("SuggestMain"); // скриншот саджестов
+		//print(wLinkSuggestText.length);
 		
 		/*ArrayList<String> lTemp = new ArrayList<String>();
 		ArrayList<String> list = (ArrayList<String>)js.executeScript(" var dd = new Array(); $('li[role$=\"menuitem\"]').each(function(i) { dd[i] = $(this).data('item.autocomplete').title});return dd;");

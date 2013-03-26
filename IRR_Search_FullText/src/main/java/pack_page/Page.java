@@ -133,11 +133,11 @@ public abstract class Page {
 		File screenshot = ((TakesScreenshot) driver)
 				.getScreenshotAs(OutputType.FILE);
 		String path = "src\\" + screenshot.getName();
-		System.out.println(path);
+		//System.out.println(path);
 
 		try {
 			FileUtils.copyFile(screenshot, new File(/*"src\\" + */  sName + ".png"));
-		} catch (IOException e) { print("");
+		} catch (IOException e) { print("Не удалось сохранить скриншот");
 		}
 	}
 
