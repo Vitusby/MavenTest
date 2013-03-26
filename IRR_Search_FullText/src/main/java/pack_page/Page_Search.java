@@ -322,10 +322,10 @@ public class Page_Search extends Page
 		}
 		catch(ExceptFailTest exc)
 		{
-			print("Нет одной категории в результатах поиска");
-			throw new ExceptFailTest("Нет одной категории в результатах поиска");
+			print("Нет не одной категории в результатах поиска");
+			throw new ExceptFailTest("Нет не одной категории в результатах поиска");
 		}
-		nCountCategory = wLinkMainCategories.length;	
+		nCountCategory = wLinkMainCategories.length;
 	}
 	
 	// проверяем что в результатах только одна категория главная 

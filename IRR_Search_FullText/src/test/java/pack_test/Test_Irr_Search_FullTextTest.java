@@ -207,15 +207,15 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			CaptureScreenshot("BMWX5FullText");
 		}
 	}
+	*/
 	
-	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_FindStopWord(String sUrl) throws ExceptFailTest, UnsupportedEncodingException
+	@Test (groups = { "AutoTest_9" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2", "sParam3"})
+	public void Test_FindStopWord(String sUrl, String sImageEnable, String sParam1, String sParam2, String sParam3) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
 			print("\r\nПоиск по марке и модели со стоп словами и проверка категорий на странице с результатами поиска".toUpperCase());
 			
 			print("Поиск по марке без стоп слова".toUpperCase());
@@ -238,7 +238,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	*/
+	
 	
 	@Test (groups = { "AutoTest_10" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2", "sParam3"})
