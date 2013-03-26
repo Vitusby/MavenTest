@@ -11,10 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=real-estate/out-of-town/, region=russia/moskva-gorod/, include_region=true, offset=0, limit=20, sort_by=date_sort:desc}"/>
+   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}"/>
   <groups>
     <run>
-      <include name="AutoTest_17"/>
+      <include name="GetCastomfieldsForAddAdvert_3_2"/>
     </run>
   </groups>
     <classes>

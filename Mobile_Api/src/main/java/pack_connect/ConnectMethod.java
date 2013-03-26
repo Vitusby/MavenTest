@@ -8459,7 +8459,16 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
+    	///////////
+    	/*System.setOut(new PrintStream(System.out, true, "Cp866"));
+    	System.out.println(sResponse);
+    	byte b[] = sResponse.getBytes("cp866");
+    	String s = new String(b, "cp866");
+    	print(s);
     	
+    	print( URLDecoder.decode(sResponse, "cp866"));
+    	*/
+    	/////////
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{

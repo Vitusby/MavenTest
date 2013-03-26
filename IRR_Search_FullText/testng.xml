@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="none">
+	<test name="Test">
+	 <parameter name="sUrl" value="http://master.prontosoft.by"/>
+	 <parameter name="sUrlRussua" value="http://russia.irr.ru/"/>
+		<classes>
+			<class name="pack_test.Test_Irr_Search_FullTextTest" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
