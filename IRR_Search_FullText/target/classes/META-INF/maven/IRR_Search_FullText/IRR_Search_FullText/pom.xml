@@ -31,6 +31,10 @@
 					<groups>${sNameMethod}</groups>
 					<systemPropertyVariables>
 						<sUrl>${sUrl}</sUrl>
+						<sImageEnable>${sImageEnable}</sImageEnable>
+						<sParam1>${sParam1}</sParam1>
+						<sParam2>${sParam2}</sParam2>
+						<sParam3>${sParam3}</sParam3>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

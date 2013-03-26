@@ -281,6 +281,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	@AfterTest()
 	public void AfterTest()
 	{
-		//driver.quit();
+		print("Закрываем браузер");
+		driver.quit();
 	}
 }
