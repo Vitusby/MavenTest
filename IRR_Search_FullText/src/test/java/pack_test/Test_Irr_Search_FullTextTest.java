@@ -241,30 +241,30 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	*/
 	
 	@Test (groups = { "AutoTest_10" })
-	@Parameters({ "sUrl", "sImageEnable"})
-	public void Test_FindSinonim(String sUrl, String sImageEnable) throws ExceptFailTest, UnsupportedEncodingException
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2", "sParam3"})
+	public void Test_FindSinonim(String sUrl, String sImageEnable, String sParam1, String sParam2, String sParam3) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
 		{
 			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
 			print("\r\nПоиск по марке и модели и синониму на русском марке и модели".toUpperCase());
 			
-			print("Поиск по марке и модели: ".toUpperCase() + Proper.GetProperty("sFindWordIphone"));
+			print("Поиск по марке и модели: ".toUpperCase() + sParam1);
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sFindWordIphone")); // перешли по полнотексту 
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
-			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(Proper.GetProperty("sNameCategoryPhone"), 1);
-			print("Получаем список найденныйх объявлений по поиску - " + Proper.GetProperty("sFindWordIphone"));
+			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 1);
+			print("Получаем список найденныйх объявлений по поиску - " + sParam1);
 			listFirstSuggest = pageSearch.GetAdverts(); // получили список ссылок на найденные объявления
 			
-			print("\r\nПоиск по синониму марки и модели: ".toUpperCase() + Proper.GetProperty("sFindSinonimWordIphone"));
+			print("\r\nПоиск по синониму марки и модели: ".toUpperCase() + sParam2);
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sFindSinonimWordIphone")); // перешли по полнотексту 
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam2); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
-			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(Proper.GetProperty("sNameCategoryPhone"), 1);
-			print("Получаем список найденныйх объявлений по поиску - " + Proper.GetProperty("sFindSinonimWordIphone"));
+			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 1);
+			print("Получаем список найденныйх объявлений по поиску - " + sParam2);
 			listSecondSuggest = pageSearch.GetAdverts(); // получили список ссылок на найденные объявления
 			
 			print("Сравниваем результаты поиска");
