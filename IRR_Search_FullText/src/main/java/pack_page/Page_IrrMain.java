@@ -84,7 +84,7 @@ public class Page_IrrMain extends Page {
 		js = (JavascriptExecutor) driver;
 		driver.get(driver.getCurrentUrl());
 		CheckElementPresent(1, "//input[@id='id_keywords']");
-		print("");
+		print(" ");
 		print("Вводим в поле поиска текст - " + sFindWord);
 		SendText(wInputFieldSearch, sFindWord);
 		Sleep(1000);

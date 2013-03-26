@@ -86,9 +86,9 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			print("\r\nПолнотекстовый поиск по двум словам".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sRentFlat"));
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1);
 			pageSearch.GetAdverts();
-			pageSearch.CheckAdvertByTwoWords(Proper.GetProperty("sFindFlat"));
+			pageSearch.CheckAdvertByTwoWords(sParam1);
 			print("Тест успешно завершен. Во всех объявлениях найдено оба из искомых слов");
 		}
 		finally
