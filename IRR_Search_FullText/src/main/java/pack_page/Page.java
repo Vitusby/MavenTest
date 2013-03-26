@@ -129,15 +129,15 @@ public abstract class Page {
 	}
 
 	// Снятие скриншота
-	protected void CaptureScreenshot(String name) {
+	protected void CaptureScreenshot(String sName) {
 		File screenshot = ((TakesScreenshot) driver)
 				.getScreenshotAs(OutputType.FILE);
 		String path = "src\\" + screenshot.getName();
 		System.out.println(path);
 
 		try {
-			FileUtils.copyFile(screenshot, new File("src\\screenshot.png"));
-		} catch (IOException e) {
+			FileUtils.copyFile(screenshot, new File(/*"src\\" + */  sName + ".png"));
+		} catch (IOException e) { print("");
 		}
 	}
 
