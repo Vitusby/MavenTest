@@ -97,28 +97,29 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
+	*/
 	
-	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_SuggestCompare(String sUrl) throws ExceptFailTest
+	@Test (groups = { "AutoTest_4" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
+	public void Test_SuggestCompare(String sUrl, String sImageEnable, String sParam1, String sParam2) throws ExceptFailTest
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
-			print("\r\nСравнение саджестов".toUpperCase());
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nСравнение саджестов для марки и ее синонима(неправильной раскладки)".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			listFirstSuggest = pageIrrMain.GetListSuggest(Proper.GetProperty("SuggestBMW"));
-			listSecondSuggest = pageIrrMain.GetListSuggest(Proper.GetProperty("SuggestBMWRussian"));
+			listFirstSuggest = pageIrrMain.GetListSuggest(sParam1);
+			listSecondSuggest = pageIrrMain.GetListSuggest(sParam2);
 			pageIrrMain.CompareSuggests(listFirstSuggest, listSecondSuggest);	
 		}
 		finally
 		{
 			CaptureScreenshot("SuggestCompare");
+			driver.quit();
 		}
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest_5" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
