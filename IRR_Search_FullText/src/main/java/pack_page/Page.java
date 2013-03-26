@@ -132,13 +132,14 @@ public abstract class Page {
 	protected void CaptureScreenshot(String sName) {
 		File screenshot = ((TakesScreenshot) driver)
 				.getScreenshotAs(OutputType.FILE);
-		String path = "src\\" + screenshot.getName();
+		//String path = "src\\" + screenshot.getName();
 		//System.out.println(path);
 
-		try {
+		try
+		{
 			FileUtils.copyFile(screenshot, new File(/*"src\\" + */  sName + ".png"));
-		} catch (IOException e) { print("Не удалось сохранить скриншот");
-		}
+		} 
+		catch (IOException e) { print("Не удалось сохранить скриншот");}
 	}
 
 	// Проверка значения текста элемента
