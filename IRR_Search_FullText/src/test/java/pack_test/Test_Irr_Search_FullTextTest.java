@@ -113,6 +113,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			listFirstSuggest = pageIrrMain.GetListSuggest(sParam1);
 			listSecondSuggest = pageIrrMain.GetListSuggest(sParam2);
 			pageIrrMain.CompareSuggests(listFirstSuggest, listSecondSuggest);	
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -137,6 +138,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch.GetAdverts();
 			pageSearch.GetMakeInFilterAndCompareWithFindWord(sParam1);
 			pageSearch.CheckAdvertByMake(sParam1);
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -162,6 +164,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1);
 			pageSearch.GetLinksBlockIntresting(); // получили название и ссылки саджестов в блоке вам это интересно
 			pageSearch.CompareSuggestInMainWithSuggestInBlock(listFirstSuggest, listLinksSuggest); //сравнили саджесты и их ссылки(главная и в блоке)
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -185,6 +188,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageIrrMain.GetListSuggest(sParam1); // получили саджесты
 			pageSearch = pageIrrMain.GoToSuggest(); // переходим по первому саджесту(должен быть bmw x6)
 			pageSearch.CheckPresentBlockInterest(1); // проверяем, что блока, Вам так же будет интересно, нет
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -208,6 +212,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
 			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam2, 1);
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -239,6 +244,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam2); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
 			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 1);
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
@@ -278,7 +284,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			
 			print("Сравниваем результаты поиска");
 			pageSearch.CompareListResult(listFirstSuggest, listSecondSuggest);
-			
+			print("Тест успешно завершен.");
 		}
 		finally
 		{
