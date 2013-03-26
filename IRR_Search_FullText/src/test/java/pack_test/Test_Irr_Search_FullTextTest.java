@@ -221,16 +221,16 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			print("Поиск по марке без стоп слова".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sFindWordsWithoutStopWord")); // перешли по полнотексту 
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
-			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(Proper.GetProperty("sNameCategoryAuto"), 2);
+			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 2);
 			
 			print("\r\nПоиск по марке со стоп словом".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sFindWordsWithStopWord")); // перешли по полнотексту 
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam2); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
-			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(Proper.GetProperty("sNameCategoryAuto"), 1);
+			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 1);
 		}
 		finally
 		{
