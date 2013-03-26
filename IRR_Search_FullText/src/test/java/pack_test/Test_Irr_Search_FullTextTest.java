@@ -77,8 +77,8 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	*/
 	
 	@Test (groups = { "AutoTest_3" })
-	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
-	public void Test_RentFlat(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
+	public void Test_RentFlat(String sUrl, String sImageEnable, String sParam1, String sParam2) throws ExceptFailTest
 	{
 		try
 		{
@@ -88,7 +88,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageIrrMain.CloseWindowRegion();
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1);
 			pageSearch.GetAdverts();
-			pageSearch.CheckAdvertByTwoWords(sParam1);
+			pageSearch.CheckAdvertByTwoWords(sParam2);
 			print("Тест успешно завершен. Во всех объявлениях найдено оба из искомых слов");
 		}
 		finally
