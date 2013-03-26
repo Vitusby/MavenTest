@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import pack_page.Page_IrrMain;
 import pack_page.Page_Search;
 import pack_utils.ExceptFailTest;
+import pack_utils.Proper;
 
 public class Test_Irr_Search_FullTextTest extends Test_Construct
 {
@@ -117,23 +118,23 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			CaptureScreenshot("SuggestCompare");
 		}
 	}
+	*/
 	
-	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_SuggestBMW(String sUrl) throws ExceptFailTest
+	@Test (groups = { "AutoTest_5" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
+	public void Test_SuggestBMW(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
 			print("\r\nПоиск по саджестам".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageIrrMain.GetListSuggest(Proper.GetProperty("SuggestBMW"));
+			pageIrrMain.GetListSuggest(sParam1);
 			pageSearch = pageIrrMain.GoToSuggest();
 			pageSearch.GetAdverts();
-			pageSearch.GetMakeInFilterAndCompareWithFindWord(Proper.GetProperty("SuggestBMW"));
-			pageSearch.CheckAdvertByMake(Proper.GetProperty("SuggestBMW"));
+			pageSearch.GetMakeInFilterAndCompareWithFindWord(sParam1);
+			pageSearch.CheckAdvertByMake(sParam1);
 		}
 		finally
 		{
@@ -141,7 +142,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	*/
+	
 	
 	@Test (groups = { "AutoTest_6" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
