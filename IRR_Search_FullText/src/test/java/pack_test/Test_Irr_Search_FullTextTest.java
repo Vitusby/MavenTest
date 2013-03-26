@@ -138,7 +138,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 		finally
 		{
-			CaptureScreenshot("SuggestBMW");
+			CaptureScreenshot("SuggestMake");
 			driver.quit();
 		}
 	}
