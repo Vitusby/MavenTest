@@ -186,28 +186,28 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
+	*/
 	
-	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_FindBMWX5(String sUrl) throws ExceptFailTest, UnsupportedEncodingException
+	@Test (groups = { "AutoTest_8" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
+	public void Test_FindBMWX5(String sUrl, String sImageEnable, String sParam1, String sParam2) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
-			print("\r\nПоиск по марке и модели и проверка наличия только категории \"" + Proper.GetProperty("sNameCategoryAuto") + "\" на странице с результатами поиска".toUpperCase());
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nПоиск по марке и модели и проверка наличия только категории \"" + sParam2 + "\" на странице с результатами поиска".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("SuggestBMWX5")); // перешли по полнотексту 
+			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
-			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(Proper.GetProperty("sNameCategoryAuto"), 1);
+			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam2, 1);
 		}
 		finally
 		{
 			CaptureScreenshot("BMWX5FullText");
 		}
 	}
-	*/
+	
 	
 	@Test (groups = { "AutoTest_9" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2", "sParam3"})
