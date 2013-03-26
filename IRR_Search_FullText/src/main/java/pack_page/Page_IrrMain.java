@@ -31,7 +31,7 @@ public class Page_IrrMain extends Page {
 	
 	// список саджестов
 	private WebElement wLinkSuggestText[];
-	String sXpathSuggest = "//li[@class='ui-menu-item']/a[@class='ui-corner-all']";
+	String sXpathSuggest = "//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']/li[@class='ui-menu-item']/a[@class='ui-corner-all']";
 	
 	String sF; // слово по которому ищем здесь храним
 	
