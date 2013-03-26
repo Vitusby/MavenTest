@@ -74,16 +74,16 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
+	*/
 	
-	
-	@Parameters({ "sUrl"})
-	@Test
-	public void Test_RentFlat(String sUrl) throws ExceptFailTest
+	@Test (groups = { "AutoTest_3" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
+	public void Test_RentFlat(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest
 	{
 		try
 		{
-			pageIrrMain = PageFactory.initElements(GetWebDriver(), Page_IrrMain.class);
-			print("\r\nПолнотекстовый поиск по слову Сдам квартиру".toUpperCase());
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nПолнотекстовый поиск по двум словам".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
 			pageSearch = pageIrrMain.SendTextToFieldSearch(Proper.GetProperty("sRentFlat"));
@@ -94,10 +94,11 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("RentFlat");
+			driver.quit();
 		}
 	}
 	
-	*/
+	
 	
 	@Test (groups = { "AutoTest_4" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
