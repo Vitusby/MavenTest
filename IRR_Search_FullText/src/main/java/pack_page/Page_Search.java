@@ -59,8 +59,8 @@ public class Page_Search extends Page
 		while(it.hasNext())
 		{
 			/////////
-			if(i==2)
-				break;
+			//if(i==2)
+				//break;
 			////////////
 			print("\r\nОбъявление №" + i++);
 			pageAdvert = PageFactory.initElements(driver, Page_Advert.class);
@@ -205,7 +205,7 @@ public class Page_Search extends Page
 		{
 			int n;
 			String s = it.next();  // к объявлению может цепляться ?search_query_id=26966&click_hash=2809065103&ad_position=2
-									//у одного и того же объявления будет разный хвост, убираем этот хвост
+									//у одного и того же объявления будет разный хвост, убираем этот хвост если он есть
 			if((n = s.indexOf("?"))!=-1)
 				s = s.substring(0, n);
 			if((n = sFirstUrl.indexOf("?"))!=-1)
