@@ -649,4 +649,12 @@ public class Test_Mobile
 		cM.GetRadiusList8_8(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
 	}
 	
+	@Test (groups = { "GetListRelativeUser8_7" })
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test50(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetListRelativeUser8_7(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+	} 
+	
+	
 }

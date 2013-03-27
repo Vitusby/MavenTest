@@ -9,12 +9,12 @@
    <parameter name="sParam1" value="currency=RUR/"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
-   <parameter name="bAuthFlag" value="true"/>
+   <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/,  region=russia/moskovskaya-obl/volokolamskiy-r_n/maslennikovo-derevnya/, advert_type=realty_new}"/>
+   <parameter name="sParam" value="{category=cars/passenger/used/, lat=56.483058, lng=84.977235,  offset=0, limit=20, sort_by=date_sort:desc, include_categories=true}"/>
   <groups>
     <run>
-      <include name="GetCastomfieldsForAddAdvert_3_2"/>
+      <include name="GetListRelativeUser8_7"/>
     </run>
   </groups>
     <classes>
