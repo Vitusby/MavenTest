@@ -9484,6 +9484,51 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	//8.9 Получение лесенки вверх
+	public void GetLadderUp8_9(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		JSONObject jTemp = null;
+		print("8.9.	Получение лесенки вверх");
+		print("Параметры для запроса");
+		print("DataForListing = "+ sDataForListing);
+		print("sDataForSearch = "+ sDataForSearch);
+		String sQuery = CreateSimpleRequest(sDataForListing);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/stairsup")
+    		.setQuery(sQuery);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+   
+    	String ss =	"&filters=/search/"+sDataForSearch;
+    	String s1 = uri.toString()+ss;
+    	uri = new URI(s1);
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Лесенка вверх получена");
+    		print("");
+    		print(jTemp.toString(10));
+    	}
+    	else
+    	{
+    		print("Не удалось получить лесенку вверх \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
 	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException

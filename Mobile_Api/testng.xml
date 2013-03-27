@@ -6,15 +6,15 @@
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251711260"/> 
-   <parameter name="sParam1" value="currency=RUR/"/>
+   <parameter name="sParam1" value="currency=RUR/make=Audi/"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=cars/passenger/used/, lat=56.483058, lng=84.977235,  offset=0, limit=20, sort_by=date_sort:desc, include_categories=true}"/>
+   <parameter name="sParam" value="{category=cars/passenger/used/, region=russia/moskva-gorod/, include_region=false}"/>
   <groups>
     <run>
-      <include name="GetListRelativeUser8_7"/>
+      <include name="GetLadderUp8_9"/>
     </run>
   </groups>
     <classes>

@@ -656,5 +656,12 @@ public class Test_Mobile
 		cM.GetListRelativeUser8_7(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
 	} 
 	
+	@Test (groups = { "GetLadderUp8_9" })
+	@Parameters({"sBaseHost", "sParam", "sParam1"})
+	public void Test51(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetLadderUp8_9(sBaseHost, sParam, sParam1);
+	} 
+	
 	
 }
