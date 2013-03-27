@@ -11,10 +11,10 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=cars/passenger/used/, region=russia/moskva-gorod/, include_region=false}"/>
+   <parameter name="sParam" value="{category=cars/passenger/used/, region=russia/, include_region=false}"/>
   <groups>
     <run>
-      <include name="GetLadderUp8_9"/>
+      <include name="GetMultiBlock9_1"/>
     </run>
   </groups>
     <classes>

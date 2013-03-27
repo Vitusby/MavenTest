@@ -663,5 +663,12 @@ public class Test_Mobile
 		cM.GetLadderUp8_9(sBaseHost, sParam, sParam1);
 	} 
 	
+	@Test (groups = { "GetMultiBlock9_1" })
+	@Parameters({"sBaseHost", "sParam", "sParam1"})
+	public void Test52(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetMultiBlock9_1(sBaseHost, sParam, sParam1);
+	} 
+	
 	
 }
