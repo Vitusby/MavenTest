@@ -4,12 +4,12 @@
 	<test name="Test">
 		<parameter name="sImageEnable" value="2" />
 		<parameter name="sUrl" value="http://master.prontosoft.by" />
-		<parameter name="sParam1" value="Audi" />
-		<parameter name="sParam2" value="ипхоне 4с 16гб" />
-		<parameter name="sParam3" value="Телефоны и связь" />
+		<parameter name="sParam1" value="bmw" />
+		<parameter name="sParam2" value="бмв" />
+		<parameter name="sParam3" value="bmw,бмв" />
 		<groups>
 			<run>
-				<include name="AutoTest_5" />
+				<include name="AutoTest_2" />
 			</run>
 		</groups>
 		<classes>

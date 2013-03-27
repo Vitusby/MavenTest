@@ -11,7 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import pack_utils.ExceptFailTest;
-import pack_utils.Proper;
 
 public class Page_Search extends Page
 {
@@ -60,8 +59,8 @@ public class Page_Search extends Page
 		while(it.hasNext())
 		{
 			/////////
-			//if(i==2)
-				//break;
+			if(i==2)
+				break;
 			////////////
 			print("\r\nОбъявление №" + i++);
 			pageAdvert = PageFactory.initElements(driver, Page_Advert.class);
@@ -204,7 +203,14 @@ public class Page_Search extends Page
 		Iterator<String> it = sListLinks.iterator();
 		while(it.hasNext())
 		{
-			if(sFirstUrl.equals(it.next()))
+			int n;
+			String s = it.next();  // к объявлению может цепляться ?search_query_id=26966&click_hash=2809065103&ad_position=2
+									//у одного и того же объявления будет разный хвост, убираем этот хвост
+			if((n = s.indexOf("?"))!=-1)
+				s = s.substring(0, n);
+			if((n = sFirstUrl.indexOf("?"))!=-1)
+				sFirstUrl = sFirstUrl.substring(0, n);
+			if(sFirstUrl.equals(s))
 			{
 				bFlag = true;
 				break;
