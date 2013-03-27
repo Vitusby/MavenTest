@@ -52,7 +52,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		try
 		{
 			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
-			print("\r\nПолнотекстовый поиск по синонимам марки и проверка совпадения найденного листинга".toUpperCase());
+			print("\r\nПолнотекстовый поиск по марке и ее синониму и проверка совпадения найденных листингов".toUpperCase());
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam1);
@@ -68,7 +68,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch.GetAdverts();
 			pageSearch.LikeLinkAdvert(sFirstUrl);
 			print("Тест успешно завершен. При поиске по словам синонима \"" + sParam1 + "\" и \"" +
-					sParam1 + "\" найдено одно и тоже объявление.");
+					sParam2 + "\" найдено одно и тоже объявление.");
 		}
 		finally
 		{

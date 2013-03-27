@@ -6,15 +6,15 @@
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="251711260"/> 
-   <parameter name="sParam1" value="currency=RUR/make=Audi/"/>
+   <parameter name="sParam1" value="currency=RUR/"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=cars/passenger/used/, region=russia/, include_region=false}"/>
+   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, region=russia/moskovskaya-obl/krasnogorskiy-r_n/krasnogorsk-gorod/, advert_type=realty_new}"/>
   <groups>
     <run>
-      <include name="GetMultiBlock9_1"/>
+      <include name="GetCastomfieldsForAddAdvert_3_2"/>
     </run>
   </groups>
     <classes>

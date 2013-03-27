@@ -1,13 +1,18 @@
 package pack_connect;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.zip.CRC32;
@@ -8460,14 +8465,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	String sResponse = HttpGetRequest(uri);
     	print("Парсим ответ....");
     	///////////
-    	/*System.setOut(new PrintStream(System.out, true, "Cp866"));
-    	System.out.println(sResponse);
-    	byte b[] = sResponse.getBytes("cp866");
-    	String s = new String(b, "cp866");
-    	print(s);
+    	//System.setOut(new PrintStream(System.out, true, "cp866"));
+    	//sResponse = sResponse.replaceAll("\"", "");
     	
-    	print( URLDecoder.decode(sResponse, "cp866"));
-    	*/
+    	//System.out.println(sResponse);
+    	//byte b[] = sResponse.getBytes("iso-8859-1");
+    	//String s = new String(b, "iso-8859-1");
+    	//print(s);
+    	
+    	
     	/////////
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
