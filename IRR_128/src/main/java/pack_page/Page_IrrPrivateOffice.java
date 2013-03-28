@@ -66,7 +66,7 @@ public class Page_IrrPrivateOffice extends Page
 	private WebElement wTextLinkTakeFree;
 	
 	//@FindBy(xpath="//a[@id='load_user_ads_counter']/span[2]")
-	@FindBy(xpath="//li[@class='wrap_lk']")
+	@FindBy(xpath="//li[@class='wrap_lk']//span[@class='dotted']")
 	private WebElement wLinkPrivateOffice;
 	
 	@SuppressWarnings("unused")
