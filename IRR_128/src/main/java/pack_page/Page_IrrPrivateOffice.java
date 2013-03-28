@@ -129,7 +129,9 @@ public class Page_IrrPrivateOffice extends Page
 		print("ПОЛУЧАЕМ ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЁТЧИКОВ В ЛК");
 		wLog.WriteString(3, "ПОЛУЧАЕМ ТЕКУЩИЕ ЗНАЧЕНИЯ СЧЁТЧИКОВ В ЛК");
 		Sleep(1500);
+		print("Нажимаем на ссылку Личный кабинет");
 		wLinkPrivateOffice.click();
+		print("Ссылка Личный кабинет нажата");
 		Sleep(1700);
 		CheckElementPresent(1, "//div[@id='block_links_lk']/ul/li/a/span"); // счетчик количества объявлений
 		//String s[] = wLinkMyAdverts.getText().split("\n");
