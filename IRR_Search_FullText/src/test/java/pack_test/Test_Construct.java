@@ -28,14 +28,18 @@ public class Test_Construct
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("network.http.use-cache", false);
 		profile.setPreference("permissions.default.image", n); // не грузим изображения если = 2
+		profile.setPreference("dom.ipc.plugins.enabled", false); 
+		//profile.setPreference("webdriver.load.strategy", "unstable"); 
 		return profile;
 	}
+	 
 	
 	public WebDriver GetWebDriver(int n)
 	{
 		if(driver==null)
 		{
 			driver = new FirefoxDriver(GetFireFoxProfile(n));
+			driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS); // время ожидания загрузки страницы(если превышено выкидывается ошибка)
 			if(Proper.GetProperty("lightElement").equals("yes"))  // используем ли драйвер слушатель
 			{
 				event_driver = new EventFiringWebDriver(this.driver);

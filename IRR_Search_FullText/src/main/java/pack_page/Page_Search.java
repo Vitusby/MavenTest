@@ -118,7 +118,21 @@ public class Page_Search extends Page
 			print("\r\nОбъявление №" + i++);
 			pageAdvert = PageFactory.initElements(driver, Page_Advert.class);
 			String sUrl = it.next();
-			driver.get(sUrl);
+			
+			try
+			{
+				print("x1");
+				driver.get(sUrl);
+				print("x2");
+			}
+			catch (Exception e)
+			{
+				System.out.println("Повторная загрузка страницы");
+				driver.get(sUrl);
+			}
+			
+			
+	
 			Sleep(500);
 			String sTitle = pageAdvert.GetAdvertTitle(sUrl);
 			print("\"" + sTitle + "\"");

@@ -32,7 +32,10 @@ public class Page_Advert extends Page
 		print(sUrlAdvert);
 		print("Получаем заголовок объявления:");
 		if(!CheckElement("//div[@class='wrapTitleLeft cb_header']", "\"Заголовок объявления\""))
+		{
+			print("Повторная загрузка старницы");
 			driver.get(driver.getCurrentUrl());
+		}
 		CheckElementPresent(1, "//div[@class='wrapTitleLeft cb_header']");
 		return wTitleAdvert.getText();
 	}
