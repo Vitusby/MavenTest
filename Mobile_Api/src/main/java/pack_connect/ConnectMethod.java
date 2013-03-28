@@ -7518,13 +7518,48 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
-		
+		JSONObject jTemp, jListFields;
+		String sTemp;
+		JSONArray jArr;
+		boolean bFlag=false;
+
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизуемся".toUpperCase()+"\r\n");
 		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		print("sAuth_token = " + sAuth_token);
 		
 		print("Получаем корневой рубрикатор");
+		jTemp = Super_GetRubricator(sHost, "/");
+		print("Ищем в корневом рубрикаторе рубрику real-estate/");
+		sTemp = GetCategory(jTemp, "real-estate/");
+		jTemp = Super_GetRubricator(sHost, sTemp);
+		print("Ищем в рубрикаторе рубрики real-estate/ подрубрику real-estate/apartments-sale/");
+		sTemp = GetCategory(jTemp, "real-estate/apartments-sale/");
+		jTemp = Super_GetRubricator(sHost, sTemp);
+		print("Ищем в рубрикаторе рубрики real-estate/apartments-sale/ подрубику real-estate/apartments-sale/secondary/");
+		sTemp = GetCategory(jTemp, "real-estate/apartments-sale/secondary/");
+		print("Получаем адверттайп для категории real-estate/apartments-sale/secondary/");
+		
+		jArr = jTemp.getJSONArray("categories");
+		for(int i=0; i<jArr.length(); i++)
+		{
+			jTemp = jArr.getJSONObject(i);
+			if(jTemp.getString("advert_type").equals("realty_sell"))
+			{
+				sTemp = jTemp.getString("advert_type");
+				bFlag=true;
+			}
+		}
+		if(bFlag)
+		{
+			print("Адверттайп найден "+ sTemp);
+		}
+		else
+		{
+			print("Адверттайп не найден. Тест провален");
+			throw new ExceptFailTest("Адверттайп не найден. Тест провален");
+		}
+		
 		
 		
 	}
@@ -7553,7 +7588,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString(10) + "рубрикатора сайта получен");
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nрубрикатора сайта получен");
     		return jsonObject;	
     	}
     	else
@@ -7563,7 +7598,32 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}	
-	
+	private String GetCategory(JSONObject jTemp, String sFindCategory) throws JSONException, ExceptFailTest
+	{
+		JSONArray jArr;
+		String sNextCategory="";
+		boolean bFlag=false;
+		jArr = jTemp.getJSONArray("categories");
+		for(int i=0; i<jArr.length(); i++)
+		{
+			jTemp = jArr.getJSONObject(i);
+			if(jTemp.getString("category").equals(sFindCategory))
+			{
+				sNextCategory = jTemp.getString("category");
+				bFlag=true;
+			}
+		}
+		if(bFlag)
+		{
+			print("Найдена категория "+ sFindCategory);
+			return sNextCategory;
+		}
+		else
+		{
+			print("Категория "+sFindCategory+" не найдена в рубрикаторе. Тест провален");
+			throw new ExceptFailTest("Категория "+sFindCategory+" не найдена в  рубрикаторе. Тест провален");
+		}
+	}
 	
 	
 // Параметризированные тесты

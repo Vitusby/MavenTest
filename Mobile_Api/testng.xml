@@ -15,7 +15,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="GetRubricator_3_1"/>
+      <include name="Super_WorkAdvert"/>
     </run>
   </groups>
     <classes>
