@@ -466,6 +466,7 @@ public class Test_Mobile
 		cM.GetListUserAdvert_2_22(sBaseHost, sParam);
 	}
 		
+	@Test (groups = { "GetRubricator_3_1" })
 	@Parameters({"sBaseHost", "sCategory"})
 	public void Test27(String sBaseHost, String sCategory) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
@@ -669,5 +670,19 @@ public class Test_Mobile
 		cM.GetMultiBlock9_1(sBaseHost, sParam, sParam1);
 	} 
 	
+//////////////////////////////////////////////////////////////////////////////////////////////
+	@Test (groups = { "Super_WorkProfile" })
+	@Parameters({"sBaseHost"})
+	public void Test_Super_WorkProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	{
+		cM.Super_WorkProfile(sBaseHost);
+	} 
+	
+	@Test (groups = { "Super_WorkAdvert" })
+	@Parameters({"sBaseHost"})
+	public void Test_Super_WorkAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	{
+		cM.Super_WorkAdvert(sBaseHost);
+	} 
 	
 }

@@ -6963,6 +6963,608 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
+	//Супер тест1 Работа с профилем
+	public void Super_WorkProfile(String sHost) throws JSONException, ExceptFailTest, URISyntaxException, IOException, ClassNotFoundException
+	{
+		String sMM_Id = RamdomData.GetRamdomString(10);
+		String sOD_Id = RamdomData.GetRamdomString(10);
+		String sAuth_token;
+		wLog.SetUpWriterLog("LogResult.html");
+		
+		JSONObject jTemp, jData;
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизация - Тест".toUpperCase());
+		print("\r\nАвторизация - Обычный пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authOP"));
+		print("password = "+ Proper.GetProperty("password"));
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
+    			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
+    		
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+	    	sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+	    	         print("Auth_token получен = "+ sAuth_token);
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	         print("Проверяем значение mm_id и od_id, указанное при авторизации");
+	    	         if( (!jsonObject.getJSONObject("user_info").getString("od_id").equals(sOD_Id)) | (!jsonObject.getJSONObject("user_info").getString("mm_id").equals(sMM_Id)) )
+	    	         {
+	    	        	print("Значение od_id или mm_id равные в ответе " + jsonObject.getJSONObject("user_info").getString("od_id")+ " и " + 
+	    	        			jsonObject.getJSONObject("user_info").getString("mm_id") + "не совпали с отправленными в запросе");
+	    		    	print("Тест провален".toUpperCase());
+	    		    	throw new ExceptFailTest("Тест провален");
+	    	         }
+	    	         else
+	    	         {
+	    	        	jData = jsonObject.getJSONObject("user_info"); 
+	    	        	String sL = jData.getString("login");
+	    	        	String sEm = jData.getString("email");
+	    	        	print("Значение od_id или mm_id совпали с отправленными. Корректно.");
+	    	        	print("Редактируем профиль");
+	    	        	Super_EditProfile(sAuth_token, sHost, sL, sEm, jData);
+	    	        	print("Изменяем пароль");
+	    	        	Super_ChangePassword(sAuth_token, sHost, sL);
+	    	        	print("Изменяем пароль");
+	    	        	Super_Logout(sAuth_token, sHost);
+	    	         }
+	    	        	 
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить ключ Auth_token");
+	    		print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+    	}
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	/////////////////////////////////////////////////////////////////////////////////////////////
+    	print("\r\nАвторизация - Интернет партнер".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authIP"));
+		print("password = "+ Proper.GetProperty("password"));
+		print("mm_id = "+ sMM_Id);
+		print("od_id = "+ sOD_Id);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
+    			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
+    	
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	
+    	if(jsonObject.isNull("error"))
+    	{
+	    	sAuth_token = (String) jsonObject.get("auth_token");
+	    	if(sAuth_token != null)
+	    	{
+	    	         print("Auth_token получен = "+ sAuth_token);  
+	    	         print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\nПользователь авторизован");
+	    	         print("Проверяем значение mm_id и od_id, указанное при авторизации");
+	    	         if( (!jsonObject.getJSONObject("user_info").getString("od_id").equals(sOD_Id)) | (!jsonObject.getJSONObject("user_info").getString("mm_id").equals(sMM_Id)) )
+	    	         {
+	    	        	print("Значение od_id или mm_id равные в ответе " + jsonObject.getJSONObject("user_info").getString("od_id")+ " и " + 
+	    	        			jsonObject.getJSONObject("user_info").getString("mm_id") + "не совпали с отправленными в запросе");
+	    		    	print("Тест провален".toUpperCase());
+	    		    	throw new ExceptFailTest("Тест провален");
+	    	         }
+	    	         else
+	    	         {
+	    	        	 print("Значение od_id или mm_id совпали с отправленными. Корректно.");
+	    	         }
+	    	}
+	    	else
+	    	{
+	    		print("Не удалось получить ключ Auth_token");
+	    		print("Тест провален".toUpperCase());
+	    		throw new ExceptFailTest("Тест провален");
+	    	}
+    	}
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	///////////////////////////////////////////////////////////////////////////////////////////////
+ 
+    	print("------------------------------------------------------------------------------------------------------------");
+		
+    	print("\r\nАвторизация - Несуществующий пользователь".toUpperCase());
+    	print("Генерируем Еmail, пароль, mm_id и od_id");
+    	String sEmail = RamdomData.GetRamdomString(7)+"@yopmail.com";
+    	String sPassword = RamdomData.GetRamdomString(7);
+		print("Параметры для запроса");
+		print("email = " + sEmail);
+		print("password = " + sPassword);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + sEmail + "&password=" + sPassword;
+    	
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	jTemp = jsonObject.getJSONObject("error");
+    	String sResult = jTemp.getString("description");
+    	
+    	if(sResult.equals("Пользователя с логином " + sEmail +" не существует"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
+    		
+    		print("Создаем пофиль");
+    		sMM_Id = RamdomData.GetRamdomString(10);
+    		sOD_Id = RamdomData.GetRamdomString(10);
+    		
+    	
+    		print("Параметры для запроса");
+    		print("email = "+ sEmail);
+    		print("mm_id = "+ sMM_Id);
+    		print("od_id = "+ sOD_Id);
+    		builder = new URIBuilder();
+    		
+        	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+        	
+        	sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
+        	
+        	uri = builder.build();
+        	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+        	sResponse = HttpPostRequest2(uri, sE);
+        	print("Парсим ответ....");
+        	
+        	jsonObject = ParseResponse(sResponse);
+        	if(jsonObject.isNull("error"))
+        		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПрофиль пользователя создан\r\n");
+        	else
+        	{
+        		print("Не удалось создать профилль пользователя\r\n"+
+        				"Ответ сервера:\r\n"+ jsonObject.toString(10)+"\r\n");
+        		print("Тест провален".toUpperCase());
+        		throw new ExceptFailTest("Тест провален");
+        	}
+    	}
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	print("------------------------------------------------------------------------------------------------------------");
+    	///////////////////////////////////////////////////////////////////////////////////////////////
+    	
+    	print("\r\nАвторизация - Забаненный пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = " + Proper.GetProperty("login_authBan"));
+		print("password = " + Proper.GetProperty("password"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	
+    	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
+    	
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	jTemp = jsonObject.getJSONObject("error");
+    	sResult = jTemp.getString("description");
+    	
+    	if(sResult.equals("Учетная запись заблокирована. Свяжитесь со службой поддержки по e-mail: support@irr.ru"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не активен");
+    	else 
+    	{
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	print("------------------------------------------------------------------------------------------------------------");
+		///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+    	
+		print("\r\nАвторизация -  неправильный пароль".toUpperCase());
+		print("Параметры для запроса");
+		print("email = " + Proper.GetProperty("login_authOP"));
+		print("password = asdfdfgfg") ;
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+		
+		sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + "asdfdfgfg";
+		
+		uri = builder.build();
+		print("Отправляем запрос. Uri Запроса: "+uri.toString());
+		sResponse = HttpPostRequest2(uri, sE);
+		print("Парсим ответ....");
+		jsonObject = ParseResponse(sResponse);
+		
+		jTemp = jsonObject.getJSONObject("error");
+		sResult = jTemp.getString("description");
+		
+		if(sResult.equals("Пользователя с логином " +Proper.GetProperty("login_authOP")+ " не существует"))
+		{
+			print("Введен неправильный пароль");
+			print("Восстанавливаем пароль");
+			Super_RestorePassword(sHost);
+			
+		}
+		else 
+		{
+			print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+			print("Тест провален".toUpperCase());
+			throw new ExceptFailTest("Тест провален");
+		}
+		print("------------------------------------------------------------------------------------------------------------");
+///////////////////////////////////////////////////////////////////////////////////////////////
+    	
+		print("\r\nАвторизация - Неактивный(не подтвердивший регистрацию) пользователь".toUpperCase());
+		print("Параметры для запроса");
+		print("email = " + Proper.GetProperty("login_authNotActive"));
+		print("password = " + Proper.GetProperty("password"));
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+		
+		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
+		
+		uri = builder.build();
+		print("Отправляем запрос. Uri Запроса: "+ uri.toString());
+		sResponse = HttpPostRequest2(uri, sE);
+		print("Парсим ответ....");
+		jsonObject = ParseResponse(sResponse);
+		
+		jTemp = jsonObject.getJSONObject("error");
+		sResult = jTemp.getString("description");
+		
+		if(sResult.equals("Учетная запись зарегистрирована, но не активирована"))
+		{
+			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователь не активировал аккаунт");
+			print("Запрашиваем ссылку активации аккаунта");
+			Super_GetLinkActivate(sHost);
+		}
+		else 
+		{
+		print("Ответ сервера:\r\n"+ jsonObject.toString(10) + "\r\n");
+		print("Тест провален".toUpperCase());
+		throw new ExceptFailTest("Тест провален");
+		}
+		
+    	print("Тест завершен успешно".toUpperCase());
+	}
+	private void Super_EditProfile(String sAuth_token, String sHost, String jLogin, String jEmail, JSONObject jData) throws ExceptFailTest, JSONException, URISyntaxException, IOException
+	{
+		JSONObject jTemp;
+		
+		print("\r\nРедактирование профиля".toUpperCase());
+		print("Параметры для запроса");
+		print("auth_token = "+ sAuth_token);
+		print("Генерируем данные");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		HM<String, String> hObj = new HM<String, String>(); 
+		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "contact", "dont_subscribe", "city",
+				"title", "mobile", "email", "login"};
+		
+		for(int i=0; i<mas.length; i++)
+		{
+			hObj.SetValue(mas[i], RamdomData.GetRandomData(Proper.GetProperty(mas[i]), jData.getString(mas[i])));
+		}
+		
+		String sQuery = CreateArrayRequestForPostAndPut("user_info", hObj.GetStringFromAllHashMap());
+		print("user_info = "+ hObj.GetStringFromAllHashMap());
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    		
+    	
+    	String sE = "auth_token=" + sAuth_token + sQuery;
+    	
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	String sResponse = HttpPutRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	
+    	if(jsonObject.isNull("error"))
+    	{	
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Проверяем изменения данных для профиля");
+    		jTemp = jsonObject.getJSONObject("user_info"); 
+    		jData = jTemp; // для проверки и сравнения данных
+    		for(int i=0; i<mas.length; i++)
+    		{
+    			if(mas[i].equals("login") || mas[i].equals("email"))
+    			{
+	    			// проверяем не изменился ли login
+	    			if(mas[i].equals("login"))
+	    			{
+	    				if(jLogin.equals(jData.getString(mas[i])))
+	    					print("Значение login = " + jLogin + 
+		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    			else
+		    			{
+		    				print("Значение login = " + jLogin + 
+		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				print("Тест провален".toUpperCase());
+		    				throw new ExceptFailTest("Тест провален");
+		    			}
+	    			}
+	    			// проверяем не изменился ли email
+	    			if(mas[i].equals("email"))
+	    			{
+	    				if(jEmail.equals(jData.getString(mas[i])))
+		    				print("Значение email = " + jEmail + 
+		    						" не изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    			else
+		    			{
+		    				print("Значение профиля email = " + jEmail + 
+		    						" изменилось после редактирования профиля " + mas[i] + " = " + jData.getString(mas[i]));
+		    				print("Тест провален".toUpperCase());
+		    				throw new ExceptFailTest("Тест провален");
+		    			}
+	    			}
+    			}
+    			else
+    			{
+					// проверяем изменились ли другие данные
+					if(hObj.GetValue(mas[i]).equals(jData.getString(mas[i])))
+						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+								" совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+					else
+					{
+						print("Значение " + mas[i] +" = " + hObj.GetValue(mas[i]) + " указанное для запроса редактирования профиля," +
+								" не совпало с полученным значение в профиле после редактирования " + mas[i] + " = " + jData.getString(mas[i]));
+						print("Тест провален".toUpperCase());
+						throw new ExceptFailTest("Тест провален");
+					}
+    			}
+    			
+    		}
+    	}
+    	else
+    	{
+    		print("Тест провален".toUpperCase());
+    		print("Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	} 
+    	print("Тест редактирования завершен успешно\r\n".toUpperCase());
+	}
+	private void Super_ChangePassword(String sAuth_token2, String sHost, String sLogin) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	{	
+		
+		String sAuth_token = sAuth_token2;
+
+		print("Смена пароля пользователя".toUpperCase());
+		print("Параметры для запроса");
+		print("sLogin = "+ sLogin);
+		print("password = "+ Proper.GetProperty("password"));
+		print("new password = "+ "retry1");
+		print("auth_token = "+ sAuth_token);
+		
+		String sE = "auth_token=" + sAuth_token + "&old_password=" + Proper.GetProperty("password") + "&new_password=" + "retry1";
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпароль для пользователя " + sLogin + " изменен на retry1");
+    	}
+    	else
+    	{
+    		print("Не удалось изменить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	
+    	print("Изменяем новый пароль retry1 на старый retry2");
+    	print("Смена пароля пользователя".toUpperCase());
+		print("Параметры для запроса");
+		print("login = "+ sLogin);
+		print("password = retry1");
+		print("new password = "+ Proper.GetProperty("password"));
+		print("auth_token = "+ sAuth_token);
+		
+		sE = "auth_token=" + sAuth_token + "&old_password=" + "retry1" + "&new_password=" + Proper.GetProperty("password");
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	uri = builder.build();
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nпароль для пользователя " + sLogin + " изменен на " + Proper.GetProperty("password"));
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось изменить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	print("Тест смены пароля завершен успешно".toUpperCase());
+	}
+	private void Super_Logout(String sAuth_token, String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		{
+			String sId;
+			boolean bFlag = false;
+			JSONObject jTemp;
+
+			print("Вылогиниваемя из приложения".toUpperCase());
+			LogOut(sHost, sAuth_token);
+			
+			try
+			{
+				print("Проверяем что ключ авторизации больше не рабочий");
+				print("Пробуем подать объявление");
+				PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image");
+				bFlag = true;
+			}
+			finally
+			{
+				if(!bFlag)
+				{
+					jTemp = jsonObject.getJSONObject("advertisement");
+					sId =  jTemp.getString("id");
+					print("Удаляем поданное объявление с ID = " + sId);
+					DeleteAdvert(sHost, sAuth_token, sId);	
+				}
+			}
+			print("Тест логаута завершен успешно".toUpperCase());
+			print("----------------------------------------------------------------------------------------");
+		}
+	}
+	private void Super_GetLinkActivate(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("Получение ссылки активации аккаунта".toUpperCase());
+		print("Параметры для запроса");
+		print("login = "+ Proper.GetProperty("login_authNotActive"));
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	
+    	String sE = "login=" + Proper.GetProperty("login_authNotActive");
+    
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nНа email пользователя отправлено письмо со ссылкой на активацию");
+    	else
+    	{
+    		print("Не удалось запросить ссылку\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	print("Запрос получения ссылки активации аккаунта завершен успешно".toUpperCase());
+    	print("------------------------------------------------------------------------------------------------------------");
+	}
+	private void Super_RestorePassword(String sHost) throws URISyntaxException, JSONException, ExceptFailTest, IOException
+	{
+		print("Восстановление пароля".toUpperCase());
+		print("Параметры для запроса");
+		print("email = "+ Proper.GetProperty("login_authOP"));
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
+    	
+    	String sE = "email=" + Proper.GetProperty("login_authOP");
+    
+    	uri = builder.build();
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nНа указанный email отправлено письмо восстановления с инструкцией по восстановлению пароля");
+    	else
+    	{
+    		print("Не удалось восстановить пароль\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		print("Тест провален".toUpperCase());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+    	print("Запрос восстановления пароля завершен успешно".toUpperCase());
+    	print("------------------------------------------------------------------------------------------------------------");
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Супер тест2 Работа с объявлением
+	public void Super_WorkAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		wLog.SetUpWriterLog("LogResult.html");
+		String sAuth_token; 
+		String sLogin = Proper.GetProperty("login_authOP");
+		String sPassword = Proper.GetProperty("password");
+		
+		print("------------------------------------------------------------------------------------------------------------");
+		print("Авторизуемся".toUpperCase()+"\r\n");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		print("sAuth_token = " + sAuth_token);
+		
+		print("Получаем корневой рубрикатор");
+		
+		
+	}
+	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+
+		print("Получение рубрикатора сайта");
+		print("Параметры для запроса");
+		print("category = "+ sCategory);
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories")
+    		.setParameter("category", sCategory);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + "рубрикатора сайта получен");
+    		return jsonObject;	
+    	}
+    	else
+    	{
+    		print("Не удалось получить рубрикатора сайта \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}	
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
