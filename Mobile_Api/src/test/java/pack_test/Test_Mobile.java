@@ -466,7 +466,6 @@ public class Test_Mobile
 		cM.GetListUserAdvert_2_22(sBaseHost, sParam);
 	}
 		
-	@Test (groups = { "GetRubricator_3_1" })
 	@Parameters({"sBaseHost", "sCategory"})
 	public void Test27(String sBaseHost, String sCategory) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{

@@ -65,7 +65,8 @@ public class Page_IrrPrivateOffice extends Page
 	@FindBy(xpath="//div[@class='b-blockInf'][2]//a[@href='/myadverts/otdam-darom/']/div")
 	private WebElement wTextLinkTakeFree;
 	
-	@FindBy(xpath="//a[@id='load_user_ads_counter']/span[2]")
+	//@FindBy(xpath="//a[@id='load_user_ads_counter']/span[2]")
+	@FindBy(xpath="//li[@class='wrap_lk']")
 	private WebElement wLinkPrivateOffice;
 	
 	@SuppressWarnings("unused")
