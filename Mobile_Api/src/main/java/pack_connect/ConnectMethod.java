@@ -7518,8 +7518,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token; 
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
-		JSONObject jTemp, jListFields;
-		String sTemp;
+		JSONObject jTemp;
+		String sTemp, sCategory, sAdvertType;
 		JSONArray jArr;
 		boolean bFlag=false;
 
@@ -7538,6 +7538,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = Super_GetRubricator(sHost, sTemp);
 		print("Ищем в рубрикаторе рубрики real-estate/apartments-sale/ подрубику real-estate/apartments-sale/secondary/");
 		sTemp = GetCategory(jTemp, "real-estate/apartments-sale/secondary/");
+		sCategory = sTemp;
 		print("Получаем адверттайп для категории real-estate/apartments-sale/secondary/");
 		
 		jArr = jTemp.getJSONArray("categories");
@@ -7553,6 +7554,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(bFlag)
 		{
 			print("Адверттайп найден "+ sTemp);
+			sAdvertType = sTemp;
 		}
 		else
 		{
@@ -7560,7 +7562,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Адверттайп не найден. Тест провален");
 		}
 		
-		
+		print("Получаем поля для подачи объявления рубрики " + sCategory + " и региона Санкт-Петербург");
+		sTemp = "{category="+sCategory+", region=russia/sankt-peterburg-gorod/, advert_type="+sAdvertType+"}";
+		print(sTemp);
+		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
+		print("Изменяем регион на Москву");
+		Super_GetCustom(jTemp);
+	
 		
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -7623,6 +7631,69 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Категория "+sFindCategory+" не найдена в рубрикаторе. Тест провален");
 			throw new ExceptFailTest("Категория "+sFindCategory+" не найдена в  рубрикаторе. Тест провален");
 		}
+	}
+	private JSONObject Super_GetCastomfieldsForAddAdvert(String sAuth_token, String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		
+		print("Получение списка полей рубрики для подачи объявления");
+		print("Параметры для запроса");
+		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
+		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/post")
+    		.setQuery(sQuery + "&auth_token=" + sAuth_token);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок полей рубрики для подачи объявления получен");
+    		return jsonObject;	
+    		
+    	}
+    	else
+    	{
+    		print("Не удалось получить список полей рубрики для подачи объявления \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
+	private HM<String, String> Super_GetCustom(JSONObject jTemp) throws JSONException
+	{
+		
+		JSONObject  jD, jD2, jD3;
+		HM<String, String> objHM = new HM<String, String>();
+		jTemp = jTemp.getJSONObject("group_custom_fields");
+		JSONArray ar = jTemp.names(), ar2;
+		for(int i=0; i<ar.length(); i++)
+		{
+			jD = jTemp.getJSONObject(ar.getString(i));
+			if(!jD.getString("custom_fields").equals("[]"))
+			{
+				jD2 = jD.getJSONObject("custom_fields");
+				ar2 = jD2.names();
+				
+				for(int j=0; j<ar2.length(); j++)
+				{
+					String key = ar2.getString(j);
+					jD3 = jD2.getJSONObject(ar2.getString(j));
+					String value = jD3.getString("field_values");
+					objHM.SetValue(key, value);
+				}
+			}	
+		}
+		print("Список полей их возможные значения получены");
+		objHM.PrintKeyAndValue();
+		return objHM;
 	}
 	
 	

@@ -11,11 +11,11 @@
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
    <parameter name="bAuthFlag" value="false"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=cars/passenger/used/, region=russia/tomskaya-obl/tomsk-gorod/, lat=56.486683, lng=84.963888, offset=0, limit=20, sort_by=date_sort:desc, include_categories=true}"/>
+   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, region=russia/sankt-peterburg-gorod/, include_region=true}"/>
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="Super_WorkAdvert"/>
+      <include name="GetMultiBlock9_1"/>
     </run>
   </groups>
     <classes>
