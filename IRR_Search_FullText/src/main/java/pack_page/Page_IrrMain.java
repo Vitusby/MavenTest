@@ -100,17 +100,6 @@ public class Page_IrrMain extends Page {
 		}
 		print("\r\nСписок названий саджестов получен");
 		CaptureScreenshot("SuggestMain"); // скриншот саджестов
-		//print(wLinkSuggestText.length);
-		
-		/*ArrayList<String> lTemp = new ArrayList<String>();
-		ArrayList<String> list = (ArrayList<String>)js.executeScript(" var dd = new Array(); $('li[role$=\"menuitem\"]').each(function(i) { dd[i] = $(this).data('item.autocomplete').title});return dd;");
-		print(list.size());
-		for(int i=0; i<list.size(); i++)
-			print(list.get(i).replaceAll("<span class=\"snippet\">", "").replaceAll("</span>", ""));
-		
-		
-		print("");
-		*/
 		
 		for(int i=0; i<wLinkSuggestText.length; i++)
 		{
@@ -120,27 +109,7 @@ public class Page_IrrMain extends Page {
 		return listTemp;
 	}
 	
-	// получение лист ссылок в саджестах
-	@SuppressWarnings({ "unchecked" })
-	public ArrayList<String> GetLinksSuggest(String sUrl) throws UnsupportedEncodingException
-	{
-		js = (JavascriptExecutor) driver;
-		ArrayList<String> lTemp = new ArrayList<String>();
-		ArrayList<String> list = (ArrayList<String>)js.executeScript(" var dd = new Array(); $('li[role$=\"menuitem\"]').each(function(i) { dd[i] = $(this).data('item.autocomplete').url });return dd;");
-		
-		for(int i=0; i<list.size(); i++)
-		{
-			lTemp.add(sUrl.toLowerCase() + URLDecoder.decode(list.get(i), "utf-8").toLowerCase());
-		}
-		
-		print("\r\nСписок ссылок саджестов получен");
-		for(int i=0; i<lTemp.size(); i++)
-		{
-			print(lTemp.get(i));
-		}
-		return lTemp;
-		
-	}
+	
 	
 	//сравнение двух лист
 	public void CompareSuggests(ArrayList<String> listOne, ArrayList<String> listSecond) throws ExceptFailTest
