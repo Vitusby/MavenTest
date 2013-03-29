@@ -10308,6 +10308,69 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	public void GetListAdvertForSite9_2(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sAuth_token="";
+		if(bAuthFlag)
+		{
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
+		}
+		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
+		
+		
+		print("9.2. Получение листинга объявлений сайта");
+		print("Параметры для запроса");
+		print("DataForListing = "+ sDataForListing);
+		print("sAuth_token = "+ sAuth_token);
+		String sQuery = CreateSimpleRequest(sDataForListing);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements")
+    		.setQuery(sQuery)
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	
+    	String ss =	"&filters=/search/"+sDataForSearch;
+    	String s1 = uri.toString()+ss;
+    	uri = new URI(s1);
+    	
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: Листинг объявлений получен");
+    		print("");
+    		print(jsonObject.toString(10));
+    		/*JSONArray ar = jsonObject.getJSONArray("advertisements");
+    		for(int i=0; i<ar.length(); i++)
+    		{
+    			print("--------------------------------------------------------------------------------------------------------------");
+    			print("Объявление №" + i);
+    			jsonObject = (JSONObject) ar.get(i);
+    			print(jsonObject.toString(10));
+    		
+    		}*/
+    		//print("");
+    		//print("Количество объявлений(adverts_count)");
+    		//print(jsonObject.getString("adverts_count"));
+    	}
+    	else
+    	{
+    		print("Не удалось получить листинг объявлений \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+	
+	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{

@@ -670,6 +670,14 @@ public class Test_Mobile
 		cM.GetMultiBlock9_1(sBaseHost, sParam, sParam1);
 	} 
 	
+	
+	@Test (groups = { "GetListAdvertForSite9_2" })
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
+	public void Test53(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetListAdvertForSite9_2(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+	} 
+	
 //////////////////////////////////////////////////////////////////////////////////////////////
 	@Test (groups = { "Super_WorkProfile" })
 	@Parameters({"sBaseHost"})
