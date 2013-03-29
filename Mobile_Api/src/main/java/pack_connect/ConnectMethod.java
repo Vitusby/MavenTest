@@ -289,7 +289,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jTemp = jsonObject.getJSONObject("error");
     	String sResult = jTemp.getString("description");
     	
-    	if(sResult.equals("Пользователя с логином login_authNotExist не существует"))
+    	if(sResult.equals("Введен неверный логин или пароль"))
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
     	else 
     	{
