@@ -17,7 +17,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="SetPremiumForAdvert_2_15"/>
+      <include name="AutoTest_17"/>
     </run>
   </groups>
     <classes>
