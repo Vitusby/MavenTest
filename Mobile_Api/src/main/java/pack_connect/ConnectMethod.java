@@ -7114,7 +7114,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jTemp = jsonObject.getJSONObject("error");
     	String sResult = jTemp.getString("description");
     	
-    	if(sResult.equals("Пользователя с логином " + sEmail +" не существует"))
+    	if(sResult.equals("Введен неверный логин или пароль"))
     	{
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователя не существует");
     		
@@ -7207,7 +7207,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = jsonObject.getJSONObject("error");
 		sResult = jTemp.getString("description");
 		
-		if(sResult.equals("Пользователя с логином " +Proper.GetProperty("login_authOP")+ " не существует"))
+		if(sResult.equals("Введен неверный логин или пароль"))
 		{
 			print("Введен неправильный пароль");
 			print("Восстанавливаем пароль");
@@ -7669,7 +7669,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	private HM<String, String> Super_GetCustom(JSONObject jTemp) throws JSONException
 	{
-		
+		String value = "";
 		JSONObject  jD, jD2, jD3;
 		HM<String, String> objHM = new HM<String, String>();
 		jTemp = jTemp.getJSONObject("group_custom_fields");
@@ -7686,7 +7686,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 				{
 					String key = ar2.getString(j);
 					jD3 = jD2.getJSONObject(ar2.getString(j));
-					String value = jD3.getString("field_values");
+					/////////
+					if(jD3.getString("field_values").equals("[]"))
+					{
+						value = jD3.getString("type");		
+					}
+					else
+						value = jD3.getString("field_values");
+					///////
 					objHM.SetValue(key, value);
 				}
 			}	
@@ -8184,12 +8191,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag, boolean bDeleteImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sVideo = "&advertisement[video]=" + sVideoUrl;
 		String  sAuth_token= "";
-		String sQuery ="";
+		String sQuery ="", sDel="";
 		if(bAuthFlag)
 		{
 			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
@@ -8218,8 +8225,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		if(!sUrlImage.equals("false"))
     	{
+			if(bDeleteImage) // проверяем надо ли удалять картинку(передаем из дженкинса)
+			{
+				sDel = "&deleted_images[0]=" + sUrlImage;
+			}
+			else
+				sDel = "&deleted_images[0]=";
+			
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
-			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest  + "&deleted_images[0]=" + sUrlImage;
+			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest  + sDel;
     	}
     	else
     	{
@@ -8230,7 +8244,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	print("Отправляем запрос. Uri Запроса: " + uri.toString());
     	print(sQuery);
-    	String sResponse = HttpPostRequestImage2(uri, "2.jpg", sQuery);
+    	String sResponse = HttpPostRequestImage2(uri, sPathImageNew, sQuery);
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);

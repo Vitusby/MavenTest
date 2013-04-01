@@ -131,7 +131,6 @@ public class Test_Mobile
 	}
 	
 	
-	@Test (groups = { "AutoTest_16" })
 	@Parameters({"sBaseHost"})
 	public void AutoTest_GetFieldsForAddAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
@@ -326,10 +325,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "EditAdvert_2_3" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sParam1",   "sParam2", "sVideoUrl",  "bAuthFlag"})
-	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam1, String sParam2, String sVideoUrl ,boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "sParam1",   "sParam2", "sPathImageNew", "sVideoUrl",  "bAuthFlag", "bDeleteImage"})
+	public void Test7(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, String sParam1, String sParam2, String sPathImageNew, String sVideoUrl ,boolean bAuthFlag, boolean bDeleteImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam1, sParam2, "1.jpeg", sVideoUrl,  bAuthFlag);
+		cM.EditAdvert_2_3(sBaseHost, sLogin, sPassword, sIdAdvert, sParam1, sParam2, sPathImageNew, sVideoUrl,  bAuthFlag, bDeleteImage);
 	}
 		
 	@Test (groups = { "DeleteAdvert_2_4" })

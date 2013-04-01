@@ -13,11 +13,11 @@
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="bApp_token" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=cars/passenger/, list=table, region=russia/moskva-gorod/,sort_by=price:asc, include_region=false, offset=0, limit=25, include_privates=true, include_companies=true}"/>
+   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, list=table, region=russia/moskovskaya-obl/ruzskiy-r_n/kapan-derevnya/, include_region=false, offset=0, limit=25, include_privates=true, include_companies=true}"/>
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="AutoTest_17"/>
+      <include name="Super_WorkAdvert"/>
     </run>
   </groups>
     <classes>
