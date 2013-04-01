@@ -231,8 +231,8 @@ public class Test_128 extends TestConstruct
 					{
 						if((nAttemptReloadPageUserOne < 1))
 						{	
-							print("Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
-							wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+							print("Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPageFailCounter") + " милисекунд(ы)");
+							wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPageFailCounter") + " милисекунд(ы)");
 							nAttemptReloadPageUserOne++;
 						}
 						else
@@ -274,8 +274,8 @@ public class Test_128 extends TestConstruct
 						{
 							if((nAttemptReloadPageUserTwo < 1))
 							{	
-								print("Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
-								wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPage") + " милисекунд(ы)");
+								print("Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPageFailCounter") + " милисекунд(ы)");
+								wLog.WriteString(4, "Счетчики для пользователя " + Proper.GetProperty("email2"+sNumberSteps) + " некорректны, после первой загрузки страницы ЛК, перегружаем страницу через "+Proper.GetProperty("timeReloadPageFailCounter") + " милисекунд(ы)");
 								nAttemptReloadPageUserTwo++;
 							}
 							else

@@ -7566,7 +7566,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sTemp = "{category="+sCategory+", region=russia/sankt-peterburg-gorod/, advert_type="+sAdvertType+"}";
 		print(sTemp);
 		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
-		print("Изменяем регион на Москву");
+		
+		print("Изменяем регион");
+		print("Получаем список субъектов РФ");
+		
 		Super_GetCustom(jTemp);
 	
 		
@@ -7702,6 +7705,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		objHM.PrintKeyAndValue();
 		return objHM;
 	}
+	
 	
 	
 // Параметризированные тесты
@@ -9337,7 +9341,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//4.1.	Получение списка субъектов РФ
-	public void GetRegions_4_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetRegions_4_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.1.	Получение списка субъектов РФ");
@@ -9360,14 +9364,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString(10) + "список субъектов РФ получен");
-    		
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список субъектов РФ \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	//4.2.	Получение списка городов принадлежащих какому либо региону
 	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
