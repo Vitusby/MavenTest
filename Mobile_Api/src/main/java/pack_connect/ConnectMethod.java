@@ -8233,7 +8233,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			else
 			{
 				print("Изображение удалять не надо");
-				sDel = "&deleted_images[0]=";
+				sDel = "";
 			}
 			
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
