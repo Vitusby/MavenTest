@@ -49,6 +49,7 @@
 						<sMM_Id>${sMM_Id}</sMM_Id>
 						<sOD_Id>${sOD_Id}</sOD_Id>
 						<sPathImageNew>${sPathImageNew}</sPathImageNew>
+						<bDeleteImage>${bDeleteImage}</bDeleteImage>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
