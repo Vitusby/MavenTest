@@ -96,14 +96,17 @@ public abstract class Connect_Request_Abstract
     	FileBody bin = null;
     	
     	MultipartEntity reqEntity = new MultipartEntity();
-
+//////////
+    	print(sPath);
+   ////////////// 	
     	post.setURI(uri);
     	if(!sPath.equals("not_image")) // если передаем картинку то грузим ее в тело
     	{	
-    		print("Не грузим новое изображение");
     		bin = new FileBody(new File(sPath)); 
     		reqEntity.addPart("image", bin);
     	} // иначе без картинки
+    	else
+    		print("Не грузим новое изображение");
     	
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
