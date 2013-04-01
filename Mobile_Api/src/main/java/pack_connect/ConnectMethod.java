@@ -8227,13 +8227,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
 			if(bDeleteImage) // проверяем надо ли удалять картинку(передаем из дженкинса)
 			{
+				print("Удаляем изображение, если оно есть");
 				sDel = "&deleted_images[0]=" + sUrlImage;
 			}
 			else
+			{
+				print("Изображение удалять не надо");
 				sDel = "&deleted_images[0]=";
+			}
 			
 			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
-			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest  + sDel;
+			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest + sDel;
     	}
     	else
     	{
