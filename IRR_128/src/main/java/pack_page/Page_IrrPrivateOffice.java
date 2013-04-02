@@ -282,6 +282,7 @@ public class Page_IrrPrivateOffice extends Page
 			String sOperation
 												) throws ExceptFailTest
 	{
+		@SuppressWarnings("unused")
 		HM<String, Integer> clsOldStatusAndCategory = clsStatusAndCategory;
 		boolean bFlag1, bFlag2, bFlag3, bFlag4, bFlag5, bFlag6, bFlag7, bFlag8, bFlag9, bFlag10, bFlag11, bFlag12, bFlag13, bFlag14;
 		
@@ -343,6 +344,7 @@ public class Page_IrrPrivateOffice extends Page
 			String sOperation
 												) throws ExceptFailTest
 	{
+		@SuppressWarnings("unused")
 		HM<String, String> clsOldStatusAndCategory = clsStatusAndCategoryString;
 		boolean bFlag1, bFlag2, bFlag3, bFlag4, bFlag5, bFlag6, bFlag7, bFlag8, bFlag9, bFlag10, bFlag11, bFlag12, bFlag13, bFlag14;
 		

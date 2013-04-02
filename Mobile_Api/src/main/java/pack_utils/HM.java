@@ -67,4 +67,27 @@ public class HM<K,V>
 	{
 		hm.put(kKey, vValue);
 	}
+	
+	public void DeletePos(K kKey)
+	{
+		hm.remove(kKey);
+		
+	}
+	
+	public int GetSize()
+	{
+		return hm.size();
+	}
+	
+	public Set<K> GetAllKeys()
+	{
+		Set<K> sK = hm.keySet();
+		return sK;
+	}
+	
+	public boolean ContainsKeys(K kKey)
+	{
+		return hm.containsKey(kKey);
+	}
+	
 }

@@ -266,8 +266,8 @@ public class Test_128 extends TestConstruct
 						pageIrrPrOf2.GetStatusAndCategory(); // Значение всех счетчиков
 						boolean bFlagUserTwo = pageIrrPrOf2.CheckAllCountersAfterChangeData(sMas[23], sMas[24], sMas[25], sMas[26], sMas[27], sMas[28], sMas[29], sMas[30], sMas[31], sMas[32], sMas[33], sMas[34], sMas[35], sMas[36], 
 								"изменение владельца объявления с " + Proper.GetProperty(sMas[0]+sNumberSteps).toUpperCase() + " на " + Proper.GetProperty(sMas[1]+sNumberSteps).toUpperCase() + "\r\n" +
-								"изменение региона объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
-								"изменение рубрики объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
+								"изменение рубрики объявления с " + Proper.GetProperty(sMas[2]).toUpperCase() + " на " + Proper.GetProperty(sMas[3]).toUpperCase() + "\r\n" +
+								"изменение региона объявления с " + Proper.GetProperty(sMas[4]).toUpperCase() + " на " + Proper.GetProperty(sMas[5]).toUpperCase() + "\r\n" +
 								"изменение статуса активности объявления с " + Proper.GetProperty(sMas[6]).toUpperCase() + " на " + Proper.GetProperty(sMas[7]).toUpperCase());
 					
 						if(!bFlagUserTwo)

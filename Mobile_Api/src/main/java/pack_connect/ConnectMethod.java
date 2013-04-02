@@ -8,8 +8,12 @@ import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Set;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -7519,60 +7523,59 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		JSONObject jTemp;
-		String sTemp, sCategory, sAdvertType;
-		JSONArray jArr;
-		boolean bFlag=false;
+		HM<String, String> hDataAdvert;
+		HM<String, String> hAdressCust;
+		String sMas[] = null;
+		String sTemp, sCategory, sAdvertType, sRegion, sStreet, StreetId, sDistrict;
+		
 
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизуемся".toUpperCase()+"\r\n");
 		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		print("sAuth_token = " + sAuth_token);
 		
-		print("Получаем корневой рубрикатор");
-		jTemp = Super_GetRubricator(sHost, "/");
-		print("Ищем в корневом рубрикаторе рубрику real-estate/");
-		sTemp = GetCategory(jTemp, "real-estate/");
-		jTemp = Super_GetRubricator(sHost, sTemp);
-		print("Ищем в рубрикаторе рубрики real-estate/ подрубрику real-estate/apartments-sale/");
-		sTemp = GetCategory(jTemp, "real-estate/apartments-sale/");
-		jTemp = Super_GetRubricator(sHost, sTemp);
-		print("Ищем в рубрикаторе рубрики real-estate/apartments-sale/ подрубику real-estate/apartments-sale/secondary/");
-		sTemp = GetCategory(jTemp, "real-estate/apartments-sale/secondary/");
-		sCategory = sTemp;
-		print("Получаем адверттайп для категории real-estate/apartments-sale/secondary/");
+		/*print("\r\nПолучаем конечную рубрику и адвертайп");
+		sMas = Super_GetRandomRubric(sHost, "/");
+		sCategory = sMas[0];
+		sAdvertType = sMas[1];
 		
-		jArr = jTemp.getJSONArray("categories");
-		for(int i=0; i<jArr.length(); i++)
-		{
-			jTemp = jArr.getJSONObject(i);
-			if(jTemp.getString("advert_type").equals("realty_sell"))
-			{
-				sTemp = jTemp.getString("advert_type");
-				bFlag=true;
-			}
-		}
-		if(bFlag)
-		{
-			print("Адверттайп найден "+ sTemp);
-			sAdvertType = sTemp;
-		}
-		else
-		{
-			print("Адверттайп не найден. Тест провален");
-			throw new ExceptFailTest("Адверттайп не найден. Тест провален");
-		}
+		print("\r\nПолучаем регион для подачи объявления");
+		sRegion = Super_GetRandomRegion(sHost);
 		
-		print("Получаем поля для подачи объявления рубрики " + sCategory + " и региона Санкт-Петербург");
-		sTemp = "{category="+sCategory+", region=russia/sankt-peterburg-gorod/, advert_type="+sAdvertType+"}";
+		print("\r\nПолучаем населенный пункт для выбранного региона " + sRegion);
+		sRegion = Super_GetCities(sHost, sRegion);
+		*/
+		
+		//print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
+		//sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
+		sTemp = "{category=real-estate/apartments-sale/secondary, region=russia/moskva-gorod/, advert_type=realty_sell}";
 		print(sTemp);
 		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
+		print("\r\nПолучаем возможные значения для полей");
+		hDataAdvert = Super_GetCustom(jTemp);
+		hAdressCust = Super_GetAdressCustom(hDataAdvert); 
+		print("Адресные кастомфилды и их возможные типы(значения)");
+		hAdressCust.PrintKeyAndValue();
+		print("Остальные кастомфилды и их возможные типы(значения)");
+		hDataAdvert.PrintKeyAndValue();
+
 		
-		print("Изменяем регион");
-		print("Получаем список субъектов РФ");
+		Super_GetDataForAdress(sHost, hAdressCust);
 		
-		Super_GetCustom(jTemp);
-	
 		
+		/*
+		if(hAdressCust.ContainsKeys("mapStreet"))
+			sMas = Super_GetSuggestStreet(sHost, "russia/moskva-gorod/");
+		sStreet = sMas[0];
+		StreetId = sMas[1];
+		sDistrict = sMas[2];
+		print(sStreet);
+		print(StreetId);
+		print(sDistrict);
+		*/
+		
+		// в Омске есть АО
+		//russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ - здесь направление
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -7609,32 +7612,112 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}	
-	private String GetCategory(JSONObject jTemp, String sFindCategory) throws JSONException, ExceptFailTest
+	private String[] Super_GetRandomRubric(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		String sMas[] = new String[2];
 		JSONArray jArr;
-		String sNextCategory="";
-		boolean bFlag=false;
-		jArr = jTemp.getJSONArray("categories");
-		for(int i=0; i<jArr.length(); i++)
+		JSONObject jTemp;
+		String sCat = "", sAdvert="";
+		int nLenght = 0, nRandomRubr = 0;
+		int n=0;
+		while(sCat.equals(""))
 		{
-			jTemp = jArr.getJSONObject(i);
-			if(jTemp.getString("category").equals(sFindCategory))
+			n++;
+			jTemp = Super_GetRubricator(sHost, sCategory);
+			jArr = jTemp.getJSONArray("categories");
+			nLenght = jArr.length();
+			print("Выбираем рандомную рубрику из отображаемых в списке");
+			nRandomRubr = GetRandomNumber(nLenght);
+			if(nRandomRubr == 0)
+				nRandomRubr +=1;
+			print("Выбрана рубрика номер - " + nRandomRubr);
+			jTemp = jArr.getJSONObject(nRandomRubr);
+			print(jTemp.toString(10));
+			print("Проверяем конечная ли это рубрика");
+			if(jTemp.getBoolean("is_leaf"))
 			{
-				sNextCategory = jTemp.getString("category");
-				bFlag=true;
+				print("Выбрана конечная рубрика");
+				sCat = jTemp.getString("category");
+				sAdvert = jTemp.getString("advert_type");
+				sMas[0] = sCat;
+				sMas[1] = sAdvert;
+				print("category = " + sMas[0]);
+				print("advert_type = " + sMas[1]);
+			}
+			else
+			{
+				print("Рубрика " + jTemp.getString("category") + " не конечная");
+				sCategory = jTemp.getString("category");
+			}
+			if(n==100)
+			{
+				print("Было произведено " + n +" попыток выбрать рубрику. Но ничего не вышло. Тест провален");
+				throw new ExceptFailTest("Было произведено " + n +" попыток выбрать рубрику. Но ничего не вышло. Тест провален");
 			}
 		}
-		if(bFlag)
-		{
-			print("Найдена категория "+ sFindCategory);
-			return sNextCategory;
-		}
-		else
-		{
-			print("Категория "+sFindCategory+" не найдена в рубрикаторе. Тест провален");
-			throw new ExceptFailTest("Категория "+sFindCategory+" не найдена в  рубрикаторе. Тест провален");
-		}
+		
+		return sMas;
 	}
+	private String Super_GetRandomRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		JSONArray jArr;
+		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
+		jTemp = GetRegions_4_1(sHost);
+		if(jTemp.getString("regions").equals("[]"))
+		{
+			print("Не удалось получить хоть один регион");
+			throw new ExceptFailTest("Не удалось получить хоть один регион");
+		}
+		print("Выбираем рандомно регион");
+		jArr = jTemp.getJSONArray("regions");
+		nLenght = jArr.length();
+		nRandomRubr = GetRandomNumber(nLenght);
+		if(nRandomRubr == 0)
+			nRandomRubr +=1;
+		print("Выбран регион номер - " + nRandomRubr);
+		jTemp = jArr.getJSONObject(nRandomRubr);
+		print(jTemp.toString(10));
+		return jTemp.getString("region");
+	}
+	private String Super_GetCities(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		int nLenght = 0, nRandomRubr = 0;
+		int n1=0;
+		JSONArray jArr;
+		JSONObject jTemp;
+		String sRegion = "[]", sSearch;
+		
+		while(sRegion.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска нас.пункта");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";
+			jTemp = GetCitiesSuggest_4_3(sHost, sSearch);
+			if(!jTemp.getString("regions").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("regions");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбран населенный пункт - " + (nRandomRubr+1));
+				jTemp = jArr.getJSONObject(nRandomRubr);
+				print(jTemp.toString(10));
+				sRegion = jTemp.getString("region");
+			}
+			else
+				print("Не найдено неодного населенного пункта, повторная генерация саджеста");
+			n1++;
+			if(n1==200)
+			{
+				print("Было произведено " + n1 +" попыток выбрать населенный пункт. Но ничего не вышло. Тест провален");
+				throw new ExceptFailTest("Было произведено " + n1 +" попыток выбрать населенный пункт. Но ничего не вышло. Тест провален");
+			}
+		
+		}
+		return sRegion;
+	}
+
 	private JSONObject Super_GetCastomfieldsForAddAdvert(String sAuth_token, String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
@@ -7689,24 +7772,247 @@ public class ConnectMethod extends Connect_Request_Abstract
 				{
 					String key = ar2.getString(j);
 					jD3 = jD2.getJSONObject(ar2.getString(j));
-					/////////
 					if(jD3.getString("field_values").equals("[]"))
 					{
 						value = jD3.getString("type");		
 					}
 					else
 						value = jD3.getString("field_values");
-					///////
 					objHM.SetValue(key, value);
 				}
 			}	
 		}
 		print("Список полей их возможные значения получены");
-		objHM.PrintKeyAndValue();
+		//objHM.PrintKeyAndValue();
 		return objHM;
 	}
+	private String Super_GetRandomString(int nLenght)
+	{
+		String sSuggest="";
+		String s = "абвгдеёжзийклмнопрестуфхцчщшэюя";		
+    	Random r;
+    	r = new Random();
+    	for(int j=0; j<nLenght; j++)
+    	{
+	    	int  i = r.nextInt(s.length());
+	    	char c = s.charAt(i);
+	    	print(c);
+	    	sSuggest = sSuggest + c;
+    	}
+    	print("Сгенерирован саджест - " + sSuggest);
+		return sSuggest;
+		
+	}
+
+	private HM<String, String> Super_GetAdressCustom(HM<String, String> hData)
+	{
+		Set<String> sK;
+		HM<String, String> hAdressCust = new HM<String, String>();
+		ArrayList<String> ar = new ArrayList<String>();
+		
+		sK = hData.GetAllKeys(); // получаем значения всех ключей
+		for(String s:sK)
+		{
+			if(s.equals("mapHouseNr")||s.equals("address_district")||s.equals("mapStreet"))
+				ar.add(s); // если а списке кастомов есть адресные то добавляем их в список
+			if(s.equals("metro")||s.equals("highway")||s.equals("address_ao")||s.equals("direction"))
+				ar.add(s); // если а списке кастомов есть адресные то добавляем их в список
+		}
+		
+		for(String s:ar)
+		{
+			hAdressCust.SetValue(s, hData.GetValue(s)); // проходим по списку и добавляем в новый объект HM тольк адресные найденные раннее
+			hData.DeletePos(s); // из первого объекта кастомов удаляем адресные
+		}
+		return hAdressCust;
+		
+	}
+	private String[] Super_GetSuggestStreet(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sStreet = "[]", sSearch = "", sStreetTest="Тестовая_улица", sStreetId="0" ,sDistrict="Тестовый_район";
+		int nLenght = 0, nRandomRubr = 0;
+		int n1=0;
+		String sMas[] = new String[3];
+		JSONArray jArr;
+		JSONObject jTemp;
+		while(sStreet.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска улицы");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+		
+			jTemp = GetStreetsSuggest_4_4(sHost, sSearch);
+			if(!jTemp.getString("streets").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("streets");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбрана улица - " + (nRandomRubr+1));
+				jTemp = jArr.getJSONObject(nRandomRubr);
+				print(jTemp.toString(10));
+				sStreetId = jTemp.getString("id");
+				/////////////////////////////////////////////////////////////////
+				String sTemp = jTemp.getString("title").replaceAll(" \\(", "");
+				int k =  sTemp.lastIndexOf(" ");
+				if(k!=-1)
+					sStreet = sTemp.substring(0, k);
+				else
+					sStreet = sTemp;
+				/////////////////////////////////////////////////////////////////
+				sDistrict = jTemp.getString("district");
+				
+				sMas[0]=sStreet;
+				sMas[1]=sStreetId;
+				sMas[2]=sDistrict;
+			}	
+			else
+				print("Не найдено неодной улицы, повторная генерация саджеста");
+			n1++;
+			if(n1==200)
+			{
+				print("Было произведено " + n1 +" попыток выбрать улицу. Но ничего не вышло. Значение улицы будет равно - " + sStreetTest);
+				print("Значение id улицы будет равно 0");
+				print("Значение района будет равно - " + sDistrict);
+				sStreet = sStreetTest;
+				sMas[0]=sStreet;
+				sMas[1]=sStreetId;
+				sMas[2]=sDistrict;
+				break;
+			}
+		}
+		return sMas;
+	}
+	private String[] Super_GetSuggestHouse(String sHost, String sStreetId) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		
+		String sHouses = "[]", sSearch = "", sMicroDistrict="Тестовый_микрорайон", sHouseTest="1";
+		int nLenght = 0, nRandomRubr = 0;
+		int n1=0, nSuggest;
+		String sMas[] = new String[2];
+		JSONArray jArr;
+		JSONObject jTemp;
+		while(sHouses.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска номера дома");
+			nSuggest = GetRandomNumber(3);
+			if(nSuggest == 0)
+				nSuggest+=1;
+			sSearch = "{street_id=" + sStreetId + ", search_string=" + nSuggest + "}";	
+			jTemp = GetHousesSuggest_4_5(sHost, sSearch);
+			
+			if(!jTemp.getString("houses").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("houses");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбран дом - " + (nRandomRubr+1));
+				jTemp = jArr.getJSONObject(nRandomRubr);
+				print(jTemp.toString(10));
+				sHouses = jTemp.getString("title");
+				sMicroDistrict = jTemp.getString("microdistrict");
+				sMas[0]=sHouses;
+				sMas[1]=sMicroDistrict;
+			}	
+			else
+				print("Не найдено неодного дома, повторная генерация саджеста");
+			
+			n1++;
+			if(n1==10)
+			{
+				print("Было произведено " + n1 +" попыток выбрать дом. Но ничего не вышло. Значение дома будет равно - " + sHouseTest);
+				print("Значение микрорайона будет равно - " + sMicroDistrict);
+				sMas[0]=sHouseTest;
+				sMas[1]=sMicroDistrict;
+				break;
+			}
+		}
+		return sMas;
+	}
+	private String Super_GetSuggestDistrict(String sHost, String sReg, String sDistrict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		
+		String sDistr = "[]", sSearch = "";
+		JSONObject jTemp;
+		JSONArray jArr;
+		if(!sDistrict.equals(""))
+		{	
+			sSearch = "{region=" + sReg + ", search_string=" + sDistrict + "}";	
+			jTemp = GetDistrictSuggest_4_6(sHost, sSearch);
+			jArr = jTemp.getJSONArray("districts");
+			sDistr = (String) jArr.get(0);
+		}
+		else // РАБОТАЕМ ЗДЕСЬ ДАЛЬШЕ ЕСЛИ РАНЬШЕ НИГДЕ НЕ ПОЛУЧАЛИ РАЙНОВ
+		{
+			
+		}
+		return sDistr;
+		
+	}
 	
-	
+	private void Super_GetDataForAdress(String sHost, HM<String, String> hAdressCust) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="";
+		String sMas[] = null;
+		HM<String, String> hAdressCustWithData = new HM<String, String>();
+		// проверяем есть ли поле улицы на подачи
+		if(hAdressCust.ContainsKeys("mapStreet"))
+			sMas = Super_GetSuggestStreet(sHost, "russia/moskva-gorod/");
+		sStreet = sMas[0];
+		StreetId = sMas[1];
+		sDistrict = sMas[2];
+		hAdressCustWithData.SetValue("mapStreet", sStreet.replaceAll(" ", "+"));
+		hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
+		
+		print(sStreet);
+		print(StreetId);
+		print(sDistrict);
+		
+		// проверяем есть ли  поле дома на подаче
+		if(hAdressCust.ContainsKeys("mapHouseNr"))
+		{
+			if(StreetId.equals("0"))
+			{
+				print("В запросе поиска саджеста улицы не была найдена улица. Дом будет равен 1");
+				sHouses="1";
+				sMicroDistrict = "Тестовый_микрорайон";
+				hAdressCustWithData.SetValue("mapHouseNr", sHouses.replaceAll(" ", "+"));
+				hAdressCustWithData.SetValue("microdistrict", sMicroDistrict.replaceAll(" ", "+"));
+				print(sHouses);
+			}
+			else
+			{
+				sMas = Super_GetSuggestHouse(sHost, StreetId);
+				sHouses = sMas[0];
+				sMicroDistrict = sMas[1];
+				hAdressCustWithData.SetValue("mapHouseNr", sHouses.replaceAll(" ", "+"));
+				hAdressCustWithData.SetValue("microdistrict", sMicroDistrict.replaceAll(" ", "+"));
+				print(sHouses);
+				print(sMicroDistrict);
+			}
+				
+		}
+		
+		//проверяем есть ли поле район на подаче
+		if(hAdressCust.ContainsKeys("address_district"))
+		{
+			if(sDistrict.equals("Тестовый_район"))
+				print("При поиске улицы не было найдено неодного района. Район будет равен - " + sDistrict);
+			else
+			{
+				sDistrict = sDistrict.replaceAll(" ", "+"); // Если район из двух слов
+				sDistrict = Super_GetSuggestDistrict(sHost, "russia/moskva-gorod/", sDistrict);
+				hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
+			}
+				
+				
+		}
+		print("Текущие адресные кастомы");
+		hAdressCustWithData.PrintKeyAndValue();
+		
+		
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -9440,7 +9746,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}	
 		}
 	// 4.3.	Поиск городов и населенных пунктов по названию (саджест)
-	public void GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.4. Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
@@ -9467,16 +9773,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера: \r\n" + jsonObject.toString(10) + "\r\n список городов и населенных пунктов по названию (саджест) получен");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить городов и населенных пунктов по названию (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	//4.4.	Получение списка улиц (саджест)	
-	public void GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.5. Получение списка улиц (саджест)".toUpperCase());
@@ -9503,16 +9810,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок улиц (саджест) получен");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список улиц (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}	
 	//4.5.	Получение списка домов улицы (саджест)
-	public void GetHousesSuggest_4_5(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetHousesSuggest_4_5(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.6. Получение списка домов улицы (саджест)".toUpperCase());
@@ -9539,17 +9847,17 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString(10) + "\r\n список домов улицы (саджест) получен");
-    		
+    		return jsonObject;		
     	}
     	else
     	{
     		print("Не удалось получить список домов улицы (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}	
 	//4.6.	Получение списка районов (саджест)
-	public void GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.7.	Получение списка районов (саджест)".toUpperCase());
@@ -9576,6 +9884,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nсписок районов (саджест) получен \r\n");
+    		return jsonObject;	
     		
     	}
     	else
@@ -9583,7 +9892,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Не удалось получить список районов (саджест) \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}	
 	//4.8	Получение списка районов (саджест)
 	public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest

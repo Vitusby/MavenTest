@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -403,5 +404,11 @@ public abstract class Connect_Request_Abstract
 	public void Sleep(int nTime) throws InterruptedException
 	{
 		Thread.sleep(nTime);
+	}
+	
+	public int GetRandomNumber(int nLimit)
+	{
+		Random r = new Random();
+		return r.nextInt(nLimit);
 	}
 }
