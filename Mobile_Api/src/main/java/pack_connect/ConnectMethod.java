@@ -7560,7 +7560,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hDataAdvert.PrintKeyAndValue();
 
 		
-		Super_GetDataForAdress(sHost, hAdressCust);
+		Super_GetDataForAdress(sHost, hAdressCust, "russia/moskva-gorod/");
 		
 		
 		/*
@@ -7574,7 +7574,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print(sDistrict);
 		*/
 		
-		// в Омске есть АО
+		// russia/omskaya-obl/omsk-gorod/ есть АО
 		//russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ - здесь направление
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -7789,15 +7789,26 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private String Super_GetRandomString(int nLenght)
 	{
 		String sSuggest="";
-		String s = "абвгдеёжзийклмнопрестуфхцчщшэюя";		
+		String s = "абавгдеёжзийклмнопрстуфхцчщшыэюя";		
+		String s2 = "уеыаоэяию";
+		String s3 = "йцкнгшщзхфвпрлджчсмтб";
+		String sCurrent = s;
     	Random r;
     	r = new Random();
     	for(int j=0; j<nLenght; j++)
     	{
-	    	int  i = r.nextInt(s.length());
-	    	char c = s.charAt(i);
+	    	int  i = r.nextInt(sCurrent.length());
+	    	char c = sCurrent.charAt(i);
 	    	print(c);
 	    	sSuggest = sSuggest + c;
+	    	if(s2.indexOf(c) == -1)
+	    	{
+	    		sCurrent = s2;
+	    	}
+	    	else
+	    	{
+	    		sCurrent = s3;
+	    	}
     	}
     	print("Сгенерирован саджест - " + sSuggest);
 		return sSuggest;
@@ -7896,7 +7907,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("Попытка № " + n1);
 			print("Генерируем строку саджеста для поиска номера дома");
-			nSuggest = GetRandomNumber(3);
+			nSuggest = GetRandomNumber(5);
 			if(nSuggest == 0)
 				nSuggest+=1;
 			sSearch = "{street_id=" + sStreetId + ", search_string=" + nSuggest + "}";	
@@ -7935,7 +7946,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sDistr = "[]", sSearch = "";
 		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
 		JSONArray jArr;
+		int n1 = 0;
 		if(!sDistrict.equals(""))
 		{	
 			sSearch = "{region=" + sReg + ", search_string=" + sDistrict + "}";	
@@ -7945,30 +7958,142 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		else // РАБОТАЕМ ЗДЕСЬ ДАЛЬШЕ ЕСЛИ РАНЬШЕ НИГДЕ НЕ ПОЛУЧАЛИ РАЙНОВ
 		{
-			
+			while(sDistr.equals("[]"))
+			{
+				print("Попытка № " + n1);
+				print("Генерируем строку саджеста для поиска района");
+				sSearch = Super_GetRandomString(3);
+				sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+				
+				jTemp = GetDistrictSuggest_4_6(sHost, sSearch);
+				
+				if(!jTemp.getString("districts").equals("[]"))
+				{
+					jArr = jTemp.getJSONArray("districts");
+					nLenght = jArr.length();
+					nRandomRubr = GetRandomNumber(nLenght);
+					print("Выбран район - " + (nRandomRubr+1));
+					sDistr = (String) jArr.get(nRandomRubr);
+					print(sDistr);
+					
+				}	
+				else
+					print("Не найдено неодного района, повторная генерация саджеста");
+				
+				n1++;
+				if(n1==200)
+				{
+					sDistr = "Тестовый_район";
+					print("Было произведено " + n1 +" попыток выбрать район. Но ничего не вышло. Значение района будет равно - " + sDistr);
+					break;
+				}
+			}
 		}
-		return sDistr;
+		return sDistr;	
+	}
+	private String Super_GetSuggestAO(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sAO = "[]", sSearch = "";
+		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
+		JSONArray jArr;
+		int n1 = 0;
 		
+		while(sAO.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска AO");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+			
+			jTemp = GetAOSuggest_4_9(sHost, sSearch);
+			
+			if(!jTemp.getString("ao").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("ao");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбрано АО - " + (nRandomRubr+1));
+				sAO = (String) jArr.get(nRandomRubr);
+				print(sAO);	
+			}	
+			else
+				print("Не найдено неодного АО, повторная генерация саджеста");
+			
+			n1++;
+			if(n1==200)
+			{
+				sAO = "Тестовый_АО";
+				print("Было произведено " + n1 +" попыток выбрать АО. Но ничего не вышло. Значение АО будет равно - " + sAO);
+				break;
+			}
+		
+		}
+		return sAO;
+	}
+	private String Super_GetDirection(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sDirect = "[]", sSearch = "";
+		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
+		JSONArray jArr;
+		int n1 = 0;
+		
+		while(sDirect.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска направления");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+			
+			jTemp = GetDirectionSuggest_4_10(sHost, sSearch);
+			
+			if(!jTemp.getString("directions").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("directions");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбрано направление - " + (nRandomRubr+1));
+				sDirect = (String) jArr.get(nRandomRubr);
+				print(sDirect);	
+			}	
+			else
+				print("Не найдено неодного направления, повторная генерация саджеста");
+			
+			n1++;
+			if(n1==200)
+			{
+				sDirect = "Тестовое_направление";
+				print("Было произведено " + n1 +" попыток выбрать направление. Но ничего не вышло. Значение направления будет равно - " + sDirect);
+				break;
+			}
+		}
+		return sDirect;
+	}
+	private String Super_GetMetro(String sHost, String sReg)
+	{
+		return "";
 	}
 	
-	private void Super_GetDataForAdress(String sHost, HM<String, String> hAdressCust) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private void Super_GetDataForAdress(String sHost, HM<String, String> hAdressCust, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="";
+		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="";
 		String sMas[] = null;
 		HM<String, String> hAdressCustWithData = new HM<String, String>();
 		// проверяем есть ли поле улицы на подачи
 		if(hAdressCust.ContainsKeys("mapStreet"))
-			sMas = Super_GetSuggestStreet(sHost, "russia/moskva-gorod/");
-		sStreet = sMas[0];
-		StreetId = sMas[1];
-		sDistrict = sMas[2];
-		hAdressCustWithData.SetValue("mapStreet", sStreet.replaceAll(" ", "+"));
-		hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
-		
-		print(sStreet);
-		print(StreetId);
-		print(sDistrict);
-		
+		{
+			sMas = Super_GetSuggestStreet(sHost, sRegion);
+			sStreet = sMas[0];
+			StreetId = sMas[1];
+			sDistrict = sMas[2];
+			hAdressCustWithData.SetValue("mapStreet", sStreet.replaceAll(" ", "+"));
+			//hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
+			
+			print(sStreet);
+			print(StreetId);
+			print(sDistrict);
+		}
 		// проверяем есть ли  поле дома на подаче
 		if(hAdressCust.ContainsKeys("mapHouseNr"))
 		{
@@ -7978,7 +8103,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 				sHouses="1";
 				sMicroDistrict = "Тестовый_микрорайон";
 				hAdressCustWithData.SetValue("mapHouseNr", sHouses.replaceAll(" ", "+"));
-				hAdressCustWithData.SetValue("microdistrict", sMicroDistrict.replaceAll(" ", "+"));
 				print(sHouses);
 			}
 			else
@@ -7987,7 +8111,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 				sHouses = sMas[0];
 				sMicroDistrict = sMas[1];
 				hAdressCustWithData.SetValue("mapHouseNr", sHouses.replaceAll(" ", "+"));
-				hAdressCustWithData.SetValue("microdistrict", sMicroDistrict.replaceAll(" ", "+"));
 				print(sHouses);
 				print(sMicroDistrict);
 			}
@@ -8002,12 +8125,35 @@ public class ConnectMethod extends Connect_Request_Abstract
 			else
 			{
 				sDistrict = sDistrict.replaceAll(" ", "+"); // Если район из двух слов
-				sDistrict = Super_GetSuggestDistrict(sHost, "russia/moskva-gorod/", sDistrict);
+				sDistrict = Super_GetSuggestDistrict(sHost, sRegion, sDistrict);
 				hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
-			}
-				
-				
+				print(sDistrict);
+			}	
 		}
+		
+		
+		//проверяем есть ли поле АО на подаче
+		if(hAdressCust.ContainsKeys("address_ao"))
+		{
+			sAO = Super_GetSuggestAO(sHost, sRegion);
+			hAdressCustWithData.SetValue("address_ao", sAO.replaceAll(" ", "+"));
+			print(sAO);
+		}
+		
+		//проверяем есть ли поле направление на подаче
+		if(hAdressCust.ContainsKeys("direction"))
+		{
+			sDirection = Super_GetDirection(sHost, sRegion);
+			hAdressCustWithData.SetValue("direction", sDirection.replaceAll(" ", "+"));
+			print(sDirection);
+		}
+		
+		//роверяем есть ли поле метро на подаче
+		if(hAdressCust.ContainsKeys("metro"))
+		{
+			
+		}
+		
 		print("Текущие адресные кастомы");
 		hAdressCustWithData.PrintKeyAndValue();
 		
@@ -9931,43 +10077,44 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//4.9	Получение списка АО (саджест)
-	public void GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
-		{
+	public JSONObject GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
 
-			print("4.9. Получение списка административных округов (саджест)".toUpperCase());
-			print("Параметры для запроса");
-			print("DataDistrictSuggest = "+ sAOSuggest);
-		
-			String sQuery = CreateSimpleRequest(sAOSuggest);
-			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
-	    		.setQuery(sQuery);
-	    	
-	    	uri = builder.build();
-	    	if(uri.toString().indexOf("%25") != -1)
-	    	{
-	    		String sTempUri = uri.toString().replace("%25", "%");
-	    		uri = new URI(sTempUri);			
-	    	}
-	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
-	    	
-	    	String sResponse = HttpGetRequest(uri);
-	    	print("Парсим ответ....");
-	    	
-	    	jsonObject = ParseResponse(sResponse);
-	    	if(jsonObject.isNull("error"))
-	    	{
-	    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок административных округов (саджест) получен \r\n");
-	    	}
-	    	else
-	    	{
-	    		print("Не удалось получить список административных округов (саджест) \r\n"+
-	    				"Ответ сервера:\r\n"+ jsonObject.toString());
-	    		throw new ExceptFailTest("Тест провален");
-	    	}	
-		}
+		print("4.9. Получение списка административных округов (саджест)".toUpperCase());
+		print("Параметры для запроса");
+		print("DataDistrictSuggest = "+ sAOSuggest);
+	
+		String sQuery = CreateSimpleRequest(sAOSuggest);
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
+    		.setQuery(sQuery);
+    	
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок административных округов (саджест) получен \r\n");
+    		return jsonObject;	
+    	}
+    	else
+    	{
+    		print("Не удалось получить список административных округов (саджест) \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
 	//4.10.	Получение списка направлений (саджест)
-	public void GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.10. Получение списка направлений (саджест)".toUpperCase());
@@ -9993,17 +10140,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок направлений (саджест) получен \r\n");
-    		JSONArray ar = jsonObject.getJSONArray("directions");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nсписок направлений (саджест) получен \r\n");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список направлений (саджест) \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}	
 	//4.11.	Получение списка шоссе (саджест)
 	public void GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -10045,10 +10190,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//4.12.	Получение списка станций метро (саджест)
-	public void GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
-		print("4.12.	Получение списка станций метро (саджест)".toUpperCase());
+		print("4.12. Получение списка станций метро (саджест)".toUpperCase());
 		print("Параметры для запроса");
 		print("DataMetroSuggest = "+ sDataMetroSuggest);
 	
@@ -10071,17 +10216,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок станций метро (саджест) получен\r\n");
-    		JSONArray ar = jsonObject.getJSONArray("metro");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nсписок станций метро (саджест) получен\r\n");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список станций метро (саджест) \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 		
 	//5.1.	Получение списка валют
