@@ -7548,7 +7548,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
 		//sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
-		sTemp = "{category=real-estate/apartments-sale/secondary, region=russia/moskva-gorod/, advert_type=realty_sell}";
+		sTemp = "{category=real-estate/apartments-sale/secondary, region=russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/, advert_type=realty_sell}";
 		print(sTemp);
 		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
 		print("\r\nПолучаем возможные значения для полей");
@@ -7558,24 +7558,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hAdressCust.PrintKeyAndValue();
 		print("Остальные кастомфилды и их возможные типы(значения)");
 		hDataAdvert.PrintKeyAndValue();
-
-		
-		Super_GetDataForAdress(sHost, hAdressCust, "russia/moskva-gorod/");
-		
-		
-		/*
-		if(hAdressCust.ContainsKeys("mapStreet"))
-			sMas = Super_GetSuggestStreet(sHost, "russia/moskva-gorod/");
-		sStreet = sMas[0];
-		StreetId = sMas[1];
-		sDistrict = sMas[2];
-		print(sStreet);
-		print(StreetId);
-		print(sDistrict);
-		*/
-		
-		// russia/omskaya-obl/omsk-gorod/ есть АО
-		//russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ - здесь направление
+	
+		Super_GetDataForAdress(sHost, hAdressCust, "russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/");
+	
+		// russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/ - шоссе
+		// russia/moskva-gorod/ - метро
+		// russia/omskaya-obl/omsk-gorod/ - АО
+		// russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ -  направление
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -7826,7 +7815,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			if(s.equals("mapHouseNr")||s.equals("address_district")||s.equals("mapStreet"))
 				ar.add(s); // если а списке кастомов есть адресные то добавляем их в список
-			if(s.equals("metro")||s.equals("highway")||s.equals("address_ao")||s.equals("direction"))
+			if(s.equals("metro")||s.equals("shosse")||s.equals("address_ao")||s.equals("direction"))
 				ar.add(s); // если а списке кастомов есть адресные то добавляем их в список
 		}
 		
@@ -8070,14 +8059,60 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sDirect;
 	}
-	private String Super_GetMetro(String sHost, String sReg)
+	private String Super_GetMetro(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sMetro = "[]", sSearch = "";
+		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
+		JSONArray jArr;
+		int n1 = 0;
+		
+		while(sMetro.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска метро");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+			
+			jTemp = GetMetroSuggest_4_12(sHost, sSearch);
+			
+			if(!jTemp.getString("metro").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("metro");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбрано метро - " + (nRandomRubr+1));
+				jTemp = jArr.getJSONObject(nRandomRubr);
+				print(jTemp.toString(10));
+				/////////////////////////////////////////////////////////////////
+				String sTemp = jTemp.getString("title").replaceAll(" \\(", "");
+				int k =  sTemp.lastIndexOf(" ");
+				if(k!=-1)
+					sMetro = sTemp.substring(0, k);
+				else
+					sMetro = sTemp;
+				/////////////////////////////////////////////////////////////////
+			}	
+			else
+				print("Не найдено неодного метро, повторная генерация саджеста");
+			
+			n1++;
+			if(n1==200)
+			{
+				sMetro = "Тестовое_метро";
+				print("Было произведено " + n1 +" попыток выбрать метро. Но ничего не вышло. Значение метро будет равно - " + sMetro);
+				break;
+			}
+		}
+		return sMetro;
+	}
+	private String Super_GetShosse(String sHost, String sReg)
 	{
 		return "";
 	}
-	
 	private void Super_GetDataForAdress(String sHost, HM<String, String> hAdressCust, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="";
+		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="", sMetro="";
 		String sMas[] = null;
 		HM<String, String> hAdressCustWithData = new HM<String, String>();
 		// проверяем есть ли поле улицы на подачи
@@ -8148,17 +8183,22 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print(sDirection);
 		}
 		
-		//роверяем есть ли поле метро на подаче
+		//проверяем есть ли поле метро на подаче
 		if(hAdressCust.ContainsKeys("metro"))
 		{
-			
+			sMetro = Super_GetMetro(sHost, sRegion);
+			hAdressCustWithData.SetValue("metro", sMetro.replaceAll(" ", "+"));
+			print(sMetro);
 		}
 		
 		print("Текущие адресные кастомы");
-		hAdressCustWithData.PrintKeyAndValue();
-		
+		hAdressCustWithData.PrintKeyAndValue();	
 		
 	}
+	
+	
+	
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -10151,7 +10191,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	//4.11.	Получение списка шоссе (саджест)
-	public void GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.11. Получение списка шоссе (саджест)".toUpperCase());
@@ -10177,17 +10217,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\nсписок шоссе (саджест) получен\r\n");
-    		JSONArray ar = jsonObject.getJSONArray("highways");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nсписок шоссе (саджест) получен\r\n");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список шоссе (саджест) \r\n"+
-    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	//4.12.	Получение списка станций метро (саджест)
 	public JSONObject GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
