@@ -2271,11 +2271,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     	{
     		case 1: // Для ОП
 		    	if(jsonObject.isNull("error"))
-		    		print("Ответ сервера:" + jsonObject.toString(10) + " Объявление деактивировано");
+		    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nОбъявление деактивировано");
 		    	else
 		    	{
 		    		print("Не удалось деактивировать объявление \r\n"+
-		    				"Ответ сервера:\r\n"+ jsonObject.toString());
+		    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
 		    		throw new ExceptFailTest("Тест провален");
 		    	}	
 		    	break;
@@ -7523,33 +7523,35 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sLogin = Proper.GetProperty("login_authOP");
 		String sPassword = Proper.GetProperty("password");
 		JSONObject jTemp;
-		HM<String, String> hDataAdvert;
-		HM<String, String> hAdressCust;
+		HM<String, String> hDataAdvert = new HM<String, String>();
+		HM<String, String> hAdressCust= new HM<String, String>();
+		HM<String, String> hTitleCust= new HM<String, String>();
 		String sMas[] = null;
-		String sTemp, sCategory, sAdvertType, sRegion, sStreet, StreetId, sDistrict;
+		String sTemp, sCategory, sAdvertType, sRegionParent, sRegion, sId;
+		String sParamUserData = "{phone=111111111,phone_add=1111,contact=Василий,phone2=22222222,phone_add2=2222,alternative_contact=Дмитрий,email=mail@mail.com,icq=1234567,web=irr.ru,skype=testskype}";
+		String sUrlVideo = "http://www.youtube.com/watch?v=AMpZ0TGjbWE";
+		String sParam, sParamAdress, sParamCustom, sParamTitle;
 		
-
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизуемся".toUpperCase()+"\r\n");
 		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 		print("sAuth_token = " + sAuth_token);
 		
-		/*print("\r\nПолучаем конечную рубрику и адвертайп");
+		print("\r\nПолучаем конечную рубрику и адвертайп");
 		sMas = Super_GetRandomRubric(sHost, "/");
 		sCategory = sMas[0];
 		sAdvertType = sMas[1];
 		
 		print("\r\nПолучаем регион для подачи объявления");
-		sRegion = Super_GetRandomRegion(sHost);
+		sRegionParent = Super_GetRandomRegion(sHost);
 		
-		print("\r\nПолучаем населенный пункт для выбранного региона " + sRegion);
-		sRegion = Super_GetCities(sHost, sRegion);
-		*/
+		print("\r\nПолучаем населенный пункт для выбранного региона " + sRegionParent);
+		sRegion = Super_GetCities(sHost, sRegionParent);
 		
-		//print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
-		//sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
-		sTemp = "{category=real-estate/apartments-sale/secondary, region=russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/, advert_type=realty_sell}";
-		print(sTemp);
+		
+		print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
+		sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
+		sParam = sTemp;
 		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
 		print("\r\nПолучаем возможные значения для полей");
 		hDataAdvert = Super_GetCustom(jTemp);
@@ -7558,13 +7560,91 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hAdressCust.PrintKeyAndValue();
 		print("Остальные кастомфилды и их возможные типы(значения)");
 		hDataAdvert.PrintKeyAndValue();
-	
-		Super_GetDataForAdress(sHost, hAdressCust, "russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/");
-	
+		
+		print("Получаем список валют");
+		GetCurrencies_5_1(sHost);
+		
+		print("Формируем данные по адресным кастомфилдам");
+		hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
+		if(hAdressCust.GetSize()==0)
+			print("На форме подачи нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
+		else
+		{
+			print("Текущие адресные кастомы");
+			hAdressCust.PrintKeyAndValue();
+		}
+		print("Формируем данные по остальным кастомфилдам");
+		hDataAdvert = Super_GetDataForOtherCustom(hDataAdvert);
+		print("Текущие кастомы для объявления");
+		hTitleCust = Super_GetTitleTextPriceCurrencyCustom(hDataAdvert);
+		hDataAdvert.PrintKeyAndValue();
+		print("Текущие кастомы заголовка, текста, цены, валюты");
+		hTitleCust.PrintKeyAndValue();
+		
+		
+		sParamTitle = hTitleCust.GetStringFromAllHashMap();
+		sParamAdress = hAdressCust.GetStringFromAllHashMap();
+		sParamCustom = hDataAdvert.GetStringFromAllHashMap();
+		
+		print("Подача объявления");
+		print("Значение категории, рубрики, адвертайпа - " + sParam);
+		print("Значение контактных данных - " + sParamUserData);
+		print("Значения title, text, price, currency - " + sParamTitle);
+		print("Значения адресных кастомов - " + sParamAdress);
+		print("Значения кастомов объявления - " + sParamCustom);
+		
 		// russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/ - шоссе
 		// russia/moskva-gorod/ - метро
 		// russia/omskaya-obl/omsk-gorod/ - АО
 		// russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ -  направление
+		
+		jTemp = Super_PostAdvert(sHost, sAuth_token, sParam, sParamUserData, sParamTitle, sParamAdress, sParamCustom, sUrlVideo);
+		sId = jTemp.getJSONObject("advertisement").getString("id");
+		print("Id созданного объявления - " + sId);
+		
+		print("Получаем список платных продуктов");
+		Super_GetProductForAdvert(sHost, sAuth_token, sId);
+		
+		print("Получаем статус объявления");
+		jTemp = GetAdvert(sHost, sId, "");
+		String sStatus = jTemp.getJSONObject("advertisement").getString("status");
+		if(!sStatus.equals("1"))
+		{
+			print("Активируем объявление");
+			ActivateAdvert(sHost, sAuth_token, sId, true, 1);
+		}
+		else
+		{
+			print("Объявление уже размещено. Активно");
+		}
+		
+		print("Выделяем объявление");
+		HighLightAdvert(sHost, sAuth_token, sId, true, 1);
+		jTemp = GetAdvert(sHost, sId, "");
+		sStatus = jTemp.getJSONObject("advertisement").getString("ismarkup");
+		if(!sStatus.equals("true"))
+		{
+			print("Объявление не было выделено");
+			throw new ExceptFailTest("Объявление не было выделено. Тест провален");
+		}
+		else
+		{
+			print("Объявление выделено");
+		}
+		
+		print("Назаначаем премиум объявлению");
+		SetPremiumAdvert(sHost, sAuth_token, sId, true, 1);
+		jTemp = GetAdvert(sHost, sId, "");
+		sStatus = jTemp.getJSONObject("advertisement").getString("ispremium");
+		if(!sStatus.equals("true"))
+		{
+			print("Объявлению не был назначен премиум");
+			throw new ExceptFailTest("Объявлению не был назначен премиум. Тест провален");
+		}
+		else
+		{
+			print("Объявление назначен премиум");
+		}
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
@@ -7688,6 +7768,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				jArr = jTemp.getJSONArray("regions");
 				nLenght = jArr.length();
+				nLenght = 1; // костыль что бы выбирало всегда первый город
 				nRandomRubr = GetRandomNumber(nLenght);
 				print("Выбран населенный пункт - " + (nRandomRubr+1));
 				jTemp = jArr.getJSONObject(nRandomRubr);
@@ -7804,7 +7885,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 
-	private HM<String, String> Super_GetAdressCustom(HM<String, String> hData)
+	private HM<String, String> Super_GetAdressCustom(HM<String, String> hData) // получаем адрессные кастомы и значения для них
 	{
 		Set<String> sK;
 		HM<String, String> hAdressCust = new HM<String, String>();
@@ -8106,13 +8187,55 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sMetro;
 	}
-	private String Super_GetShosse(String sHost, String sReg)
+	private String Super_GetShosse(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		return "";
+		String sShosse = "[]", sSearch = "";
+		JSONObject jTemp;
+		int nLenght = 0, nRandomRubr = 0;
+		JSONArray jArr;
+		int n1 = 0;
+		
+		while(sShosse.equals("[]"))
+		{
+			print("Попытка № " + n1);
+			print("Генерируем строку саджеста для поиска шоссе");
+			sSearch = Super_GetRandomString(3);
+			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
+			
+			jTemp = GetHighwaySuggest_4_11(sHost, sSearch);
+			
+			if(!jTemp.getString("highways").equals("[]"))
+			{
+				jArr = jTemp.getJSONArray("highways");
+				nLenght = jArr.length();
+				nRandomRubr = GetRandomNumber(nLenght);
+				print("Выбрано шоссе - " + (nRandomRubr+1));
+				sShosse = (String) jArr.get(nRandomRubr);
+				
+				String sTemp = sShosse.replaceAll(" \\(", "");
+				int k =  sTemp.lastIndexOf(" ");
+				if(k!=-1)
+					sShosse = sTemp.substring(0, k);
+				else
+					sShosse = sTemp;
+				print(sShosse);	
+			}	
+			else
+				print("Не найдено неодного шоссе, повторная генерация саджеста");
+			
+			n1++;
+			if(n1==400)
+			{
+				sShosse = "Тестовое_шоссе";
+				print("Было произведено " + n1 +" попыток выбрать шоссе. Но ничего не вышло. Значение шоссе будет равно - " + sShosse);
+				break;
+			}
+		}
+		return sShosse;
 	}
-	private void Super_GetDataForAdress(String sHost, HM<String, String> hAdressCust, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private HM<String, String> Super_GetDataForAdressCustom(String sHost, HM<String, String> hAdressCust, String sRegion, String sRegionParent) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="", sMetro="";
+		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="", sMetro="", sShosse="";
 		String sMas[] = null;
 		HM<String, String> hAdressCustWithData = new HM<String, String>();
 		// проверяем есть ли поле улицы на подачи
@@ -8178,7 +8301,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//проверяем есть ли поле направление на подаче
 		if(hAdressCust.ContainsKeys("direction"))
 		{
-			sDirection = Super_GetDirection(sHost, sRegion);
+			sDirection = Super_GetDirection(sHost, sRegionParent);
 			hAdressCustWithData.SetValue("direction", sDirection.replaceAll(" ", "+"));
 			print(sDirection);
 		}
@@ -8191,13 +8314,173 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print(sMetro);
 		}
 		
-		print("Текущие адресные кастомы");
-		hAdressCustWithData.PrintKeyAndValue();	
+		//проверяем есть ли шоссе на подаче
+		if(hAdressCust.ContainsKeys("shosse"))
+		{
+			sShosse = Super_GetShosse(sHost, sRegionParent);
+			hAdressCustWithData.SetValue("shosse", sShosse.replaceAll(" ", "+"));
+			print(sShosse);
+		}
+		
+		//print("Текущие адресные кастомы");
+		//hAdressCustWithData.PrintKeyAndValue();	
+		return hAdressCustWithData;
 		
 	}
 	
+	private HM<String, String> Super_GetDataForOtherCustom(HM<String, String> hDataAdvert) // получаем кастомы и значения для них
+	{
+		HM<String, String> hDataCustWithData = new HM<String, String>();
+		Set<String> sK;
+		String sTemp="";
+		
+		sK = hDataAdvert.GetAllKeys(); // получаем значения всех ключей
+		for(String s:sK)
+		{
+			sTemp = hDataAdvert.GetValue(s);
+			if(s.equals("currency"))
+			{
+				hDataCustWithData.SetValue(s, "RUR");
+				continue;
+			}
+			switch(sTemp)
+			{
+				case "integer":
+					hDataCustWithData.SetValue(s, Proper.GetProperty("integer"));
+					break;
+				case "text":
+					hDataCustWithData.SetValue(s, Proper.GetProperty("text"));
+					break;
+				case "string":
+					hDataCustWithData.SetValue(s, Proper.GetProperty("string"));
+					break;
+				case "float":
+					hDataCustWithData.SetValue(s, Proper.GetProperty("float"));
+					break;
+				case "bool":
+					hDataCustWithData.SetValue(s, Proper.GetProperty("bool"));
+					break;
+				default:
+					hDataCustWithData.SetValue(s, GetDataForCustomFromDictionary(sTemp));
+					break;
+			}
+		}
+		return hDataCustWithData;
+	}
+	private String GetDataForCustomFromDictionary(String sDataDictionary) // из значение словаря выбираем одно
+	{
+		String sTemp, sMas[];
+		ArrayList<String> list = new ArrayList<String>();
+		if(sDataDictionary.length()==0 || sDataDictionary.equals("[]")) // Елси строка пустая или равна []
+			return "";
+		sTemp = sDataDictionary;
+		////
+		
+		sTemp = sTemp.replaceAll("\\[", "").replaceAll("\\]", "");
+		sMas = sTemp.split("\"");
+		for(int i=0; i<sMas.length;i++)
+		{
+			if(sMas[i].equals(",") || sMas[i].equals(""))
+				continue;
+			else
+			{
+				list.add(sMas[i].replaceAll("\"", "").replaceAll(" ", "+"));
+			}
+		}
+		
+		////
+		
+		int n = GetRandomNumber(list.size());
+		return list.get(n);
+	}
+	private HM<String, String> Super_GetTitleTextPriceCurrencyCustom(HM<String, String> hData) // получаем адрессные кастомы и значения для них
+	{
+		Set<String> sK;
+		HM<String, String> hTitleCust = new HM<String, String>();
+		ArrayList<String> ar = new ArrayList<String>();
+		
+		sK = hData.GetAllKeys(); // получаем значения всех ключей
+		for(String s:sK)
+		{
+			if(s.equals("text")||s.equals("price")||s.equals("currency")||s.equals("title"))
+				ar.add(s); // если а списке кастомов есть что то из выше указанного то добавляем их в список
+		}
+		
+		for(String s:ar)
+		{
+			hTitleCust.SetValue(s, hData.GetValue(s)); // проходим по списку и добавляем в новый объект HM только title, text, price, currency найденные раннее
+			hData.DeletePos(s); // из первого объекта кастомов удаляем title, text, price, currency
+		}
+		return hTitleCust;
+		
+	}
 	
-	
+	private JSONObject Super_PostAdvert(String sHost, String sAuth_token, String sParam, String sParamUserData, String sParamTitle, String sParamAdress, String sParamCustom, String sUrlVideo) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		String sVideo = "&advertisement[video]="+sUrlVideo;
+		String sRequest = CreateSimpleRequestForPostAndPut(sParam);
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" ,sParamUserData);
+		String sRequest1_1 = CreateArrayRequestForPostAndPut("advertisement" ,sParamTitle);
+		
+		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamAdress);
+		String sRequest2_1 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamCustom);
+		
+		String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest1_1 + sRequest2 + sRequest2_1 + sVideo;
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+    		
+    	uri = builder.build();
+ 
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	String sResponse = HttpPostRequestImage2(uri, "2.jpg", sE);
+    
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse2(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    	
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление создано");
+    		return jsonObject;
+    	}	
+    	else
+    	{
+    		print("Не удалось создать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
+	private JSONObject Super_GetProductForAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    		.setParameter("auth_token", sAuth_token);
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nСписок получен");
+    		return jsonObject;	
+    	}
+    	else
+    	{
+    		print("Не удалось получить список продуктов \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}
+	}
 	
 	
 // Параметризированные тесты
@@ -8867,7 +9150,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка платных продуктов для объявления доступных на этапе подачи объявления
-	public void GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public JSONObject GetPaidProductsToStepToAdd_2_7(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
@@ -8893,13 +9176,16 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
+    	{
     		print("Ответ сервера:" + jsonObject.toString(10) + "\r\nСписок получен");
+    		return jsonObject;	
+    	}
     	else
     	{
     		print("Не удалось получить список продуктов \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	// Получение списка платных продуктов для объявления доступных в личном кабинете пользователя
 	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws ExceptFailTest, URISyntaxException, IOException, JSONException

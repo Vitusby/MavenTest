@@ -98,7 +98,7 @@ public abstract class Connect_Request_Abstract
     	
     	MultipartEntity reqEntity = new MultipartEntity();
 //////////
-    	print(sPath);
+    	//print(sPath);
    ////////////// 	
     	post.setURI(uri);
     	if(!sPath.equals("not_image")) // если передаем картинку то грузим ее в тело
@@ -350,6 +350,9 @@ public abstract class Connect_Request_Abstract
 	//generate ?param[value_param1][value1_param2][0]=value2 for put and post request
 	public final String CreateDoubleArrayRequestForPostAndPut(String sMainParam, String sChildMainParam, String sDataForDoubleArrayRequest) throws UnsupportedEncodingException, ExceptFailTest
 	{
+		if(sDataForDoubleArrayRequest.length()==0)
+			return "";
+		
 		sDataForDoubleArrayRequest = sDataForDoubleArrayRequest.replaceAll(" ", "").replaceAll("}", "").replaceAll(",", ",[").replaceAll("=", "][0]=")
 				.replace("{", "[").replaceAll("\"", "");
 		String s1[] = sDataForDoubleArrayRequest.split(",");

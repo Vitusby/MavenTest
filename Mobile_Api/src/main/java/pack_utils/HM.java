@@ -44,6 +44,9 @@ public class HM<K,V>
 	
 	public String GetStringFromAllHashMap()
 	{
+		if(hm.size()==0)
+			return "";
+		
 		StringBuffer sBuff = new StringBuffer();
 		s = hm.entrySet();
 		for(Map.Entry<K,V>me :s)
