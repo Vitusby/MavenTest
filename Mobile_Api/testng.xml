@@ -17,7 +17,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="Super_WorkAdvert"/>
+      <include name="AutoTest_5"/>
     </run>
   </groups>
     <classes>
