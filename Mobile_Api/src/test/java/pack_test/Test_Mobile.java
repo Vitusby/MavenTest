@@ -585,10 +585,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetDictinary_6_1" })
-	@Parameters({"sBaseHost", "sNameDictinary"})
-	public void Test41(String sBaseHost, String sNameDictinary) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sNameDictinary", "sParam"})
+	public void Test41(String sBaseHost, String sNameDictinary, @Optional("") String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDictinary_6_1(sBaseHost, sNameDictinary);
+		cM.GetDictinary_6_1(sBaseHost, sNameDictinary, sParam);
 		//"Car makers commercial"
 	} 
 	

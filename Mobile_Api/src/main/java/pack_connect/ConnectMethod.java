@@ -8359,7 +8359,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 					hDataCustWithData.SetValue(s, Proper.GetProperty("integer"));
 					break;
 				case "text":
-					hDataCustWithData.SetValue(s, Proper.GetProperty("text"));
+					hDataCustWithData.SetValue(s, Proper.GetProperty("text2"));
 					break;
 				case "string":
 					hDataCustWithData.SetValue(s, Proper.GetProperty("string"));
@@ -10595,17 +10595,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 		
 	//6.1.	Получение значений словаря
-	public void GetDictinary_6_1(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetDictinary_6_1(String sHost, String sNameDict, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("6.1.	Получение значений словаря");
 		print("Параметры для запроса");
-		print("NameDictinary = "+ sNameDict);
-		
+		print("NameDictinary = " + sNameDict);
+		print("Value = " + sParam);
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict);
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict)
+    		.setParameter("value", sParam);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
