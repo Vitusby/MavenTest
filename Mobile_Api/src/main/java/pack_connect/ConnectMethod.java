@@ -34,7 +34,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	private URIBuilder builder;; 
 	private URI uri;
 	private JSONObject jsonObject;
-	String mas_Advertisment[] = {"phone", "phone_add", "contact", "phone2", "phone_add2", "alternative_contact", "web",
+	String mas_Advertisment[] = {"phone", "phone_add", "seller", "phone2", "phone_add2", "seller2", "power_site",
 			"price", "currency", "title", "text"};
 	String mas_Auto2[] = {"make", "model", "mileage", "engine-power", "condition", "car-year", "transmittion",
 			"modification", "bodytype", "electromirror", "cruiscontrol", "color"};
@@ -7518,132 +7518,142 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Супер тест2 Работа с объявлением
 	public void Super_WorkAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
+		
 		wLog.SetUpWriterLog("LogResult.html");
-		String sAuth_token; 
-		String sLogin = Proper.GetProperty("login_authOP");
+		String sAuth_token = ""; 
+		String sLogin = Proper.GetProperty("login_authSuper");
 		String sPassword = Proper.GetProperty("password");
 		JSONObject jTemp;
 		HM<String, String> hDataAdvert = new HM<String, String>();
 		HM<String, String> hAdressCust= new HM<String, String>();
 		HM<String, String> hTitleCust= new HM<String, String>();
 		String sMas[] = null;
-		String sTemp, sCategory, sAdvertType, sRegionParent, sRegion, sId;
+		String sTemp, sCategory, sAdvertType, sRegionParent, sRegion, sId = "";
 		String sParamUserData = "{phone=111111111,phone_add=1111,contact=Василий,phone2=22222222,phone_add2=2222,alternative_contact=Дмитрий,email=mail@mail.com,icq=1234567,web=irr.ru,skype=testskype}";
 		String sUrlVideo = "http://www.youtube.com/watch?v=AMpZ0TGjbWE";
 		String sParam, sParamAdress, sParamCustom, sParamTitle;
+		boolean bFlag = false;
 		
-		print("------------------------------------------------------------------------------------------------------------");
-		print("Авторизуемся".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
-		print("sAuth_token = " + sAuth_token);
-		
-		print("\r\nПолучаем конечную рубрику и адвертайп");
-		sMas = Super_GetRandomRubric(sHost, "/");
-		sCategory = sMas[0];
-		sAdvertType = sMas[1];
-		
-		print("\r\nПолучаем регион для подачи объявления");
-		sRegionParent = Super_GetRandomRegion(sHost);
-		
-		print("\r\nПолучаем населенный пункт для выбранного региона " + sRegionParent);
-		sRegion = Super_GetCities(sHost, sRegionParent);
-		
-		
-		print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
-		sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
-		sParam = sTemp;
-		jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
-		print("\r\nПолучаем возможные значения для полей");
-		hDataAdvert = Super_GetCustom(jTemp);
-		hAdressCust = Super_GetAdressCustom(hDataAdvert); 
-		print("Адресные кастомфилды и их возможные типы(значения)");
-		hAdressCust.PrintKeyAndValue();
-		print("Остальные кастомфилды и их возможные типы(значения)");
-		hDataAdvert.PrintKeyAndValue();
-		
-		print("Получаем список валют");
-		GetCurrencies_5_1(sHost);
-		
-		print("Формируем данные по адресным кастомфилдам");
-		hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
-		if(hAdressCust.GetSize()==0)
-			print("На форме подачи нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
-		else
+		try
 		{
-			print("Текущие адресные кастомы");
+			print("------------------------------------------------------------------------------------------------------------");
+			print("Авторизуемся".toUpperCase()+"\r\n");
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+			print("sAuth_token = " + sAuth_token);
+			
+			print("\r\nПолучаем конечную рубрику и адвертайп");
+			sMas = Super_GetRandomRubric(sHost, "/");
+			sCategory = sMas[0];
+			sAdvertType = sMas[1];
+			
+			print("\r\nПолучаем регион для подачи объявления");
+			sRegionParent = Super_GetRandomRegion(sHost);
+			
+			print("\r\nПолучаем населенный пункт для выбранного региона " + sRegionParent);
+			sRegion = Super_GetCities(sHost, sRegionParent);
+			
+			
+			print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
+			sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
+			sParam = sTemp;
+			jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
+			print("\r\nПолучаем возможные значения для полей");
+			hDataAdvert = Super_GetCustom(jTemp);
+			hAdressCust = Super_GetAdressCustom(hDataAdvert); 
+			print("Адресные кастомфилды и их возможные типы(значения)");
 			hAdressCust.PrintKeyAndValue();
+			print("Остальные кастомфилды и их возможные типы(значения)");
+			hDataAdvert.PrintKeyAndValue();
+			
+			print("Получаем список валют");
+			GetCurrencies_5_1(sHost);
+			
+			print("Формируем данные по адресным кастомфилдам");
+			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
+			if(hAdressCust.GetSize()==0)
+				print("На форме подачи нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
+			else
+			{
+				print("Текущие адресные кастомы");
+				hAdressCust.PrintKeyAndValue();
+			}
+			print("Формируем данные по остальным кастомфилдам");
+			hDataAdvert = Super_GetDataForOtherCustom(hDataAdvert);
+			print("Текущие кастомы для объявления");
+			hTitleCust = Super_GetTitleTextPriceCurrencyCustom(hDataAdvert);
+			hDataAdvert.PrintKeyAndValue();
+			print("Текущие кастомы заголовка, текста, цены, валюты");
+			hTitleCust.PrintKeyAndValue();
+			
+			
+			sParamTitle = hTitleCust.GetStringFromAllHashMap();
+			sParamAdress = hAdressCust.GetStringFromAllHashMap();
+			sParamCustom = hDataAdvert.GetStringFromAllHashMap();
+			
+			print("Подача объявления");
+			print("Значение категории, рубрики, адвертайпа - " + sParam);
+			print("Значение контактных данных - " + sParamUserData);
+			print("Значения title, text, price, currency - " + sParamTitle);
+			print("Значения адресных кастомов - " + sParamAdress);
+			print("Значения кастомов объявления - " + sParamCustom);
+			
+			// russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/ - шоссе
+			// russia/moskva-gorod/ - метро
+			// russia/omskaya-obl/omsk-gorod/ - АО
+			// russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ -  направление
+			
+			jTemp = Super_PostAdvert(sHost, sAuth_token, sParam, sParamUserData, sParamTitle, sParamAdress, sParamCustom, sUrlVideo);
+			sId = jTemp.getJSONObject("advertisement").getString("id");
+			print("Id созданного объявления - " + sId);
+			bFlag = true;
+			print("Получаем список платных продуктов");
+			Super_GetProductForAdvert(sHost, sAuth_token, sId);
+			
+			print("Получаем статус объявления");
+			jTemp = GetAdvert(sHost, sId, "");
+			String sStatus = jTemp.getJSONObject("advertisement").getString("status");
+			if(!sStatus.equals("1"))
+			{
+				print("Активируем объявление");
+				ActivateAdvert(sHost, sAuth_token, sId, true, 1);
+			}
+			else
+			{
+				print("Объявление уже размещено. Активно");
+			}
+			
+			print("Выделяем объявление");
+			HighLightAdvert(sHost, sAuth_token, sId, true, 1);
+			jTemp = GetAdvert(sHost, sId, "");
+			sStatus = jTemp.getJSONObject("advertisement").getString("ismarkup");
+			if(!sStatus.equals("true"))
+			{
+				print("Объявление не было выделено");
+				throw new ExceptFailTest("Объявление не было выделено. Тест провален");
+			}
+			else
+			{
+				print("Объявление выделено");
+			}
+			
+			print("Назаначаем премиум объявлению");
+			SetPremiumAdvert(sHost, sAuth_token, sId, true, 1);
+			jTemp = GetAdvert(sHost, sId, "");
+			sStatus = jTemp.getJSONObject("advertisement").getString("ispremium");
+			if(!sStatus.equals("true"))
+			{
+				print("Объявлению не был назначен премиум");
+				throw new ExceptFailTest("Объявлению не был назначен премиум. Тест провален");
+			}
+			else
+			{
+				print("Объявление назначен премиум");
+			}
 		}
-		print("Формируем данные по остальным кастомфилдам");
-		hDataAdvert = Super_GetDataForOtherCustom(hDataAdvert);
-		print("Текущие кастомы для объявления");
-		hTitleCust = Super_GetTitleTextPriceCurrencyCustom(hDataAdvert);
-		hDataAdvert.PrintKeyAndValue();
-		print("Текущие кастомы заголовка, текста, цены, валюты");
-		hTitleCust.PrintKeyAndValue();
-		
-		
-		sParamTitle = hTitleCust.GetStringFromAllHashMap();
-		sParamAdress = hAdressCust.GetStringFromAllHashMap();
-		sParamCustom = hDataAdvert.GetStringFromAllHashMap();
-		
-		print("Подача объявления");
-		print("Значение категории, рубрики, адвертайпа - " + sParam);
-		print("Значение контактных данных - " + sParamUserData);
-		print("Значения title, text, price, currency - " + sParamTitle);
-		print("Значения адресных кастомов - " + sParamAdress);
-		print("Значения кастомов объявления - " + sParamCustom);
-		
-		// russia/moskovskaya-obl/odintsovskiy-r_n/kapan-derevnya/ - шоссе
-		// russia/moskva-gorod/ - метро
-		// russia/omskaya-obl/omsk-gorod/ - АО
-		// russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ -  направление
-		
-		jTemp = Super_PostAdvert(sHost, sAuth_token, sParam, sParamUserData, sParamTitle, sParamAdress, sParamCustom, sUrlVideo);
-		sId = jTemp.getJSONObject("advertisement").getString("id");
-		print("Id созданного объявления - " + sId);
-		
-		print("Получаем список платных продуктов");
-		Super_GetProductForAdvert(sHost, sAuth_token, sId);
-		
-		print("Получаем статус объявления");
-		jTemp = GetAdvert(sHost, sId, "");
-		String sStatus = jTemp.getJSONObject("advertisement").getString("status");
-		if(!sStatus.equals("1"))
+		finally
 		{
-			print("Активируем объявление");
-			ActivateAdvert(sHost, sAuth_token, sId, true, 1);
-		}
-		else
-		{
-			print("Объявление уже размещено. Активно");
-		}
-		
-		print("Выделяем объявление");
-		HighLightAdvert(sHost, sAuth_token, sId, true, 1);
-		jTemp = GetAdvert(sHost, sId, "");
-		sStatus = jTemp.getJSONObject("advertisement").getString("ismarkup");
-		if(!sStatus.equals("true"))
-		{
-			print("Объявление не было выделено");
-			throw new ExceptFailTest("Объявление не было выделено. Тест провален");
-		}
-		else
-		{
-			print("Объявление выделено");
-		}
-		
-		print("Назаначаем премиум объявлению");
-		SetPremiumAdvert(sHost, sAuth_token, sId, true, 1);
-		jTemp = GetAdvert(sHost, sId, "");
-		sStatus = jTemp.getJSONObject("advertisement").getString("ispremium");
-		if(!sStatus.equals("true"))
-		{
-			print("Объявлению не был назначен премиум");
-			throw new ExceptFailTest("Объявлению не был назначен премиум. Тест провален");
-		}
-		else
-		{
-			print("Объявление назначен премиум");
+			if(bFlag)
+				DeleteAdvert(sHost, sAuth_token, sId);
 		}
 	}
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
