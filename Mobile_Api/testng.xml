@@ -5,7 +5,7 @@
    <parameter name="sBaseHost" value="master.prontosoft.by"/>
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
-   <parameter name="sIdAdvert" value="257193043"/> 
+   <parameter name="sIdAdvert" value="257190269"/> 
    <parameter name="sParam1" value="currency=RUR/"/>
    <parameter name="sParam2" value="{make=BMW, model=116, car-year=2010, bodytype=внедорожник, transmittion=механическая}"/> 
    <parameter name="sVideoUrl" value="http://www.youtube.com/watch?v=AMpZ0TGjbWE"/> 
@@ -17,7 +17,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="AutoTest_5"/>
+      <include name="GetHistoryView9_3"/>
     </run>
   </groups>
     <classes>

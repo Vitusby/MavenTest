@@ -677,6 +677,13 @@ public class Test_Mobile
 		cM.GetListAdvertForSite9_2(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
 	} 
 	
+	@Test (groups = { "GetHistoryView9_3" })
+	@Parameters({"sBaseHost", "sIdAdvert"})
+	public void Test54(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		cM.GetHistoryView9_3(sBaseHost, sIdAdvert);
+	} 
+	
 //////////////////////////////////////////////////////////////////////////////////////////////
 	@Test (groups = { "Super_WorkProfile" })
 	@Parameters({"sBaseHost"})

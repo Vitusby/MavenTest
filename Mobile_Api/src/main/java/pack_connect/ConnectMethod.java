@@ -11117,6 +11117,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	// 9.2 Получение листингов для сайта
 	public void GetListAdvertForSite9_2(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sAuth_token="";
@@ -11179,6 +11180,45 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	// 9.3 Получения истории просмотров
+	public void GetHistoryView9_3(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	{
+		JSONObject jTemp = null;
+		print("9.1 Получение истории просмотров");
+		print("Параметры для запроса");
+		print("sIdAdvert = "+ sIdAdvert);
+		
+		
+		builder = new URIBuilder();
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert +"/view_history");
+    
+    	uri = builder.build();
+    	if(uri.toString().indexOf("%25") != -1)
+    	{
+    		String sTempUri = uri.toString().replace("%25", "%");
+    		uri = new URI(sTempUri);			
+    	}
+    	
+    	print("Отправляем запрос. Uri Запроса: " + uri.toString());
+    	
+    	String sResponse = HttpGetRequest(uri);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	jTemp = jsonObject;
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("Ответ сервера: История просмотра получена");
+    		print("");
+    		print(jTemp.toString(10));
+    	}
+    	else
+    	{
+    		print("Не удалось получить историю просмотра объявления \r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString());
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
 	
 	// Авторизация для файлов лога
 	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
