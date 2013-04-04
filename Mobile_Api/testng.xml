@@ -17,7 +17,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="GetHistoryView9_3"/>
+      <include name="Super_WorkSearch"/>
     </run>
   </groups>
     <classes>

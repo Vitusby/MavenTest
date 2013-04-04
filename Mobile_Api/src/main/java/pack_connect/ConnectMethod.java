@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.zip.CRC32;
@@ -403,7 +402,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Генерируем данные");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "contact", "dont_subscribe", "city",
+		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "seller", "dont_subscribe", "city",
 				"title", "mobile", "email", "login"};
 		
 		for(int i=0; i<mas.length; i++)
@@ -7515,8 +7514,8 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("------------------------------------------------------------------------------------------------------------");
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Супер тест2 Работа с объявлением
-	public void Super_WorkAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	//Супер тест2-3 Работа с объявлением (подача и редактирование)
+	public void Super_WorkAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		
 		wLog.SetUpWriterLog("LogResult.html");
@@ -7529,60 +7528,61 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hTitleCust= new HM<String, String>();
 		String sMas[] = null;
 		String sTemp, sCategory, sAdvertType, sRegionParent, sRegion, sId = "";
-		String sParamUserData = "{phone=111111111,phone_add=1111,contact=Василий,phone2=22222222,phone_add2=2222,alternative_contact=Дмитрий,email=mail@mail.com,icq=1234567,web=irr.ru,skype=testskype}";
+		String sParamUserData = "{phone=111111111,phone_add=1111,seller=Василий,phone2=22222222,phone_add2=2222,seller2=Дмитрий,email=mail@mail.com,icq=1234567,power_site=irr.ru,skype=testskype}";
 		String sUrlVideo = "http://www.youtube.com/watch?v=AMpZ0TGjbWE";
 		String sParam, sParamAdress, sParamCustom, sParamTitle;
 		boolean bFlag = false;
 		
 		try
 		{
+			//часть 1
 			print("------------------------------------------------------------------------------------------------------------");
-			print("Авторизуемся".toUpperCase()+"\r\n");
+			print("Авторизуемся".toUpperCase());
 			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
 			print("sAuth_token = " + sAuth_token);
 			
-			print("\r\nПолучаем конечную рубрику и адвертайп");
+			print("\r\nПолучаем конечную рубрику и адвертайп".toUpperCase());
 			sMas = Super_GetRandomRubric(sHost, "/");
 			sCategory = sMas[0];
 			sAdvertType = sMas[1];
 			
-			print("\r\nПолучаем регион для подачи объявления");
+			print("\r\nПолучаем регион для подачи объявления".toUpperCase());
 			sRegionParent = Super_GetRandomRegion(sHost);
 			
-			print("\r\nПолучаем населенный пункт для выбранного региона " + sRegionParent);
+			print("\r\nПолучаем населенный пункт для выбранного региона ".toUpperCase() + sRegionParent);
 			sRegion = Super_GetCities(sHost, sRegionParent);
 			
 			
-			print("Получаем поля для подачи объявления рубрики в категорию " + sCategory + " и регион " + sRegion);
+			print("\r\nПолучаем поля для подачи объявления рубрики в категорию ".toUpperCase() + sCategory + " и регион ".toUpperCase() + sRegion);
 			sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
 			sParam = sTemp;
 			jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
-			print("\r\nПолучаем возможные значения для полей");
+			print("\r\nПолучаем возможные значения для полей".toUpperCase());
 			hDataAdvert = Super_GetCustom(jTemp);
 			hAdressCust = Super_GetAdressCustom(hDataAdvert); 
-			print("Адресные кастомфилды и их возможные типы(значения)");
+			print("Адресные кастомфилды и их возможные типы(значения)".toUpperCase());
 			hAdressCust.PrintKeyAndValue();
-			print("Остальные кастомфилды и их возможные типы(значения)");
+			print("Остальные кастомфилды и их возможные типы(значения)".toUpperCase());
 			hDataAdvert.PrintKeyAndValue();
 			
-			print("Получаем список валют");
+			print("\r\nПолучаем список валют".toUpperCase());
 			GetCurrencies_5_1(sHost);
 			
-			print("Формируем данные по адресным кастомфилдам");
+			print("\r\nФормируем данные по адресным кастомфилдам".toUpperCase());
 			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
 			if(hAdressCust.GetSize()==0)
 				print("На форме подачи нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
 			else
 			{
-				print("Текущие адресные кастомы");
+				print("\r\nТекущие адресные кастомы".toUpperCase());
 				hAdressCust.PrintKeyAndValue();
 			}
-			print("Формируем данные по остальным кастомфилдам");
+			print("\r\nФормируем данные по остальным кастомфилдам".toUpperCase());
 			hDataAdvert = Super_GetDataForOtherCustom(hDataAdvert);
-			print("Текущие кастомы для объявления");
+			print("Текущие кастомы для объявления".toUpperCase());
 			hTitleCust = Super_GetTitleTextPriceCurrencyCustom(hDataAdvert);
 			hDataAdvert.PrintKeyAndValue();
-			print("Текущие кастомы заголовка, текста, цены, валюты");
+			print("Текущие кастомы заголовка, текста, цены, валюты".toUpperCase());
 			hTitleCust.PrintKeyAndValue();
 			
 			
@@ -7590,7 +7590,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sParamAdress = hAdressCust.GetStringFromAllHashMap();
 			sParamCustom = hDataAdvert.GetStringFromAllHashMap();
 			
-			print("Подача объявления");
+			print("\r\nПодача объявления".toUpperCase());
 			print("Значение категории, рубрики, адвертайпа - " + sParam);
 			print("Значение контактных данных - " + sParamUserData);
 			print("Значения title, text, price, currency - " + sParamTitle);
@@ -7606,15 +7606,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sId = jTemp.getJSONObject("advertisement").getString("id");
 			print("Id созданного объявления - " + sId);
 			bFlag = true;
-			print("Получаем список платных продуктов");
+			print("\r\nПолучаем список платных продуктов".toUpperCase());
 			Super_GetProductForAdvert(sHost, sAuth_token, sId);
 			
-			print("Получаем статус объявления");
+			print("\r\nПолучаем статус объявления".toUpperCase());
 			jTemp = GetAdvert(sHost, sId, "");
 			String sStatus = jTemp.getJSONObject("advertisement").getString("status");
 			if(!sStatus.equals("1"))
 			{
-				print("Активируем объявление");
+				print("\r\nАктивируем объявление".toUpperCase());
 				ActivateAdvert(sHost, sAuth_token, sId, true, 1);
 			}
 			else
@@ -7622,7 +7622,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				print("Объявление уже размещено. Активно");
 			}
 			
-			print("Выделяем объявление");
+			print("\r\nВыделяем объявление".toUpperCase());
 			HighLightAdvert(sHost, sAuth_token, sId, true, 1);
 			jTemp = GetAdvert(sHost, sId, "");
 			sStatus = jTemp.getJSONObject("advertisement").getString("ismarkup");
@@ -7636,7 +7636,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				print("Объявление выделено");
 			}
 			
-			print("Назаначаем премиум объявлению");
+			print("\r\nНазаначаем премиум объявлению".toUpperCase());
 			SetPremiumAdvert(sHost, sAuth_token, sId, true, 1);
 			jTemp = GetAdvert(sHost, sId, "");
 			sStatus = jTemp.getJSONObject("advertisement").getString("ispremium");
@@ -7649,6 +7649,82 @@ public class ConnectMethod extends Connect_Request_Abstract
 			{
 				print("Объявление назначен премиум");
 			}
+			
+			//часть 2
+			
+			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+
+			print("\r\nПолучение листинга своих объявлений".toUpperCase());
+			jTemp = GetListOwnAdvert(sHost, sAuth_token);
+	
+			if(jTemp.getString("advertisements").equals("[]"))
+			{
+				print("В листинге не найдено неодного объявления. Хотя мы только что подали. Тест провален");
+				throw new ExceptFailTest("В листинге не найдено неодного объявления. Хотя мы только что подали. Тест провален");
+			}
+			
+			print("\r\nПолучаем id первого объявления и сравниваем его с только что подданым".toUpperCase());
+			sTemp = jTemp.getJSONArray("advertisements").getJSONObject(0).getString("id");
+			
+			if(!sId.equals(sTemp))
+			{
+				print("Id поданного объявления не совпадает с первым найденным в листинге. Тест провален");
+				throw new ExceptFailTest("Id поданного объявления не совпадает с первым найденным в листинге. Тест провален");
+			}
+			print("Объявление с ID = " + sId + " найдено на первой позиции");
+			
+			print("\r\nПолучаем объявление ".toUpperCase() + sId);
+			jTemp = GetAdvert(sHost, sId, "");
+			
+			sMas = Super_GetCategoryRegionAdvertTypeFromAdvert(jTemp); 
+			sCategory = sMas[0];
+			sRegion = sMas[1];
+			sAdvertType = sMas[2];
+		
+			print("\r\nПолучаем поля для редактирования объявления категории ".toUpperCase() + sCategory + " и региона ".toUpperCase() + sRegion);
+			sTemp = "{category=" + sCategory + ", region=" + sRegion + ", advert_type=" + sAdvertType + "}";
+			jTemp = GetCastomfieldsForEditAdvert_3_3(sHost, sTemp);
+			
+			print("\r\nПолучаем возможные значения для полей".toUpperCase());
+			hDataAdvert = Super_GetCustom(jTemp);
+			hAdressCust = Super_GetAdressCustom(hDataAdvert); 
+			print("Адресные кастомфилды и их возможные типы(значения)".toUpperCase());
+			hAdressCust.PrintKeyAndValue();
+			print("Остальные кастомфилды и их возможные типы(значения)".toUpperCase());
+			hDataAdvert.PrintKeyAndValue();
+			
+			print("\r\nФормируем данные по адресным кастомфилдам".toUpperCase());
+			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
+			if(hAdressCust.GetSize()==0)
+				print("На форме редактирования нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
+			else
+			{
+				print("Текущие адресные кастомы");
+				hAdressCust.PrintKeyAndValue();
+			}
+			print("\r\nФормируем данные по остальным кастомфилдам".toUpperCase());
+			hDataAdvert = Super_GetDataForOtherCustom(hDataAdvert);
+			print("Текущие кастомы для объявления".toUpperCase());
+			hTitleCust = Super_GetTitleTextPriceCurrencyCustom(hDataAdvert);
+			hDataAdvert.PrintKeyAndValue();
+			print("Текущие кастомы заголовка, текста, цены, валюты".toUpperCase());
+			hTitleCust.PrintKeyAndValue();
+			
+			sParamTitle = hTitleCust.GetStringFromAllHashMap();
+			sParamAdress = hAdressCust.GetStringFromAllHashMap();
+			sParamCustom = hDataAdvert.GetStringFromAllHashMap();
+			
+			print("\r\nПолучаем список валют".toUpperCase());
+			GetCurrencies_5_1(sHost);
+			
+			print("\r\nРедактирование объявления".toUpperCase());
+			print("Значения title, text, price, currency - " + sParamTitle);
+			print("Значения адресных кастомов - " + sParamAdress);
+			print("Значения кастомов объявления - " + sParamCustom);
+			
+			Super_EditAdvert(sHost, sAuth_token, sId, sParamTitle, sParamAdress, sParamCustom);
+			
 		}
 		finally
 		{
@@ -7656,6 +7732,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				DeleteAdvert(sHost, sAuth_token, sId);
 		}
 	}
+	//часть 1
 	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
@@ -8491,7 +8568,370 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
+	//часть 2
+	private String[] Super_GetCategoryRegionAdvertTypeFromAdvert(JSONObject jAdvert) throws JSONException 
+	{
+		String sMas[] = new String[3];
+		String sCategory="", sRegion="", sAdvertType="";
+		sCategory = jAdvert.getJSONObject("advertisement").getString("category_url");
+		sRegion = jAdvert.getJSONObject("advertisement").getString("region_url");
+		sAdvertType = jAdvert.getJSONObject("advertisement").getString("advert_type");	
+		sMas[0] = sCategory;
+		sMas[1] = sRegion;
+		sMas[2] = sAdvertType;
+		return sMas;
+		
+	}
+	private void Super_EditAdvert(String sHost, String sAuth_token, String sId, String sParamTitle, String sParamAdress, String sParamCustom) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" , sParamTitle);
+		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamAdress);
+		String sRequest2_1 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamCustom);
+		
+		builder = new URIBuilder();
+		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/" + sId);
+		
+		String sE="";
+    	sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sRequest2_1;
+    		
+    
+		uri = builder.build();
+		print("Отправляем запрос. Uri Запроса: " + uri.toString());
+		
+		
+		String	sResponse = HttpPostRequest2(uri, sE);
+    	print("Парсим ответ....");
+    	
+    	jsonObject = ParseResponse(sResponse);
+    	if(jsonObject.isNull("error"))
+    	{
+    		print("\r\nОтвет сервера:\r\n" + jsonObject.toString(10) + "\r\nОбъявление отредактировано");
+    	}
+    	else
+    	{
+    		print("Не удалось отредактировать объявление\r\n"+
+    				"Ответ сервера:\r\n"+ jsonObject.toString(10));
+    		throw new ExceptFailTest("Тест провален");
+    	}	
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	// Супер тест 4 работа с объявлениями - поиск
+	public void Super_WorkSearch(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		String sTemp="";
+		String sRegion="", sCategory="";
+		String sMas[];
+		JSONObject jTemp;
+		
+		print("\r\nПолучаем конечную рубрику для фильтрации".toUpperCase());
+		sMas = Super_GetRandomRubric(sHost, "/");
+		sCategory = sMas[0];
+		
+		print("\r\nПолучаем регион для фильтрации объявления".toUpperCase());
+		sRegion = Super_GetRandomRegion(sHost);
+		
+		sTemp = "{region=" + sRegion + ",category=" + sCategory + "}";
+		//sTemp = "{region=russia/moskva-gorod,category=cars/passenger/used/}";
+		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp);
+		GetCustomForFilters(sHost, jTemp, "default");
+		GetCustomForFilters(sHost, jTemp, "extended");
+		
+	}
+	// получение фильтров и их значении
+	private HM<String, String> GetCustomForFilters(String sHost, JSONObject jTemp, String sTypeFilter) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	{
+		HM<String, String> hFilter = new HM<String, String>();
+		JSONArray jArrDefault, jArr;
+		JSONObject jD, jD2, jD3;
+		String sD, sD2, sD3;
+		int nLenght = 0;
+		String sNameDictionaty = "";
+		
+		jArrDefault = jTemp.getJSONArray(sTypeFilter);
+		print("Получаем " + sTypeFilter + " фильтры");
+		for(int i=0; i<jArrDefault.length(); i++)
+		{
+			jD = jArrDefault.getJSONObject(i);
+			sD3 = jD.getString("type");
+			//print(sD3);
+			////////////////////////////////////////
+			//костыль на адресные
+			if(sD3.equals("locality")) // ао или  район
+			{
+				jD3 = jD.getJSONObject("values"); // получили объект ао, район
+				JSONArray ar = jD3.names(); //получили все имена ао, район (равно )
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			if(sD3.equals("metro"))
+			{
+				// линия метро
+				jD3 = jD.getJSONObject("values"); // получили объект линии метро
+				JSONArray ar = jD3.names(); //получили все названия объектов с линиями
+				//print(ar);
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				
+				// станция 
+				jD3 = jD2.getJSONObject("items"); // получили все станции на линии
+				ar = jD3.names(); // получили имена объектов станций (имена станций)
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			/////////////////////////////////////// костыль на группы	
+			if(sD3.equals("group"))
+			{
+				JSONArray ar = jD.getJSONArray("elements");
+				//print(ar.toString(10));
+				for(int y=0; y<ar.length(); y++)
+				{
+					jD2 = (JSONObject) ar.get(y);
+					sD = jD2.getString("name");
+					if(jD2.getString("type").equals("range"))
+					{
+						int k = GetRandomNumber(3);
+						sD2 = "больше" + ((k == 0) ? 1 : k);
+						hFilter.SetValue(sD, sD2);
+					}
+					else
+					{
+						jArr = jD2.getJSONArray("values");
+						nLenght = jArr.length();
+						
+						if(jArr.toString().equals("[]")) // Если значения нет к примеру keywords=[]
+							hFilter.SetValue(sD, "");
+						else
+						{
+							sD2 = ((JSONObject) jArr.get(GetRandomNumber(nLenght))).getString("value");
+							hFilter.SetValue(sD, sD2);
+						}
+					}
+				}
+				continue;
+			}
+			
+			
+			sD = jD.getString("name");
+			////////////////////////////////////
+			
+			if(sD.equals("price")) // костыль номер 1
+			{
+				int k = GetRandomNumber(10);
+				sD2 = "больше" + ((k == 0) ? 1 : k)*1000;
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			
+			if(sD.equals("car-year")) // костыль номер 2
+			{
+				sD2 = "больше"+(GetRandomNumber(10)+1991);
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			
+			if(sD.equals("fotovideo")) // костыль номер 3
+			{
+				jArr = jD.getJSONArray("values");
+				jD2 = jArr.getJSONObject(GetRandomNumber(jArr.length()));
+				sD = jD2.getString("name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;	
+			}
+		
+			if(sD3.equals("price") || sD3.equals("range")) // костыль для всех других полей min и max
+			{
+				int k = GetRandomNumber(3);
+				sD2 = "больше" + ((k == 0) ? 1 : k);
+				hFilter.SetValue(sD, sD2);
+				continue;	
+			}
+			////////////////////////////////////
+			jArr = jD.getJSONArray("values");
+			nLenght = jArr.length();
+			
+			if(jArr.toString().equals("[]")) // Если значения нет к примеру keywords=[]
+				hFilter.SetValue(sD, "");
+			else
+			{
+				sD2 = ((JSONObject) jArr.get(GetRandomNumber(nLenght))).getString("value");
+				hFilter.SetValue(sD, sD2);
+			}
+			
+			//здесь получаем значение словаря если это поле make
+			if(sD.equals("make"))
+			{
+				print("В фильтрах присутсвует поле марка. Получаем название словаря для данного поля");
+				sNameDictionaty = jD.getString("dictionary");
+				//print(jD.getString("dictionary"));
+			}
+			
+			// получаем значения моделей для выбранной марки
+			if(sD.equals("model"))
+			{
+				print("В фильтрах присутсвует поле модель, получаем значения моделей для ранее выбраной марки");
+				jD = GetDictinary_6_1(sHost, sNameDictionaty, hFilter.GetValue("make"));
+				jArr = jD.getJSONArray("values");
+				nLenght = jArr.length();
+				sD2 = (String) jArr.get(GetRandomNumber(nLenght));
+				hFilter.SetValue(sD, sD2);
+				
+			}
+			
+		}
+		
+		//GetDictinary_6_1(String sHost, String sNameDict, String sParam)
+		
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	/*	jArrExtends = jTemp.getJSONArray("extended");
+		print("Получаем extended фильтры");
+		for(int i=0; i<jArrExtends.length(); i++)
+		{
+			jD = jArrExtends.getJSONObject(i);
 	
+			sD3 = jD.getString("type");
+			//print(sD3);
+			////////////////////////////////////
+			
+			//костыль на адресные
+			if(sD3.equals("locality")) // ао или  район
+			{
+				jD3 = jD.getJSONObject("values"); // получили объект ао, район
+				JSONArray ar = jD3.names(); //получили все имена ао, район (равно )
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			if(sD3.equals("metro"))
+			{
+				// линия метро
+				jD3 = jD.getJSONObject("values"); // получили объект линии метро
+				JSONArray ar = jD3.names(); //получили все названия объектов с линиями
+				//print(ar);
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				
+				// станция 
+				jD3 = jD2.getJSONObject("items"); // получили все станции на линии
+				ar = jD3.names(); // получили имена объектов станций (имена станций)
+				nLenght = ar.length();
+				jD2 = jD3.getJSONObject(ar.getString(GetRandomNumber(nLenght)));
+				sD = jD2.getString("filter_name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			/////////////////////////////////////// костыль на группы		
+			if(sD3.equals("group"))
+			{
+				
+				JSONArray ar = jD.getJSONArray("elements");
+				for(int y=0; y<ar.length(); y++)
+				{
+					jD2 = (JSONObject) ar.get(y);
+					sD = jD2.getString("name");
+					if(jD2.getString("type").equals("range"))
+					{
+						int k = GetRandomNumber(3);
+						sD2 = "больше" + ((k == 0) ? 1 : k);
+						hFilter.SetValue(sD, sD2);
+					}
+					else
+					{
+						jArr = jD2.getJSONArray("values");
+						nLenght = jArr.length();
+						
+						if(jArr.toString().equals("[]")) // Если значения нет к примеру keywords=[]
+							hFilter.SetValue(sD, "");
+						else
+						{
+							sD2 = ((JSONObject) jArr.get(GetRandomNumber(nLenght))).getString("value");
+							hFilter.SetValue(sD, sD2);
+						}
+					}
+				}
+				continue;
+			}
+			
+			//print(jD.toString());
+			
+			sD = jD.getString("name");
+			
+			
+			/////////////////////////////////////
+			
+			if(sD.equals("price")) // костыль номер 1
+			{
+				int k = GetRandomNumber(10);
+				sD2 = "больше" + ((k == 0) ? 1 : k)*1000;
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			
+			if(sD.equals("mileage")) // костыль номер 2
+			{
+				sD2 = "больше"+(GetRandomNumber(2000));
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			
+			if(sD.equals("fotovideo")) // костыль номер 3
+			{
+				jArr = jD.getJSONArray("values");
+				jD2 = jArr.getJSONObject(GetRandomNumber(jArr.length()));
+				sD = jD2.getString("name");
+				sD2 = jD2.getString("value");
+				hFilter.SetValue(sD, sD2);
+				continue;	
+			}
+		
+			if(sD.equals("car-year")) // костыль номер 4
+			{
+				sD2 = "больше"+(GetRandomNumber(10)+1991);
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			
+			if(sD3.equals("price") || sD3.equals("range")) // костыль для всех других полей min и max
+			{
+				int k = GetRandomNumber(3);
+				sD2 = "больше" + ((k == 0) ? 1 : k);
+				hFilter.SetValue(sD, sD2);
+				continue;
+			}
+			////////////////////////////////////
+			jArr = jD.getJSONArray("values");
+			nLenght = jArr.length();
+			
+			if(jArr.toString().equals("[]")) // Если значения нет к примеру keywords=[]
+				hFilter.SetValue(sD, "");
+			else
+			{
+				sD2 = ((JSONObject) jArr.get(GetRandomNumber(nLenght))).getString("value");
+				hFilter.SetValue(sD, sD2);
+			}
+		}*/
+		print("Все значения полученных фильтров");
+		hFilter.PrintKeyAndValue();
+		return hFilter;
+	}
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -10027,7 +10467,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//3.3.	Получение списка полей рубрики для редактирования объявления
-	public void GetCastomfieldsForEditAdvert_3_3(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCastomfieldsForEditAdvert_3_3(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("3.3.	Получение списка полей рубрики для редактирования объявления");
@@ -10081,6 +10521,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			print(jsonTemp.toString(10));
     		
     		}
+    		return jsonObject;	
 			
     	}
     	else
@@ -10088,10 +10529,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Не удалось получить список полей рубрики для редактирования объявления получен \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	//3.4.	Получение списка полей рубрики для фильтрации объявлений
-	public void GetCastomfieldsForSearchAdvert_3_4(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCastomfieldsForSearchAdvert_3_4(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("3.4.	Получение списка полей рубрики для фильтрации объявлений");
@@ -10118,14 +10559,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
     		print("Ответ сервера. Cписок полей рубрики для фильтрации объявлений получен");
     		print(jsonObject.toString(10));
-    		
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить список полей рубрики для фильтрации объявлений \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	
 	//4.1.	Получение списка субъектов РФ
@@ -10595,7 +11036,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 		
 	//6.1.	Получение значений словаря
-	public void GetDictinary_6_1(String sHost, String sNameDict, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDictinary_6_1(String sHost, String sNameDict, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("6.1.	Получение значений словаря");
@@ -10622,17 +11063,15 @@ public class ConnectMethod extends Connect_Request_Abstract
     	jsonObject = ParseResponse(sResponse);
     	if(jsonObject.isNull("error"))
     	{
-    		print("Ответ сервера:" + jsonObject.toString() + "\r\nзначения словаря получены\r\n");
-    		JSONArray ar = jsonObject.getJSONArray("values");
-    		for(int i=0; i<ar.length(); i++)
-    			print(ar.get(i));
+    		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nзначения словаря получены");
+    		return jsonObject;	
     	}
     	else
     	{
     		print("Не удалось получить значения словаря \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString());
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	
 	//7.1	Получение промо-блока

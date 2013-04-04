@@ -694,9 +694,16 @@ public class Test_Mobile
 	
 	@Test (groups = { "Super_WorkAdvert" })
 	@Parameters({"sBaseHost"})
-	public void Test_Super_WorkAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	public void Test_Super_WorkAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
 	{
 		cM.Super_WorkAdvert(sBaseHost);
+	}
+	
+	@Test (groups = { "Super_WorkSearch" })
+	@Parameters({"sBaseHost"})
+	public void Test_Super_WorkSearch(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
+	{
+		cM.Super_WorkSearch(sBaseHost);
 	} 
 	
 }
