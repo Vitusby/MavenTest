@@ -17,7 +17,7 @@
    <parameter name="sCategory" value="/"/> 
   <groups>
     <run>
-      <include name="Super_WorkSearch"/>
+      <include name="AutoTest_3"/>
     </run>
   </groups>
     <classes>

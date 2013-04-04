@@ -402,7 +402,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Генерируем данные");
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
 		HM<String, String> hObj = new HM<String, String>(); 
-		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "seller", "dont_subscribe", "city",
+		String mas[] = {"site", "zip", "building", "phone", "other_email", "fax", "street", "icq", "contact", "dont_subscribe", "city",
 				"title", "mobile", "email", "login"};
 		
 		for(int i=0; i<mas.length; i++)
