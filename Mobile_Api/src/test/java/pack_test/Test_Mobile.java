@@ -374,10 +374,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "ActivationAdvert_2_10" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag"})
-	public void Test14(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag", "sTypeApi"})
+	public void Test14(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.ActivationAdvert_2_10(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag);
+		cM.ActivationAdvert_2_10(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "DeactivateAdvert_2_11" })
