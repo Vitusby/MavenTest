@@ -353,10 +353,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetPaidProductsToStepToAdd_2_7" })
-	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test11(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test11(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPaidProductsToStepToAdd_2_7(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
+		cM.GetPaidProductsToStepToAdd_2_7(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "GetPaidProductsFromLK_2_8" })
