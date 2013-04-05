@@ -260,6 +260,9 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			print("Получаем список найденныйх объявлений по поиску - " + sParam2);
 			listSecondSuggest = pageSearch.GetAdverts(); // получили список ссылок на найденные объявления
 			/////////////////////
+			
+			//////////////////////
+			print("Сравниваем результаты поиска");
 			for(int i=0; i<listSecondSuggest.size(); i++)
 			{
 				print(listFirstSuggest.get(i));
@@ -267,9 +270,6 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 				print("");
 				
 			}
-			
-			//////////////////////
-			print("Сравниваем результаты поиска");
 			pageSearch.CompareListResult(listFirstSuggest, listSecondSuggest);
 			print("Тест успешно завершен.");
 		}
