@@ -346,10 +346,10 @@ public class Test_Mobile
 	}
 		
 	@Test (groups = { "DeleteAdvertFromFavourite_2_6" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag"})
-	public void Test10(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag", "sTypeApi"})
+	public void Test10(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.DeleteAdvertFromFavourite_2_6(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag);
+		cM.DeleteAdvertFromFavourite_2_6(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "GetPaidProductsToStepToAdd_2_7" })
