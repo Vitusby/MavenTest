@@ -9433,14 +9433,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	// Подача объявления
-	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void PostAdvert_2_1(String sHost, String sUsername, String sPassword, String sCatRegAdv, String sAdvertisement, String sCustom_fields, String sVideoUrl, String sPathImage, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		wLog.SetUpWriterLog("LogResult.html");
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog,"mobile_api");
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog, sTypeApi);
 		}
 		else
 		{
@@ -9472,7 +9472,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 		
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert");
 	    		
 	    	uri = builder.build();
 	    	wLog.WriteString(1,"Отправляем запрос. Uri Запроса: "+uri.toString());
