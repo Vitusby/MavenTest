@@ -360,10 +360,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetPaidProductsFromLK_2_8" })
-	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test12(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost","sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test12(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetPaidProductsFromLK_2_8(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
+		cM.GetPaidProductsFromLK_2_8(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "GetFreeProductsForAdvert_2_9" })
