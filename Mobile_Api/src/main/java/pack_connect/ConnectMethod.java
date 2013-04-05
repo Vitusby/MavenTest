@@ -375,7 +375,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, редактирование профиля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 		print("Проверяем совпадение логина и email");
 		jTemp = jsonObject.getJSONObject("user_info"); 
@@ -566,7 +566,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация,смена пароля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), wLog);
+		sAuth_token = Authorization(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), wLog, "mobile_api");
 		
 		
 		print("Смена пароля пользователя - Тест".toUpperCase());
@@ -669,7 +669,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение, редактирование объявления ОП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 /////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -1347,7 +1347,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Попытка подачи, редактирования, активации, деактивации, выделения, продления, поднятия, назначения премиум ИП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 //////////////////////////////////////////////////////////////////	
 		print("\r\nШаг 1".toUpperCase());
 		print("Запоминаем количество объявлений в ЛК ИП до подачи объявления".toUpperCase());
@@ -1643,7 +1643,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача,получение листинга ЛК, удаление объявления ОП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
@@ -1845,7 +1845,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
@@ -1853,7 +1853,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
 			
 			print("\r\nАвторизация пользователем - " + sLogin);
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 			
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
 			AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
@@ -1875,7 +1875,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
 			
-			sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
 			print("Авторизация пользователем - " + sLogin2);
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
 			AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
@@ -2049,7 +2049,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 			// подача двух объявлений
@@ -2825,7 +2825,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум, получение листингов  ОП(платное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 			// подача двух объявлений
@@ -3093,7 +3093,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 			// подача трех объявлений
@@ -3334,7 +3334,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 		
 		// подача трех объявлений
@@ -3616,7 +3616,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , голосование '+', голосование '-' - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		try
 		{
 			// подача двух объявлений
@@ -3767,7 +3767,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
@@ -5886,7 +5886,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			// авторизация
 			wLog.WriteString(3, "\r\nАвторизация пользователем - " + sLogin);
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 			
 			
 			// подача платного объявлений
@@ -6553,7 +6553,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача объявления без изображения и редактирование с добавлением изображения - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 		try
 		{
@@ -6624,7 +6624,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 		print("\r\nШАГ №1");
 		print("Вылогиниваемя из приложения".toUpperCase());
@@ -6695,7 +6695,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token2 = Authorization(sHost, sLogin2, sPassword, wLog);
+		sAuth_token2 = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
 		try
 		{
 			print("\r\nШАГ №1");
@@ -6708,7 +6708,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	    	print("\r\nШАГ №2");
 			print("Авторизация пользователем - ".toUpperCase() + sLogin);
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 			
 			print("\r\nШАГ №3");
 			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
@@ -6831,7 +6831,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		
 		
 		try
@@ -7537,7 +7537,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//часть 1
 			print("------------------------------------------------------------------------------------------------------------");
 			print("Авторизуемся".toUpperCase());
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 			print("sAuth_token = " + sAuth_token);
 			
 			print("\r\nПолучаем конечную рубрику и адвертайп".toUpperCase());
@@ -8963,7 +8963,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONArray jArr;
 		
 		print("Авторизуемся".toUpperCase());
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
 		print("sAuth_token = " + sAuth_token);
 		
 		print("\r\nПолучаем конечную рубрику для получения листинга".toUpperCase());
@@ -9251,7 +9251,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Редактирование профиля
-	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void EditProfile_1_3(String sHost,String sUsername, String sPassword, String sUser_info, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String  sAuth_token= "";
@@ -9260,7 +9260,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(bAuthFlag)
 			{
 				//sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "");
-				sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
+				sAuth_token = Authorization(sHost, sUsername, sPassword, wLog, sTypeApi);
 			}
 			else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 			print("1.3.	Редактирование профиля");
@@ -9272,7 +9272,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sQuery = sQuery + "&auth_token=" + sAuth_token;
 			
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account"); 
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account"); 
 	    	uri = builder.build();
 	   
 	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -9440,7 +9440,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog,"mobile_api");
 		}
 		else
 		{
@@ -9567,7 +9567,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery ="", sDel="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog);
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog, "mobile_api");
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
 		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert, sUsername, sPassword, false);
@@ -11800,7 +11800,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	// Авторизация для файлов лога
-	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public String Authorization(String sHost, String sUsername, String sPassword, WriterLog wL, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wL.WriteString(4, "1.1.	Авторизация".toUpperCase());
 		//print("1.1.	Авторизация".toUpperCase());
@@ -11812,7 +11812,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//print("password = "+ sPassword);
 		String sE = "username=" + sUsername + "&password=" + sPassword;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/login");
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
