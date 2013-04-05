@@ -132,6 +132,10 @@ public abstract class Connect_Request_Abstract
         
         ////////////////////////////////////
     	response = hClient.execute(post);
+    	/////////////////////////////////////
+    	print("Вот статус");
+    	print(response.getStatusLine());
+    	////////////////////////////////////////
     	sTempResponse = GetContentResponse(response);
     	return sTempResponse;
     }
