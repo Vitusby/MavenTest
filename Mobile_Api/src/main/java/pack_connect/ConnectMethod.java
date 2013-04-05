@@ -9812,19 +9812,19 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение списка бесплатных действий над объявлением
-	public void GetFreeProductsForAdvert_2_9(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	public void GetFreeProductsForAdvert_2_9(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		
 		print("2.9.	Получение списка бесплатных действий над объявлением");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/actions")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/actions")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
