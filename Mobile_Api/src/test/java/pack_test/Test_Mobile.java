@@ -297,10 +297,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetUrlActivasion_1_6" })
-	@Parameters({"sBaseHost", "sLogin"})
-	public void Test1_6(String sBaseHost, String sLogin) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sTypeApi"})
+	public void Test1_6(String sBaseHost, String sLogin, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.GetUrlActivasion_1_6(sBaseHost, sLogin);
+			cM.GetUrlActivasion_1_6(sBaseHost, sLogin, sTypeApi);
 	}
 	
 	@Test (groups = { "LogOut1_7" })

@@ -9362,7 +9362,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Получение ссылки на активацию аккаунта
-	public void GetUrlActivasion_1_6(String sHost, String sUsername) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetUrlActivasion_1_6(String sHost, String sUsername, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("1.6. Получение ссылки для активации аккаунта".toUpperCase());
 		print("Параметры для запроса");
@@ -9370,7 +9370,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sE = "login=" + sUsername;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/activationkey");
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
