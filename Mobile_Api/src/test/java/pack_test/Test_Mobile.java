@@ -402,10 +402,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "HighLightAdvert_2_14" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag"})
-	public void Test18(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sIdAdvert", "bApp_token", "bAuthFlag", "sTypeApi"})
+	public void Test18(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.HighLightAdvert_2_14(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag);
+		cM.HighLightAdvert_2_14(sBaseHost, sLogin, sPassword, sIdAdvert, bApp_token, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "SetPremiumForAdvert_2_15" })

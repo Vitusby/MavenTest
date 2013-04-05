@@ -10020,7 +10020,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Выделение объявления 
-	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void HighLightAdvert_2_14(String sHost, String sUsername, String sPassword, String sIdAdvert, boolean bApp_token, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
 		String  sApp_token="";
@@ -10030,7 +10030,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		else print("Передан параметр не передавать ключ оплаты App_token. В следующий запрос уйдет пустой ключ app_token");
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -10040,7 +10040,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
