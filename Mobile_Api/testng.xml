@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="mobile_api"/> 
   <groups>
     <run>
-      <include name="Super_ChooseRegion"/>
+      <include name="AutoTest_18"/>
     </run>
   </groups>
     <classes>
