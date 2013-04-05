@@ -9325,12 +9325,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Смена пароля
-	public void ChangePassword1_5(String sHost, String sUsername, String sPassword, String sNewPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void ChangePassword1_5(String sHost, String sUsername, String sPassword, String sNewPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -9343,7 +9343,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + sPassword + "&new_password=" + sNewPassword;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
