@@ -9297,7 +9297,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// Восстановление пароля
-	public void RestorePassword1_4(String sHost, String sEmail) throws URISyntaxException, IOException, ExceptFailTest
+	public void RestorePassword1_4(String sHost, String sEmail, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.4.	Восстановление пароля");
 		print("Параметры для запроса");
@@ -9306,7 +9306,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "email="+sEmail;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/restore");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());

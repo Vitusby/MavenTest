@@ -283,10 +283,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "RestorePassword1_4" })
-	@Parameters({"sBaseHost", "sLogin"})
-	public void Test4(String sBaseHost, String sLogin) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sTypeApi"})
+	public void Test4(String sBaseHost, String sLogin, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.RestorePassword1_4(sBaseHost, sLogin);
+		cM.RestorePassword1_4(sBaseHost, sLogin, sTypeApi);
 	}
 	
 	@Test (groups = { "ChangePassword1_5" })
