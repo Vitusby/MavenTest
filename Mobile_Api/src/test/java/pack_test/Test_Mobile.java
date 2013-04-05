@@ -255,10 +255,10 @@ public class Test_Mobile
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id"})
-	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id", "sTypeApi"})
+	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id);
+		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id, sTypeApi);
 	}
 
 	@Test (groups = { "Authorization_1_1" })
@@ -704,6 +704,13 @@ public class Test_Mobile
 	public void Test_Super_WorkSearch(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
 	{
 		cM.Super_WorkSearch(sBaseHost);
+	} 
+	
+	@Test (groups = { "Super_WorkFavourite" })
+	@Parameters({"sBaseHost"})
+	public void Test_Super_WorkFavourite(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
+	{
+		cM.Super_WorkFavourite(sBaseHost);
 	} 
 	
 }

@@ -2031,7 +2031,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
-	
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
@@ -6965,7 +6964,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Объявление с ID = " + sIdAdvert + " не отображается(не найдено) в листинге. Корректно");
 	}
 	
-	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//Супер тест1 Работа с профилем
 	public void Super_WorkProfile(String sHost) throws JSONException, ExceptFailTest, URISyntaxException, IOException, ClassNotFoundException
 	{
@@ -8618,10 +8617,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	// Супер тест 4 работа с объявлениями - поиск
 	public void Super_WorkSearch(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sTemp="";
+		String sTemp="", sSearch;
 		String sRegion="", sCategory="";
 		String sMas[];
 		JSONObject jTemp;
+		HM<String, String> hDefault = new HM<String, String>();
+		HM<String, String> hExtends = new HM<String, String>();
 		
 		print("\r\nПолучаем конечную рубрику для фильтрации".toUpperCase());
 		sMas = Super_GetRandomRubric(sHost, "/");
@@ -8632,13 +8633,23 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		sTemp = "{region=" + sRegion + ",category=" + sCategory + "}";
 		//sTemp = "{region=russia/moskva-gorod,category=cars/passenger/used/}";
+		
+		print("\r\nПолучаем поля для фильтрации и значения для них".toUpperCase());
 		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp);
-		GetCustomForFilters(sHost, jTemp, "default");
-		GetCustomForFilters(sHost, jTemp, "extended");
+		hDefault = Super_GetCustomForFilters(sHost, jTemp, "default");
+		hExtends = Super_GetCustomForFilters(sHost, jTemp, "extended");
+		
+		print("\r\nПолучаем строку для поиска".toUpperCase());
+		sSearch = Super_GetStringFilterForSearch(hDefault.GetStringFromAllHashMap()) + Super_GetStringFilterForSearch(hExtends.GetStringFromAllHashMap());
+		print(sSearch);
+		
+		print("\r\nВыполняем запрос фильтрации листинга");
+		sTemp = "{region=" + sRegion + ",category=" + sCategory + " ,include_categories=true, offset=0, limit=20, sort_by=date_sort:desc}";
+		GetListSearchCategory(sHost, sTemp, sSearch, "");
 		
 	}
 	// получение фильтров и их значении
-	private HM<String, String> GetCustomForFilters(String sHost, JSONObject jTemp, String sTypeFilter) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private HM<String, String> Super_GetCustomForFilters(String sHost, JSONObject jTemp, String sTypeFilter) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		HM<String, String> hFilter = new HM<String, String>();
 		JSONArray jArrDefault, jArr;
@@ -8932,11 +8943,122 @@ public class ConnectMethod extends Connect_Request_Abstract
 		hFilter.PrintKeyAndValue();
 		return hFilter;
 	}
+	private String Super_GetStringFilterForSearch(String sSearch)
+	{
+		String s;
+		s = sSearch.replaceAll("\\{", "").replaceAll(",", "/").replaceAll("\\}", "/");
+		return s;
+		
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Супер тест 5-6 работа с избранное (добавление , удаление)
+	public void Super_WorkFavourite(String sHost) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	{
+		wLog.SetUpWriterLog("LogResult.html");
+		String sAuth_token = ""; 
+		String sLogin = Proper.GetProperty("login_authSuper");
+		String sPassword = Proper.GetProperty("password");
+		String sCategory="", sId="";
+		JSONObject jTemp;
+		JSONArray jArr;
+		
+		print("Авторизуемся".toUpperCase());
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog);
+		print("sAuth_token = " + sAuth_token);
+		
+		print("\r\nПолучаем конечную рубрику для получения листинга".toUpperCase());
+		sCategory = Super_GetRandomRubricNavigator(sHost, "/");
+
+		String sSearch = "{category="+ sCategory + ", region=russia/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		print(sSearch);
+
+		print("\r\nПолучаем листинг категории".toUpperCase());
+		jTemp = GetListCategory(sHost, sSearch, sAuth_token);
+		
+		print("\r\nПолучаем ID первого объявления в листинге".toUpperCase());
+		if(jTemp.getString("advertisements").equals("[]"))
+			print("В листинге нету неодного объявления");
+		else
+		{
+			jArr = jTemp.getJSONArray("advertisements");
+			jTemp = jArr.getJSONObject(0);
+			sId = jTemp.getString("id");
+			print(sId);
+		}
+		
+		print("Добавляем полученное объявление в избранное".toUpperCase());
+		AddAdvertToFavourite(sHost, sAuth_token, sId);
+		
+		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
+		jTemp = GetListFavourite(sHost, sAuth_token);
+		
+		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
+		FindAdvertFromListAfterPost(jTemp, sId);
+		
+		print("\r\nУдаляем объявление c ID = ".toUpperCase() + sId + " из вкладки «Избранное» ".toUpperCase());
+		DeleteAdvertFromFavourite(sHost, sAuth_token, sId);	
+		
+		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
+		jTemp = GetListFavourite(sHost, sAuth_token);
+		
+		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
+		FindAdvertFromListAfterDelete(jTemp, sId);
+		
+	}
+	private String Super_GetRandomRubricNavigator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	{
+		JSONArray jArr;
+		JSONObject jTemp;
+		String sCat = "";
+		int nLenght = 0, nRandomRubr = 0;
+		int n=0;
+		while(sCat.equals(""))
+		{
+			n++;
+			jTemp = GetRubricutorWithoutAdvertType8_1(sHost, sCategory);
+			jArr = jTemp.getJSONArray("categories");
+			nLenght = jArr.length();
+			print("Выбираем рандомную рубрику из отображаемых в списке");
+			nRandomRubr = GetRandomNumber(nLenght);
+			if(nRandomRubr == 0)
+				nRandomRubr +=1;
+			print("Выбрана рубрика номер - " + nRandomRubr);
+			jTemp = jArr.getJSONObject(nRandomRubr);
+			print(jTemp.toString(10));
+			print("Проверяем конечная ли это рубрика");
+			if(jTemp.getBoolean("is_leaf"))
+			{
+				print("Выбрана конечная рубрика");
+				sCat = jTemp.getString("category");
+				print("category = " + sCat);
+			}
+			else
+			{
+				print("Рубрика " + jTemp.getString("category") + " не конечная");
+				sCategory = jTemp.getString("category");
+			}
+			if(n==100)
+			{
+				print("Было произведено " + n +" попыток выбрать рубрику. Но ничего не вышло. Тест провален");
+				throw new ExceptFailTest("Было произведено " + n +" попыток выбрать рубрику. Но ничего не вышло. Тест провален");
+			}
+		}
+		
+		return sCat;
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Супер тест 7 выбор региона
+	public void Super_ChooseRegion(String sHost)
+	{
+		String sIp[] = {"78.109.16.159", "91.201.201.255", "91.199.232.255"};
+		// Москва,Питер,Новосибирск 
+	}
+	
 	
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
-	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword, String sMM_Id, String sOD_Id) throws URISyntaxException, IOException, ExceptFailTest
+	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword, String sMM_Id, String sOD_Id, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.	Создание профиля");
 		print("Параметры для запроса");
@@ -8948,7 +9070,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account");
     		
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -11113,7 +11235,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 
 	//8.1 Получение рубрикатора без типов объявлений
-	public void GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("8.1.	Получение рубрикатора без типов объявления");
 		print("Параметры для запроса");
@@ -11138,6 +11260,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	if(jsonObject.isNull("error"))
     	{
     		print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nРубрикатор без типов объявлений получен");
+    		return jsonObject;	
     		
     	}
     	else
@@ -11145,7 +11268,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Не удалось получить рубрикатор без типов объявлений \r\n"+
     				"Ответ сервера:\r\n"+ jsonObject.toString(10));
     		throw new ExceptFailTest("Тест провален");
-    	}	
+    	}
 	}
 	
 	//8.2 Получение объявлений друга в соц сети

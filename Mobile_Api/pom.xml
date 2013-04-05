@@ -31,6 +31,7 @@
 					<groups>${sNameMethod}</groups>
 					<systemPropertyVariables>
 						<sBaseHost>${sBaseHost}</sBaseHost>
+						<sTypeApi>${sTypeApi}</sTypeApi>
 						<sLogin>${sLogin}</sLogin>
 						<sPassword>${sPassword}</sPassword>
 						<sNewPassword>${sNewPassword}</sNewPassword>

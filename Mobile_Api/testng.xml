@@ -15,9 +15,10 @@
    <parameter name="sNewPassword" value="retry2"/>
    <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, list=table, region=russia/moskovskaya-obl/ruzskiy-r_n/kapan-derevnya/, include_region=false, offset=0, limit=25, include_privates=true, include_companies=true}"/>
    <parameter name="sCategory" value="/"/> 
+   <parameter name="sTypeApi" value="mobile_api"/> 
   <groups>
     <run>
-      <include name="AutoTest_3"/>
+      <include name="CreateProfileRequest_1"/>
     </run>
   </groups>
     <classes>
