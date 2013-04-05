@@ -9559,7 +9559,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Редактирование объявления
-	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag, boolean bDeleteImage) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void EditAdvert_2_3(String sHost, String sUsername, String sPassword, String sIdAdvert, String sAdvertisement, String sCustom_fields, String sPathImageNew, String sVideoUrl, boolean bAuthFlag, boolean bDeleteImage, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sVideo = "&advertisement[video]=" + sVideoUrl;
@@ -9567,10 +9567,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery ="", sDel="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog, "mobile_api");
+			sAuth_token = Authorization(sHost, sUsername, sPassword, wLog, sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующие запросы уйдет пустой ключ auth_token");
-		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert, sUsername, sPassword, false, "mobile_api");
+		String sUrlImage = GetAdvert_2_2(sHost, sIdAdvert, sUsername, sPassword, false, sTypeApi);
 		print("");
 		print("2.3.	Редактирование объявления");
 		print("Параметры для запроса");
@@ -9604,12 +9604,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 				sDel = "";
 			}
 			
-			builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
+			builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/"+ sIdAdvert);
 			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest + sDel;
     	}
     	else
     	{
-    		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/"+ sIdAdvert);
+    		builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/"+ sIdAdvert);
     		sQuery = "auth_token=" + sAuth_token + sRequest1 + sRequest + sVideo;
     	}
     	uri = builder.build();
