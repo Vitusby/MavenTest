@@ -713,4 +713,11 @@ public class Test_Mobile
 		cM.Super_WorkFavourite(sBaseHost);
 	} 
 	
+	@Test (groups = { "Super_ChooseRegion" })
+	@Parameters({"sBaseHost"})
+	public void Test_Super_ChooseRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
+	{
+		cM.Super_ChooseRegion(sBaseHost);
+	} 
+	
 }

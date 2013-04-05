@@ -9048,9 +9048,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Супер тест 7 выбор региона
-	public void Super_ChooseRegion(String sHost)
+	public void Super_ChooseRegion(String sHost)throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
-		String sIp[] = {"78.109.16.159", "91.201.201.255", "91.199.232.255"};
+		String sIp[] = {"78.109.16.159", "91.201.201.255", "91.199.232.255", "1.1.1.1.1"};
+		GetRegionByIP8_6(sHost, sIp[GetRandomNumber(sIp.length)]);
 		// Москва,Питер,Новосибирск 
 	}
 	

@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="mobile_api"/> 
   <groups>
     <run>
-      <include name="CreateProfileRequest_1"/>
+      <include name="Super_ChooseRegion"/>
     </run>
   </groups>
     <classes>
