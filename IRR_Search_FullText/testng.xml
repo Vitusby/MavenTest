@@ -4,12 +4,12 @@
 	<test name="Test">
 		<parameter name="sImageEnable" value="2" />
 		<parameter name="sUrl" value="http://russia.master.prontosoft.by" />
-		<parameter name="sParam1" value="сдам квартиру" />
-		<parameter name="sParam2" value="сда,квартир" />
-		<parameter name="sParam3" value="bmw,бмв" />
+		<parameter name="sParam1" value="apple iphone 4 16gb" />
+		<parameter name="sParam2" value="аппле ипхоне 4 16гб" />
+		<parameter name="sParam3" value="Телефоны и связь" />
 		<groups>
 			<run>
-				<include name="AutoTest_3" />
+				<include name="AutoTest_10" />
 			</run>
 		</groups>
 		<classes>

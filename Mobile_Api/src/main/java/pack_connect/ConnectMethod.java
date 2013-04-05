@@ -10186,6 +10186,10 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение листинга объявлений категории
+	
+	
+///////////////////////ПРОДОЛЖАТЬ ЗДЕСЬ////////////////////////////////////	
+	
 	public void GetListForCategory_2_18(String sHost, String sDataForListing, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sAuth_token="";

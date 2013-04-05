@@ -38,13 +38,18 @@ public class Page_Search extends Page
 	// получаем ссылки на объявления из найденных
 	public ArrayList<String> GetAdverts() throws ExceptFailTest
 	{
+		int n;
+		String sLink;
 		Sleep(500);
 		print("Получаем объявления в листинге");
 		wAdvert = GetAllWebElements("//table[@class='adListTable']//td[@class='tdTxt']/div[@class='h3']/a");
 		//print(wAdvert.length);
 		for(int i=0; i<wAdvert.length; i++)
 		{
-			sListLinks.add(wAdvert[i].getAttribute("href"));
+			sLink = wAdvert[i].getAttribute("href");
+			if((n = sLink.indexOf("?"))!=-1)
+				sLink = sLink.substring(0, n);
+			sListLinks.add(sLink);
 		}
 		return sListLinks;
 	}
