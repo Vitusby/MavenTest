@@ -9777,18 +9777,18 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// Получение списка платных продуктов для объявления доступных в личном кабинете пользователя
-	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	public void GetPaidProductsFromLK_2_8(String sHost, String sIdAdvert, String sUsername, String sPassword, boolean bAuthFlag, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
 		print("2.8.	Получение списка платных продуктов для объявления доступных в личном кабинете пользователя");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
