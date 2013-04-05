@@ -339,10 +339,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AddAdvertToFavourite_2_5" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag"})
-	public void Test9(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sIdAdvert", "bAuthFlag", "sTypeApi"})
+	public void Test9(String sBaseHost, String sLogin, String sPassword, String sIdAdvert, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.AddAdvertToFavourite_2_5(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag);
+		cM.AddAdvertToFavourite_2_5(sBaseHost, sLogin, sPassword, sIdAdvert, bAuthFlag, sTypeApi);
 	}
 		
 	@Test (groups = { "DeleteAdvertFromFavourite_2_6" })
