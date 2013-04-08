@@ -557,10 +557,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetDirectionSuggest_4_10" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test37(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test37(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDirectionSuggest_4_10(sBaseHost, sParam);
+		cM.GetDirectionSuggest_4_10(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetHighwaySuggest_4_11" })

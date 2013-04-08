@@ -8202,7 +8202,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetDirectionSuggest_4_10(sHost, sSearch);
+			jTemp = GetDirectionSuggest_4_10(sHost, sSearch, "mobile_api");
 			
 			if(!jTemp.getString("directions").equals("[]"))
 			{
@@ -11030,7 +11030,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	//4.10.	Получение списка направлений (саджест)
-	public JSONObject GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDirectionSuggest_4_10(String sHost, String sDataDirectionSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.10. Получение списка направлений (саджест)".toUpperCase());
@@ -11039,7 +11039,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/directions")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/directions")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
