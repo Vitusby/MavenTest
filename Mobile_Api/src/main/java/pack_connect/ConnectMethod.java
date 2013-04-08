@@ -11214,7 +11214,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//7.1	Получение промо-блока
-	public void GetPromo7_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetPromo7_1(String sHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("7.1.	Получение промо-блока");
@@ -11223,7 +11223,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sParam);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/promo").setQuery(sQuery);
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/promo").setQuery(sQuery);
     	
     	
     	uri = builder.build();
