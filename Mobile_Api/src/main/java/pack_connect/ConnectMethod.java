@@ -8288,7 +8288,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetHighwaySuggest_4_11(sHost, sSearch);
+			jTemp = GetHighwaySuggest_4_11(sHost, sSearch, "mobile_api");
 			
 			if(!jTemp.getString("highways").equals("[]"))
 			{
@@ -11067,7 +11067,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	//4.11.	Получение списка шоссе (саджест)
-	public JSONObject GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetHighwaySuggest_4_11(String sHost, String sDataHighwaySuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.11. Получение списка шоссе (саджест)".toUpperCase());
@@ -11076,7 +11076,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/highway")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/highway")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
