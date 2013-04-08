@@ -614,10 +614,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "ComplaintToAdvert8_3" })
-	@Parameters({"sBaseHost",  "sParam", "sParam1", "sIdAdvert"})
-	public void Test45(String sBaseHost, String sParam, String sParam1, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost",  "sParam", "sParam1", "sIdAdvert", "sTypeApi"})
+	public void Test45(String sBaseHost, String sParam, String sParam1, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.ComplaintToAdvert8_3(sBaseHost, sParam, sParam1, sIdAdvert);
+		cM.ComplaintToAdvert8_3(sBaseHost, sParam, sParam1, sIdAdvert, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetRelatedAdverts8_4" })

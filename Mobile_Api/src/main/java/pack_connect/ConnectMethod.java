@@ -11338,7 +11338,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.3 Пожаловаться на объявление
-	public void ComplaintToAdvert8_3(String sHost, String sParam, String sParam1, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void ComplaintToAdvert8_3(String sHost, String sParam, String sParam1, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("8.1.	Подача жалобы на объявление");
 		print("Параметры для запроса");
@@ -11349,7 +11349,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = CreateSimpleRequestForPostAndPut(sParam) + "&reason=" + sParam1;	
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/complain");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/complain");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
