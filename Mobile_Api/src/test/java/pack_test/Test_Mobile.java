@@ -607,10 +607,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetAdvertsFriendSocial8_2" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "sParam1", "bAuthFlag"})
-	public void Test44(String sBaseHost, String sLogin, String sPassword, String sParam, String sParam1, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "sParam1", "bAuthFlag", "sTypeApi"})
+	public void Test44(String sBaseHost, String sLogin, String sPassword, String sParam, String sParam1, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetAdvertsFriendSocial8_2(sBaseHost, sLogin, sPassword, sParam, sParam1, bAuthFlag);
+		cM.GetAdvertsFriendSocial8_2(sBaseHost, sLogin, sPassword, sParam, sParam1, bAuthFlag, sTypeApi);
 	} 
 	
 	@Test (groups = { "ComplaintToAdvert8_3" })

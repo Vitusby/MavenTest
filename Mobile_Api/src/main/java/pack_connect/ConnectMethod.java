@@ -11289,12 +11289,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.2 Получение объявлений друга в соц сети
-	public void GetAdvertsFriendSocial8_2(String sHost, String sUsername, String sPassword, String sParam, String sParam1, boolean bAuthFlag) throws ExceptFailTest, JSONException, URISyntaxException, IOException
+	public void GetAdvertsFriendSocial8_2(String sHost, String sUsername, String sPassword, String sParam, String sParam1, boolean bAuthFlag, String sTypeApi) throws ExceptFailTest, JSONException, URISyntaxException, IOException
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -11307,7 +11307,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sParam) + sParam1;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/friends")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/friends")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	
