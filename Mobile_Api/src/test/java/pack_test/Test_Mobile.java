@@ -18,10 +18,10 @@ public class Test_Mobile
 	// Автотесты
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
 	@Test (groups = { "AutoTest_1" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_CreateProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_CreateProfile(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.CreateProfileReqeust(sBaseHost); // Создание профиля
+			cM.CreateProfileReqeust(sBaseHost, sTypeApi); // Создание профиля
 	}
 	
 	@Test (groups = { "AutoTest_2" })
@@ -686,10 +686,10 @@ public class Test_Mobile
 	
 //////////////////////////////////////////////////////////////////////////////////////////////
 	@Test (groups = { "Super_WorkProfile" })
-	@Parameters({"sBaseHost"})
-	public void Test_Super_WorkProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test_Super_WorkProfile(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
 	{
-		cM.Super_WorkProfile(sBaseHost);
+		cM.Super_WorkProfile(sBaseHost, sTypeApi);
 	} 
 	
 	@Test (groups = { "Super_WorkAdvert" })

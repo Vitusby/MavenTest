@@ -64,7 +64,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 // автотесты	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля АвтоТест с указанием mm_id и od_id.
-	public void CreateProfileReqeust(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void CreateProfileReqeust(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String sMM_Id = RamdomData.GetRamdomString(10);
 		String sOD_Id = RamdomData.GetRamdomString(10);
@@ -83,7 +83,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
     	
     	String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     	
@@ -6966,7 +6966,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//Супер тест1 Работа с профилем
-	public void Super_WorkProfile(String sHost) throws JSONException, ExceptFailTest, URISyntaxException, IOException, ClassNotFoundException
+	public void Super_WorkProfile(String sHost, String sTypeApi) throws JSONException, ExceptFailTest, URISyntaxException, IOException, ClassNotFoundException
 	{
 		String sMM_Id = RamdomData.GetRamdomString(10);
 		String sOD_Id = RamdomData.GetRamdomString(10);
@@ -6983,7 +6983,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
     	
     	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
     			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -7016,9 +7016,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	        	String sEm = jData.getString("email");
 	    	        	print("Значение od_id или mm_id совпали с отправленными. Корректно.");
 	    	        	print("Редактируем профиль");
-	    	        	Super_EditProfile(sAuth_token, sHost, sL, sEm, jData);
+	    	        	Super_EditProfile(sAuth_token, sHost, sL, sEm, jData, sTypeApi);
 	    	        	print("Изменяем пароль");
-	    	        	Super_ChangePassword(sAuth_token, sHost, sL);
+	    	        	Super_ChangePassword(sAuth_token, sHost, sL, sTypeApi);
 	    	        	print("Изменяем пароль");
 	    	        	Super_Logout(sAuth_token, sHost);
 	    	         }
@@ -7046,7 +7046,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
     			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -7103,7 +7103,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + sEmail);
 		print("password = " + sPassword);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
     	
     	sE =  "username=" + sEmail + "&password=" + sPassword;
     	
@@ -7131,7 +7131,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("od_id = "+ sOD_Id);
     		builder = new URIBuilder();
     		
-        	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+        	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
         	
         	sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
         	
@@ -7166,7 +7166,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
     	
@@ -7196,7 +7196,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authOP"));
 		print("password = asdfdfgfg") ;
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + "asdfdfgfg";
 		
@@ -7230,7 +7230,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
 		
@@ -7258,7 +7258,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
     	print("Тест завершен успешно".toUpperCase());
 	}
-	private void Super_EditProfile(String sAuth_token, String sHost, String jLogin, String jEmail, JSONObject jData) throws ExceptFailTest, JSONException, URISyntaxException, IOException
+	private void Super_EditProfile(String sAuth_token, String sHost, String jLogin, String jEmail, JSONObject jData, String sTypeApi) throws ExceptFailTest, JSONException, URISyntaxException, IOException
 	{
 		JSONObject jTemp;
 		
@@ -7280,7 +7280,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
     		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;
@@ -7358,7 +7358,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	} 
     	print("Тест редактирования завершен успешно\r\n".toUpperCase());
 	}
-	private void Super_ChangePassword(String sAuth_token2, String sHost, String sLogin) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	private void Super_ChangePassword(String sAuth_token2, String sHost, String sLogin, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
 	{	
 		
 		String sAuth_token = sAuth_token2;
@@ -7373,7 +7373,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + Proper.GetProperty("password") + "&new_password=" + "retry1";
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -7403,7 +7403,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sE = "auth_token=" + sAuth_token + "&old_password=" + "retry1" + "&new_password=" + Proper.GetProperty("password");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
