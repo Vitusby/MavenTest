@@ -635,10 +635,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetRegionByIP8_6" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test48(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test48(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRegionByIP8_6(sBaseHost, sParam);
+		cM.GetRegionByIP8_6(sBaseHost, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetRadiusList8_8" })

@@ -11464,16 +11464,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.6 Получение информации о местоположении пользователя по IP-адресу
-	public void GetRegionByIP8_6(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetRegionByIP8_6(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("8.6.	Получение информации о местоположении пользователя по IP-адресу");
-		print("Параметры для запроса");
-		print("sIP = " + sParam);
 	
-		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/iplocation")
-    		.setParameter("IP", sParam);
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/iplocation");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
