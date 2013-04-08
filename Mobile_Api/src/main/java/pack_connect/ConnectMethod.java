@@ -1830,7 +1830,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	// Подача объявлени(польз 1)/Добавление в избраное(П2)/Получение листинга избран(П2)/Удаление из избранного(П2)
 	//Получение листинга из избранного(П2)/Подача(П1)/Попытка добавить в избранное()
-	public void AddFavGetListFavDeleteFavOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void AddFavGetListFavDeleteFavOP(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
@@ -1844,58 +1844,58 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга избранного, удаление из избранного ОП - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, sTypeApi);
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом".toUpperCase());
-			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", "mobile_api");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
 			sIdAdvert = objRealt.GetID();  // сюда сохраняем значение id
 			
 			print("\r\nАвторизация пользователем - " + sLogin);
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 			
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin);
-			AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+			AddAdvertToFavourite(sHost, sAuth_token, sIdAdvert, sTypeApi);
 			
 			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
-			jData = GetListFavourite(sHost, sAuth_token);
+			jData = GetListFavourite(sHost, sAuth_token, sTypeApi);
 			
 			print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 			FindAdvertFromListAfterPost(jData, sIdAdvert);
 			
 			print("\r\nУдаляем объявление c ID = " + sIdAdvert + " из вкладки «Избранное» для пользователя" + sLogin);
-			DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert);
+			DeleteAdvertFromFavourite(sHost, sAuth_token, sIdAdvert, sTypeApi);
 			
 			print("\r\nПолучаем листинг вкладки «Избранное» для пользователя " + sLogin);
-			jData = GetListFavourite(sHost, sAuth_token);
+			jData = GetListFavourite(sHost, sAuth_token, sTypeApi);
 			
 			print("\r\nИщем объявление с ID = " + sIdAdvert + " в листинге «Избранное» для пользоватея " + sLogin);
 			FindAdvertFromListAfterDelete(jData, sIdAdvert);
 			
 			print("\r\nПопытка добавить собственное объявление в избранное для пользователя "+ sLogin2);
 			
-			sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
+			sAuth_token = Authorization(sHost, sLogin2, sPassword, wLog, sTypeApi);
 			print("Авторизация пользователем - " + sLogin2);
 			print("\r\nДобавляем объявление с ID = " + sIdAdvert + " в вкладку «Избранное» для пользователя " + sLogin2);
-			AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert);
+			AddOwnAdvertToFavourite(sHost, sAuth_token, sIdAdvert, sTypeApi);
 		}
 		finally
 		{
 			print("\r\nУдаляем поданное объявление");
-			DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
 		}
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}	
 	//добавление в избранное для автотеста
-	private void AddAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private void AddAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("\r\nДобавление объявления в «Избранное»".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = " + sAuth_token);
 		print("sIdAdvert = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -1915,7 +1915,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//получение листинга вкладки избранное для автотеста
-	private JSONObject GetListFavourite(String sHost, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private JSONObject GetListFavourite(String sHost, String sAuth_token, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String sDataForFavourite =  "{offset=0, limit=25, category=/}";
 		JSONObject jTemp;
@@ -1925,7 +1925,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForFavourite);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/favorites")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/favorites")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -1971,14 +1971,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//удаление из избранного для автотеста
-	private void DeleteAdvertFromFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	private void DeleteAdvertFromFavourite(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, ExceptFailTest, IOException, JSONException
 	{
 		print("\r\nУдаление объявления из «Избранное»".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -2001,14 +2001,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//добавление своего объявления в избранное
-	private void AddOwnAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private void AddOwnAdvertToFavourite(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("\r\nДобавление объявления в «Избранное»".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = " + sAuth_token);
 		print("sIdAdvert = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -2029,6 +2029,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("Не удалось добавить объявление \r\n Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nКорректно. Так как это собственное объявление пользователя");
     	}	
 	}
+	
 	
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
@@ -6711,7 +6712,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №3");
 			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
-			AddAdvertToFavourite(sHost, sAuth_token, sId);
+			AddAdvertToFavourite(sHost, sAuth_token, sId, "mobile_api");
 			
 			print("\r\nШАГ №4");
 			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -8986,19 +8987,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		print("Добавляем полученное объявление в избранное".toUpperCase());
-		AddAdvertToFavourite(sHost, sAuth_token, sId);
+		AddAdvertToFavourite(sHost, sAuth_token, sId, "mobile_api");
 		
 		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
-		jTemp = GetListFavourite(sHost, sAuth_token);
+		jTemp = GetListFavourite(sHost, sAuth_token, "mobile_api");
 		
 		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
 		FindAdvertFromListAfterPost(jTemp, sId);
 		
 		print("\r\nУдаляем объявление c ID = ".toUpperCase() + sId + " из вкладки «Избранное» ".toUpperCase());
-		DeleteAdvertFromFavourite(sHost, sAuth_token, sId);	
+		DeleteAdvertFromFavourite(sHost, sAuth_token, sId, "mobile_api");	
 		
 		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
-		jTemp = GetListFavourite(sHost, sAuth_token);
+		jTemp = GetListFavourite(sHost, sAuth_token, "mobile_api");
 		
 		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
 		FindAdvertFromListAfterDelete(jTemp, sId);

@@ -60,10 +60,10 @@ public class Test_Mobile
 	}
 		
 	@Test (groups = { "AutoTest_7" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddFavGetListFavDeleteFavOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddFavGetListFavDeleteFavOP(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.AddFavGetListFavDeleteFavOP(sBaseHost); // Подача/добавление в избранное/удаление из избранного
+			cM.AddFavGetListFavDeleteFavOP(sBaseHost, sTypeApi); // Подача/добавление в избранное/удаление из избранного
 	}
 		
 	@Test (groups = { "AutoTest_8" })
