@@ -8241,7 +8241,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetMetroSuggest_4_12(sHost, sSearch);
+			jTemp = GetMetroSuggest_4_12(sHost, sSearch, "mobile_api");
 			
 			if(!jTemp.getString("metro").equals("[]"))
 			{
@@ -11104,7 +11104,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	//4.12.	Получение списка станций метро (саджест)
-	public JSONObject GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetMetroSuggest_4_12(String sHost, String sDataMetroSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.12. Получение списка станций метро (саджест)".toUpperCase());
@@ -11113,7 +11113,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/metro")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/metro")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

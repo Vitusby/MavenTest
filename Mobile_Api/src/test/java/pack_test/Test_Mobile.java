@@ -571,10 +571,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetMetroSuggest_4_12" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test39(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test39(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMetroSuggest_4_12(sBaseHost, sParam);
+		cM.GetMetroSuggest_4_12(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetCurrencies_5_1" })
