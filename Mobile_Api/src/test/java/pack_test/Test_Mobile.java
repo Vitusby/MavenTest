@@ -46,10 +46,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_5" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddGetEditAdvertOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddGetEditAdvertOP(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddGetEditAdvertOP(sBaseHost); // Подача/получение/редактирование/
+			cM.AddGetEditAdvertOP(sBaseHost, sTypeApi); // Подача/получение/редактирование/
 	}
 
 	@Test (groups = { "AutoTest_6" })
