@@ -11693,12 +11693,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	// 9.2 Получение листингов для сайта
-	public void GetListAdvertForSite9_2(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListAdvertForSite9_2(String sHost, String sDataForListing, String sDataForSearch, String sUsername, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sAuth_token="";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -11709,7 +11709,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sAuth_token = "+ sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();

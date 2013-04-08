@@ -671,10 +671,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "GetListAdvertForSite9_2" })
-	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test53(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test53(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListAdvertForSite9_2(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+		cM.GetListAdvertForSite9_2(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetHistoryView9_3" })
