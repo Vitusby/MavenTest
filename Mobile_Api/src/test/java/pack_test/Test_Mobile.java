@@ -678,10 +678,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetHistoryView9_3" })
-	@Parameters({"sBaseHost", "sIdAdvert"})
-	public void Test54(String sBaseHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sIdAdvert", "sTypeApi"})
+	public void Test54(String sBaseHost, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetHistoryView9_3(sBaseHost, sIdAdvert);
+		cM.GetHistoryView9_3(sBaseHost, sIdAdvert, sTypeApi);
 	} 
 	
 //////////////////////////////////////////////////////////////////////////////////////////////

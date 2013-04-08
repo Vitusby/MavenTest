@@ -11756,7 +11756,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	// 9.3 Получения истории просмотров
-	public void GetHistoryView9_3(String sHost, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetHistoryView9_3(String sHost, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp = null;
 		print("9.1 Получение истории просмотров");
@@ -11765,7 +11765,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/"+ sIdAdvert +"/view_history");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/"+ sIdAdvert +"/view_history");
     
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
