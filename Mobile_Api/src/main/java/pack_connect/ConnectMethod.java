@@ -1629,7 +1629,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	// Подача/Получение листинга ЛК/Удаление
-	public void AddGetListDeleteOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void AddGetListDeleteOP(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
@@ -1642,15 +1642,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача,получение листинга ЛК, удаление объявления ОП - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		try
 		{
 			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок".toUpperCase());
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdAdvert = objRealt.GetID();
 	    	
 	    	print("\r\nПолучаем листинг объявлений в ЛК");
-	    	jData = GetListOwnAdvert(sHost, sAuth_token, "mobile_api");
+	    	jData = GetListOwnAdvert(sHost, sAuth_token, sTypeApi);
 	    	
 	    	print("\r\nИщем поданное объявление в листинге ЛК");
 	    	print("ID искомого объявления = " + sIdAdvert);
@@ -1658,10 +1658,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	    	print("\r\nУдаляем объявление в ЛК");
 	    	print("ID удаляемого объявления = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
 	    	
 	    	print("\r\nПолучаем листинг объявлений в ЛК");
-	    	jData = GetListOwnAdvert(sHost, sAuth_token, "mobile_api");
+	    	jData = GetListOwnAdvert(sHost, sAuth_token, sTypeApi);
 	    	
 	    	print("\r\nИщем удаленное из ЛК объявление");
 	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
@@ -1669,7 +1669,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданное объявление(если тест провалился)");
-			DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());	

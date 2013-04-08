@@ -53,10 +53,10 @@ public class Test_Mobile
 	}
 
 	@Test (groups = { "AutoTest_6" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddGetListDeleteOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddGetListDeleteOP(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.AddGetListDeleteOP(sBaseHost);  // подача/получение листинга ЛК/удаление/ получение листинга ЛК 
+			cM.AddGetListDeleteOP(sBaseHost, sTypeApi);  // подача/получение листинга ЛК/удаление/ получение листинга ЛК 
 	}
 		
 	@Test (groups = { "AutoTest_7" })
