@@ -9065,7 +9065,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		GetPopularCities_4_2(sHost, sRegion, "mobile_api");
 		
 		print("\r\nПолучаем список городов для которых заведены поддомены".toUpperCase());
-		GetCitiesWithDomen_4_2_1(sHost);
+		GetCitiesWithDomen_4_2_1(sHost, "mobile_api");
 		
 	}
 	
@@ -10776,13 +10776,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//4.2.1. Получение списка городов, для которых заведены поддомены
-	public void GetCitiesWithDomen_4_2_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetCitiesWithDomen_4_2_1(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 		{
 
 			print("4.2.	Получение списка городов, для которых заведены поддомены".toUpperCase());
 			print("Параметры для запроса");
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/popular_cities");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/popular_cities");
 	    	
 	    	uri = builder.build();
 	    	if(uri.toString().indexOf("%25") != -1)
