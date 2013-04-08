@@ -663,10 +663,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetMultiBlock9_1" })
-	@Parameters({"sBaseHost", "sParam", "sParam1"})
-	public void Test52(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sTypeApi"})
+	public void Test52(String sBaseHost, String sParam, String sParam1, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMultiBlock9_1(sBaseHost, sParam, sParam1);
+		cM.GetMultiBlock9_1(sBaseHost, sParam, sParam1, sTypeApi);
 	} 
 	
 	
