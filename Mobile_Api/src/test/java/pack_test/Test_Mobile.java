@@ -600,10 +600,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetRubricatorWithoutAdvertType8_1" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test43(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test43(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRubricutorWithoutAdvertType8_1(sBaseHost, sParam);
+		cM.GetRubricutorWithoutAdvertType8_1(sBaseHost, sParam, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetAdvertsFriendSocial8_2" })

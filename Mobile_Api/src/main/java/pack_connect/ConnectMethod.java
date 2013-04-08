@@ -9015,7 +9015,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		while(sCat.equals(""))
 		{
 			n++;
-			jTemp = GetRubricutorWithoutAdvertType8_1(sHost, sCategory);
+			jTemp = GetRubricutorWithoutAdvertType8_1(sHost, sCategory, "mobile_api");
 			jArr = jTemp.getJSONArray("categories");
 			nLenght = jArr.length();
 			print("Выбираем рандомную рубрику из отображаемых в списке");
@@ -11252,14 +11252,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 
 	//8.1 Получение рубрикатора без типов объявлений
-	public JSONObject GetRubricutorWithoutAdvertType8_1(String sHost, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetRubricutorWithoutAdvertType8_1(String sHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("8.1.	Получение рубрикатора без типов объявления");
 		print("Параметры для запроса");
 		print("sParam = "+ sParam);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/navigation").setParameter("category", sParam);
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/navigation").setParameter("category", sParam);
     	
     	
     	uri = builder.build();
