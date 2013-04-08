@@ -529,10 +529,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetHousesSuggest_4_5" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test35(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test35(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetHousesSuggest_4_5(sBaseHost, sParam);
+		cM.GetHousesSuggest_4_5(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetDistrictSuggest_4_6" })
