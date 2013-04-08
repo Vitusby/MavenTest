@@ -818,12 +818,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданные объявления");
-			DeleteAdvert(sHost, sAuth_token, sIdAuto);
-			DeleteAdvert(sHost, sAuth_token, sIdRealt);
-			DeleteAdvert(sHost, sAuth_token, sIdTIU);
-			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile);
-			DeleteAdvert(sHost, sAuth_token, sIdDarom);
-			DeleteAdvert(sHost, sAuth_token, sIdJob);
+			DeleteAdvert(sHost, sAuth_token, sIdAuto, sTypeApi);
+			DeleteAdvert(sHost, sAuth_token, sIdRealt, sTypeApi);
+			DeleteAdvert(sHost, sAuth_token, sIdTIU, sTypeApi);
+			DeleteAdvert(sHost, sAuth_token, sIdTIUMobile, sTypeApi);
+			DeleteAdvert(sHost, sAuth_token, sIdDarom, sTypeApi);
+			DeleteAdvert(sHost, sAuth_token, sIdJob, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -1659,7 +1659,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	    	print("\r\nУдаляем объявление в ЛК");
 	    	print("ID удаляемого объявления = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
 	    	
 	    	print("\r\nПолучаем листинг объявлений в ЛК");
 	    	jData = GetListOwnAdvert(sHost, sAuth_token);
@@ -1670,20 +1670,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданное объявление(если тест провалился)");
-			DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());	
 	}
 	//удаление объявления для автотестов
-	private void DeleteAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, ExceptFailTest, IOException, JSONException
+	private void DeleteAdvert(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, ExceptFailTest, IOException, JSONException
 	{
 		print("\r\nУдаление объявления".toUpperCase());
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("sIdAdvert = " + sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert)
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert)
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -1883,7 +1883,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданное объявление");
-			DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+			DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
 		}
 		print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -2239,8 +2239,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	//удаляем поданные обяъвления
 	    	print("\r\nШАГ 12");
 	    	print("Удаляем поданные объявления".toUpperCase());
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3066,8 +3066,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	//удаляем поданные обяъвления
 	    	print("\r\nШАГ 15");
 	    	print("Удаляем поданные объявления".toUpperCase());
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3132,7 +3132,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1);
 	
 	    	print("Удаляем объявлени с ID = " + sIdAdvert3);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, "mobile_api");
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
@@ -3153,13 +3153,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert2);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert3);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3430,19 +3430,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAuto);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdRealt);
-	    	DeleteAdvert(sHost, sAuth_token, sIdRealt);
+	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdJob);
-	    	DeleteAdvert(sHost, sAuth_token, sIdJob);
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3662,7 +3662,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
 		}
     	
     	print("------------------------------------------------------------------------------------------------------------");
@@ -3863,19 +3863,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAuto);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAuto);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdRealt);
-	    	DeleteAdvert(sHost, sAuth_token, sIdRealt);
+	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdTIU);
+	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdMobile);
-	    	DeleteAdvert(sHost, sAuth_token, sIdMobile);
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, "mobile_api");
 	    	
 	    	print("Удаляем объявление с ID = " + sIdJob);
-	    	DeleteAdvert(sHost, sAuth_token, sIdJob);
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob, "mobile_api");
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -6371,27 +6371,27 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	if(!sIdAutoPaid.equals(""))
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdAutoPaid);
-	    		DeleteAdvert(sHost, sAuth_token, sIdAutoPaid);
+	    		DeleteAdvert(sHost, sAuth_token, sIdAutoPaid, "mobile_api");
 	    	}
 	    	if(!sIdTIU_Free.equals(""))
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free);
-	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free, "mobile_api");
 	    	}
 	    	if(!sIdTIU_Free2.equals(""))
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free2);
-	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free2);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free2, "mobile_api");
 	    	}
 	    	if(!sIdTIU_Free3.equals(""))
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free3);
-	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free3);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free3, "mobile_api");
 	    	}
 	    	if(!sIdTIU_Paid.equals(""))
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Paid);
-	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Paid);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Paid, "mobile_api");
 	    	}
 	    	
 	    	wLog.CloseFile();
@@ -6607,7 +6607,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданные объявления");
-			DeleteAdvert(sHost, sAuth_token, sIdAuto);
+			DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
 		}
 	}
 	
@@ -6645,7 +6645,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				jTemp = jsonObject.getJSONObject("advertisement");
 				sId =  jTemp.getString("id");
 				print("Удаляем поданное объявление с ID = " + sId);
-				DeleteAdvert(sHost, sAuth_token, sId);
+				DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");
 				
 			}
 		}
@@ -6762,7 +6762,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(!sId.equals(""))
 			{
 				print("\r\nУдаляем поданное объявление");
-				DeleteAdvert(sHost, sAuth_token2, sId);
+				DeleteAdvert(sHost, sAuth_token2, sId, "mobile_api");
 			}
 		}
 		print("------------------------------------------------------------------------------------------------------------");
@@ -6927,12 +6927,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(!sIdTIY_Leningrad.equals(""))
 			{
 				print("\r\nУдаляем поданное объявление ID = " + sIdTIY_Leningrad);
-				DeleteAdvert(sHost, sAuth_token, sIdTIY_Leningrad);
+				DeleteAdvert(sHost, sAuth_token, sIdTIY_Leningrad, "mobile_api");
 			}
 			if(!sIdTIY_Moskva.equals(""))
 			{
 				print("\r\nУдаляем поданное объявление ID = " + sIdTIY_Moskva);
-				DeleteAdvert(sHost, sAuth_token, sIdTIY_Moskva);
+				DeleteAdvert(sHost, sAuth_token, sIdTIY_Moskva, "mobile_api");
 			}
 		}
 	}
@@ -7448,7 +7448,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 					jTemp = jsonObject.getJSONObject("advertisement");
 					sId =  jTemp.getString("id");
 					print("Удаляем поданное объявление с ID = " + sId);
-					DeleteAdvert(sHost, sAuth_token, sId);	
+					DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");	
 				}
 			}
 			print("Тест логаута завершен успешно".toUpperCase());
@@ -7728,7 +7728,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			if(bFlag)
-				DeleteAdvert(sHost, sAuth_token, sId);
+				DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");
 		}
 	}
 	//часть 1
