@@ -7683,7 +7683,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 			print("\r\nПолучаем поля для редактирования объявления категории ".toUpperCase() + sCategory + " и региона ".toUpperCase() + sRegion);
 			sTemp = "{category=" + sCategory + ", region=" + sRegion + ", advert_type=" + sAdvertType + "}";
-			jTemp = GetCastomfieldsForEditAdvert_3_3(sHost, sTemp);
+			jTemp = GetCastomfieldsForEditAdvert_3_3(sHost, sTemp, "mobile_api");
 			
 			print("\r\nПолучаем возможные значения для полей".toUpperCase());
 			hDataAdvert = Super_GetCustom(jTemp);
@@ -10606,7 +10606,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//3.3.	Получение списка полей рубрики для редактирования объявления
-	public JSONObject GetCastomfieldsForEditAdvert_3_3(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCastomfieldsForEditAdvert_3_3(String sHost, String sDataCustomfieldsEditAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("3.3.	Получение списка полей рубрики для редактирования объявления");
@@ -10614,7 +10614,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/edit")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/edit")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
