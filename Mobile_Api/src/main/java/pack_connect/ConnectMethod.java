@@ -8635,7 +8635,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//sTemp = "{region=russia/moskva-gorod,category=cars/passenger/used/}";
 		
 		print("\r\nПолучаем поля для фильтрации и значения для них".toUpperCase());
-		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp);
+		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp, "mobile_api");
 		hDefault = Super_GetCustomForFilters(sHost, jTemp, "default");
 		hExtends = Super_GetCustomForFilters(sHost, jTemp, "extended");
 		
@@ -10671,7 +10671,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	//3.4.	Получение списка полей рубрики для фильтрации объявлений
-	public JSONObject GetCastomfieldsForSearchAdvert_3_4(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCastomfieldsForSearchAdvert_3_4(String sHost, String sDataCustomfieldsEditAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("3.4.	Получение списка полей рубрики для фильтрации объявлений");
@@ -10679,7 +10679,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

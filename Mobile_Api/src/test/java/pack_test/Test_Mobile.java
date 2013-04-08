@@ -487,10 +487,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetCastomfieldsForSearchAdvert_3_4" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test30(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test30(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCastomfieldsForSearchAdvert_3_4(sBaseHost, sParam);
+		cM.GetCastomfieldsForSearchAdvert_3_4(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetRegions_4_1" })
