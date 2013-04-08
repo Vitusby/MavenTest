@@ -10957,7 +10957,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	//4.8	Получение списка районов (саджест)
-	public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetMicroDistrictSuggest_4_8(String sHost, String sDataMicroDistrictSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.8. Получение списка микрорайонов (саджест)".toUpperCase());
@@ -10966,7 +10966,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/microdistricts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/microdistricts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

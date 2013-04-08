@@ -543,10 +543,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetMicroDistrictSuggest_4_8" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test36_1(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test36_1(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetMicroDistrictSuggest_4_8(sBaseHost, sParam);
+		cM.GetMicroDistrictSuggest_4_8(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetAOSuggest_4_9" })
