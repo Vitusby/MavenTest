@@ -536,10 +536,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetDistrictSuggest_4_6" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test36(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test36(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetDistrictSuggest_4_6(sBaseHost, sParam);
+		cM.GetDistrictSuggest_4_6(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetMicroDistrictSuggest_4_8" })

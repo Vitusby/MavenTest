@@ -8108,7 +8108,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(!sDistrict.equals(""))
 		{	
 			sSearch = "{region=" + sReg + ", search_string=" + sDistrict + "}";	
-			jTemp = GetDistrictSuggest_4_6(sHost, sSearch);
+			jTemp = GetDistrictSuggest_4_6(sHost, sSearch, "mobile_api");
 			jArr = jTemp.getJSONArray("districts");
 			sDistr = (String) jArr.get(0);
 		}
@@ -8121,7 +8121,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 				sSearch = Super_GetRandomString(3);
 				sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 				
-				jTemp = GetDistrictSuggest_4_6(sHost, sSearch);
+				jTemp = GetDistrictSuggest_4_6(sHost, sSearch, "mobile_api");
 				
 				if(!jTemp.getString("districts").equals("[]"))
 				{
@@ -10919,7 +10919,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	//4.6.	Получение списка районов (саджест)
-	public JSONObject GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDistrictSuggest_4_6(String sHost, String sDataDistrictSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.7.	Получение списка районов (саджест)".toUpperCase());
@@ -10928,7 +10928,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/districts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/districts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
