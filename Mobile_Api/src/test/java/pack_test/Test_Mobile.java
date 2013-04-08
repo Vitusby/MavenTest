@@ -38,11 +38,11 @@ public class Test_Mobile
 			cM.GetAndEditProfile(sBaseHost, sTypeApi); // Получение и редактирование профиля
 	}
 	
-	@Test (groups = { "AutoTest_4" })
+	@Test (groups = { "AutoTest_4", "sTypeApi"})
 	@Parameters({"sBaseHost"})
-	public void AutoTest_RestorePassworde(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void AutoTest_RestorePassworde(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.RestorePassword(sBaseHost); // Восстановление пароля
+			cM.RestorePassword(sBaseHost, sTypeApi); // Восстановление пароля
 	}
 	
 	@Test (groups = { "AutoTest_5" })

@@ -494,7 +494,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// Восстановления пароля Автотест, 
-	public void RestorePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void RestorePassword(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
@@ -503,7 +503,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/restore");
     	
     	String sE = "email=" + Proper.GetProperty("login_authOP");
     
