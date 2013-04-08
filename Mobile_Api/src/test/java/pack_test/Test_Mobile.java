@@ -208,10 +208,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_26" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetLinkActivasion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetLinkActivasion(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetLinkActivasion(sBaseHost); //Получение ссылки для активации аккаунта
+			cM.GetLinkActivasion(sBaseHost, sTypeApi); //Получение ссылки для активации аккаунта
 	}
 	
 	@Test (groups = { "AutoTest_27" })

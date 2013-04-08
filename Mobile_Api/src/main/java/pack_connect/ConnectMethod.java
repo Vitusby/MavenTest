@@ -526,7 +526,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// Получение ссылки активации Автотест
-	public void GetLinkActivasion(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetLinkActivasion(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		print("------------------------------------------------------------------------------------------------------------");
@@ -537,7 +537,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/activationkey");
     	
     	String sE = "login=" + Proper.GetProperty("login_authNotActive");
     
