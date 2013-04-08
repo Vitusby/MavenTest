@@ -8162,7 +8162,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetAOSuggest_4_9(sHost, sSearch);
+			jTemp = GetAOSuggest_4_9(sHost, sSearch, "mobile_api");
 			
 			if(!jTemp.getString("ao").equals("[]"))
 			{
@@ -10993,7 +10993,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//4.9	Получение списка АО (саджест)
-	public JSONObject GetAOSuggest_4_9(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetAOSuggest_4_9(String sHost, String sAOSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.9. Получение списка административных округов (саджест)".toUpperCase());
@@ -11002,7 +11002,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sAOSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/ao")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

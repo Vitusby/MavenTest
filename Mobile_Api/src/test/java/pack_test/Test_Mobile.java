@@ -550,10 +550,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetAOSuggest_4_9" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test36_2(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test36_2(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetAOSuggest_4_9(sBaseHost, sParam);
+		cM.GetAOSuggest_4_9(sBaseHost, sParam, sTypeApi);
 	}
 	
 	@Test (groups = { "GetDirectionSuggest_4_10" })
