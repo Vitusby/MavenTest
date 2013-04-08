@@ -8792,7 +8792,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(sD.equals("model"))
 			{
 				print("В фильтрах присутсвует поле модель, получаем значения моделей для ранее выбраной марки");
-				jD = GetDictinary_6_1(sHost, sNameDictionaty, hFilter.GetValue("make"));
+				jD = GetDictinary_6_1(sHost, sNameDictionaty, hFilter.GetValue("make"), "mobile_api");
 				jArr = jD.getJSONArray("values");
 				nLenght = jArr.length();
 				sD2 = (String) jArr.get(GetRandomNumber(nLenght));
@@ -11175,7 +11175,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 		
 	//6.1.	Получение значений словаря
-	public JSONObject GetDictinary_6_1(String sHost, String sNameDict, String sParam) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetDictinary_6_1(String sHost, String sNameDict, String sParam, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("6.1.	Получение значений словаря");
@@ -11185,7 +11185,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict)
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/dictionary/" + sNameDict)
     		.setParameter("value", sParam);
     	
     	uri = builder.build();
