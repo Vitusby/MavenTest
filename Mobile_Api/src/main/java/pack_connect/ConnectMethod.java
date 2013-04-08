@@ -2126,7 +2126,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 1, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
 	    	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
@@ -2805,6 +2805,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			throw new ExceptFailTest("Тест провален");
 		}
 	}
+	
+	
+	///Продолжаем здесь
 	
 	
 	//Подача/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
