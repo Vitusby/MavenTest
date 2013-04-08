@@ -10447,7 +10447,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//2.22.	Получение листинга объявлений пользователя
-	public void GetListUserAdvert_2_22(String sHost, String sDataForSearchUserAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListUserAdvert_2_22(String sHost, String sDataForSearchUserAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		JSONObject jTemp = null;
@@ -10457,7 +10457,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/user")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/user")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

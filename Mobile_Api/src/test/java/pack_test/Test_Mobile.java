@@ -459,10 +459,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetListUserAdvert_2_22" })
-	@Parameters({"sBaseHost", "sParam"})
-	public void Test26(String sBaseHost, String sParam) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sTypeApi"})
+	public void Test26(String sBaseHost, String sParam, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListUserAdvert_2_22(sBaseHost, sParam);
+		cM.GetListUserAdvert_2_22(sBaseHost, sParam, sTypeApi);
 	}
 		
 	@Test (groups = { "GetRubricator_3_1" })
