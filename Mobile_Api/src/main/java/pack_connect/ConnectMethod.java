@@ -11648,7 +11648,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//9.1 Получение промо-блока Мультиобъявлений
-	public void GetMultiBlock9_1(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetMultiBlock9_1(String sHost, String sDataForListing, String sDataForSearch, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp = null;
 		print("9.1 Получение промо-блока Мультиобъявлений");
@@ -11658,7 +11658,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/promo_multiadverts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/promo_multiadverts")
     		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
