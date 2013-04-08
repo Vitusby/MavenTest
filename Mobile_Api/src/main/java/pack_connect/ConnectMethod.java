@@ -7565,7 +7565,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hDataAdvert.PrintKeyAndValue();
 			
 			print("\r\nПолучаем список валют".toUpperCase());
-			GetCurrencies_5_1(sHost);
+			GetCurrencies_5_1(sHost, "mobile_api");
 			
 			print("\r\nФормируем данные по адресным кастомфилдам".toUpperCase());
 			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
@@ -7715,7 +7715,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sParamCustom = hDataAdvert.GetStringFromAllHashMap();
 			
 			print("\r\nПолучаем список валют".toUpperCase());
-			GetCurrencies_5_1(sHost);
+			GetCurrencies_5_1(sHost, "mobile_api");
 			
 			print("\r\nРедактирование объявления".toUpperCase());
 			print("Значения title, text, price, currency - " + sParamTitle);
@@ -11142,13 +11142,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 		
 	//5.1.	Получение списка валют
-	public void GetCurrencies_5_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetCurrencies_5_1(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("5.1.	Получение списка валют");
 	
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/currencies");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/currencies");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)

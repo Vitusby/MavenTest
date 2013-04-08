@@ -578,10 +578,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetCurrencies_5_1" })
-	@Parameters({"sBaseHost"})
-	public void Test40(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test40(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCurrencies_5_1(sBaseHost);
+		cM.GetCurrencies_5_1(sBaseHost, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetDictinary_6_1" })
