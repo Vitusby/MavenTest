@@ -8009,7 +8009,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 		
-			jTemp = GetStreetsSuggest_4_4(sHost, sSearch);
+			jTemp = GetStreetsSuggest_4_4(sHost, sSearch, "mobile_api");
 			if(!jTemp.getString("streets").equals("[]"))
 			{
 				jArr = jTemp.getJSONArray("streets");
@@ -10845,7 +10845,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	//4.4.	Получение списка улиц (саджест)	
-	public JSONObject GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetStreetsSuggest_4_4(String sHost, String sDataStreetsSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.5. Получение списка улиц (саджест)".toUpperCase());
@@ -10854,7 +10854,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/streets")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/streets")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
