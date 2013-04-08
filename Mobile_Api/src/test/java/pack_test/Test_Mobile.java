@@ -437,10 +437,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetListSearchCategory_2_19" })
-	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test23(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test23(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListSearchCategory_2_19(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+		cM.GetListSearchCategory_2_19(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "GetListFavourite_2_20" })
