@@ -10186,10 +10186,6 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// Получение листинга объявлений категории
-	
-	
-///////////////////////ПРОДОЛЖАТЬ ЗДЕСЬ////////////////////////////////////	
-	
 	public void GetListForCategory_2_18(String sHost, String sDataForListing, String sUsername, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sAuth_token="";
@@ -10299,12 +10295,12 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	//2.20.	Получение листинга объявлений, добавленных в «Избранное»
-	public void GetListFavourite_2_20(String sHost, String sUsername, String sPassword, String sDataForSearchFavourite, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetListFavourite_2_20(String sHost, String sUsername, String sPassword, String sDataForSearchFavourite, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String  sAuth_token= "";
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		JSONObject jTemp = null;
@@ -10316,7 +10312,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchFavourite);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/favorites")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/favorites")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();

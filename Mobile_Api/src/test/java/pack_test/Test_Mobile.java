@@ -444,10 +444,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetListFavourite_2_20" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "bAuthFlag"})
-	public void Test24(String sBaseHost, String sLogin, String sPassword, String sParam, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword" , "sParam", "bAuthFlag", "sTypeApi"})
+	public void Test24(String sBaseHost, String sLogin, String sPassword, String sParam, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListFavourite_2_20(sBaseHost, sLogin, sPassword, sParam, bAuthFlag);
+		cM.GetListFavourite_2_20(sBaseHost, sLogin, sPassword, sParam, bAuthFlag, sTypeApi);
 	
 	}
 	
