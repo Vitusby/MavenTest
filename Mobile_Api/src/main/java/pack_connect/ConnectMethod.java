@@ -9062,7 +9062,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("\r\nПолучаем список всех субъектов РФ и выбираем рандомный регион");
 		sRegion = Super_GetRandomRegion(sHost);
 		print("Получаем список городов принадлежащих региону " + sRegion);
-		GetPopularCities_4_2(sHost, sRegion);
+		GetPopularCities_4_2(sHost, sRegion, "mobile_api");
 		
 		print("\r\nПолучаем список городов для которых заведены поддомены".toUpperCase());
 		GetCitiesWithDomen_4_2_1(sHost);
@@ -10742,14 +10742,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	//4.2.	Получение списка городов принадлежащих какому либо региону
-	public void GetPopularCities_4_2(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetPopularCities_4_2(String sHost, String sRegion, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.3. Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();
