@@ -649,10 +649,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetListRelativeUser8_7" })
-	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test50(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test50(String sBaseHost, String sParam, String sParam1, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetListRelativeUser8_7(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag);
+		cM.GetListRelativeUser8_7(sBaseHost, sParam, sParam1, sLogin, sPassword, bAuthFlag, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetLadderUp8_9" })
