@@ -494,10 +494,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetRegions_4_1" })
-	@Parameters({"sBaseHost"})
-	public void Test31(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test31(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRegions_4_1(sBaseHost);
+		cM.GetRegions_4_1(sBaseHost, sTypeApi);
 	}
 	
 	@Test (groups = { "GetPopularCities_4_2" })

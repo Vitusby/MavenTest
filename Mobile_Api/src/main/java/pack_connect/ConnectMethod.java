@@ -7818,7 +7818,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONArray jArr;
 		JSONObject jTemp;
 		int nLenght = 0, nRandomRubr = 0;
-		jTemp = GetRegions_4_1(sHost);
+		jTemp = GetRegions_4_1(sHost, "mobile_api");
 		if(jTemp.getString("regions").equals("[]"))
 		{
 			print("Не удалось получить хоть один регион");
@@ -10709,13 +10709,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//4.1.	Получение списка субъектов РФ
-	public JSONObject GetRegions_4_1(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetRegions_4_1(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.1.	Получение списка субъектов РФ");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
