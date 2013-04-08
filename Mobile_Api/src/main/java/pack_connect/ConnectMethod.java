@@ -7849,7 +7849,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Генерируем строку саджеста для поиска нас.пункта");
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";
-			jTemp = GetCitiesSuggest_4_3(sHost, sSearch);
+			jTemp = GetCitiesSuggest_4_3(sHost, sSearch, "mobile_api");
 			if(!jTemp.getString("regions").equals("[]"))
 			{
 				jArr = jTemp.getJSONArray("regions");
@@ -10808,7 +10808,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	}	
 		}
 	// 4.3.	Поиск городов и населенных пунктов по названию (саджест)
-	public JSONObject GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public JSONObject GetCitiesSuggest_4_3(String sHost, String sDataCitiesSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("4.4. Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
@@ -10817,7 +10817,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
