@@ -10517,7 +10517,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//3.1.	Получение рубрикатора сайта
-	public void GetRubricator_3_1(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetRubricator_3_1(String sHost, String sCategory, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("3.1.	Получение рубрикатора сайта");
@@ -10525,7 +10525,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("category = "+ sCategory);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories")
     		.setParameter("category", sCategory);
     	
     	uri = builder.build();

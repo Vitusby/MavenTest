@@ -466,10 +466,10 @@ public class Test_Mobile
 	}
 		
 	@Test (groups = { "GetRubricator_3_1" })
-	@Parameters({"sBaseHost", "sCategory"})
-	public void Test27(String sBaseHost, String sCategory) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sCategory", "sTypeApi"})
+	public void Test27(String sBaseHost, String sCategory, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRubricator_3_1(sBaseHost, sCategory);
+		cM.GetRubricator_3_1(sBaseHost, sCategory, sTypeApi);
 	}
 	
 	@Test (groups = { "GetCastomfieldsForAddAdvert_3_2" })
