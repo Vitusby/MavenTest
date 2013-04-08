@@ -10552,13 +10552,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	//3.2.	Получение списка полей рубрики для подачи объявления
-	public void GetCastomfieldsForAddAdvert_3_2(String sHost, String sDataCustomfieldsAdvert, String sUsername, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetCastomfieldsForAddAdvert_3_2(String sHost, String sDataCustomfieldsAdvert, String sUsername, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		String  sAuth_token= "";	
 		if(bAuthFlag)
 		{
-			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", "mobile_api");
+			sAuth_token = Authorization_1_1(sHost, sUsername, sPassword, "", "", sTypeApi);
 		}
 		else print("Передан параметр не авторизовывать пользователя. В следующий запрос уйдет пустой ключ auth_token");
 		
@@ -10568,7 +10568,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/post")
     		.setQuery(sQuery + "&auth_token=" + sAuth_token);
     	
     	uri = builder.build();

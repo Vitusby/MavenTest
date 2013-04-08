@@ -473,10 +473,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetCastomfieldsForAddAdvert_3_2" })
-	@Parameters({"sBaseHost", "sParam", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test28(String sBaseHost, String sParam, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test28(String sBaseHost, String sParam, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetCastomfieldsForAddAdvert_3_2(sBaseHost, sParam, sLogin, sPassword, bAuthFlag);
+		cM.GetCastomfieldsForAddAdvert_3_2(sBaseHost, sParam, sLogin, sPassword, bAuthFlag, sTypeApi);
 	}
 	
 	@Test (groups = { "GetCastomfieldsForEditAdvert_3_3" })
