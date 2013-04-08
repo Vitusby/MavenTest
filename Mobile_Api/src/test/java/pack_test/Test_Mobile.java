@@ -215,10 +215,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_27" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_ChangePassword(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_ChangePassword(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.ChangePassword(sBaseHost); //Смена пароля
+			cM.ChangePassword(sBaseHost, sTypeApi); //Смена пароля
 	}
 	
 	

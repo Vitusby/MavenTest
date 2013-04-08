@@ -560,13 +560,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// Смена пароля пользователя автотест
-	public void ChangePassword(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
+	public void ChangePassword(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException
 	{	
 		wLog.SetUpWriterLog("LogResult.html");
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация,смена пароля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), wLog, sTypeApi);
 		
 		
 		print("Смена пароля пользователя - Тест".toUpperCase());
@@ -580,7 +580,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + Proper.GetProperty("password") + "&new_password=" + "retry1";
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -601,7 +601,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("\r\nАвторизуемся пользователем " + Proper.GetProperty("login_changePassword") + " используя новый пароль " + "retry1");
-    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), "retry1", "", "", "mobile_api");
+    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), "retry1", "", "", sTypeApi);
     	
     	print("Изменяем новый пароль retry1 на старый retry2");
     	print("Смена пароля пользователя".toUpperCase());
@@ -614,7 +614,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sE = "auth_token=" + sAuth_token + "&old_password=" + "retry1" + "&new_password=" + Proper.GetProperty("password");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -635,7 +635,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	
     	print("\r\nАвторизуемся пользователем " + Proper.GetProperty("login_changePassword") + " используя новый пароль " + Proper.GetProperty("password"));
-    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), "", "", "mobile_api");
+    	Authorization_1_1(sHost, Proper.GetProperty("login_changePassword"), Proper.GetProperty("password"), "", "", sTypeApi);
     	
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
