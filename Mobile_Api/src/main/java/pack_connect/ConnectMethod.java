@@ -11425,7 +11425,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.5 Получения информации о местоположении пользователя по его координатам. 
-	public void GetRegionByCoordinates8_5(String sHost, String sParam, String sParam1) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetRegionByCoordinates8_5(String sHost, String sParam, String sParam1,  String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("8.5.	Получения информации о местоположении пользователя по его координатам");
 		print("Параметры для запроса");
@@ -11434,7 +11434,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/geolocation")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/geolocation")
     		.setParameter("lat", sParam)
     		.setParameter("lng", sParam1);
     	

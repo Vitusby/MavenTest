@@ -628,10 +628,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetRegionByCoordinates8_5" })
-	@Parameters({"sBaseHost", "sParam", "sParam1"})
-	public void Test47(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sTypeApi"})
+	public void Test47(String sBaseHost, String sParam, String sParam1, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRegionByCoordinates8_5(sBaseHost, sParam, sParam1);
+		cM.GetRegionByCoordinates8_5(sBaseHost, sParam, sParam1, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetRegionByIP8_6" })
