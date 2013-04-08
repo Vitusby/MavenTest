@@ -2505,7 +2505,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
