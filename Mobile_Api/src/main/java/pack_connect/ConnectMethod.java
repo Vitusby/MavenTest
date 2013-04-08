@@ -2032,7 +2032,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Подача в бесплатную/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его
-	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
+	public void AddDeactivateActivateProlongPushupHighlightPremiumOPFreeAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert="", sIdAdvert2=""; 
@@ -2049,7 +2049,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , деактивация, активация, продление, поднятие, выделение, премиум  ОП(бесплатное объявление) - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		try
 		{
 			// подача двух объявлений
@@ -2057,12 +2057,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Подача двух объявлений в бесплатную рубрику. Недвижимость - Вторичный рынок".toUpperCase());
 			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
 			print("Объявление №1");
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdAdvert = objRealt.GetID();
 	   	
 	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
 			print("Объявление №2");
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", sTypeApi);
 	    	sIdAdvert2 = objRealt.GetID();
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
@@ -2072,7 +2072,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2087,14 +2087,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Проверка продления объявления".toUpperCase());
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Запоминаем время окончания размещения объявления");
-	    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api");// запоминаем json объект в нем время окончания размещения сраз после подачи
+	    	jDataPostAsvert = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);// запоминаем json объект в нем время окончания размещения сраз после подачи
 	    	
 	    	print("\r\nПродлеваем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
 	    	print("Объявление подано в бесплатую рубрику продлеваем без отправки App_Token");
-	    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false, 1, "mobile_api");
+	    	ProlongAdvert(sHost, sAuth_token, sIdAdvert, false, 1, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение времени окончания размещения объявления после продления");
-	    	jData2 = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData2 = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	print("Сравниваем время окончания размещения объявления до и после продления");
 	    	ValidateDateFinishAdvert(jDataPostAsvert, jData2, 1);   	
 	    		
@@ -2102,10 +2102,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 4");
 	    	print("Проверка деактивации объявления".toUpperCase());
 	    	print("\r\nДеактивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
-	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1, "mobile_api");
+	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert, 1, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
 	    	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
@@ -2115,7 +2115,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
 	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
 	    	
 	    	// проверка активации объявления
@@ -2123,7 +2123,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Проверка активации объявления".toUpperCase());
 	    	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin);
 	    	print("Объявление подано в бесплатую рубрику активируем без отправки App_Token");
-	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 1);
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 1, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
@@ -2136,21 +2136,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем активированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
 	    	FindAdvertFromListAfterPost(jData, sIdAdvert);
 	
 	    	// проверка попытки поднять объявление без оплаты
 	    	print("\r\nШАГ 6");
 	    	print("Проверка попытки поднять объявление без оплаты".toUpperCase());
 	    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2, "mobile_api");
+	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2, sTypeApi);
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2166,14 +2166,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 7");
 	    	print("Проверка поднятия объявления".toUpperCase());
 	    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1, "mobile_api");
+	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1, sTypeApi);
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2188,10 +2188,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 8");
 	    	print("Проверка попытки выделить объявление без оплаты".toUpperCase());
 	    	print("\r\nПытаемся выделить объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2, "mobile_api");
+	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, false, 2, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус выделения объявление с ID = " + sIdAdvert + " после попытки выделить объявления без передачи ключа оплаты");
 	    	ValidateHighLight("false", jData, sIdAdvert, " после попытки выделить объявления без передачи ключа оплаты");
@@ -2200,10 +2200,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 9");
 	    	print("Проверка выделения объявление".toUpperCase());
 	    	print("\r\nВыделяем объявление с ID = " + sIdAdvert +  " для пользоватея " + sLogin + " передаем ключ оплаты");
-	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 1, "mobile_api");
+	    	HighLightAdvert(sHost, sAuth_token, sIdAdvert, true, 1, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса выделения объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус выделения для объявления с ID = " + sIdAdvert + " после выделения объявления");
 	    	ValidateHighLight("true", jData, sIdAdvert, " после выделения объявления");
@@ -2212,10 +2212,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 10");
 	    	print("Проверка попытки назначить премиум объявлению без оплаты".toUpperCase());
 	    	print("\r\nПытаемся назначить премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, false, 2, "mobile_api");
+	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, false, 2, sTypeApi);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после попытки назначить премиум объявлению без передачи ключа оплаты");
 	    	ValidatePremiun("false", jData, sIdAdvert2, " после попытки назначить премиум объявлению без передачи ключа оплаты");
@@ -2224,12 +2224,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 11");
 	    	print("Проверка назначения премиум объявлению".toUpperCase());
 	    	print("\r\nНазначаем премиум объявлению с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
-	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1, "mobile_api");
+	    	SetPremiumAdvert(sHost, sAuth_token, sIdAdvert2, true, 1, sTypeApi);
 	    	
 	    	Sleep(2000);
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса премиум объявления");
-	    	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок", "mobile_api" );
+	    	jData = GetAdvert(sHost, sIdAdvert2,  "Недвижимость - Вторичный рынок", sTypeApi);
 	    	
 	    	print("\r\nПроверяем статус премиум для объявления с ID = " + sIdAdvert2 + " после назначения премиума объявлению");
 	    	ValidatePremiun("true", jData, sIdAdvert2, " после назначения премиума объявлению");
@@ -2239,8 +2239,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	//удаляем поданные обяъвления
 	    	print("\r\nШАГ 12");
 	    	print("Удаляем поданные объявления".toUpperCase());
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -2344,7 +2344,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	// активация объявления для автотеста
-	private void ActivateAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token, int nResult) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private void ActivateAdvert(String sHost, String sAuth_token, String sIdAdvert, boolean bFlagApp_Token, int nResult, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
 		String sApp_token = "";
@@ -2357,7 +2357,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/activate");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/activate");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -2551,7 +2551,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	// получение листинга категории для автотеста
-	private JSONObject GetListCategory(String sHost, String sDataForList, String sAuth_token) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private JSONObject GetListCategory(String sHost, String sDataForList, String sAuth_token, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		JSONObject jTemp;	
 		print("Получение листинга объявлений категории".toUpperCase());
@@ -2561,7 +2561,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForList);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/category")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/category")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -2861,14 +2861,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Проверка попытки активации объявления без оплаты".toUpperCase());
 	    	
 	    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 2);
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, false, 2, "mobile_api");
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто", "mobile_api" );
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после попытки активации объявления, без передачи ключа оплаты");
 	    	ValidateStatus("2", jData, sIdAdvert, " после попытки активации объявления, без передачи ключа оплаты");
 	    	
 	    	print("\r\nПытаемся активировать  объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
-	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, false, 2);
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, false, 2, "mobile_api");
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто", "mobile_api" );
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после попытки активации объявления, без передачи ключа оплаты");
@@ -2880,14 +2880,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Активации объявления с оплатой".toUpperCase());
 	    	
 	    	print("\r\nАктивируем объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
-	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, true, 1);
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert, true, 1, "mobile_api");
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто", "mobile_api" );
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации с оплатой");
 	    	ValidateStatus("1", jData, sIdAdvert, " после активации с оплатой");
 	    	
 	    	print("\r\nАктивируем объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
-	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, true, 1);
+	    	ActivateAdvert(sHost, sAuth_token, sIdAdvert2, true, 1, "mobile_api");
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert2,  "Авто - Новые авто", "mobile_api" );
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после активации с оплатой");
@@ -2900,7 +2900,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Проверяем появление объявлений в листинге и их корректное расположение".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики  Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", "mobile_api");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2953,7 +2953,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", "mobile_api");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -2977,7 +2977,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", "mobile_api");
 	    	
 	    	print("\r\nИщем поданные объявления в листинге и запоминаем их порядковые номера");
 	    	nNumberList = FindAdvertFromListAfterPost(jData, sIdAdvert);
@@ -3057,7 +3057,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
-	    	jData = GetListCategory(sHost, sDataForList, "");
+	    	jData = GetListCategory(sHost, sDataForList, "", "mobile_api");
 	    	FindAdvertFromListAfterDelete(jData, sIdAdvert);
 		}
 		finally
@@ -3815,7 +3815,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
-	    	jData = GetListCategory(sHost, sDataForListAuto, "");
+	    	jData = GetListCategory(sHost, sDataForListAuto, "", "mobile_api");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
 	    	
@@ -3824,7 +3824,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForListRealt, "");
+	    	jData = GetListCategory(sHost, sDataForListRealt, "", "mobile_api");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
 	    		
@@ -3833,7 +3833,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 4");
 	    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
-	    	jData = GetListCategory(sHost, sDataForListTIY, "");
+	    	jData = GetListCategory(sHost, sDataForListTIY, "", "mobile_api");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
 	    	
@@ -3842,7 +3842,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Получаем листинг категории Телефоны и связь - сотовые телефоны. Регион Пермь".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Телефоны и связь - сотовые телефоны.");
-	    	jData = GetListCategory(sHost, sDataForListTIYMobile, "");
+	    	jData = GetListCategory(sHost, sDataForListTIYMobile, "", "mobile_api");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdMobile, sRegionNameMobile, sCategoryNameMobile, "russia/permskiy-kray/perm-gorod/");
 	    	
@@ -3851,7 +3851,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 6");
 	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
-	    	jData = GetListCategory(sHost, sDataForListJob, "");
+	    	jData = GetListCategory(sHost, sDataForListJob, "", "mobile_api");
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
 	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/"); // После исправления бага 44474 раскомментить
 	    		
@@ -5989,7 +5989,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 4-1");
 			wLog.WriteString(1, "\r\nОплачиваем(активируем объявление)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1);
+			ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, "mobile_api");
 			
 			wLog.WriteString(3, "\r\nШАГ 4-2");
 			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
@@ -6115,7 +6115,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 6-3");
 			wLog.WriteString(1, "Активируем объявление".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1);
+			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, "mobile_api");
 			
 			wLog.WriteString(3, "\r\nШАГ 6-4");
 			wLog.WriteString(1, "Выделяем объявление".toUpperCase());
@@ -6211,7 +6211,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 7-6");
 			wLog.WriteString(1, "Активируем объявление.(Необходимо для проверки корректной работы платного объявления сверх лимита)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1);
+			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, "mobile_api");
 			
 			
 	 /////////////////////////////////проверка платных продуктов в ЛК Пылесосы (платное объявление, сверх лимита)////////////////////////////////////////////////////
@@ -6226,7 +6226,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 			wLog.WriteString(3, "\r\nШАГ 8-1");
 			wLog.WriteString(1, "Оплачиваем(активируем объявление)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1);
+			ActivateAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, "mobile_api");
 			
 			wLog.WriteString(3, "\r\nШАГ 8-2");
 			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
@@ -6716,7 +6716,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №4");
 			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
-			jData = GetListCategory(sHost, sDataForList, sAuth_token);
+			jData = GetListCategory(sHost, sDataForList, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №5");
 			print("Ищем объявление с ID = " + sId + " в листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6854,7 +6854,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("\r\nШАГ №3");
 			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург и область(include_region=true).".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSanktPeterburgWithObl, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSanktPeterburgWithObl, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №4");
 			print("Ищем объявление с ID = " + sIdTIY_Leningrad + " в листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург и область.".toUpperCase());
@@ -6862,7 +6862,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №5");
 			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург(include_region=false)".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSanktPeterburg, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSanktPeterburg, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №6");
 			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Leningrad + " в листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
@@ -6878,7 +6878,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 			print("\r\nШАГ №9");
 			print("Получаем фильтрованный листинг категории Электроника и техника - Пылесосы. Регион Санкт-Петербург(include_region=false)".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSearchSanktPeterburg, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSearchSanktPeterburg, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №10");
 			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Leningrad + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
@@ -6888,7 +6888,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №11");
 			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Москва и область(include_region=true).".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSanktMoskvaWithObl, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSanktMoskvaWithObl, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №12");
 			print("Ищем объявление с ID = " + sIdTIY_Moskva + " в листинге Электроника и техника - Пылесосы. Регион Москва и область.".toUpperCase());
@@ -6896,7 +6896,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №13");
 			print("Получаем листинг категории Электроника и техника - Пылесосы. Регион Москва(include_region=false).".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSanktMoskva, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSanktMoskva, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №14");
 			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Moskva + " в листинге Электроника и техника - Пылесосы. Регион Москва.".toUpperCase());
@@ -6912,7 +6912,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 			print("\r\nШАГ №17");
 			print("Получаем фильтрованный листинг категории Электроника и техника - Пылесосы. Регион Москва(include_region=false).".toUpperCase());
-			jData = GetListCategory(sHost, sDataForListSearchMoskva, sAuth_token);
+			jData = GetListCategory(sHost, sDataForListSearchMoskva, sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №18");
 			print("Проверяем отсутствие объявления с ID = " + sIdTIY_Moskva + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург.".toUpperCase());
@@ -7614,7 +7614,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(!sStatus.equals("1"))
 			{
 				print("\r\nАктивируем объявление".toUpperCase());
-				ActivateAdvert(sHost, sAuth_token, sId, true, 1);
+				ActivateAdvert(sHost, sAuth_token, sId, true, 1, "mobile_api");
 			}
 			else
 			{
@@ -8973,7 +8973,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print(sSearch);
 
 		print("\r\nПолучаем листинг категории".toUpperCase());
-		jTemp = GetListCategory(sHost, sSearch, sAuth_token);
+		jTemp = GetListCategory(sHost, sSearch, sAuth_token, "mobile_api");
 		
 		print("\r\nПолучаем ID первого объявления в листинге".toUpperCase());
 		if(jTemp.getString("advertisements").equals("[]"))
