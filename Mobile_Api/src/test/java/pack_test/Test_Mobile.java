@@ -83,10 +83,10 @@ public class Test_Mobile
 	 
 	
 	@Test (groups = { "AutoTest_10" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddActivateDeactivateProlongPushUpHighLightPremiumIP(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddActivateDeactivateProlongPushUpHighLightPremiumIP(sBaseHost); //Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/пермиум ИП
+			cM.AddActivateDeactivateProlongPushUpHighLightPremiumIP(sBaseHost, sTypeApi); //Попытка Подачи/редактирования/деактивации/активация/продление/поднятие/выделение/пермиум ИП
 	}
 	
 	
