@@ -656,10 +656,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetLadderUp8_9" })
-	@Parameters({"sBaseHost", "sParam", "sParam1"})
-	public void Test51(String sBaseHost, String sParam, String sParam1) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sParam", "sParam1", "sTypeApi"})
+	public void Test51(String sBaseHost, String sParam, String sParam1, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetLadderUp8_9(sBaseHost, sParam, sParam1);
+		cM.GetLadderUp8_9(sBaseHost, sParam, sParam1, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetMultiBlock9_1" })

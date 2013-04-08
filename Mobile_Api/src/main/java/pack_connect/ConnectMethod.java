@@ -11603,7 +11603,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	//8.9 Получение лесенки вверх
-	public void GetLadderUp8_9(String sHost, String sDataForListing, String sDataForSearch) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void GetLadderUp8_9(String sHost, String sDataForListing, String sDataForSearch, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		JSONObject jTemp = null;
 		print("8.9.	Получение лесенки вверх");
@@ -11613,7 +11613,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/stairsup")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/stairsup")
     		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
