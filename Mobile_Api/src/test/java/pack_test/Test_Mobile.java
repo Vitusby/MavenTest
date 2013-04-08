@@ -25,10 +25,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_2" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_Authorization(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_Authorization(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.Authorization(sBaseHost); // Авторизация	
+			cM.Authorization(sBaseHost, sTypeApi); // Авторизация	
 	}
 	
 	@Test (groups = { "AutoTest_3" })
