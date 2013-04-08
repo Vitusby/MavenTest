@@ -621,10 +621,10 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "GetRelatedAdverts8_4" })
-	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag"})
-	public void Test46(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
+	public void Test46(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.GetRelatedAdverts8_4(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag);
+		cM.GetRelatedAdverts8_4(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag, sTypeApi);
 	} 
 	
 	@Test (groups = { "GetRegionByCoordinates8_5" })
