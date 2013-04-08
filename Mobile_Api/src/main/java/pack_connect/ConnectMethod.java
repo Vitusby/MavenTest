@@ -364,7 +364,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Редактирование профиля Автотест
-	public void GetAndEditProfile(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetAndEditProfile(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jTemp, jData;
@@ -375,7 +375,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, редактирование профиля - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		
 		print("Проверяем совпадение логина и email");
 		jTemp = jsonObject.getJSONObject("user_info"); 
@@ -414,7 +414,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
     		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;

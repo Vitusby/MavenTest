@@ -32,10 +32,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_3" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetAndEditProfile(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetAndEditProfile(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.GetAndEditProfile(sBaseHost); // Получение и редактирование профиля
+			cM.GetAndEditProfile(sBaseHost, sTypeApi); // Получение и редактирование профиля
 	}
 	
 	@Test (groups = { "AutoTest_4" })
