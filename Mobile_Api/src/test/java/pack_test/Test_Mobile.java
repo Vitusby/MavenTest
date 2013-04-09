@@ -200,10 +200,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_25" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddAdvertCheckPaidAndFreeProducts(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddAdvertCheckPaidAndFreeProducts(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
+			cM.AddAdvertCheckPaidAndFreeProducts(sBaseHost, sTypeApi); //Получение и проверка платных и бесплатных продуктов на этапе подачи и в ЛК
 	}
 	
 	@Test (groups = { "AutoTest_26" })
