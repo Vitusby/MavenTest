@@ -229,10 +229,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_29" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_LogoutAndCheckAuthToken(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_LogoutAndCheckAuthToken(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.LogoutAndCheckAuthToken(sBaseHost); //Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута(проверяем подачей)
+			cM.LogoutAndCheckAuthToken(sBaseHost, sTypeApi); //Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута(проверяем подачей)
 	}
 	
 	@Test (groups = { "AutoTest_30" })

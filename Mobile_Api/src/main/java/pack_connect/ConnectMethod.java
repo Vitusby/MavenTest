@@ -6618,7 +6618,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Выход из приложения, проверка что ключ более не доступен.
-	public void LogoutAndCheckAuthToken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void LogoutAndCheckAuthToken(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authOP2");
@@ -6630,18 +6630,18 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Авторизация, логаут, проверка не работоспособности ключа авторизации после логаута - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		
 		print("\r\nШАГ №1");
 		print("Вылогиниваемя из приложения".toUpperCase());
-		LogOut(sHost, sAuth_token);
+		LogOut(sHost, sAuth_token, sTypeApi);
 		
 		try
 		{
 			print("\r\nШАГ №2");
 			print("Проверяем что ключ авторизации больше не рабочий".toUpperCase());
 			print("Пробуем подать объявление");
-			PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", "mobile_api");
+			PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
 			bFlag = true;
 		}
 		finally
@@ -6651,14 +6651,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 				jTemp = jsonObject.getJSONObject("advertisement");
 				sId =  jTemp.getString("id");
 				print("Удаляем поданное объявление с ID = " + sId);
-				DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");
+				DeleteAdvert(sHost, sAuth_token, sId, sTypeApi);
 				
 			}
 		}
 		
 	}
 	// метод логаута для автотестов
-	private void LogOut(String sHost, String sAuth_token) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private void LogOut(String sHost, String sAuth_token, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("Выход из приложения");
 		print("Параметры для запроса");
@@ -6667,7 +6667,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/logout");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/logout");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
