@@ -99,10 +99,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_12" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddGetFilterList(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddGetFilterList(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddGetFilterList(sBaseHost); //Подача/получение фильтрованного листинга объявлений категории
+			cM.AddGetFilterList(sBaseHost, sTypeApi); //Подача/получение фильтрованного листинга объявлений категории
 	}
 
 	

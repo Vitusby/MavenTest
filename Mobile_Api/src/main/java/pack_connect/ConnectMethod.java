@@ -3306,7 +3306,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	// Подача, получение листинга с фильтрацией 
-	public void AddGetFilterList(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	public void AddGetFilterList(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob=""; 
@@ -3334,7 +3334,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача, получение фильтрованного листинга - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		
 		
 		// подача трех объявлений
@@ -3343,28 +3343,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 		try
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва ".toUpperCase());
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", "mobile_api");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 			hObj_Auto = objAuto.GetAdvertismentData(); // сюда сохраняем значение массива адветисемент (контакты, title, web, price и т.д. указанные при подаче )  
 			hObj_Auto2 = objAuto.GetCustomfieldData(); // сюда сохраняем значение массива кастомфилдов, указанные при подаче
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////    	
 	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdRealt = objRealt.GetID();
 	    	hObj_Realt = objRealt.GetAdvertismentData();
 	    	hObj_Realt2 = objRealt.GetCustomfieldData();
 	    	
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
 	    	print("\r\nПодача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", "mobile_api");
+	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
 	    	sIdTIU = objTIY.GetID();
 	    	hObj_TIY = objTIY.GetAdvertismentData();
 	    	hObj_TIY2 = objTIY.GetCustomfieldData();
 	    	
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
 			print("\r\nПодача объявления в рубрику Телефоны и связь - Мобильные телефоны. Регион Пермь".toUpperCase());
-			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5", "mobile_api");
+			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5", sTypeApi);
 			sIdMobile = objMobile.GetID();
 			hObj_Mobile = objMobile.GetAdvertismentData();
 			hObj_Mobile2 = objMobile.GetCustomfieldData();
@@ -3372,7 +3372,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 ///////////////////////////////////////////////////////////////////////////////////////////////// 
 			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
-			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7", "mobile_api");
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7", sTypeApi);
 			sIdJob = objJob.GetID();
 			hObj_Job = objJob.GetAdvertismentData();
 			hObj_Job2 = objJob.GetCustomfieldData();
@@ -3388,14 +3388,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nФормируем запрос для категории Авто с пробегом. Регион Москва. Ищем поданное объявление с ID = " + sIdAuto);
 	    	print("Строка для поиска в рубрике Авто с пробегом для только что поданного объявления = "+ GetStringFilterAuto(hObj_Auto, hObj_Auto2));
 	    	print("Производим поиск");
-	    	jData = GetListSearchCategory(sHost, sDataForListing, GetStringFilterAuto(hObj_Auto, hObj_Auto2), "");
+	    	jData = GetListSearchCategory(sHost, sDataForListing, GetStringFilterAuto(hObj_Auto, hObj_Auto2), "", sTypeApi);
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdAuto);
 	    	FindAdvertFromListAfterPost(jData, sIdAuto);
 	    	
 	    	print("\r\nФормируем запрос для категории Недвижимость - Вторичный рынок. Регион Архангельск. Ищем поданное объявление с ID = " + sIdRealt);
 	    	print("Строка для поиска в рубрике Недвижимость - Вторичный рынок для только что поданного объявления = "+ GetStringFilterRealt(hObj_Realt, hObj_Realt2));
 	    	print("Производим поиск");
-	    	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2), "");
+	    	jData = GetListSearchCategory(sHost, sDataForListing2, GetStringFilterRealt(hObj_Realt, hObj_Realt2), "", sTypeApi);
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdRealt);
 	    	FindAdvertFromListAfterPost(jData, sIdRealt);
 	    	
@@ -3403,7 +3403,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Строка для поиска в рубрике Электроника и техника - Пылесосы для только что поданного объявления = "+ GetStringFilterTIY(hObj_TIY, hObj_TIY2));
 	    	print("Производим поиск");
 	    	Sleep(10000);
-	    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2), "");
+	    	jData = GetListSearchCategory(sHost, sDataForListing3, GetStringFilterTIY(hObj_TIY, hObj_TIY2), "", sTypeApi);
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdTIU);
 	    	FindAdvertFromListAfterPost(jData, sIdTIU);
 	    	
@@ -3411,14 +3411,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Строка для поиска в рубрике Телефоны и связь - Мобильные телефоны для только что поданного объявления = "+ GetStringFilterMobile(hObj_Mobile, hObj_Mobile2));
 	    	print("Производим поиск");
 	    	Sleep(5000);
-	    	jData = GetListSearchCategory(sHost, sDataForListing4, GetStringFilterMobile(hObj_Mobile, hObj_Mobile2), "");
+	    	jData = GetListSearchCategory(sHost, sDataForListing4, GetStringFilterMobile(hObj_Mobile, hObj_Mobile2), "", sTypeApi);
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdMobile);
 	    	FindAdvertFromListAfterPost(jData, sIdMobile);
 	    	
 	    	print("\r\nФормируем запрос для категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва. Ищем поданное объявление с ID = " + sIdJob);
 	    	print("Строка для поиска в рубрике Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет) для только что поданного объявления = "+ GetStringFilterJob(hObj_Job, hObj_Job2));
 	    	print("Производим поиск");
-	    	jData = GetListSearchCategory(sHost, sDataForListing5, GetStringFilterJob(hObj_Job, hObj_Job2), "");
+	    	jData = GetListSearchCategory(sHost, sDataForListing5, GetStringFilterJob(hObj_Job, hObj_Job2), "", sTypeApi);
 	    	print("Ищем в полученном листинге-фильтрации поданное объявление с ID = " + sIdJob);
 	    	FindAdvertFromListAfterPost(jData, sIdJob);
 	    	  	
@@ -3430,19 +3430,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAuto);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdRealt);
-	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdJob);
-	    	DeleteAdvert(sHost, sAuth_token, sIdJob, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
@@ -3538,7 +3538,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return sDataForSearch;
 	}
 	// фильтрация получение листинга
-	private  JSONObject GetListSearchCategory(String sHost, String sDataForListing, String sDataForSearch, String sAuth_token) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private  JSONObject GetListSearchCategory(String sHost, String sDataForListing, String sDataForSearch, String sAuth_token, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONObject jTemp;
 		print("Фильтрация/поиск объявлений по критериям".toUpperCase());
@@ -3549,7 +3549,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/search")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -6737,7 +6737,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №7");
 			print("Получаем фильтрованный листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
-			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token);
+			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №8");
 			print("Ищем объявление с ID = " + sId + " в фильтрованном листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6870,7 +6870,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 			print("\r\nШАГ №7");
 			print("Получаем фильтрованный листинг категории  Электроника и техника - Пылесосы. Регион Санкт-Петербург и область(include_region=true).".toUpperCase());
-			jData = GetListSearchCategory(sHost, sDataForListSearchSanktPeterburgWithObl, "currency=RUR/", sAuth_token);
+			jData = GetListSearchCategory(sHost, sDataForListSearchSanktPeterburgWithObl, "currency=RUR/", sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №8");
 			print("Ищем объявление с ID = " + sIdTIY_Leningrad + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Санкт-Петербург и область.".toUpperCase());
@@ -6904,7 +6904,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №15");
 			print("Получаем фильтрованный листинг категории  Электроника и техника - Пылесосы. Регион Москва и область(include_region=true).".toUpperCase());
-			jData = GetListSearchCategory(sHost, sDataForListSearchMoskvaWithObl, "currency=RUR/", sAuth_token);
+			jData = GetListSearchCategory(sHost, sDataForListSearchMoskvaWithObl, "currency=RUR/", sAuth_token, "mobile_api");
 			
 			print("\r\nШАГ №16");
 			print("Ищем объявление с ID = " + sIdTIY_Moskva + " в фильтрованном листинге Электроника и техника - Пылесосы. Регион Москва и область.".toUpperCase());
@@ -8645,7 +8645,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("\r\nВыполняем запрос фильтрации листинга");
 		sTemp = "{region=" + sRegion + ",category=" + sCategory + " ,include_categories=true, offset=0, limit=20, sort_by=date_sort:desc}";
-		GetListSearchCategory(sHost, sTemp, sSearch, "");
+		GetListSearchCategory(sHost, sTemp, sSearch, "", "mobile_api");
 		
 	}
 	// получение фильтров и их значении
