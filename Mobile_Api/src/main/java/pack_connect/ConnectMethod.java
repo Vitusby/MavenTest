@@ -3662,7 +3662,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
 		}
     	
     	print("------------------------------------------------------------------------------------------------------------");
