@@ -243,10 +243,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_31" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddAdvertGetListAndCheckMagicRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddAdvertGetListAndCheckMagicRegion(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.AddAdvertGetListAndCheckMagicRegion(sBaseHost); //Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений
+			cM.AddAdvertGetListAndCheckMagicRegion(sBaseHost, sTypeApi); //Подача в волшебные регионы(Москва и обл, Санкт-Петербург и обл), получение листинга категории и фильтрации, проверка наличия поданных объявлений
 	}
 	
 	
