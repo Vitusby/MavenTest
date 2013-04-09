@@ -4890,7 +4890,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка городов принадлежащего субъекту РФ
-	public void GetCitiesInsideRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetCitiesInsideRegion(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sRegionMoskva = "russia/moskva-gorod/";
@@ -4906,15 +4906,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем cписок городов принадлежащих региону Москва".toUpperCase());		
-		jData = GetCitiesInReg(sHost, sRegionMoskva);
+		jData = GetCitiesInReg(sHost, sRegionMoskva, sTypeApi);
 		String sCurrentCitiesInRegMoskva = jData.toString(10); 
 		
 		print("\r\nПолучаем cписок городов принадлежащих региону Московская область".toUpperCase());
-		jData = GetCitiesInReg(sHost, sRegionMoskObl);
+		jData = GetCitiesInReg(sHost, sRegionMoskObl, sTypeApi);
 		String sCurrentCitiesInRegMoskovObl = jData.toString(10); 
 		
 		print("\r\nПолучаем cписок городов принадлежащих региону Архангельская область".toUpperCase());
-		jData = GetCitiesInReg(sHost, sRegionArxangelskObl);
+		jData = GetCitiesInReg(sHost, sRegionArxangelskObl, sTypeApi);
 		String sCurrentCitiesInRegArxangelObl = jData.toString(10); 
 		
 		smas[0] = sCurrentCitiesInRegMoskva;
@@ -4980,14 +4980,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// получение списка городов принадлежащего определенному субъекту РФ
-	private JSONObject GetCitiesInReg(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCitiesInReg(String sHost, String sRegion, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();
