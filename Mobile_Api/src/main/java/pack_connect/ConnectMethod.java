@@ -7439,7 +7439,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			JSONObject jTemp;
 
 			print("Вылогиниваемя из приложения".toUpperCase());
-			LogOut(sHost, sAuth_token);
+			LogOut(sHost, sAuth_token, "mobile_api");
 			
 			try
 			{
