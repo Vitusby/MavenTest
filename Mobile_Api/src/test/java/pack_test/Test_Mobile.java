@@ -222,10 +222,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_28" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddAndEditWithImage(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddAndEditWithImage(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.AddAndEditWithImage(sBaseHost); //Подача объявления без изображения и редактирование с добавлением изображения
+			cM.AddAndEditWithImage(sBaseHost, sTypeApi); //Подача объявления без изображения и редактирование с добавлением изображения
 	}
 	
 	@Test (groups = { "AutoTest_29" })

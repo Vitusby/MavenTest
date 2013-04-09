@@ -6545,7 +6545,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Проверка подачи без картинки и редактирования с добавлением картинки
-	public void AddAndEditWithImage(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	public void AddAndEditWithImage(String sHost, String sTypeApi) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="";
@@ -6558,19 +6558,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача объявления без изображения и редактирование с добавлением изображения - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		
 		try
 		{
 			print("\r\nШАГ №1");
 			print("Подача объявления в рубрику Авто с пробегом".toUpperCase());
 			print("Подаем объявление без изображений");
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "not_image", "mobile_api");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "not_image", sTypeApi);
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 		
 			print("\r\nШАГ №2");
 			print("Получаем данные по поданному объявлению.".toUpperCase());
-			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом", "mobile_api");
+			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом", sTypeApi);
 			
 			print("\r\nШАГ №3");
 			print("Проверяем отсутствие изображений в объявлении.".toUpperCase());
@@ -6589,11 +6589,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №4");
 			print("Редактируем объявление, добавляем изображение при редактировании.".toUpperCase());
-			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto, "category_auto", "mobile_api");
+			objAuto = EditAdvert(sHost, mas_Advertisment, mas_Auto2, objAuto, sAuth_token, sImageUrlAuto, "category_auto", sTypeApi);
 			
 			print("\r\nШАГ №5");
 			print("Проверяем наличие изображения после редактировании.".toUpperCase());
-			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом", "mobile_api");
+			jData = GetAdvert(sHost, sIdAuto, "Авто с пробегом", sTypeApi);
 			sImage = jData.getJSONObject("advertisement").getString("images");
 			if(sImage.equals("[]"))
 			{
@@ -6612,7 +6612,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		finally
 		{
 			print("\r\nУдаляем поданные объявления");
-			DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
+			DeleteAdvert(sHost, sAuth_token, sIdAuto, sTypeApi);
 		}
 	}
 	
