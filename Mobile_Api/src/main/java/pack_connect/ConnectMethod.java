@@ -2807,9 +2807,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	
 	
-	///Продолжаем здесь
-	
-	
 	//Подача/деактивация/активация/Продление/Поднятие/Выделение/Назначение премиум/Получение листинга категории и проверка его (Платное объявление) 
 	public void AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
@@ -3080,7 +3077,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 	
 	// Подача/Получение листинга пользователя
-	public void AddAvdertGetListUserOP(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	public void AddAvdertGetListUserOP(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert="", sIdAdvert2="", sIdAdvert3=""; 
@@ -3096,7 +3093,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		try
 		{
 			// подача трех объявлений
@@ -3104,17 +3101,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Подача трех объявлений одно в платную рубрику Авто - Новые авто, два в бесплатную рубрику Недвижимость - Вторичный рынок".toUpperCase());
 			print("\r\nПодача объявления в рубрику Авто - Новые авто");
 			print("Объявление №1");
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", "mobile_api");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", sTypeApi);
 			sIdAdvert = objAuto.GetID();
 			
 	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
 			print("Объявление №2");
-			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdAdvert2 = objRealt.GetID();
 	    	
 	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
 			print("Объявление №3");
-			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", "mobile_api");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", sTypeApi);
 	    	sIdAdvert3 = objRealt.GetID();
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
@@ -3124,7 +3121,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг объявлений пользователя".toUpperCase());
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
 	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1);
 	    	
@@ -3132,10 +3129,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 3");
 	    	print("Деактивируем первое из поданных активных объявлений и удаляем второе из поданных активных объявлений".toUpperCase());
 	    	print("Деактивируем объявлени с ID = " + sIdAdvert2);
-	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1, "mobile_api");
+	    	DeactivateAdvert(sHost, sAuth_token, sIdAdvert2, 1, sTypeApi);
 	
 	    	print("Удаляем объявлени с ID = " + sIdAdvert3);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, sTypeApi);
 	    	
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
@@ -3145,7 +3142,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Получаем листинг объявлений пользователя".toUpperCase());
 	    	print("\r\nПолучаем листинг объявлений для пользователя " + sLogin + " и проверяем статус активности объявлений в листинге");
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert);
+	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
 	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2);
 		}
@@ -3156,19 +3153,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert2);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert2, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdAdvert3);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// получение листинга объявлений пользователя для автотестов
-	private JSONObject GetListUserAdvert(String sHost, String sDataForSearchUserAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetListUserAdvert(String sHost, String sDataForSearchUserAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		JSONObject jTemp;
@@ -3178,7 +3175,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/user")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/user")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

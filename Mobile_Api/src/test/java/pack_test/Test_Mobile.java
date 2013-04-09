@@ -91,10 +91,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_11" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddAvdertGetListUserOP(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddAvdertGetListUserOP(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddAvdertGetListUserOP(sBaseHost); //Подача/получение листинга объявлений пользователя
+			cM.AddAvdertGetListUserOP(sBaseHost, sTypeApi); //Подача/получение листинга объявлений пользователя
 	}
 	
 	
