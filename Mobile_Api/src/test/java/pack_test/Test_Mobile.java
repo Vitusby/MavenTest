@@ -108,10 +108,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_13" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddVoteHighLower(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddVoteHighLower(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddVoteHighLower(sBaseHost); //Подача/голосование+/голосование-
+			cM.AddVoteHighLower(sBaseHost, sTypeApi); //Подача/голосование+/голосование-
 	}
 
 	

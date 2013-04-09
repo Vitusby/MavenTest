@@ -3602,7 +3602,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Подача, голосование + , голосование -
-	public void AddVoteHighLower(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
+	public void AddVoteHighLower(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, InterruptedException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAdvert=""; 
@@ -3616,7 +3616,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача , голосование '+', голосование '-' - Тест".toUpperCase()+"\r\n");
 		// авторизация
 		print("\r\nАвторизация пользователем - " + sLogin);
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		try
 		{
 			// подача двух объявлений
@@ -3624,13 +3624,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Подача объявления в бесплатную рубрику. Недвижимость - Вторичный рынок".toUpperCase());
 			print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок");
 			print("Объявление №1");
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdAdvert = objRealt.GetID();
 	    	
 	    	print("\r\nШАГ 2");
 			print("Голосование за объявление (повысить рейтинг)".toUpperCase());
 			print("\r\nГолосуем за объявление с ID = " + sIdAdvert);
-			jData = VoteForAdvertHigh(sHost, sAuth_token, sIdAdvert);
+			jData = VoteForAdvertHigh(sHost, sAuth_token, sIdAdvert, sTypeApi);
 			
 			if(jData.getString("votes").equals("1"))
 				print("Объявлению был добавлен голос. Общее количество голосов = " + jData.getString("votes"));
@@ -3645,7 +3645,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("\r\nШАГ 3");
 			print("Голосование за объявление (понизить рейтинг)".toUpperCase());
 			print("\r\nГолосуем за объявление с ID = " + sIdAdvert);
-			jData = VoteForAdvertLowerLower(sHost, sAuth_token, sIdAdvert);
+			jData = VoteForAdvertLowerLower(sHost, sAuth_token, sIdAdvert, sTypeApi);
 			
 			if(jData.getString("votes").equals("0"))
 				print("Объявлению был убран голос. Общее количество голосов = " + jData.getString("votes"));
@@ -3670,7 +3670,7 @@ public class ConnectMethod extends Connect_Request_Abstract
    	
 	}
 	// голосование за объявление '+' для автотеста
-	private  JSONObject VoteForAdvertHigh(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private  JSONObject VoteForAdvertHigh(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		print("Проголосовать за объявление (повысить рейтинг объявления)".toUpperCase());
@@ -3678,7 +3678,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/vote");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -3702,14 +3702,14 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// голосование за объявление '-' для автотеста
-	private JSONObject VoteForAdvertLowerLower(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject VoteForAdvertLowerLower(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{	
 		print("Проголосовать за объявление (снизить рейтинг объявления)");
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/vote")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/vote")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
