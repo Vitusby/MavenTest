@@ -106,14 +106,13 @@ public class Test_Mobile
 	}
 
 	
-	
 	@Test (groups = { "AutoTest_13" })
 	@Parameters({"sBaseHost", "sTypeApi"})
 	public void AutoTest_AddVoteHighLower(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
 			cM.AddVoteHighLower(sBaseHost, sTypeApi); //Подача/голосование+/голосование-
 	}
-
+	
 	
 	@Test (groups = { "AutoTest_14" })
 	@Parameters({"sBaseHost", "sTypeApi"})
@@ -131,10 +130,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_16" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetFieldsForAddAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetFieldsForAddAdvert(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetFieldsForAddAdvert(sBaseHost); //Получение и проверка полей для подачи 
+			cM.GetFieldsForAddAdvert(sBaseHost, sTypeApi); //Получение и проверка полей для подачи 
 	}
 	
 	

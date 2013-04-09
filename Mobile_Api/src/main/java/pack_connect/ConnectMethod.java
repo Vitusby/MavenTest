@@ -4181,7 +4181,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка полей рубрики для подачи
-	public void GetFieldsForAddAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetFieldsForAddAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
@@ -4200,23 +4200,23 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем список полей рубрики для подачи Авто - Новые автомобили. Регион Москва.".toUpperCase());
-		jData = GetCustomfieldsForAddAdvert(sHost, sSearchCarsNewMoskva);
+		jData = GetCustomfieldsForAddAdvert(sHost, sSearchCarsNewMoskva, sTypeApi);
 		String sCusAutoMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Масленниково(Московская обл)".toUpperCase());
-		jData = GetCustomfieldsForAddAdvert(sHost, sSearchRealtNewMasslenikovo);
+		jData = GetCustomfieldsForAddAdvert(sHost, sSearchRealtNewMasslenikovo, sTypeApi);
 		String sCusRealtMasslenikovo = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Капово(Архангельская обл)".toUpperCase());
-		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewKapovo);
+		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewKapovo, sTypeApi);
 		String sCusRealtKapovo = jData.toString(10);;
 		
 		print("\r\nПолучаем список полей рубрики для подачи Недвижимость - Новостройки. Регион Архангельск".toUpperCase());
-		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewArhangelsk);
+		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataRealtNewArhangelsk, sTypeApi);
 		String sCusRealtArxangelsk = jData.toString(10);
 	
 		print("\r\nПолучаем список полей рубрики для подачи Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataTIYBookreaderKazan);
+		jData = GetCustomfieldsForAddAdvert(sHost, sSearchDataTIYBookreaderKazan, sTypeApi);
 		String sCusTIYKazan = jData.toString(10);
 		
 		smas[0] = sCusAutoMoskva;
@@ -4315,7 +4315,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	//получение списка полей рубрики для подачи для автотеста
-	private JSONObject GetCustomfieldsForAddAdvert(String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCustomfieldsForAddAdvert(String sHost, String sDataCustomfieldsAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для подачи объявления".toUpperCase());
@@ -4323,7 +4323,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/post")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
