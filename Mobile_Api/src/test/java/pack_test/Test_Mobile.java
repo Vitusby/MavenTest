@@ -154,18 +154,18 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_19" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetRegionRussionFederation(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetRegionRussionFederation(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetRegionRussionFederation(sBaseHost); //Получение и проверка списка  регионов РФ
+			cM.GetRegionRussionFederation(sBaseHost, sTypeApi); //Получение и проверка списка  регионов РФ
 	}
 	
 	
 	@Test (groups = { "AutoTest_20" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetRegionsWithDomen(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetRegionsWithDomen(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetRegionsWithDomen(sBaseHost); //Получение и проверка списка  регионов c поддоменами
+			cM.GetRegionsWithDomen(sBaseHost, sTypeApi); //Получение и проверка списка  регионов c поддоменами
 	}
 	
 	

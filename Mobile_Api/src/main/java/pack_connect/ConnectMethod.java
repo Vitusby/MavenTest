@@ -4730,7 +4730,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка субъектов
-	public void GetRegionRussionFederation(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetRegionRussionFederation(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
@@ -4743,7 +4743,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем cисок субъектов РФ".toUpperCase());
-		jData = GetRegions(sHost);
+		jData = GetRegions(sHost, sTypeApi);
 		String sCurrentRegion = jData.toString(10); 
 		
 		smas[0] = sCurrentRegion;
@@ -4776,12 +4776,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}	
 	// получение списка субъектов РФ для атвотеста
-	private JSONObject GetRegions(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetRegions(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		print("Получение списка субъектов РФ".toUpperCase());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -4810,7 +4810,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получени и проверка списка регионов с поддоменами
-	public void GetRegionsWithDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetRegionsWithDomen(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jData;
@@ -4823,7 +4823,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем cписок регионов с поддоменами РФ".toUpperCase());
-		jData = GetRegionDomen(sHost);
+		jData = GetRegionDomen(sHost, sTypeApi);
 		String sCurrentRegionDomen = jData.toString(10); 
 		
 		smas[0] = sCurrentRegionDomen;
@@ -4855,13 +4855,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// получение списка регинов с поддоменами для автотестов
-	private JSONObject GetRegionDomen(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetRegionDomen(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка городов, для которых заведены поддомены".toUpperCase());
 		print("Параметры для запроса");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/popular_cities");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/popular_cities");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
