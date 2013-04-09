@@ -236,10 +236,10 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_30" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_CheckFavouriteAdvertInListing(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_CheckFavouriteAdvertInListing(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.CheckFavouriteAdvertInListing(sBaseHost); //Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited
+			cM.CheckFavouriteAdvertInListing(sBaseHost, sTypeApi); //Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited
 	}
 	
 	@Test (groups = { "AutoTest_31" })

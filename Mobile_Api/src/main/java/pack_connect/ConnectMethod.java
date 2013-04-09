@@ -6685,8 +6685,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}
 	
+	
 	// Подача 1 пользователем, добавление в избранное вторым  и получения листинга категории и фильтрованного авторизованным вторым пользователем
-	public void CheckFavouriteAdvertInListing(String sHost) throws NumberFormatException, InterruptedException, URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void CheckFavouriteAdvertInListing(String sHost, String sTypeApi) throws NumberFormatException, InterruptedException, URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sLogin = Proper.GetProperty("login_authOP");
@@ -6701,12 +6702,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Добавление в избранное , получение листинга категории и фильтрации, проверка флага isfavorited - Тест".toUpperCase()+"\r\n");
 		print("Авторизация пользователем - " + sLogin2);
-		sAuth_token2 = Authorization(sHost, sLogin2, sPassword, wLog, "mobile_api");
+		sAuth_token2 = Authorization(sHost, sLogin2, sPassword, wLog, sTypeApi);
 		try
 		{
 			print("\r\nШАГ №1");
 			print("Подача объявления в рубрику Недвижимость - Вторичное жилье. Регион Архангельск".toUpperCase() + " пользователем " + sLogin2);
-			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token2, "category_realt", "image2", "mobile_api");
+			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token2, "category_realt", "image2", sTypeApi);
 			sId = objRealt.GetID();  // сюда сохраняем значение id
 			
 			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
@@ -6714,15 +6715,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	    	print("\r\nШАГ №2");
 			print("Авторизация пользователем - ".toUpperCase() + sLogin);
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 			
 			print("\r\nШАГ №3");
 			print("Добавляем объявление с ID = ".toUpperCase() + sId + " в вкладку «Избранное» для пользователя ".toUpperCase() + sLogin);
-			AddAdvertToFavourite(sHost, sAuth_token, sId, "mobile_api");
+			AddAdvertToFavourite(sHost, sAuth_token, sId, sTypeApi);
 			
 			print("\r\nШАГ №4");
 			print("Получаем листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
-			jData = GetListCategory(sHost, sDataForList, sAuth_token, "mobile_api");
+			jData = GetListCategory(sHost, sDataForList, sAuth_token, sTypeApi);
 			
 			print("\r\nШАГ №5");
 			print("Ищем объявление с ID = " + sId + " в листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6743,7 +6744,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			print("\r\nШАГ №7");
 			print("Получаем фильтрованный листинг категории  Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
-			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token, "mobile_api");
+			jData = GetListSearchCategory(sHost, sDataForListSearch, "currency=RUR/", sAuth_token, sTypeApi);
 			
 			print("\r\nШАГ №8");
 			print("Ищем объявление с ID = " + sId + " в фильтрованном листинге Недвижимость - Вторичное жилье. Регион Архангельск.".toUpperCase());
@@ -6768,7 +6769,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(!sId.equals(""))
 			{
 				print("\r\nУдаляем поданное объявление");
-				DeleteAdvert(sHost, sAuth_token2, sId, "mobile_api");
+				DeleteAdvert(sHost, sAuth_token2, sId, sTypeApi);
 			}
 		}
 		print("------------------------------------------------------------------------------------------------------------");
