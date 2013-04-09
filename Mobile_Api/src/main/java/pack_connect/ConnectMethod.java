@@ -3751,16 +3751,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/sverdlovskaya-obl/ekaterinburg-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/bashkortostan-resp/ufimskiy-r_n/ufa-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIYMobile = "{category=communication/mobile/mobiles/, region=russia/bryanskaya-obl/bryansk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
-		String sDataForListJob = "{category=jobs-education/resumes/communal/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListJob = "{category=jobs-education/resumes/communal/, region=russia/volgogradskaya-obl/volgograd-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sRegionNameAuto = "Санкт-Петербург";
 		String sCategoryNameAuto = "Автомобили с пробегом";
 		String sRegionNameRealt = "Екатеринбург";
 		String sCategoryNameRealt = "Вторичный рынок";
-		String sRegionNameTIY = "Казань";
+		String sRegionNameTIY = "Уфа";
 		String sCategoryNameTIY = "Пылесосы";
-		String sRegionNameMobile = "Пермь";
+		String sRegionNameMobile = "Брянск";
 		String sCategoryNameMobile = "Мобильные телефоны";
-		String sRegionNameJob = "Москва";
+		String sRegionNameJob = "Волгоград";
 		String sCategoryNameJob = "Бытовые и коммунальные услуги, муниципалитет";
 		
 		
@@ -3800,9 +3800,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdMobile = objMobile.GetID();    
 			
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
-			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
+			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Волоград".toUpperCase());
 			print("Объявление №5");	
-			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7", sTypeApi);
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs2", "image7", sTypeApi);
 			sIdJob = objJob.GetID();    
 			
 			
@@ -3848,11 +3848,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 6");
-	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
+	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Волгоград".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
 	    	jData = GetListCategory(sHost, sDataForListJob, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/", sTypeApi); 
+	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/volgogradskaya-obl/volgograd-gorod/", sTypeApi); 
 	    		
 		}
 		
