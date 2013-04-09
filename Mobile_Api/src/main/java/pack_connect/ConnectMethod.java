@@ -4531,7 +4531,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка полей рубрики для фильтрации
-	public void GetFieldsForSearchAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetFieldsForSearchAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsMainMoskva = "{category=cars/, region=russia/moskva-gorod/}";
@@ -4551,27 +4551,27 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем список полей фильтрации для рубрики Авто - Главная. Регион Москва".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsMainMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsMainMoskva, sTypeApi);
 		String sCusAutoMainMoskva = jData.toString(10);
 
 		print("\r\nПолучаем список полей фильтрации для рубрики Авто - Новые автомобили. Регион Москва".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsNewMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchCarsNewMoskva, sTypeApi);
 		String sCusAutoNewMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей фильтрации для рубрики Недвижимость - Главная. Регион Архангельск".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataRealtMainArhangelsk);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataRealtMainArhangelsk, sTypeApi);
 		String sCusRealtMainArxangelsk = jData.toString(10);
 		
 		print("\r\nПолучаем список полей фильтрации для рубрики Недвижимость - Новостройки. Регион Москва".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchRealtNewMoskva);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchRealtNewMoskva, sTypeApi);
 		String sCusRealtNewMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей фильтрации для рубрики Электроника и техника - Главная. Регион Казань".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYMainKazan);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYMainKazan, sTypeApi);
 		String sCusTIYMainKazan = jData.toString(10);
 		
 		print("\r\nПолучаем список полей фильтрации для рубрики Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYBookreaderKazan);
+		jData = GetCustomfieldsForSearchAdvert(sHost, sSearchDataTIYBookreaderKazan, sTypeApi);
 		String sCusTIYBookReaderKazan = jData.toString(10);
 		
 		smas[0] = sCusAutoMainMoskva;
@@ -4691,7 +4691,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// получение полей для фильтрации для автотестов
-	private JSONObject GetCustomfieldsForSearchAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCustomfieldsForSearchAdvert(String sHost, String sDataCustomfieldsEditAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для фильтрации объявлений".toUpperCase());
@@ -4699,7 +4699,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();

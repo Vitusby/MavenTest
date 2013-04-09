@@ -146,10 +146,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_18" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetFieldsForSearchAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetFieldsForSearchAdvert(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetFieldsForSearchAdvert(sBaseHost); //Получение и проверка полей для фильтрации
+			cM.GetFieldsForSearchAdvert(sBaseHost, sTypeApi); //Получение и проверка полей для фильтрации
 	}
 	
 	
