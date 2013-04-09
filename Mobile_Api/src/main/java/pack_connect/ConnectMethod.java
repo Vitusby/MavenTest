@@ -5718,7 +5718,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка словарей
-	public void GetDictionary(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetDictionary(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		String sNameDictionaryCarCom = "Car makers commercial";
 		String sNameDictionaryCarBody = "cfd_bodytype";
@@ -5737,20 +5737,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 1");
 			wLog.WriteString(1,"Получаем словарь Car makers commercial.".toUpperCase());		
-			jData = GetDic(sHost, sNameDictionaryCarCom);
+			jData = GetDic(sHost, sNameDictionaryCarCom, sTypeApi);
 			String sCurrentDicCarCom = jData.toString(10); 
 			wLog.WriteHr();
 			smas[0] = sCurrentDicCarCom;
 			
 			wLog.WriteString(1,"Получаем словарь cfd_bodytype.".toUpperCase());		
-			jData = GetDic(sHost, sNameDictionaryCarBody);
+			jData = GetDic(sHost, sNameDictionaryCarBody, sTypeApi);
 			String sCurrentDicCarBody = jData.toString(10); 
 			wLog.WriteHr();
 			smas[1] = sCurrentDicCarBody;
 			
 			
 			wLog.WriteString(1, "Получаем словарь cf_color.".toUpperCase());		
-			jData = GetDic(sHost, sNameDictionaryColor);
+			jData = GetDic(sHost, sNameDictionaryColor, sTypeApi);
 			String sCurrentDicColor = jData.toString(10); 
 			wLog.WriteHr();
 			smas[2] = sCurrentDicColor;
@@ -5826,7 +5826,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// получение словаря для автотеста
-	private JSONObject GetDic(String sHost, String sNameDict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetDic(String sHost, String sNameDict, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение значений словаря".toUpperCase());
@@ -5834,7 +5834,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		wLog.WriteString(1, "NameDictinary = "+ sNameDict);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/dictionary/" + sNameDict);
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/dictionary/" + sNameDict);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)

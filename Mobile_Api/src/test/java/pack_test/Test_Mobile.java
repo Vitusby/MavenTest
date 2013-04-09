@@ -192,10 +192,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_24" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetDictionary(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetDictionary(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetDictionary(sBaseHost); //Получение и проверка словарей
+			cM.GetDictionary(sBaseHost, sTypeApi); //Получение и проверка словарей
 	}
 	
 	
