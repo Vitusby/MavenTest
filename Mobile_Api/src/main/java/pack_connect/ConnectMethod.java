@@ -8960,7 +8960,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Супер тест 5-6 работа с избранное (добавление , удаление)
-	public void Super_WorkFavourite(String sHost) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	public void Super_WorkFavourite(String sHost, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sAuth_token = ""; 
@@ -8971,17 +8971,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONArray jArr;
 		
 		print("Авторизуемся".toUpperCase());
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		print("sAuth_token = " + sAuth_token);
 		
 		print("\r\nПолучаем конечную рубрику для получения листинга".toUpperCase());
-		sCategory = Super_GetRandomRubricNavigator(sHost, "/");
+		sCategory = Super_GetRandomRubricNavigator(sHost, "/", sTypeApi);
 
 		String sSearch = "{category="+ sCategory + ", region=russia/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		print(sSearch);
 
 		print("\r\nПолучаем листинг категории".toUpperCase());
-		jTemp = GetListCategory(sHost, sSearch, sAuth_token, "mobile_api");
+		jTemp = GetListCategory(sHost, sSearch, sAuth_token, sTypeApi);
 		
 		print("\r\nПолучаем ID первого объявления в листинге".toUpperCase());
 		if(jTemp.getString("advertisements").equals("[]"))
@@ -8995,25 +8995,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		
 		print("Добавляем полученное объявление в избранное".toUpperCase());
-		AddAdvertToFavourite(sHost, sAuth_token, sId, "mobile_api");
+		AddAdvertToFavourite(sHost, sAuth_token, sId, sTypeApi);
 		
 		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
-		jTemp = GetListFavourite(sHost, sAuth_token, "mobile_api");
+		jTemp = GetListFavourite(sHost, sAuth_token, sTypeApi);
 		
 		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
 		FindAdvertFromListAfterPost(jTemp, sId);
 		
 		print("\r\nУдаляем объявление c ID = ".toUpperCase() + sId + " из вкладки «Избранное» ".toUpperCase());
-		DeleteAdvertFromFavourite(sHost, sAuth_token, sId, "mobile_api");	
+		DeleteAdvertFromFavourite(sHost, sAuth_token, sId, sTypeApi);	
 		
 		print("\r\nПолучаем листинг объявлений избранного".toUpperCase());
-		jTemp = GetListFavourite(sHost, sAuth_token, "mobile_api");
+		jTemp = GetListFavourite(sHost, sAuth_token, sTypeApi);
 		
 		print("\r\nИщем объявление с ID = ".toUpperCase() + sId + " в листинге «Избранное»".toUpperCase());
 		FindAdvertFromListAfterDelete(jTemp, sId);
 		
 	}
-	private String Super_GetRandomRubricNavigator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetRandomRubricNavigator(String sHost, String sCategory, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONArray jArr;
 		JSONObject jTemp;
@@ -9023,7 +9023,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		while(sCat.equals(""))
 		{
 			n++;
-			jTemp = GetRubricutorWithoutAdvertType8_1(sHost, sCategory, "mobile_api");
+			jTemp = GetRubricutorWithoutAdvertType8_1(sHost, sCategory, sTypeApi);
 			jArr = jTemp.getJSONArray("categories");
 			nLenght = jArr.length();
 			print("Выбираем рандомную рубрику из отображаемых в списке");
