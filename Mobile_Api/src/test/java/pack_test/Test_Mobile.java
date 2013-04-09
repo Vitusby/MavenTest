@@ -75,10 +75,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_9" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(sBaseHost); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум платное объявление
+			cM.AddDeactivateActivateProlongPushupHighlightPremiumOPPaidAdvert(sBaseHost, sTypeApi); // Подача/деактивация/активация/продление/поднятие/выделение/пермиум платное объявление
 	}
 	 
 	
