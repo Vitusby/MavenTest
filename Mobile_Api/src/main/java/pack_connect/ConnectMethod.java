@@ -3747,12 +3747,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		JSONObject jData;
 		InnerDataHM objAuto, objRealt, objTIY, objMobile, objJob;
-		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/sankt-peterburg-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/sverdlovskaya-obl/ekaterinburg-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIYMobile = "{category=communication/mobile/mobiles/, region=russia/permskiy-kray/perm-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListJob = "{category=jobs-education/resumes/communal/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
-		String sRegionNameAuto = "Москва";
+		String sRegionNameAuto = "Санкт-Петербург";
 		String sCategoryNameAuto = "Автомобили с пробегом";
 		String sRegionNameRealt = "Екатеринбург";
 		String sCategoryNameRealt = "Вторичный рынок";
@@ -3774,9 +3774,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Подача пяти объявлений".toUpperCase());
 		try
 		{
-			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
+			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Санкт-Петербург".toUpperCase());
 			print("Объявление №1");	
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto2", "image", sTypeApi);
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 			
 	
@@ -3812,11 +3812,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 2");
-	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
+	    	print("Получаем листинг категории Авто с пробегом. Регион Санкт-Петербург".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
 	    	jData = GetListCategory(sHost, sDataForListAuto, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/", sTypeApi);
+	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/sankt-peterburg-gorod/", sTypeApi);
 	    	
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
