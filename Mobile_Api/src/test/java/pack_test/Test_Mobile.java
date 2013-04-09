@@ -138,10 +138,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_17" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetFieldsForEditAdvert(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetFieldsForEditAdvert(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetFieldsForEditAdvert(sBaseHost); //Получение и проверка полей для редактирования
+			cM.GetFieldsForEditAdvert(sBaseHost, sTypeApi); //Получение и проверка полей для редактирования
 	}
 	
 	

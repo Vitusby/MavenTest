@@ -4354,7 +4354,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка полей рубрики для редактирования
-	public void GetFieldsForEditAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetFieldsForEditAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sSearchCarsNewMoskva = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
@@ -4373,23 +4373,23 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем список полей рубрики для редактирования Авто - Новые автомобили. Регион Москва.".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchCarsNewMoskva);
+		jData = GetCastomfieldsForEditAdvert(sHost, sSearchCarsNewMoskva, sTypeApi);
 		String sCusAutoMoskva = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Масленниково(Московская обл)".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchRealtNewMasslenikovo);
+		jData = GetCastomfieldsForEditAdvert(sHost, sSearchRealtNewMasslenikovo, sTypeApi);
 		String sCusRealtMasslenikovo = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Капово(Архангельская обл)".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataRealtNewKapovo);
+		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataRealtNewKapovo, sTypeApi);
 		String sCusRealtKapovo = jData.toString(10);;
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Недвижимость - Новостройки. Регион Архангельск".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataRealtNewArhangelsk);
+		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataRealtNewArhangelsk, sTypeApi);
 		String sCusRealtArxangelsk = jData.toString(10);
 		
 		print("\r\nПолучаем список полей рубрики для редактирования Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataTIYBookreaderKazan);
+		jData = GetCastomfieldsForEditAdvert(sHost, sSearchDataTIYBookreaderKazan, sTypeApi);
 		String sCusTIYKazan = jData.toString(10);
 		
 		smas[0] = sCusAutoMoskva;
@@ -4490,7 +4490,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// полусение полей для редактирования для автотеста
-	private JSONObject GetCastomfieldsForEditAdvert(String sHost, String sDataCustomfieldsEditAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCastomfieldsForEditAdvert(String sHost, String sDataCustomfieldsEditAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка полей рубрики для редактирования объявления".toUpperCase());
@@ -4498,7 +4498,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/edit")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/edit")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
