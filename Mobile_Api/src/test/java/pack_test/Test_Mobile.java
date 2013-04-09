@@ -177,17 +177,17 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "AutoTest_22" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetAllSuggest(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetAllSuggest(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetAllSuggest(sBaseHost); //Получение и проверка саджествов
+			cM.GetAllSuggest(sBaseHost, sTypeApi); //Получение и проверка саджествов
 	}
 	
 	@Test (groups = { "AutoTest_23" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetCurrencies(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetCurrencies(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetCurrencies(sBaseHost); //Получение и проверка списка валют
+			cM.GetCurrencies(sBaseHost, sTypeApi); //Получение и проверка списка валют
 	}
 	
 	

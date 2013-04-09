@@ -5017,7 +5017,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 	
 	// Получение и проверка всех саджестов
-	public void GetAllSuggest(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetAllSuggest(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		String sCitiesSuggest = "{region=russia/moskovskaya-obl/, search_string=кам}";
 		String sStreetsSuggest = "{region=russia/moskva-gorod/, search_string=кам}";
@@ -5042,55 +5042,55 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 1");
 			wLog.WriteString(1, "Получаем suggest для города и нас. пункта при поиске по слову \"кам\" для региона Московская область.".toUpperCase());		
-			jData = GetCitiesSuggest(sHost, sCitiesSuggest);
+			jData = GetCitiesSuggest(sHost, sCitiesSuggest, sTypeApi);
 			String sCurrentCitiesSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[0] = sCurrentCitiesSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для улицы при поиске по слову \"кам\" для региона Москва.".toUpperCase());		
-			jData = GetStreetsSuggest(sHost, sStreetsSuggest);
+			jData = GetStreetsSuggest(sHost, sStreetsSuggest, sTypeApi);
 			String sCurrentStreetSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[1] = sCurrentStreetSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для дома при поиске по цифре \"2\" для региона Барнаул и улице \"Ленина пр-кт\"(id_street=9230).".toUpperCase());		
-			jData = GetHousesSuggest(sHost, sHouseSugeest);
+			jData = GetHousesSuggest(sHost, sHouseSugeest, sTypeApi);
 			String sCurrentHouseSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[2] = sCurrentHouseSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для района при поиске по слову \"кра\" для региона Санкт-Петербург.".toUpperCase());	
-			jData = GetDistrictSuggest(sHost, sDistrictSuggets);
+			jData = GetDistrictSuggest(sHost, sDistrictSuggets, sTypeApi);
 			String sCurrentDistrictSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[3] = sCurrentDistrictSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для микрорайона при поиске по слову \"N 4\" для региона Санкт-Петербург.".toUpperCase());	
-			jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest);
+			jData = GetMicroDistrictSuggest(sHost, sMicroDistrictSuggest, sTypeApi);
 			String sCurrentMicroDistrictSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[4] = sCurrentMicroDistrictSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для АО при поиске по слову \"сев\" для региона Москва.".toUpperCase());	
-			jData = GetAOSuggest(sHost, sAOSuggest);
+			jData = GetAOSuggest(sHost, sAOSuggest, sTypeApi);
 			String sCurrentAOSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[5] = sCurrentAOSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для направлений при поиске по слову \"кур\" для региона Московская область.".toUpperCase());	
-			jData = GetDirectionSuggest(sHost, sDirectionSuggest);
+			jData = GetDirectionSuggest(sHost, sDirectionSuggest, sTypeApi);
 			String sCurrentDirectionSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[6] = sCurrentDirectionSuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для шоссе при поиске по слову \"мин\" для региона Московская область.".toUpperCase());	
-			jData = GetHighwaySuggest(sHost, sHighWaySuggest);
+			jData = GetHighwaySuggest(sHost, sHighWaySuggest, sTypeApi);
 			String sCurrentHighWaySuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[7] = sCurrentHighWaySuggest;
 			
 			wLog.WriteString(1, "\r\nПолучаем suggest для метро при поиске по слову \"бур\" для региона Нижний Новгород.".toUpperCase());	
-			jData = GetMetroSuggest(sHost, sMetroSuggest);
+			jData = GetMetroSuggest(sHost, sMetroSuggest, sTypeApi);
 			String sCurrentMetroSuggest = jData.toString(10); 
 			wLog.WriteHr();
 			smas[8] = sCurrentMetroSuggest;
@@ -5279,7 +5279,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// получение саджеста городов и нас. пунктов для автотеста
-	private JSONObject GetCitiesSuggest(String sHost, String sDataCitiesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCitiesSuggest(String sHost, String sDataCitiesSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Поиск городов и населенных пунктов по названию (саджест)".toUpperCase());
@@ -5288,7 +5288,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5317,7 +5317,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение саджеста улицы для автотеста
-	private JSONObject GetStreetsSuggest(String sHost, String sDataStreetsSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetStreetsSuggest(String sHost, String sDataStreetsSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка улиц (саджест)".toUpperCase());
@@ -5326,7 +5326,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/streets")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/streets")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5355,7 +5355,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджеста улицы для автотеста
-	private JSONObject GetHousesSuggest(String sHost, String sDataHousesSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetHousesSuggest(String sHost, String sDataHousesSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка домов улицы (саджест)".toUpperCase());
@@ -5364,7 +5364,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHousesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/houses")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/houses")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5393,7 +5393,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджестов районов для автотестов
-	private JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetDistrictSuggest(String sHost, String sDataDistrictSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка районов (саджест)".toUpperCase());
@@ -5402,7 +5402,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/districts")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/districts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5432,7 +5432,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджестов микрорайона для автотестов
-	private JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetMicroDistrictSuggest(String sHost, String sDataMicroDistrictSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка микрорайонов (саджест)".toUpperCase());
@@ -5441,7 +5441,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/microdistricts")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/microdistricts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5470,7 +5470,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение саджестов АО для автотестов
-	private JSONObject GetAOSuggest(String sHost, String sAOSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetAOSuggest(String sHost, String sAOSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка административных округов (саджест)".toUpperCase());
@@ -5479,7 +5479,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sAOSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/ao")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/ao")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5508,7 +5508,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение саджестов направлений для автотестов
-	private JSONObject GetDirectionSuggest(String sHost, String sDataDirectionSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetDirectionSuggest(String sHost, String sDataDirectionSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка направлений (саджест)".toUpperCase());
@@ -5517,7 +5517,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/directions")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/directions")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5546,7 +5546,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}	
 	// получение саджестов шоссе для автотеста
-	private JSONObject GetHighwaySuggest(String sHost, String sDataHighwaySuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetHighwaySuggest(String sHost, String sDataHighwaySuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка шоссе (саджест)".toUpperCase());
@@ -5555,7 +5555,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/highway")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/highway")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5584,7 +5584,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// получение саджестов станций метро для автотеста
-	private JSONObject GetMetroSuggest(String sHost, String sDataMetroSuggest) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetMetroSuggest(String sHost, String sDataMetroSuggest, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		wLog.WriteString(1, "Получение списка станций метро (саджест)".toUpperCase());
@@ -5593,7 +5593,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/metro")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/metro")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5624,7 +5624,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Получение и проверка списка валют
-	public void GetCurrencies(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetCurrencies(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		JSONObject jData;
 		@SuppressWarnings("unused")
@@ -5641,7 +5641,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			wLog.WriteString(3, "\r\nШАГ 1");
 			wLog.WriteString(1,"Получаем список валют.".toUpperCase());		
-			jData = GetCur(sHost);
+			jData = GetCur(sHost, sTypeApi);
 			String sCurrency = jData.toString(10); 
 			
 			smas[0] = sCurrency;
@@ -5680,11 +5680,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	// получение списка валют для автотеста
-	private JSONObject GetCur(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject GetCur(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 	
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/currencies");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/currencies");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
