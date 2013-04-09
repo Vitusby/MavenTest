@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="sr71_api"/> 
   <groups>
     <run>
-      <include name="AutoTest_31"/>
+      <include name="Super_WorkAdvert"/>
     </run>
   </groups>
     <classes>

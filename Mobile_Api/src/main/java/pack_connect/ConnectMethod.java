@@ -7028,7 +7028,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	        	print("Изменяем пароль");
 	    	        	Super_ChangePassword(sAuth_token, sHost, sL, sTypeApi);
 	    	        	print("Изменяем пароль");
-	    	        	Super_Logout(sAuth_token, sHost);
+	    	        	Super_Logout(sAuth_token, sHost, sTypeApi);
 	    	         }
 	    	        	 
 	    	}
@@ -7221,7 +7221,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("Введен неправильный пароль");
 			print("Восстанавливаем пароль");
-			Super_RestorePassword(sHost);
+			Super_RestorePassword(sHost, sTypeApi);
 			
 		}
 		else 
@@ -7255,7 +7255,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("Ответ сервера:\r\n" + jsonObject.toString(10) + "\r\nПользователь не активировал аккаунт");
 			print("Запрашиваем ссылку активации аккаунта");
-			Super_GetLinkActivate(sHost);
+			Super_GetLinkActivate(sHost, sTypeApi);
 		}
 		else 
 		{
@@ -7432,7 +7432,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
     	print("Тест смены пароля завершен успешно".toUpperCase());
 	}
-	private void Super_Logout(String sAuth_token, String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private void Super_Logout(String sAuth_token, String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		{
 			String sId;
@@ -7440,13 +7440,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 			JSONObject jTemp;
 
 			print("Вылогиниваемя из приложения".toUpperCase());
-			LogOut(sHost, sAuth_token, "mobile_api");
+			LogOut(sHost, sAuth_token, sTypeApi);
 			
 			try
 			{
 				print("Проверяем что ключ авторизации больше не рабочий");
 				print("Пробуем подать объявление");
-				PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", "mobile_api");
+				PostAdvertIP(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
 				bFlag = true;
 			}
 			finally
@@ -7456,21 +7456,21 @@ public class ConnectMethod extends Connect_Request_Abstract
 					jTemp = jsonObject.getJSONObject("advertisement");
 					sId =  jTemp.getString("id");
 					print("Удаляем поданное объявление с ID = " + sId);
-					DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");	
+					DeleteAdvert(sHost, sAuth_token, sId, sTypeApi);	
 				}
 			}
 			print("Тест логаута завершен успешно".toUpperCase());
 			print("----------------------------------------------------------------------------------------");
 		}
 	}
-	private void Super_GetLinkActivate(String sHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private void Super_GetLinkActivate(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("Получение ссылки активации аккаунта".toUpperCase());
 		print("Параметры для запроса");
 		print("login = "+ Proper.GetProperty("login_authNotActive"));
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/activationkey");
     	
     	String sE = "login=" + Proper.GetProperty("login_authNotActive");
     
@@ -7492,13 +7492,13 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Запрос получения ссылки активации аккаунта завершен успешно".toUpperCase());
     	print("------------------------------------------------------------------------------------------------------------");
 	}
-	private void Super_RestorePassword(String sHost) throws URISyntaxException, JSONException, ExceptFailTest, IOException
+	private void Super_RestorePassword(String sHost, String sTypeApi) throws URISyntaxException, JSONException, ExceptFailTest, IOException
 	{
 		print("Восстановление пароля".toUpperCase());
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/restore");
     	
     	String sE = "email=" + Proper.GetProperty("login_authOP");
     
@@ -7522,7 +7522,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Супер тест2-3 Работа с объявлением (подача и редактирование)
-	public void Super_WorkAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
+	public void Super_WorkAdvert(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		
 		wLog.SetUpWriterLog("LogResult.html");
@@ -7545,25 +7545,25 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//часть 1
 			print("------------------------------------------------------------------------------------------------------------");
 			print("Авторизуемся".toUpperCase());
-			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 			print("sAuth_token = " + sAuth_token);
 			
 			print("\r\nПолучаем конечную рубрику и адвертайп".toUpperCase());
-			sMas = Super_GetRandomRubric(sHost, "/");
+			sMas = Super_GetRandomRubric(sHost, "/", sTypeApi);
 			sCategory = sMas[0];
 			sAdvertType = sMas[1];
 			
 			print("\r\nПолучаем регион для подачи объявления".toUpperCase());
-			sRegionParent = Super_GetRandomRegion(sHost);
+			sRegionParent = Super_GetRandomRegion(sHost, sTypeApi);
 			
 			print("\r\nПолучаем населенный пункт для выбранного региона ".toUpperCase() + sRegionParent);
-			sRegion = Super_GetCities(sHost, sRegionParent);
+			sRegion = Super_GetCities(sHost, sRegionParent, sTypeApi);
 			
 			
 			print("\r\nПолучаем поля для подачи объявления рубрики в категорию ".toUpperCase() + sCategory + " и регион ".toUpperCase() + sRegion);
 			sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
 			sParam = sTemp;
-			jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp);
+			jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp, sTypeApi);
 			print("\r\nПолучаем возможные значения для полей".toUpperCase());
 			hDataAdvert = Super_GetCustom(jTemp);
 			hAdressCust = Super_GetAdressCustom(hDataAdvert); 
@@ -7573,10 +7573,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hDataAdvert.PrintKeyAndValue();
 			
 			print("\r\nПолучаем список валют".toUpperCase());
-			GetCurrencies_5_1(sHost, "mobile_api");
+			GetCurrencies_5_1(sHost, sTypeApi);
 			
 			print("\r\nФормируем данные по адресным кастомфилдам".toUpperCase());
-			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
+			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent, sTypeApi);
 			if(hAdressCust.GetSize()==0)
 				print("На форме подачи нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
 			else
@@ -7609,20 +7609,20 @@ public class ConnectMethod extends Connect_Request_Abstract
 			// russia/omskaya-obl/omsk-gorod/ - АО
 			// russia/irkutskaya-obl/chunskiy-r_n/parenda-derevnya/ -  направление
 			
-			jTemp = Super_PostAdvert(sHost, sAuth_token, sParam, sParamUserData, sParamTitle, sParamAdress, sParamCustom, sUrlVideo);
+			jTemp = Super_PostAdvert(sHost, sAuth_token, sParam, sParamUserData, sParamTitle, sParamAdress, sParamCustom, sUrlVideo, sTypeApi);
 			sId = jTemp.getJSONObject("advertisement").getString("id");
 			print("Id созданного объявления - " + sId);
 			bFlag = true;
 			print("\r\nПолучаем список платных продуктов".toUpperCase());
-			Super_GetProductForAdvert(sHost, sAuth_token, sId);
+			Super_GetProductForAdvert(sHost, sAuth_token, sId, sTypeApi);
 			
 			print("\r\nПолучаем статус объявления".toUpperCase());
-			jTemp = GetAdvert(sHost, sId, "", "mobile_api");
+			jTemp = GetAdvert(sHost, sId, "", sTypeApi);
 			String sStatus = jTemp.getJSONObject("advertisement").getString("status");
 			if(!sStatus.equals("1"))
 			{
 				print("\r\nАктивируем объявление".toUpperCase());
-				ActivateAdvert(sHost, sAuth_token, sId, true, 1, "mobile_api");
+				ActivateAdvert(sHost, sAuth_token, sId, true, 1, sTypeApi);
 			}
 			else
 			{
@@ -7630,8 +7630,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 			
 			print("\r\nВыделяем объявление".toUpperCase());
-			HighLightAdvert(sHost, sAuth_token, sId, true, 1, "mobile_api");
-			jTemp = GetAdvert(sHost, sId, "", "mobile_api");
+			HighLightAdvert(sHost, sAuth_token, sId, true, 1, sTypeApi);
+			jTemp = GetAdvert(sHost, sId, "", sTypeApi);
 			sStatus = jTemp.getJSONObject("advertisement").getString("ismarkup");
 			if(!sStatus.equals("true"))
 			{
@@ -7644,8 +7644,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 			
 			print("\r\nНазаначаем премиум объявлению".toUpperCase());
-			SetPremiumAdvert(sHost, sAuth_token, sId, true, 1, "mobile_api");
-			jTemp = GetAdvert(sHost, sId, "", "mobile_api");
+			SetPremiumAdvert(sHost, sAuth_token, sId, true, 1, sTypeApi);
+			jTemp = GetAdvert(sHost, sId, "", sTypeApi);
 			sStatus = jTemp.getJSONObject("advertisement").getString("ispremium");
 			if(!sStatus.equals("true"))
 			{
@@ -7663,7 +7663,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 
 			print("\r\nПолучение листинга своих объявлений".toUpperCase());
-			jTemp = GetListOwnAdvert(sHost, sAuth_token, "mobile_api");
+			jTemp = GetListOwnAdvert(sHost, sAuth_token, sTypeApi);
 	
 			if(jTemp.getString("advertisements").equals("[]"))
 			{
@@ -7682,7 +7682,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Объявление с ID = " + sId + " найдено на первой позиции");
 			
 			print("\r\nПолучаем объявление ".toUpperCase() + sId);
-			jTemp = GetAdvert(sHost, sId, "", "mobile_api");
+			jTemp = GetAdvert(sHost, sId, "", sTypeApi);
 			
 			sMas = Super_GetCategoryRegionAdvertTypeFromAdvert(jTemp); 
 			sCategory = sMas[0];
@@ -7691,7 +7691,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 			print("\r\nПолучаем поля для редактирования объявления категории ".toUpperCase() + sCategory + " и региона ".toUpperCase() + sRegion);
 			sTemp = "{category=" + sCategory + ", region=" + sRegion + ", advert_type=" + sAdvertType + "}";
-			jTemp = GetCastomfieldsForEditAdvert_3_3(sHost, sTemp, "mobile_api");
+			jTemp = GetCastomfieldsForEditAdvert_3_3(sHost, sTemp, sTypeApi);
 			
 			print("\r\nПолучаем возможные значения для полей".toUpperCase());
 			hDataAdvert = Super_GetCustom(jTemp);
@@ -7702,7 +7702,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hDataAdvert.PrintKeyAndValue();
 			
 			print("\r\nФормируем данные по адресным кастомфилдам".toUpperCase());
-			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent);
+			hAdressCust = Super_GetDataForAdressCustom(sHost, hAdressCust, sRegion, sRegionParent, sTypeApi);
 			if(hAdressCust.GetSize()==0)
 				print("На форме редактирования нет неодного адресного кастомфилда, который можно было бы указать(регион и нас.пункт выбран раньше)");
 			else
@@ -7723,24 +7723,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sParamCustom = hDataAdvert.GetStringFromAllHashMap();
 			
 			print("\r\nПолучаем список валют".toUpperCase());
-			GetCurrencies_5_1(sHost, "mobile_api");
+			GetCurrencies_5_1(sHost, sTypeApi);
 			
 			print("\r\nРедактирование объявления".toUpperCase());
 			print("Значения title, text, price, currency - " + sParamTitle);
 			print("Значения адресных кастомов - " + sParamAdress);
 			print("Значения кастомов объявления - " + sParamCustom);
 			
-			Super_EditAdvert(sHost, sAuth_token, sId, sParamTitle, sParamAdress, sParamCustom);
+			Super_EditAdvert(sHost, sAuth_token, sId, sParamTitle, sParamAdress, sParamCustom, sTypeApi);
 			
 		}
 		finally
 		{
 			if(bFlag)
-				DeleteAdvert(sHost, sAuth_token, sId, "mobile_api");
+				DeleteAdvert(sHost, sAuth_token, sId, sTypeApi);
 		}
 	}
 	//часть 1
-	private JSONObject Super_GetRubricator(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject Super_GetRubricator(String sHost, String sCategory, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение рубрикатора сайта");
@@ -7748,7 +7748,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("category = "+ sCategory);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories")
     		.setParameter("category", sCategory);
     	
     	uri = builder.build();
@@ -7775,7 +7775,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}	
-	private String[] Super_GetRandomRubric(String sHost, String sCategory) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String[] Super_GetRandomRubric(String sHost, String sCategory, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sMas[] = new String[2];
 		JSONArray jArr;
@@ -7786,7 +7786,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		while(sCat.equals(""))
 		{
 			n++;
-			jTemp = Super_GetRubricator(sHost, sCategory);
+			jTemp = Super_GetRubricator(sHost, sCategory, sTypeApi);
 			jArr = jTemp.getJSONArray("categories");
 			nLenght = jArr.length();
 			print("Выбираем рандомную рубрику из отображаемых в списке");
@@ -7821,12 +7821,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		return sMas;
 	}
-	private String Super_GetRandomRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetRandomRegion(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		JSONArray jArr;
 		JSONObject jTemp;
 		int nLenght = 0, nRandomRubr = 0;
-		jTemp = GetRegions_4_1(sHost, "mobile_api");
+		jTemp = GetRegions_4_1(sHost, sTypeApi);
 		if(jTemp.getString("regions").equals("[]"))
 		{
 			print("Не удалось получить хоть один регион");
@@ -7843,7 +7843,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print(jTemp.toString(10));
 		return jTemp.getString("region");
 	}
-	private String Super_GetCities(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetCities(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		int nLenght = 0, nRandomRubr = 0;
 		int n1=0;
@@ -7857,7 +7857,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("Генерируем строку саджеста для поиска нас.пункта");
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";
-			jTemp = GetCitiesSuggest_4_3(sHost, sSearch, "mobile_api");
+			jTemp = GetCitiesSuggest_4_3(sHost, sSearch, sTypeApi);
 			if(!jTemp.getString("regions").equals("[]"))
 			{
 				jArr = jTemp.getJSONArray("regions");
@@ -7882,7 +7882,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return sRegion;
 	}
 
-	private JSONObject Super_GetCastomfieldsForAddAdvert(String sAuth_token, String sHost, String sDataCustomfieldsAdvert) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private JSONObject Super_GetCastomfieldsForAddAdvert(String sAuth_token, String sHost, String sDataCustomfieldsAdvert, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		print("Получение списка полей рубрики для подачи объявления");
@@ -7890,7 +7890,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/post")
     		.setQuery(sQuery + "&auth_token=" + sAuth_token);
     	
     	uri = builder.build();
@@ -8002,7 +8002,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return hAdressCust;
 		
 	}
-	private String[] Super_GetSuggestStreet(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String[] Super_GetSuggestStreet(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sStreet = "[]", sSearch = "", sStreetTest="Тестовая_улица", sStreetId="0" ,sDistrict="Тестовый_район";
 		int nLenght = 0, nRandomRubr = 0;
@@ -8017,7 +8017,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 		
-			jTemp = GetStreetsSuggest_4_4(sHost, sSearch, "mobile_api");
+			jTemp = GetStreetsSuggest_4_4(sHost, sSearch, sTypeApi);
 			if(!jTemp.getString("streets").equals("[]"))
 			{
 				jArr = jTemp.getJSONArray("streets");
@@ -8058,7 +8058,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sMas;
 	}
-	private String[] Super_GetSuggestHouse(String sHost, String sStreetId) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String[] Super_GetSuggestHouse(String sHost, String sStreetId, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		String sHouses = "[]", sSearch = "", sMicroDistrict="Тестовый_микрорайон", sHouseTest="1";
@@ -8075,7 +8075,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(nSuggest == 0)
 				nSuggest+=1;
 			sSearch = "{street_id=" + sStreetId + ", search_string=" + nSuggest + "}";	
-			jTemp = GetHousesSuggest_4_5(sHost, sSearch, "mobile_api");
+			jTemp = GetHousesSuggest_4_5(sHost, sSearch, sTypeApi);
 			
 			if(!jTemp.getString("houses").equals("[]"))
 			{
@@ -8105,7 +8105,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sMas;
 	}
-	private String Super_GetSuggestDistrict(String sHost, String sReg, String sDistrict) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetSuggestDistrict(String sHost, String sReg, String sDistrict, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		
 		String sDistr = "[]", sSearch = "";
@@ -8116,7 +8116,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		if(!sDistrict.equals(""))
 		{	
 			sSearch = "{region=" + sReg + ", search_string=" + sDistrict + "}";	
-			jTemp = GetDistrictSuggest_4_6(sHost, sSearch, "mobile_api");
+			jTemp = GetDistrictSuggest_4_6(sHost, sSearch, sTypeApi);
 			jArr = jTemp.getJSONArray("districts");
 			sDistr = (String) jArr.get(0);
 		}
@@ -8155,7 +8155,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sDistr;	
 	}
-	private String Super_GetSuggestAO(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetSuggestAO(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sAO = "[]", sSearch = "";
 		JSONObject jTemp;
@@ -8170,7 +8170,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetAOSuggest_4_9(sHost, sSearch, "mobile_api");
+			jTemp = GetAOSuggest_4_9(sHost, sSearch, sTypeApi);
 			
 			if(!jTemp.getString("ao").equals("[]"))
 			{
@@ -8195,7 +8195,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sAO;
 	}
-	private String Super_GetDirection(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetDirection(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sDirect = "[]", sSearch = "";
 		JSONObject jTemp;
@@ -8210,7 +8210,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetDirectionSuggest_4_10(sHost, sSearch, "mobile_api");
+			jTemp = GetDirectionSuggest_4_10(sHost, sSearch, sTypeApi);
 			
 			if(!jTemp.getString("directions").equals("[]"))
 			{
@@ -8234,7 +8234,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sDirect;
 	}
-	private String Super_GetMetro(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetMetro(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sMetro = "[]", sSearch = "";
 		JSONObject jTemp;
@@ -8249,7 +8249,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetMetroSuggest_4_12(sHost, sSearch, "mobile_api");
+			jTemp = GetMetroSuggest_4_12(sHost, sSearch, sTypeApi);
 			
 			if(!jTemp.getString("metro").equals("[]"))
 			{
@@ -8281,7 +8281,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sMetro;
 	}
-	private String Super_GetShosse(String sHost, String sReg) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private String Super_GetShosse(String sHost, String sReg, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sShosse = "[]", sSearch = "";
 		JSONObject jTemp;
@@ -8296,7 +8296,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sSearch = Super_GetRandomString(3);
 			sSearch = "{region=" + sReg + ", search_string=" + sSearch + "}";	
 			
-			jTemp = GetHighwaySuggest_4_11(sHost, sSearch, "mobile_api");
+			jTemp = GetHighwaySuggest_4_11(sHost, sSearch, sTypeApi);
 			
 			if(!jTemp.getString("highways").equals("[]"))
 			{
@@ -8327,7 +8327,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 		return sShosse;
 	}
-	private HM<String, String> Super_GetDataForAdressCustom(String sHost, HM<String, String> hAdressCust, String sRegion, String sRegionParent) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private HM<String, String> Super_GetDataForAdressCustom(String sHost, HM<String, String> hAdressCust, String sRegion, String sRegionParent, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sStreet="", StreetId="", sDistrict="", sMicroDistrict="", sHouses="", sAO="", sDirection="", sMetro="", sShosse="";
 		String sMas[] = null;
@@ -8335,7 +8335,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		// проверяем есть ли поле улицы на подачи
 		if(hAdressCust.ContainsKeys("mapStreet"))
 		{
-			sMas = Super_GetSuggestStreet(sHost, sRegion);
+			sMas = Super_GetSuggestStreet(sHost, sRegion, sTypeApi);
 			sStreet = sMas[0];
 			StreetId = sMas[1];
 			sDistrict = sMas[2];
@@ -8359,7 +8359,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 			else
 			{
-				sMas = Super_GetSuggestHouse(sHost, StreetId);
+				sMas = Super_GetSuggestHouse(sHost, StreetId, sTypeApi);
 				sHouses = sMas[0];
 				sMicroDistrict = sMas[1];
 				hAdressCustWithData.SetValue("mapHouseNr", sHouses.replaceAll(" ", "+"));
@@ -8377,7 +8377,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			else
 			{
 				sDistrict = sDistrict.replaceAll(" ", "+"); // Если район из двух слов
-				sDistrict = Super_GetSuggestDistrict(sHost, sRegion, sDistrict);
+				sDistrict = Super_GetSuggestDistrict(sHost, sRegion, sDistrict, sTypeApi);
 				hAdressCustWithData.SetValue("address_district", sDistrict.replaceAll(" ", "+"));
 				print(sDistrict);
 			}	
@@ -8387,7 +8387,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//проверяем есть ли поле АО на подаче
 		if(hAdressCust.ContainsKeys("address_ao"))
 		{
-			sAO = Super_GetSuggestAO(sHost, sRegion);
+			sAO = Super_GetSuggestAO(sHost, sRegion, sTypeApi);
 			hAdressCustWithData.SetValue("address_ao", sAO.replaceAll(" ", "+"));
 			print(sAO);
 		}
@@ -8395,7 +8395,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//проверяем есть ли поле направление на подаче
 		if(hAdressCust.ContainsKeys("direction"))
 		{
-			sDirection = Super_GetDirection(sHost, sRegionParent);
+			sDirection = Super_GetDirection(sHost, sRegionParent, sTypeApi);
 			hAdressCustWithData.SetValue("direction", sDirection.replaceAll(" ", "+"));
 			print(sDirection);
 		}
@@ -8403,7 +8403,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//проверяем есть ли поле метро на подаче
 		if(hAdressCust.ContainsKeys("metro"))
 		{
-			sMetro = Super_GetMetro(sHost, sRegion);
+			sMetro = Super_GetMetro(sHost, sRegion, sTypeApi);
 			hAdressCustWithData.SetValue("metro", sMetro.replaceAll(" ", "+"));
 			print(sMetro);
 		}
@@ -8411,7 +8411,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//проверяем есть ли шоссе на подаче
 		if(hAdressCust.ContainsKeys("shosse"))
 		{
-			sShosse = Super_GetShosse(sHost, sRegionParent);
+			sShosse = Super_GetShosse(sHost, sRegionParent, sTypeApi);
 			hAdressCustWithData.SetValue("shosse", sShosse.replaceAll(" ", "+"));
 			print(sShosse);
 		}
@@ -8509,7 +8509,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	
-	private JSONObject Super_PostAdvert(String sHost, String sAuth_token, String sParam, String sParamUserData, String sParamTitle, String sParamAdress, String sParamCustom, String sUrlVideo) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private JSONObject Super_PostAdvert(String sHost, String sAuth_token, String sParam, String sParamUserData, String sParamTitle, String sParamAdress, String sParamCustom, String sUrlVideo, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		String sVideo = "&advertisement[video]="+sUrlVideo;
 		String sRequest = CreateSimpleRequestForPostAndPut(sParam);
@@ -8522,7 +8522,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest1_1 + sRequest2 + sRequest2_1 + sVideo;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert");
     		
     	uri = builder.build();
  
@@ -8545,11 +8545,11 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
-	private JSONObject Super_GetProductForAdvert(String sHost, String sAuth_token, String sIdAdvert) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private JSONObject Super_GetProductForAdvert(String sHost, String sAuth_token, String sIdAdvert, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/products")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -8589,14 +8589,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		return sMas;
 		
 	}
-	private void Super_EditAdvert(String sHost, String sAuth_token, String sId, String sParamTitle, String sParamAdress, String sParamCustom) throws ExceptFailTest, URISyntaxException, IOException, JSONException
+	private void Super_EditAdvert(String sHost, String sAuth_token, String sId, String sParamTitle, String sParamAdress, String sParamCustom, String sTypeApi) throws ExceptFailTest, URISyntaxException, IOException, JSONException
 	{
 		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" , sParamTitle);
 		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamAdress);
 		String sRequest2_1 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamCustom);
 		
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/advertisements/" + sId);
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/" + sId);
 		
 		String sE="";
     	sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sRequest2_1;
@@ -8623,7 +8623,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Супер тест 4 работа с объявлениями - поиск
-	public void Super_WorkSearch(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void Super_WorkSearch(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sTemp="", sSearch;
 		String sRegion="", sCategory="";
@@ -8633,19 +8633,19 @@ public class ConnectMethod extends Connect_Request_Abstract
 		HM<String, String> hExtends = new HM<String, String>();
 		
 		print("\r\nПолучаем конечную рубрику для фильтрации".toUpperCase());
-		sMas = Super_GetRandomRubric(sHost, "/");
+		sMas = Super_GetRandomRubric(sHost, "/", sTypeApi);
 		sCategory = sMas[0];
 		
 		print("\r\nПолучаем регион для фильтрации объявления".toUpperCase());
-		sRegion = Super_GetRandomRegion(sHost);
+		sRegion = Super_GetRandomRegion(sHost, "mobile_api");
 		
 		sTemp = "{region=" + sRegion + ",category=" + sCategory + "}";
 		//sTemp = "{region=russia/moskva-gorod,category=cars/passenger/used/}";
 		
 		print("\r\nПолучаем поля для фильтрации и значения для них".toUpperCase());
-		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp, "mobile_api");
-		hDefault = Super_GetCustomForFilters(sHost, jTemp, "default");
-		hExtends = Super_GetCustomForFilters(sHost, jTemp, "extended");
+		jTemp = GetCastomfieldsForSearchAdvert_3_4(sHost,sTemp, sTypeApi);
+		hDefault = Super_GetCustomForFilters(sHost, jTemp, "default", sTypeApi);
+		hExtends = Super_GetCustomForFilters(sHost, jTemp, "extended", sTypeApi);
 		
 		print("\r\nПолучаем строку для поиска".toUpperCase());
 		sSearch = Super_GetStringFilterForSearch(hDefault.GetStringFromAllHashMap()) + Super_GetStringFilterForSearch(hExtends.GetStringFromAllHashMap());
@@ -8653,11 +8653,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("\r\nВыполняем запрос фильтрации листинга");
 		sTemp = "{region=" + sRegion + ",category=" + sCategory + " ,include_categories=true, offset=0, limit=20, sort_by=date_sort:desc}";
-		GetListSearchCategory(sHost, sTemp, sSearch, "", "mobile_api");
+		GetListSearchCategory(sHost, sTemp, sSearch, "", sTypeApi);
 		
 	}
 	// получение фильтров и их значении
-	private HM<String, String> Super_GetCustomForFilters(String sHost, JSONObject jTemp, String sTypeFilter) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private HM<String, String> Super_GetCustomForFilters(String sHost, JSONObject jTemp, String sTypeFilter, String sTypeApi) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		HM<String, String> hFilter = new HM<String, String>();
 		JSONArray jArrDefault, jArr;
@@ -8800,7 +8800,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			if(sD.equals("model"))
 			{
 				print("В фильтрах присутсвует поле модель, получаем значения моделей для ранее выбраной марки");
-				jD = GetDictinary_6_1(sHost, sNameDictionaty, hFilter.GetValue("make"), "mobile_api");
+				jD = GetDictinary_6_1(sHost, sNameDictionaty, hFilter.GetValue("make"), sTypeApi);
 				jArr = jD.getJSONArray("values");
 				nLenght = jArr.length();
 				sD2 = (String) jArr.get(GetRandomNumber(nLenght));
@@ -9065,10 +9065,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("\r\nВыбираем регион в ручную".toUpperCase());
 		print("Получаем список городов и населенных пунктов по названию".toUpperCase());
-		Super_GetCities(sHost, "/");
+		Super_GetCities(sHost, "/", "mobile_api");
 		
 		print("\r\nПолучаем список всех субъектов РФ и выбираем рандомный регион");
-		sRegion = Super_GetRandomRegion(sHost);
+		sRegion = Super_GetRandomRegion(sHost, "mobile_api");
 		print("Получаем список городов принадлежащих региону " + sRegion);
 		GetPopularCities_4_2(sHost, sRegion, "mobile_api");
 		
