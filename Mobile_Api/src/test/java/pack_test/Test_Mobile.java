@@ -124,10 +124,10 @@ public class Test_Mobile
 	
 	
 	@Test (groups = { "AutoTest_15" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_GetAndCheckRubricator(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_GetAndCheckRubricator(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException, ClassNotFoundException
 	{
-			cM.GetAndCheckRubricator(sBaseHost); //Получение и проверка рубрикатора
+			cM.GetAndCheckRubricator(sBaseHost, sTypeApi); //Получение и проверка рубрикатора
 	}
 	
 	@Test (groups = { "AutoTest_16" })

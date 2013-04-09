@@ -4025,8 +4025,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	
+	
 	//Получение и проверка рубрикатора
-	public void GetAndCheckRubricator(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
+	public void GetAndCheckRubricator(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sCategory = "/", sCategoryCars = "cars/", sCategoryRealt = "real-estate/";
@@ -4040,15 +4041,15 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		print("\r\nШАГ 1");
 		print("Получаем рубрикатор основных рубрик сайта".toUpperCase());
-		jData = GetRubricator(sHost, sCategory);
+		jData = GetRubricator(sHost, sCategory, sTypeApi);
 		String sCurrentRubricator = jData.toString(10); 
 		
 		print("Получаем рубрикатор рубрики Авто сайта".toUpperCase());
-		jData = GetRubricator(sHost, sCategoryCars);
+		jData = GetRubricator(sHost, sCategoryCars, sTypeApi);
 		String sCurrentRubricatorCars = jData.toString(10); 
 		
 		print("Получаем рубрикатор рубрики Недвижимость сайта".toUpperCase());
-		jData = GetRubricator(sHost, sCategoryRealt);
+		jData = GetRubricator(sHost, sCategoryRealt, sTypeApi);
 		String sCurrentRubricatorRealt = jData.toString(10); 
 		
 		smas[0] = sCurrentRubricator;
@@ -4115,14 +4116,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 	}
 	//получение рубрикатора для автотеста
-	private JSONObject GetRubricator(String sHost, String sRubricator) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	private JSONObject GetRubricator(String sHost, String sRubricator, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		print("Получение рубрикатора сайта".toUpperCase());
 		print("Параметры для запроса");
 		print("category = "+ sRubricator);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories")
     		.setParameter("category", sRubricator);
     	
     	uri = builder.build();
@@ -4177,6 +4178,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sR = Js.GetJsonString();
 		return sR;
 	}
+	
 	
 	//Получение и проверка списка полей рубрики для подачи
 	public void GetFieldsForAddAdvert(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
@@ -4726,6 +4728,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	
+	
 	//Получение и проверка списка субъектов
 	public void GetRegionRussionFederation(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
 	{
@@ -4884,6 +4887,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}	
 	}
+	
 	
 	//Получение и проверка списка городов принадлежащего субъекту РФ
 	public void GetCitiesInsideRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, ClassNotFoundException
@@ -6539,6 +6543,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	}
 	
+	
 	//Проверка подачи без картинки и редактирования с добавлением картинки
 	public void AddAndEditWithImage(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
@@ -6610,6 +6615,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
 		}
 	}
+	
 	
 	//Выход из приложения, проверка что ключ более не доступен.
 	public void LogoutAndCheckAuthToken(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest
@@ -6807,6 +6813,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		}
 	
 	}	
+	
 	
 	//(Проверка волшебных регионов) Подача в Ленинградскую обл, получение листинга категории и фильтрованного листинга региона Санкт-Петрбург и обл и проверка нахожд объявл
 	public void AddAdvertGetListAndCheckMagicRegion(String sHost) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException
