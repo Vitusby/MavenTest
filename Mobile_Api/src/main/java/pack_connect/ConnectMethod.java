@@ -3748,13 +3748,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		JSONObject jData;
 		InnerDataHM objAuto, objRealt, objTIY, objMobile, objJob;
 		String sDataForListAuto = "{category=cars/passenger/used/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
-		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/arhangelskaya-obl/arhangelsk-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
+		String sDataForListRealt = "{category=real-estate/apartments-sale/secondary/, region=russia/sverdlovskaya-obl/ekaterinburg-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIY = "{category=electronics-technics/vacuum/, region=russia/tatarstan-resp/kazan-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListTIYMobile = "{category=communication/mobile/mobiles/, region=russia/permskiy-kray/perm-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sDataForListJob = "{category=jobs-education/resumes/communal/, region=russia/moskva-gorod/, currency=RUR, offset=0, limit=20, sort_by=date_sort:desc, include_privates=true, include_companies=true}";
 		String sRegionNameAuto = "Москва";
 		String sCategoryNameAuto = "Автомобили с пробегом";
-		String sRegionNameRealt = "Архангельск";
+		String sRegionNameRealt = "Екатеринбург";
 		String sCategoryNameRealt = "Вторичный рынок";
 		String sRegionNameTIY = "Казань";
 		String sCategoryNameTIY = "Пылесосы";
@@ -3781,9 +3781,9 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////    	
-	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Екатеринбург".toUpperCase());
 	    	print("Объявление №2");	
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt2", "image2", sTypeApi);
 	    	sIdRealt = objRealt.GetID();
 	    	
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -3822,11 +3822,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 3");
-	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
+	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Екатеринбург".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
 	    	jData = GetListCategory(sHost, sDataForListRealt, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/", sTypeApi);
+	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/sverdlovskaya-obl/ekaterinburg-gorod/", sTypeApi);
 	    		
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
