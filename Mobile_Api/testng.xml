@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="sr71_api"/> 
   <groups>
     <run>
-      <include name="AutoTest_14"/>
+      <include name="AutoTest_17"/>
     </run>
   </groups>
     <classes>
