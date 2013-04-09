@@ -3738,7 +3738,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 	
 	//Подача, получения листинга категории и проверка объявлений на статус, категорию, регион
-	public void AddAdvertGetCitiesGetListCategory(String sHost) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
+	public void AddAdvertGetCitiesGetListCategory(String sHost, String sTypeApi) throws JSONException, URISyntaxException, IOException, ExceptFailTest, NumberFormatException, InterruptedException
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		String sIdAuto="", sIdRealt="", sIdTIU="", sIdMobile="", sIdJob="";
@@ -3767,7 +3767,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача, получение листинга категории - Тест".toUpperCase()+"\r\n");
-		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, "mobile_api");
+		sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////	
 		print("\r\nШАГ 1");
@@ -3776,33 +3776,33 @@ public class ConnectMethod extends Connect_Request_Abstract
 		{
 			print("\r\nПодача объявления в рубрику Авто с пробегом. Регион Москва".toUpperCase());
 			print("Объявление №1");	
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", "mobile_api");
+			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto", "image", sTypeApi);
 			sIdAuto = objAuto.GetID();  // сюда сохраняем значение id
 			
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////    	
 	    	print("\r\nПодача объявления в рубрику Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
 	    	print("Объявление №2");	
-	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", "mobile_api");
+	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image2", sTypeApi);
 	    	sIdRealt = objRealt.GetID();
 	    	
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
 	    	print("\r\nПодача объявления в рубрику Электроника и техника - пылесосы. Регион Казань".toUpperCase());
 	    	print("Объявление №3");	
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", "mobile_api");
+	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
 	    	sIdTIU = objTIY.GetID();
 	    	
 	    	
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
 			print("\r\nПодача объявления в рубрику Телефоны и связь - сотовые телефоны. Регион Пермь".toUpperCase());
 			print("Объявление №4");	
-			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5", "mobile_api");
+			objMobile = PostAdvert(sHost, mas_Advertisment, mas_TIY_Mobile, sAuth_token, "category_mobile", "image5", sTypeApi);
 			sIdMobile = objMobile.GetID();    
 			
 	///////////////////////////////////////////////////////////////////////////////////////////////// 
 			print("\r\nПодача объявления в рубрику Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 			print("Объявление №5");	
-			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7", "mobile_api");
+			objJob = PostAdvert(sHost, mas_Advertisment, mas_Job, sAuth_token, "category_jobs", "image7", sTypeApi);
 			sIdJob = objJob.GetID();    
 			
 			
@@ -3815,45 +3815,45 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг категории Авто с пробегом. Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто с пробегом");
-	    	jData = GetListCategory(sHost, sDataForListAuto, "", "mobile_api");
+	    	jData = GetListCategory(sHost, sDataForListAuto, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/");
+	    	ValidateListCategory(sHost, jData, sIdAuto, sRegionNameAuto, sCategoryNameAuto, "russia/moskva-gorod/", sTypeApi);
 	    	
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 3");
 	    	print("Получаем листинг категории Недвижимость - Вторичный рынок. Регион Архангельск".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
-	    	jData = GetListCategory(sHost, sDataForListRealt, "", "mobile_api");
+	    	jData = GetListCategory(sHost, sDataForListRealt, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/");
+	    	ValidateListCategory(sHost, jData, sIdRealt, sRegionNameRealt, sCategoryNameRealt, "russia/arhangelskaya-obl/arhangelsk-gorod/", sTypeApi);
 	    		
 	    
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 4");
 	    	print("Получаем листинг категории Электроника и техника - пылесосы. Регион Казань".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Электроника и техника - пылесосы");
-	    	jData = GetListCategory(sHost, sDataForListTIY, "", "mobile_api");
+	    	jData = GetListCategory(sHost, sDataForListTIY, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/");
+	    	ValidateListCategory(sHost, jData, sIdTIU, sRegionNameTIY, sCategoryNameTIY, "russia/tatarstan-resp/kazan-gorod/", sTypeApi);
 	    	
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 5");
 	    	print("Получаем листинг категории Телефоны и связь - сотовые телефоны. Регион Пермь".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Телефоны и связь - сотовые телефоны.");
-	    	jData = GetListCategory(sHost, sDataForListTIYMobile, "", "mobile_api");
+	    	jData = GetListCategory(sHost, sDataForListTIYMobile, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdMobile, sRegionNameMobile, sCategoryNameMobile, "russia/permskiy-kray/perm-gorod/");
+	    	ValidateListCategory(sHost, jData, sIdMobile, sRegionNameMobile, sCategoryNameMobile, "russia/permskiy-kray/perm-gorod/", sTypeApi);
 	    	
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
 	    	print("\r\nШАГ 6");
 	    	print("Получаем листинг категории Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет). Регион Москва".toUpperCase());
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Работа и образование - Резюме(Бытовые и коммунальные услуги, муниципалитет).");
-	    	jData = GetListCategory(sHost, sDataForListJob, "", "mobile_api");
+	    	jData = GetListCategory(sHost, sDataForListJob, "", sTypeApi);
 	    	print("\r\nПроверяем status объявлений в листинге, region объявлений, category объявлений.");
-	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/"); // После исправления бага 44474 раскомментить
+	    	ValidateListCategory(sHost, jData, sIdJob, sRegionNameJob, sCategoryNameJob, "russia/moskva-gorod/", sTypeApi); 
 	    		
 		}
 		
@@ -3863,26 +3863,26 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 5");
 	    	print("Удаление поданных объявлений пользователя".toUpperCase());
 	    	print("Удаляем объявление с ID = " + sIdAuto);
-	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdAuto, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdRealt);
-	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdRealt, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdTIU);
-	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdTIU, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdMobile);
-	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdMobile, sTypeApi);
 	    	
 	    	print("Удаляем объявление с ID = " + sIdJob);
-	    	DeleteAdvert(sHost, sAuth_token, sIdJob, "mobile_api");
+	    	DeleteAdvert(sHost, sAuth_token, sIdJob, sTypeApi);
 		}
     	print("------------------------------------------------------------------------------------------------------------");
     	print("Тест завершен успешно".toUpperCase());
    
 	}
 	// проверка листинга на содержимое
-	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegionNameAuto, String sCategoryNameAuto, String sWaitUrl) throws JSONException, URISyntaxException, IOException, ExceptFailTest
+	private void ValidateListCategory(String sHost, JSONObject jObj, String sIdAdvert, String sRegionNameAuto, String sCategoryNameAuto, String sWaitUrl, String sTypeApi) throws JSONException, URISyntaxException, IOException, ExceptFailTest
 	{
 		JSONObject jTemp, jData;
 		String sId;
@@ -3913,7 +3913,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     			if(sId.equals(sIdAdvert))
     				bFlagAdvert = true;
     			print("Получаем данные по объявлению с ID = " + sId);
-    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", "mobile_api");
+    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", sTypeApi);
     			print("Проверяем статус активность для объявления ID = " + sId);
     			ValidateStatus("1", jData, sId, "");
     			print("Проверяем категорию объявления для объявления ID = " + sId);
@@ -3934,14 +3934,14 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	// получаем список городов принадлежащих региону листинга
 	@SuppressWarnings("unused")
-	private  JSONObject GetChildrenCities(String sHost, String sRegion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	private  JSONObject GetChildrenCities(String sHost, String sRegion, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 
 		print("Получение списка городов, принадлежащих определенному субъекту РФ".toUpperCase());
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();

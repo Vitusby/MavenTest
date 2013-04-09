@@ -116,10 +116,10 @@ public class Test_Mobile
 
 	
 	@Test (groups = { "AutoTest_14" })
-	@Parameters({"sBaseHost"})
-	public void AutoTest_AddAdvertGetCitiesGetListCategory(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void AutoTest_AddAdvertGetCitiesGetListCategory(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, InterruptedException
 	{
-			cM.AddAdvertGetCitiesGetListCategory(sBaseHost); //Подача/Получение и проверка листинга категории 
+			cM.AddAdvertGetCitiesGetListCategory(sBaseHost, sTypeApi); //Подача/Получение и проверка листинга категории 
 	}
 	
 	
