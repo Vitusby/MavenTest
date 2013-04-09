@@ -3123,7 +3123,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
 	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
-	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1);
+	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1, sTypeApi);
 	    	
 	    	// деактивируем первое объявление и удаляем второе
 	    	print("\r\nШАГ 3");
@@ -3144,7 +3144,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
 	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
-	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2);
+	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2, sTypeApi);
 		}
 		finally
 		{
@@ -3213,7 +3213,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}	
 	}
 	// проверка листинга объявлений пользователя
-	private void ValidateListUser(String sHost, JSONObject jObj, String sIdAdvert, String sIdAdvert2, int nResult) throws JSONException, ExceptFailTest, URISyntaxException, IOException
+	private void ValidateListUser(String sHost, JSONObject jObj, String sIdAdvert, String sIdAdvert2, int nResult, String sTypeApi) throws JSONException, ExceptFailTest, URISyntaxException, IOException
 	{
 		JSONObject jTemp, jData;
 		jTemp = jObj;
@@ -3245,7 +3245,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    			if(sId.equals(sIdAdvert2))
 		    				bFlagAdvert2 = true;
 		    			print("Получаем данные по объявлению с ID = " + sId);
-		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", "mobile_api");
+		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", sTypeApi);
 		    			print("Проверяем статус активность для объявления ID = " + sId);
 		    			ValidateStatus("1", jData, sId, "");	
 		    		}
@@ -3281,7 +3281,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		    			if(sId.equals(sIdAdvert2))
 		    				bFlagAdvert2 = true;
 		    			print("Получаем данные по объявлению с ID = " + sId);
-		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", "mobile_api");
+		    			jData = GetAdvert(sHost, sId, " листинг активных объявлений пользователя", sTypeApi);
 		    			print("Проверяем статус активность для объявления ID = " + sId);
 		    			ValidateStatus("1", jData, sId, "");	
 		    		}
