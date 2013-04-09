@@ -3806,7 +3806,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdJob = objJob.GetID();    
 			
 			
-
 	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
 	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
