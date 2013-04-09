@@ -8637,7 +8637,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sCategory = sMas[0];
 		
 		print("\r\nПолучаем регион для фильтрации объявления".toUpperCase());
-		sRegion = Super_GetRandomRegion(sHost, "mobile_api");
+		sRegion = Super_GetRandomRegion(sHost, sTypeApi);
 		
 		sTemp = "{region=" + sRegion + ",category=" + sCategory + "}";
 		//sTemp = "{region=russia/moskva-gorod,category=cars/passenger/used/}";
