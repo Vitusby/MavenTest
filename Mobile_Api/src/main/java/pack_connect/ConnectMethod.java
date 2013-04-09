@@ -9056,24 +9056,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Супер тест 7 выбор региона
-	public void Super_ChooseRegion(String sHost)throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void Super_ChooseRegion(String sHost, String sTypeApi)throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		String sRegion="";
 		
 		print("\r\nПолучаем регион пользователя по IP".toUpperCase());
-		GetRegionByIP8_6(sHost, "");
+		GetRegionByIP8_6(sHost, sTypeApi);
 		
 		print("\r\nВыбираем регион в ручную".toUpperCase());
 		print("Получаем список городов и населенных пунктов по названию".toUpperCase());
-		Super_GetCities(sHost, "/", "mobile_api");
+		Super_GetCities(sHost, "/", sTypeApi);
 		
 		print("\r\nПолучаем список всех субъектов РФ и выбираем рандомный регион");
-		sRegion = Super_GetRandomRegion(sHost, "mobile_api");
+		sRegion = Super_GetRandomRegion(sHost, sTypeApi);
 		print("Получаем список городов принадлежащих региону " + sRegion);
-		GetPopularCities_4_2(sHost, sRegion, "mobile_api");
+		GetPopularCities_4_2(sHost, sRegion, sTypeApi);
 		
 		print("\r\nПолучаем список городов для которых заведены поддомены".toUpperCase());
-		GetCitiesWithDomen_4_2_1(sHost, "mobile_api");
+		GetCitiesWithDomen_4_2_1(sHost, sTypeApi);
 		
 	}
 	

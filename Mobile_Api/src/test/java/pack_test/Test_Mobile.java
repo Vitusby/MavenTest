@@ -706,17 +706,17 @@ public class Test_Mobile
 	} 
 	
 	@Test (groups = { "Super_WorkFavourite" })
-	@Parameters({"sBaseHost"})
-	public void Test_Super_WorkFavourite(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test_Super_WorkFavourite(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
 	{
-		cM.Super_WorkFavourite(sBaseHost);
+		cM.Super_WorkFavourite(sBaseHost, sTypeApi);
 	} 
 	
 	@Test (groups = { "Super_ChooseRegion" })
-	@Parameters({"sBaseHost"})
-	public void Test_Super_ChooseRegion(String sBaseHost) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
+	@Parameters({"sBaseHost", "sTypeApi"})
+	public void Test_Super_ChooseRegion(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException, ClassNotFoundException, NumberFormatException, InterruptedException
 	{
-		cM.Super_ChooseRegion(sBaseHost);
+		cM.Super_ChooseRegion(sBaseHost, sTypeApi);
 	} 
 	
 }

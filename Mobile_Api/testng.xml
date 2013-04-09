@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="sr71_api"/> 
   <groups>
     <run>
-      <include name="Super_WorkSearch"/>
+      <include name="Super_ChooseRegion"/>
     </run>
   </groups>
     <classes>
