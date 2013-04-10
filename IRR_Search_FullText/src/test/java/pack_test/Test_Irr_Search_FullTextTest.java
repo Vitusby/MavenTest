@@ -222,12 +222,13 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			pageSearch = pageIrrMain.SendTextToFieldSearch(sParam2); // перешли по полнотексту 
 			pageSearch.GetLinksMainCategoryInSeachPage();
 			pageSearch.CheckNamesAndCountMainCategoriesInSearchPage(sParam3, 1);
+			pageSearch.CheckRelatedCatIds();
 			print("Тест успешно завершен.");
 		}
 		finally
 		{
 			CaptureScreenshot("StopWord");
-			driver.quit();
+			//driver.quit();
 		}
 	}
 	

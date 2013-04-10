@@ -17,6 +17,9 @@ public class Page_Search extends Page
 	@FindBy(xpath="//div[@data-item-name='make']//div[@class='choseMark']//span")
 	private WebElement wFieldMake;
 	
+	@FindBy(xpath="//div[@id='minWidth']//pre") // текст отладки ?dbq_esq 
+	private WebElement wPreText;
+	
 	// массив ссылок для объявлений
 	private WebElement wAdvert[];
 	private ArrayList<String> sListLinks = new ArrayList<String>(); // лист ссылок на найденные объявления
@@ -31,6 +34,9 @@ public class Page_Search extends Page
 	private WebElement wLinkMainCategories[]; // ссылки на главные категории на странице с результатами поиска 
 	String s = "//div[@class='b-menuCat']/ul/li/a";
 	int nCountCategory = 0; //количество ссылок на главные категории на странице с результатами поиска 
+	
+	
+	
 	
 	public Page_Search(WebDriver driver){super(driver);}
 	public void OpenPage(String sUrl){}
@@ -388,7 +394,7 @@ public class Page_Search extends Page
 			break;
 			
 		case 2:
-			print("Проверяем что на странице результатов поиска не одна главная категории " + sNameMainCategory);
+			print("Проверяем что на странице результатов поиска есть главные категории " + sNameMainCategory);
 			if(nCountCategory != 1)
 			{
 				print("Количество главных категорий на странице с результатами поиска не равно одной ");
@@ -399,12 +405,25 @@ public class Page_Search extends Page
 			}
 			else
 			{
-				print("Количество главных категорий на странице с результатами поиска равно одной - \"" + wLinkMainCategories[0].getText() +
-						" но их должно быть больше");
-				throw new ExceptFailTest("Количество главных категорий на странице с результатами поиска равно одной - \"" + wLinkMainCategories[0].getText() +
-						" но их должно быть больше");
+				print("Количество главных категорий на странице с результатами поиска равно одной - \"" + wLinkMainCategories[0].getText() + "\"");
 			}
 			break;
+		}
+	}
+	
+	// Проверяем наличие related_cat_ids для страницы с результатми поиска по марке+стоп слову при добавлении ?dbg_esq
+	public void CheckRelatedCatIds() throws ExceptFailTest
+	{
+		
+		print("Проверяем наличие массива \"related_cat_ids\" для страницы поиска по стоп слову");
+		driver.get(driver.getCurrentUrl()+"?dbg_esq");
+		CheckElementPresent(1, "//div[@id='minWidth']//pre");
+		if((wPreText.getText().indexOf("[related_cat_ids] => Array")) != -1)
+			print("На странице отладки найден [related_cat_ids] => Array");
+		else
+		{
+			print("На странице отладки не найден [related_cat_ids] => Array");
+			throw new ExceptFailTest("На странице отладки не найден [related_cat_ids] => Array");
 		}
 	}
 	
