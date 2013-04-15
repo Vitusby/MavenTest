@@ -9478,8 +9478,6 @@ public class ConnectMethod extends Connect_Request_Abstract
 			String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sCustom_fields);
 			String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 		
-			print(sE);
-			
 			builder = new URIBuilder();
 	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert");
 	    		
