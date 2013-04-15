@@ -26,6 +26,7 @@ import pack_utils.Proper;
 import pack_utils.RamdomData;
 import pack_utils.WriterLog;
 
+import java.lang.String;
 
 public class ConnectMethod extends Connect_Request_Abstract
 {
@@ -9492,6 +9493,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	if(jsonObject.isNull("error"))
 	    	{
 	    		wLog.WriteNewStepBegin("Ответ сервера", 1);
+	    		
 	    		wLog.WriteString(5, "\r\nОтвет сервера:\r\n" + jsonObject.toString(10));
 	    		wLog.WriteNewStepEnd();
 	    		wLog.WriteString(3, "Объявление создано");
