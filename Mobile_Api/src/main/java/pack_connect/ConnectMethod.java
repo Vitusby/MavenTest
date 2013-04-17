@@ -3087,7 +3087,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sAuth_token = "";
 		JSONObject jData;
 		InnerDataHM objRealt, objAuto;
-		String sDataForSearchUserAdvert = "{user_id=10930240, offset=0, limit=20, category=/}"; // для пользователя api12@yopmail.com
+		String sDataForSearchUserAdvert = "{user_id=10930240, offset=0, limit=20, category=/}"; // для пользователя api12@yopmail.com (тестовые сервера)
+		String sDataForSearchUserAdvert2 = "{user_id=12066980, offset=0, limit=20, category=/}"; // для пользователя api12@yopmail.com (боевой сервер)
 		
 		print("------------------------------------------------------------------------------------------------------------");
 		print("Подача объявлений, получение листинга активных объявлений пользователя ОП - Тест".toUpperCase()+"\r\n");
@@ -3122,7 +3123,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Получаем листинг объявлений пользователя".toUpperCase());
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
+	    	String sTempData = (sHost.equals("irr.ru") ? sDataForSearchUserAdvert2 : sDataForSearchUserAdvert);
+	    	jData = GetListUserAdvert(sHost, sTempData, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
 	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 1, sTypeApi);
 	    	
