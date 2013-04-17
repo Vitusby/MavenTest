@@ -5885,7 +5885,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	//Проверка платных продуктов на этапе подачи и в ЛК, проверка бесплатных продуктов в ЛК
 	public void AddAdvertCheckPaidAndFreeProducts(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest, NumberFormatException, InterruptedException, ClassNotFoundException
 	{
-		String sIdAutoPaid = "", sIdTIU_Free="", sIdTIU_Free2="", sIdTIU_Free3="", sIdTIU_Paid=""; 
+		String sIdAutoPaid = "", sIdAutoPaid2="", sIdTIU_Free="", sIdTIU_Free2="", sIdTIU_Free3="", sIdTIU_Free4="", sIdTIU_Free5="", sIdTIU_Paid=""; 
 		String sLogin = Proper.GetProperty("login_authOP3");
 		String sPassword = Proper.GetProperty("password");
 		String sAuth_token = "";
@@ -5901,7 +5901,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 		wLog.SetUpWriterLog("LogResult.html");
 		Calendar c = Calendar.getInstance();
 		String sTime = c.get(Calendar.YEAR)+"/"+c.get(Calendar.MONTH)+"/"+c.get(Calendar.DATE)+" "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND);
-		
+		String sCurrentAutoPaid="", sCurrentElectronFree="", sCurrentElectronPaid="", sIdealPaid[], sCurrentAutoPaid2="", sCurrentAutoPaid3="",
+				sCurrentAutoPaid4="", sCurrentAutoPaid5="", sCurrentAutoPaid6="", sIdealPaidAutoLK[], sCurrentElectronFree2="", sCurrentElectronFree3="", 
+				sCurrentElectronFree4="", sCurrentElectronFree5="", sCurrentElectronFree6="", sIdealPaidElectronFreeLK[],
+				sCurrentElectronPaid2="", sCurrentElectronPaid3="", sCurrentElectronPaid4="", sCurrentElectronPaid5="", sCurrentElectronPaid6="",
+				sIdealPaidElectronPaidLK[], sCurrentFree="", sCurrentFree2="", sIdealFreeElectron[];
 		print("------------------------------------------------------------------------------------------------------------");
 		wLog.WriteString(4, "Подача платного объявления, подача трех бесплатных объявлений, подача платного объявления сверх лимита бесплатных - Тест (".toUpperCase() + sTime + ")".toUpperCase());
 		
@@ -5911,479 +5915,982 @@ public class ConnectMethod extends Connect_Request_Abstract
 			wLog.WriteString(3, "\r\nАвторизация пользователем - " + sLogin);
 			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
 			
+			if(!sHost.equals("irr.ru"))
+			{
+				print("Хост тестовый, проверяем на тестовом".toUpperCase());
+				// подача платного объявлений
+				wLog.WriteString(3, "\r\nШАГ 1");
+				wLog.WriteString(1, "Подача 1 платного объявления");  	
+				//wLog.WriteString(1, "Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
+				wLog.WriteNewStepBegin("Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase(), 1);
+				objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", sTypeApi);
+				wLog.WriteNewStepEnd();
+				sIdAutoPaid = objAuto.GetID();
+		    	
+				wLog.WriteString(3, "\r\nШАГ 1-1");
+				wLog.WriteString(1, "Подача 1 бесплатного объявления");
+				//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+				wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 2);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-2");
+		    	wLog.WriteString(1, "Подача 2 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 3);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free2 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-3");
+		    	wLog.WriteString(1, "Подача 3 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free3 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-4");
+		    	wLog.WriteString(1, "Подача 4 объявления, объявление платное, сверх лимита бесплатных");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 5);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Paid = objTIY.GetID();
+		  
+	    
+		    	// проверка платных продуктов на этапе подачи
+		    	wLog.WriteString(3, "\r\nШАГ 2");
+		    	wLog.WriteString(1, "Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
+		    	wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
+				smasInStepAdd[0] = sCurrentAutoPaid;
 			
-			// подача платного объявлений
-			wLog.WriteString(3, "\r\nШАГ 1");
-			wLog.WriteString(1, "Подача 1 платного объявления");  	
-			//wLog.WriteString(1, "Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
-			wLog.WriteNewStepBegin("Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase(), 1);
-			objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", sTypeApi);
-			wLog.WriteNewStepEnd();
-			sIdAutoPaid = objAuto.GetID();
-	    	
-			wLog.WriteString(3, "\r\nШАГ 1-1");
-			wLog.WriteString(1, "Подача 1 бесплатного объявления");
-			//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-			wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 2);
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
-	    	wLog.WriteNewStepEnd();
-	    	sIdTIU_Free = objTIY.GetID();
-	    	
-	    	wLog.WriteString(3, "\r\nШАГ 1-2");
-	    	wLog.WriteString(1, "Подача 2 бесплатного объявления");
-	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 3);
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
-	    	wLog.WriteNewStepEnd();
-	    	sIdTIU_Free2 = objTIY.GetID();
-	    	
-	    	wLog.WriteString(3, "\r\nШАГ 1-3");
-	    	wLog.WriteString(1, "Подача 3 бесплатного объявления");
-	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
-	    	wLog.WriteNewStepEnd();
-	    	sIdTIU_Free3 = objTIY.GetID();
-	    	
-	    	wLog.WriteString(3, "\r\nШАГ 1-4");
-	    	wLog.WriteString(1, "Подача 4 объявления, объявление платное, сверх лимита бесплатных");
-	    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
-	    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 5);
-	    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
-	    	wLog.WriteNewStepEnd();
-	    	sIdTIU_Paid = objTIY.GetID();
-	  
-    
-	    	// проверка платных продуктов на этапе подачи
-	    	wLog.WriteString(3, "\r\nШАГ 2");
-	    	wLog.WriteString(1, "Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
-	    	wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
-			smasInStepAdd[0] = sCurrentAutoPaid;
+				wLog.WriteString(3, "\r\nШАГ 2-1");
+				wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+				smasInStepAdd[1] = sCurrentElectronFree;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 2-2");
+				wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 6,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");
+				sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
+				smasInStepAdd[2] = sCurrentElectronPaid;
+		    	
+		    	//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js = new JString(smasInStepAdd); // запись в файл
+		    	//SaveJson(Js, "PaidProductInAddStep.txt");
+		    			
+		    	sIdealPaid = LoadJson("PaidProductInAddStep.txt");
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 3");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[0],sCurrentAutoPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 3-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[1],sCurrentElectronFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 3-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[2],sCurrentElectronPaid);
+				
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+				
+				//проверка платных продуктов в ЛК Авто (платное объявление)
+				wLog.WriteString(3, "\r\nШАГ 4");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Рубрика Авто - Новые автомобили. Регион Москва.".toUpperCase());	
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[0] = sCurrentAutoPaid;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-1");
+				wLog.WriteString(1, "\r\nОплачиваем(активируем объявление)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-2");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid2 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid2, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[1] = sCurrentAutoPaid2;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-3");
+				wLog.WriteString(1, "\r\nВыделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-4");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid3 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid3, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[2] = sCurrentAutoPaid3;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-5");
+				wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-6");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid4 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid4, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[3] = sCurrentAutoPaid4;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-7");
+				wLog.WriteString(1, "\r\nНазначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-8");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid5 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid5, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[4] = sCurrentAutoPaid5;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-9");
+				wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-10");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
+				sCurrentAutoPaid6 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid6, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid, "*****");
+				smasAutoInLK[5] = sCurrentAutoPaid6;
+				
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js2 = new JString(smasAutoInLK); // запись в файл
+		    	//SaveJson(Js2, "PaidProductAutoLK.txt");
+		    			
+		    	sIdealPaidAutoLK = LoadJson("PaidProductAutoLK.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 5");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[0],sCurrentAutoPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[1],sCurrentAutoPaid2);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[2],sCurrentAutoPaid3);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[3],sCurrentAutoPaid4);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[4],sCurrentAutoPaid5);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[5],sCurrentAutoPaid6);
+				
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+				//проверка платных продуктов в ЛК Пылесосы (бесплатное объявление)
+				wLog.WriteString(3, "\r\nШАГ 6");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree, sIdTIU_Free, 4,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[0] = sCurrentElectronFree;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-1");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-2");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree2 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree2, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree2 = sCurrentElectronFree2.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[1] = sCurrentElectronFree2;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-3");
+				wLog.WriteString(1, "Активируем объявление".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-4");
+				wLog.WriteString(1, "Выделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-5");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree3 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree3, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree3 = sCurrentElectronFree3.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[2] = sCurrentElectronFree3;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-6");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-7");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree4 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree4, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree4 = sCurrentElectronFree4.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[3] = sCurrentElectronFree4;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-8");
+				wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-9");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree5 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree5, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree5 = sCurrentElectronFree5.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[4] = sCurrentElectronFree5;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-10");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-11");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree6 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree6, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree6 = sCurrentElectronFree6.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[5] = sCurrentElectronFree6;
+				
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js3 = new JString(smasElectronInLK); // запись в файл
+		    	//SaveJson(Js3, "PaidProductElectronFreeLK.txt");
+				
+		    	sIdealPaidElectronFreeLK = LoadJson("PaidProductElectronFreeLK.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 7");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[0],sCurrentElectronFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[1],sCurrentElectronFree2);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 7-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[2],sCurrentElectronFree3);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[3],sCurrentElectronFree4);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[4],sCurrentElectronFree5);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[5],sCurrentElectronFree6);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-6");
+				wLog.WriteString(1, "Активируем объявление.(Необходимо для проверки корректной работы платного объявления сверх лимита)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
+				
+				
+		 /////////////////////////////////проверка платных продуктов в ЛК Пылесосы (платное объявление, сверх лимита)////////////////////////////////////////////////////
+				wLog.WriteString(3, "\r\nШАГ 8");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений(платное сверх лимита) в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление неоплачено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[0] = sCurrentElectronPaid;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 8-1");
+				wLog.WriteString(1, "Оплачиваем(активируем объявление)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-2");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid2 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid2, sIdTIU_Paid, 6,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid2 = sCurrentElectronPaid2.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[1] = sCurrentElectronPaid2;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 8-3");
+				wLog.WriteString(1, "Выделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-4");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid3 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid3, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid3 = sCurrentElectronPaid3.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[2] = sCurrentElectronPaid3;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-5");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-6");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid4 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid4, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid4 = sCurrentElectronPaid4.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[3] = sCurrentElectronPaid4;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-7");
+				wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-8");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid5 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid5, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
+				sCurrentElectronPaid5 = sCurrentElectronPaid5.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[4] = sCurrentElectronPaid5;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-9");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-10");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid6 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid6, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
+				sCurrentElectronPaid6 = sCurrentElectronPaid6.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[5] = sCurrentElectronPaid6;
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js3 = new JString(smasElectronPaidInLK); // запись в файл
+		    	//SaveJson(Js3, "PaidProductElectronPaidLK.txt");
+				
+		    	sIdealPaidElectronPaidLK = LoadJson("PaidProductElectronPaidLK.txt");
 		
-			wLog.WriteString(3, "\r\nШАГ 2-1");
-			wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
-			smasInStepAdd[1] = sCurrentElectronFree;
-	    	
-			wLog.WriteString(3, "\r\nШАГ 2-2");
-			wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
-			jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 6,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");
-			sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
-			smasInStepAdd[2] = sCurrentElectronPaid;
-	    	
-	    	//Раскоментить если надо будет обновить значения и закомментить после обновления
-	    	//Js = new JString(smasInStepAdd); // запись в файл
-	    	//SaveJson(Js, "PaidProductInAddStep.txt");
-	    			
-	    	String sIdealPaid[] = LoadJson("PaidProductInAddStep.txt");
-	    	
-	    	wLog.WriteString(3, "\r\nШАГ 3");
-	    	wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва из сохранения".toUpperCase());
-			CheckAnswerForPaidProduct(sIdealPaid[0],sCurrentAutoPaid);
-			
-			wLog.WriteString(3, "\r\nШАГ 3-1");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
-			CheckAnswerForPaidProduct(sIdealPaid[1],sCurrentElectronFree);
-			
-			wLog.WriteString(3, "\r\nШАГ 3-2");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
-			CheckAnswerForPaidProduct(sIdealPaid[2],sCurrentElectronPaid);
-			
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-			
-			//проверка платных продуктов в ЛК Авто (платное объявление)
-			wLog.WriteString(3, "\r\nШАГ 4");
-			wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Рубрика Авто - Новые автомобили. Регион Москва.".toUpperCase());	
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			sCurrentAutoPaid = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[0] = sCurrentAutoPaid;
-			
-			wLog.WriteString(3, "\r\nШАГ 4-1");
-			wLog.WriteString(1, "\r\nОплачиваем(активируем объявление)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 4-2");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid2 = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid2, sIdAutoPaid, 6,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[1] = sCurrentAutoPaid2;
-			
-			wLog.WriteString(3, "\r\nШАГ 4-3");
-			wLog.WriteString(1, "\r\nВыделяем объявление".toUpperCase());
-			HighLightAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 4-4");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid3 = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid3, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[2] = sCurrentAutoPaid3;
-			
-			wLog.WriteString(3, "\r\nШАГ 4-5");
-			wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 4-6");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid4 = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid4, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[3] = sCurrentAutoPaid4;
-			
-			wLog.WriteString(3, "\r\nШАГ 4-7");
-			wLog.WriteString(1, "\r\nНазначаем премиум объявлению".toUpperCase());
-			SetPremiumAdvert(sHost, sAuth_token, sIdAutoPaid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 4-8");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid5 = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid5, sIdAutoPaid, 4,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[4] = sCurrentAutoPaid5;
-			
-			wLog.WriteString(3, "\r\nШАГ 4-9");
-			wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 4-10");
-			wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdAutoPaid, sAuth_token, sTypeApi);
-			String sCurrentAutoPaid6 = jData.toString(10); 
-			CheckCountId(sCurrentAutoPaid6, sIdAutoPaid, 2,  "Авто - Новые автомобили. Регион Москва ");
-			sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid, "*****");
-			smasAutoInLK[5] = sCurrentAutoPaid6;
-			
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-			//Раскоментить если надо будет обновить значения и закомментить после обновления
-	    	//Js2 = new JString(smasAutoInLK); // запись в файл
-	    	//SaveJson(Js2, "PaidProductAutoLK.txt");
-	    			
-	    	String sIdealPaidAutoLK[] = LoadJson("PaidProductAutoLK.txt");
-			
-	    	wLog.WriteString(3, "\r\nШАГ 5");
-	    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-	    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[0],sCurrentAutoPaid);
-			
-			wLog.WriteString(3, "\r\nШАГ 5-1");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление оплачено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[1],sCurrentAutoPaid2);
-			
-			wLog.WriteString(3, "\r\nШАГ 5-2");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[2],sCurrentAutoPaid3);
-			
-			wLog.WriteString(3, "\r\nШАГ 5-3");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[3],sCurrentAutoPaid4);
-			
-			wLog.WriteString(3, "\r\nШАГ 5-4");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, активно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[4],sCurrentAutoPaid5);
-			
-			wLog.WriteString(3, "\r\nШАГ 5-5");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidAutoLK[5],sCurrentAutoPaid6);
-			
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-			//проверка платных продуктов в ЛК Пылесосы (бесплатное объявление)
-			wLog.WriteString(3, "\r\nШАГ 6");
-			wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			sCurrentElectronFree = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree, sIdTIU_Free, 4,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[0] = sCurrentElectronFree;
-			
-			wLog.WriteString(3, "\r\nШАГ 6-1");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-2");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree2 = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree2, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree2 = sCurrentElectronFree2.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[1] = sCurrentElectronFree2;
-			
-			wLog.WriteString(3, "\r\nШАГ 6-3");
-			wLog.WriteString(1, "Активируем объявление".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-4");
-			wLog.WriteString(1, "Выделяем объявление".toUpperCase());
-			HighLightAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-5");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree3 = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree3, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree3 = sCurrentElectronFree3.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[2] = sCurrentElectronFree3;
-			
-			wLog.WriteString(3, "\r\nШАГ 6-6");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-7");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree4 = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree4, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree4 = sCurrentElectronFree4.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[3] = sCurrentElectronFree4;
-			
-			wLog.WriteString(3, "\r\nШАГ 6-8");
-			wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
-			SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-9");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree5 = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree5, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree5 = sCurrentElectronFree5.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[4] = sCurrentElectronFree5;
-			
-			wLog.WriteString(3, "\r\nШАГ 6-10");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 6-11");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
-			String sCurrentElectronFree6 = jData.toString(10); 
-			CheckCountId(sCurrentElectronFree6, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
-			sCurrentElectronFree6 = sCurrentElectronFree6.replace(sIdTIU_Free, "*****");
-			smasElectronInLK[5] = sCurrentElectronFree6;
-			
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			
-			//Раскоментить если надо будет обновить значения и закомментить после обновления
-	    	//Js3 = new JString(smasElectronInLK); // запись в файл
-	    	//SaveJson(Js3, "PaidProductElectronFreeLK.txt");
-			
-	    	String sIdealPaidElectronFreeLK[] = LoadJson("PaidProductElectronFreeLK.txt");
-			
-	    	wLog.WriteString(3, "\r\nШАГ 7");
-	    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-	    	wLog.WriteString(1, "Объявление оплачено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[0],sCurrentElectronFree);
-			
-			wLog.WriteString(3, "\r\nШАГ 7-1");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление оплачено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[1],sCurrentElectronFree2);
-	    	
-			wLog.WriteString(3, "\r\nШАГ 7-2");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[2],sCurrentElectronFree3);
-			
-			wLog.WriteString(3, "\r\nШАГ 7-3");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[3],sCurrentElectronFree4);
-			
-			wLog.WriteString(3, "\r\nШАГ 7-4");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[4],sCurrentElectronFree5);
-			
-			wLog.WriteString(3, "\r\nШАГ 7-5");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[5],sCurrentElectronFree6);
-			
-			wLog.WriteString(3, "\r\nШАГ 7-6");
-			wLog.WriteString(1, "Активируем объявление.(Необходимо для проверки корректной работы платного объявления сверх лимита)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
-			
-			
-	 /////////////////////////////////проверка платных продуктов в ЛК Пылесосы (платное объявление, сверх лимита)////////////////////////////////////////////////////
-			wLog.WriteString(3, "\r\nШАГ 8");
-			wLog.WriteString(1, "Получение списка платных продуктов для объявлений(платное сверх лимита) в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление неоплачено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			sCurrentElectronPaid = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
-			sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[0] = sCurrentElectronPaid;
-	    	
-			wLog.WriteString(3, "\r\nШАГ 8-1");
-			wLog.WriteString(1, "Оплачиваем(активируем объявление)".toUpperCase());
-			ActivateAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 8-2");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid2 = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid2, sIdTIU_Paid, 6,  " Электроника и техника - Пылесосы. Регион Казань "); 
-			sCurrentElectronPaid2 = sCurrentElectronPaid2.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[1] = sCurrentElectronPaid2;
-	    	
-			wLog.WriteString(3, "\r\nШАГ 8-3");
-			wLog.WriteString(1, "Выделяем объявление".toUpperCase());
-			HighLightAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 8-4");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid3 = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid3, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); 
-			sCurrentElectronPaid3 = sCurrentElectronPaid3.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[2] = sCurrentElectronPaid3;
-			
-			wLog.WriteString(3, "\r\nШАГ 8-5");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 8-6");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid4 = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid4, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
-			sCurrentElectronPaid4 = sCurrentElectronPaid4.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[3] = sCurrentElectronPaid4;
-			
-			wLog.WriteString(3, "\r\nШАГ 8-7");
-			wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
-			SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 8-8");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid5 = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid5, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
-			sCurrentElectronPaid5 = sCurrentElectronPaid5.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[4] = sCurrentElectronPaid5;
-			
-			wLog.WriteString(3, "\r\nШАГ 8-9");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 8-10");
-			wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
-			jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
-			String sCurrentElectronPaid6 = jData.toString(10); 
-			CheckCountId(sCurrentElectronPaid6, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
-			sCurrentElectronPaid6 = sCurrentElectronPaid6.replace(sIdTIU_Paid, "*****");
-			smasElectronPaidInLK[5] = sCurrentElectronPaid6;
-			
-			//Раскоментить если надо будет обновить значения и закомментить после обновления
-	    	//Js3 = new JString(smasElectronPaidInLK); // запись в файл
-	    	//SaveJson(Js3, "PaidProductElectronPaidLK.txt");
-			
-	    	String sIdealPaidElectronPaidLK[] = LoadJson("PaidProductElectronPaidLK.txt");
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	    	wLog.WriteString(3, "\r\nШАГ 9");
-	    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-	    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[0],sCurrentElectronPaid);
-			
-			wLog.WriteString(3, "\r\nШАГ 9-1");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление оплачено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[1],sCurrentElectronPaid2);
-	    	
-			wLog.WriteString(3, "\r\nШАГ 9-2");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[2],sCurrentElectronPaid3);
-			
-			wLog.WriteString(3, "\r\nШАГ 9-3");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление выделено, неактивно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[3],sCurrentElectronPaid4);
-			
-			wLog.WriteString(3, "\r\nШАГ 9-4");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[4],sCurrentElectronPaid5);
-	    	
-			wLog.WriteString(3, "\r\nШАГ 9-5");
-			wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление премиум, активно");
-			CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[5],sCurrentElectronPaid6);
-			
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			wLog.WriteString(3, "\r\nШАГ 10");
-			wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление активно".toUpperCase());
-			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
-			String sCurrentFree = jData.toString(10); 
-			smasFree[0] = sCurrentFree;
-			
-			wLog.WriteString(3, "\r\nШАГ 10-1");
-			wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
-			DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free2, 1, sTypeApi);
-			
-			wLog.WriteString(3, "\r\nШАГ 10-2");
-			wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление неактивно.".toUpperCase());
-			jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
-			String sCurrentFree2 = jData.toString(10); 
-			smasFree[1] = sCurrentFree2;
-			
-			//Раскоментить если надо будет обновить значения и закомментить после обновления
-	    	//Js4 = new JString(smasFree); // запись в файл
-	    	//SaveJson(Js4, "FreeProductElectron.txt");
-			
-	    	String sIdealFreeElectron[] = LoadJson("FreeProductElectron.txt");
-			
-	    	wLog.WriteString(3, "\r\nШАГ 11");
-	    	wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-	    	wLog.WriteString(1, "Объявление активно");
-			CheckAnswerForPaidProduct(sIdealFreeElectron[0],sCurrentFree);
-			
-			wLog.WriteString(3, "\r\nШАГ 11-1");
-			wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
-					"с таким же списком из сохранения".toUpperCase());
-			wLog.WriteString(1, "Объявление неактивно");
-			CheckAnswerForPaidProduct(sIdealFreeElectron[1],sCurrentFree2);
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		    	wLog.WriteString(3, "\r\nШАГ 9");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[0],sCurrentElectronPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[1],sCurrentElectronPaid2);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 9-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[2],sCurrentElectronPaid3);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[3],sCurrentElectronPaid4);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[4],sCurrentElectronPaid5);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 9-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[5],sCurrentElectronPaid6);
+				
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				wLog.WriteString(3, "\r\nШАГ 10");
+				wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление активно".toUpperCase());
+				jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
+				sCurrentFree = jData.toString(10); 
+				smasFree[0] = sCurrentFree;
+				
+				wLog.WriteString(3, "\r\nШАГ 10-1");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free2, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 10-2");
+				wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление неактивно.".toUpperCase());
+				jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
+				sCurrentFree2 = jData.toString(10); 
+				smasFree[1] = sCurrentFree2;
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js4 = new JString(smasFree); // запись в файл
+		    	//SaveJson(Js4, "FreeProductElectron.txt");
+				
+		    	sIdealFreeElectron = LoadJson("FreeProductElectron.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 11");
+		    	wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление активно");
+				CheckAnswerForPaidProduct(sIdealFreeElectron[0],sCurrentFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 11-1");
+				wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление неактивно");
+				CheckAnswerForPaidProduct(sIdealFreeElectron[1],sCurrentFree2);
+			}
+			
+///////////////////////////////////////////////////////////////////////////////////////////////////бой////////////////////////////////////
+			else // eсли irr.ru
+			{
+				print("Хост боевой, проверяем на бою".toUpperCase());
+				// подача платного объявлений
+				wLog.WriteString(3, "\r\nШАГ 1");
+				wLog.WriteString(1, "Подача 1 платного объявления");  	
+				//wLog.WriteString(1, "Подача объявления в рубрику Авто - Новые авто. Регион Москва".toUpperCase());
+				wLog.WriteNewStepBegin("Подача 1 объявления в рубрику Авто - Новые авто.(бесплатное) Регион Москва".toUpperCase(), 1);
+				objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", sTypeApi);
+				wLog.WriteNewStepEnd();
+				sIdAutoPaid = objAuto.GetID();
+				
+				wLog.WriteNewStepBegin("Подача 2 объявления в рубрику Авто - Новые авто.(платное) Регион Москва".toUpperCase(), 1);
+				objAuto = PostAdvert(sHost, mas_Advertisment, mas_Auto2, sAuth_token, "category_auto_new", "image", sTypeApi);
+				wLog.WriteNewStepEnd();
+				sIdAutoPaid2 = objAuto.GetID();
+				
+		    	
+				wLog.WriteString(3, "\r\nШАГ 1-1");
+				wLog.WriteString(1, "Подача 1 бесплатного объявления");
+				//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+				wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 2);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-2");
+		    	wLog.WriteString(1, "Подача 2 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 3);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free2 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-3");
+		    	wLog.WriteString(1, "Подача 3 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free3 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-4");
+		    	wLog.WriteString(1, "Подача 4 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free4 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-5");
+		    	wLog.WriteString(1, "Подача 5 бесплатного объявления");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 4);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Free5 = objTIY.GetID();
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 1-6");
+		    	wLog.WriteString(1, "Подача 6 объявления, объявление платное, сверх лимита бесплатных");
+		    	//wLog.WriteString(1, "Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase());
+		    	wLog.WriteNewStepBegin("Подача объявления в рубрику Электроника и техника - Пылесосы. Регион Казань".toUpperCase(), 5);
+		    	objTIY = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_electron", "image3", sTypeApi);
+		    	wLog.WriteNewStepEnd();
+		    	sIdTIU_Paid = objTIY.GetID();
+		  
+	    
+		    	// проверка платных продуктов на этапе подачи
+		    	wLog.WriteString(3, "\r\nШАГ 2");
+		    	wLog.WriteString(1, "Получение списка платных продуктов для объявлений на этапе подачи.".toUpperCase());	
+		    	wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid, sIdAutoPaid2, 6,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid2, "*****");
+				smasInStepAdd[0] = sCurrentAutoPaid;
+			
+				wLog.WriteString(3, "\r\nШАГ 2-1");
+				wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree, sIdTIU_Free, 2,  "Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+				smasInStepAdd[1] = sCurrentElectronFree;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 2-2");
+				wLog.WriteString(1, "Получаем список платных продуктов на этапе подачи, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());		
+				jData = GetPaidProductsToStepToAdd(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 6,  "Электроника и техника - Пылесосы(платное объявление-сверх лимита бесплатных). Регион Казань ");
+				sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
+				smasInStepAdd[2] = sCurrentElectronPaid;
+		    	
+		    	//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js = new JString(smasInStepAdd); // запись в файл
+		    	//SaveJson(Js, "PaidProductInAddStepIrr.txt");
+		    			
+		    	sIdealPaid = LoadJson("PaidProductInAddStepIrr.txt");
+		    	
+		    	wLog.WriteString(3, "\r\nШАГ 3");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Авто - Новые автомобили. Регион Москва из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[0],sCurrentAutoPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 3-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для бесплатного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[1],sCurrentElectronFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 3-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань на этапе подачи полученных запросом, с списком платных продуктов для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань из сохранения".toUpperCase());
+				CheckAnswerForPaidProduct(sIdealPaid[2],sCurrentElectronPaid);
+				
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+				
+				//проверка платных продуктов в ЛК Авто (платное объявление)
+				wLog.WriteString(3, "\r\nШАГ 4");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Рубрика Авто - Новые автомобили. Регион Москва.".toUpperCase());	
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление неоплачено,  неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid, sIdAutoPaid2, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid = sCurrentAutoPaid.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[0] = sCurrentAutoPaid;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-1");
+				wLog.WriteString(1, "\r\nОплачиваем(активируем объявление)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdAutoPaid2, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-2");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid2 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid2, sIdAutoPaid2, 6,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid2 = sCurrentAutoPaid2.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[1] = sCurrentAutoPaid2;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-3");
+				wLog.WriteString(1, "\r\nВыделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdAutoPaid2, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-4");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid3 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid3, sIdAutoPaid2, 4,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid3 = sCurrentAutoPaid3.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[2] = sCurrentAutoPaid3;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-5");
+				wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid2, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-6");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid4 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid4, sIdAutoPaid2, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid4 = sCurrentAutoPaid4.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[3] = sCurrentAutoPaid4;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-7");
+				wLog.WriteString(1, "\r\nНазначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdAutoPaid2, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-8");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid5 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid5, sIdAutoPaid2, 4,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid5 = sCurrentAutoPaid5.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[4] = sCurrentAutoPaid5;
+				
+				wLog.WriteString(3, "\r\nШАГ 4-9");
+				wLog.WriteString(1, "\r\nДеактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdAutoPaid2, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 4-10");
+				wLog.WriteString(1, "\r\nПолучаем список платных продуктов в ЛК, для платного объявления в рубрику Авто - Новые автомобили. Регион Москва. Объявлению назначен премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdAutoPaid2, sAuth_token, sTypeApi);
+				sCurrentAutoPaid6 = jData.toString(10); 
+				CheckCountId(sCurrentAutoPaid6, sIdAutoPaid2, 2,  "Авто - Новые автомобили. Регион Москва ");
+				sCurrentAutoPaid6 = sCurrentAutoPaid6.replace(sIdAutoPaid2, "*****");
+				smasAutoInLK[5] = sCurrentAutoPaid6;
+				
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////						
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js2 = new JString(smasAutoInLK); // запись в файл
+		    	//SaveJson(Js2, "PaidProductAutoLKIrr.txt");
+		    			
+		    	sIdealPaidAutoLK = LoadJson("PaidProductAutoLKIrr.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 5");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[0],sCurrentAutoPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[1],sCurrentAutoPaid2);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[2],sCurrentAutoPaid3);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[3],sCurrentAutoPaid4);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[4],sCurrentAutoPaid5);
+				
+				wLog.WriteString(3, "\r\nШАГ 5-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления в ЛК рубрика Авто - Новые Авто(Москва) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidAutoLK[5],sCurrentAutoPaid6);
+				
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+				//проверка платных продуктов в ЛК Пылесосы (бесплатное объявление)
+				wLog.WriteString(3, "\r\nШАГ 6");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree, sIdTIU_Free, 4,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree = sCurrentElectronFree.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[0] = sCurrentElectronFree;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-1");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-2");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree2 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree2, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree2 = sCurrentElectronFree2.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[1] = sCurrentElectronFree2;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-3");
+				wLog.WriteString(1, "Активируем объявление".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-4");
+				wLog.WriteString(1, "Выделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-5");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree3 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree3, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree3 = sCurrentElectronFree3.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[2] = sCurrentElectronFree3;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-6");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-7");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree4 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree4, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree4 = sCurrentElectronFree4.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[3] = sCurrentElectronFree4;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-8");
+				wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Free, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-9");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree5 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree5, sIdTIU_Free, 2,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree5 = sCurrentElectronFree5.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[4] = sCurrentElectronFree5;
+				
+				wLog.WriteString(3, "\r\nШАГ 6-10");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 6-11");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Free, sAuth_token, sTypeApi);
+				sCurrentElectronFree6 = jData.toString(10); 
+				CheckCountId(sCurrentElectronFree6, sIdTIU_Free, 0,  " Электроника и техника - Пылесосы. Регион Казань ");
+				sCurrentElectronFree6 = sCurrentElectronFree6.replace(sIdTIU_Free, "*****");
+				smasElectronInLK[5] = sCurrentElectronFree6;
+				
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js3 = new JString(smasElectronInLK); // запись в файл
+		    	//SaveJson(Js3, "PaidProductElectronFreeLKIrr.txt");
+				
+		    	sIdealPaidElectronFreeLK = LoadJson("PaidProductElectronFreeLKIrr.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 7");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[0],sCurrentElectronFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[1],sCurrentElectronFree2);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 7-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[2],sCurrentElectronFree3);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[3],sCurrentElectronFree4);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[4],sCurrentElectronFree5);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(бесплатное) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученный запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronFreeLK[5],sCurrentElectronFree6);
+				
+				wLog.WriteString(3, "\r\nШАГ 7-6");
+				wLog.WriteString(1, "Активируем объявление.(Необходимо для проверки корректной работы платного объявления сверх лимита)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Free, false, 1, sTypeApi);
+				
+				
+		 /////////////////////////////////проверка платных продуктов в ЛК Пылесосы (платное объявление, сверх лимита)////////////////////////////////////////////////////
+				wLog.WriteString(3, "\r\nШАГ 8");
+				wLog.WriteString(1, "Получение списка платных продуктов для объявлений(платное сверх лимита) в ЛК. Электроника и техника - Пылесосы. Регион Казань.".toUpperCase());	
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление неоплачено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid = sCurrentElectronPaid.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[0] = sCurrentElectronPaid;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 8-1");
+				wLog.WriteString(1, "Оплачиваем(активируем объявление)".toUpperCase());
+				ActivateAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-2");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление оплачено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid2 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid2, sIdTIU_Paid, 6,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid2 = sCurrentElectronPaid2.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[1] = sCurrentElectronPaid2;
+		    	
+				wLog.WriteString(3, "\r\nШАГ 8-3");
+				wLog.WriteString(1, "Выделяем объявление".toUpperCase());
+				HighLightAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-4");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid3 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid3, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid3 = sCurrentElectronPaid3.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[2] = sCurrentElectronPaid3;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-5");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-6");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление выделено, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid4 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid4, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); 
+				sCurrentElectronPaid4 = sCurrentElectronPaid4.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[3] = sCurrentElectronPaid4;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-7");
+				wLog.WriteString(1, "Назначаем премиум объявлению".toUpperCase());
+				SetPremiumAdvert(sHost, sAuth_token, sIdTIU_Paid, true, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-8");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, активно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid5 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid5, sIdTIU_Paid, 4,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
+				sCurrentElectronPaid5 = sCurrentElectronPaid5.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[4] = sCurrentElectronPaid5;
+				
+				wLog.WriteString(3, "\r\nШАГ 8-9");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Paid, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 8-10");
+				wLog.WriteString(1, "Получаем список платных продуктов в ЛК, для платного(сверх лимита) объявления в рубрику Электроника и техника - Пылесосы. Регион Казань. Объявление премиум, неактивно".toUpperCase());		
+				jData = GetPaidProductsFromLK(sHost, sIdTIU_Paid, sAuth_token, sTypeApi);
+				sCurrentElectronPaid6 = jData.toString(10); 
+				CheckCountId(sCurrentElectronPaid6, sIdTIU_Paid, 2,  " Электроника и техника - Пылесосы. Регион Казань "); // здесь баг
+				sCurrentElectronPaid6 = sCurrentElectronPaid6.replace(sIdTIU_Paid, "*****");
+				smasElectronPaidInLK[5] = sCurrentElectronPaid6;
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js3 = new JString(smasElectronPaidInLK); // запись в файл
+		    	//SaveJson(Js3, "PaidProductElectronPaidLKIrr.txt");
+				
+		    	sIdealPaidElectronPaidLK = LoadJson("PaidProductElectronPaidLKIrr.txt");
+		
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		    	wLog.WriteString(3, "\r\nШАГ 9");
+		    	wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление неоплачено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[0],sCurrentElectronPaid);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-1");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление оплачено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[1],sCurrentElectronPaid2);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 9-2");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[2],sCurrentElectronPaid3);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-3");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление выделено, неактивно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[3],sCurrentElectronPaid4);
+				
+				wLog.WriteString(3, "\r\nШАГ 9-4");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[4],sCurrentElectronPaid5);
+		    	
+				wLog.WriteString(3, "\r\nШАГ 9-5");
+				wLog.WriteString(1, "Сравниваем список платных продуктов для объявления(платное сверх лимита) в ЛК рубрика Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление премиум, активно");
+				CheckAnswerForPaidProduct(sIdealPaidElectronPaidLK[5],sCurrentElectronPaid6);
+				
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				wLog.WriteString(3, "\r\nШАГ 10");
+				wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление активно".toUpperCase());
+				jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
+				sCurrentFree = jData.toString(10); 
+				smasFree[0] = sCurrentFree;
+				
+				wLog.WriteString(3, "\r\nШАГ 10-1");
+				wLog.WriteString(1, "Деактивируем объявление".toUpperCase());
+				DeactivateAdvert(sHost, sAuth_token, sIdTIU_Free2, 1, sTypeApi);
+				
+				wLog.WriteString(3, "\r\nШАГ 10-2");
+				wLog.WriteString(1, "Получение списка бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы. Регион Казань. Объявление неактивно.".toUpperCase());
+				jData = GetFreeProductsForAdvert(sHost, sIdTIU_Free2, sAuth_token, sTypeApi);
+				sCurrentFree2 = jData.toString(10); 
+				smasFree[1] = sCurrentFree2;
+				
+				//Раскоментить если надо будет обновить значения и закомментить после обновления
+		    	//Js4 = new JString(smasFree); // запись в файл
+		    	//SaveJson(Js4, "FreeProductElectronIrr.txt");
+				
+		    	sIdealFreeElectron = LoadJson("FreeProductElectronIrr.txt");
+				
+		    	wLog.WriteString(3, "\r\nШАГ 11");
+		    	wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+		    	wLog.WriteString(1, "Объявление активно");
+				CheckAnswerForPaidProduct(sIdealFreeElectron[0],sCurrentFree);
+				
+				wLog.WriteString(3, "\r\nШАГ 11-1");
+				wLog.WriteString(1, "Сравниваем список бесплатных продуктов для объявлений(бесплатное) в ЛК. Электроника и техника - Пылесосы(Казань) полученного запросом, ".toUpperCase() +
+						"с таким же списком из сохранения".toUpperCase());
+				wLog.WriteString(1, "Объявление неактивно");
+				CheckAnswerForPaidProduct(sIdealFreeElectron[1],sCurrentFree2);
+			}
 			
 		}
 		finally
@@ -6395,6 +6902,11 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdAutoPaid);
 	    		DeleteAdvert(sHost, sAuth_token, sIdAutoPaid, sTypeApi);
+	    	}
+	    	if(!sIdAutoPaid2.equals(""))
+	    	{
+	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdAutoPaid2);
+	    		DeleteAdvert(sHost, sAuth_token, sIdAutoPaid2, sTypeApi);
 	    	}
 	    	if(!sIdTIU_Free.equals(""))
 	    	{
@@ -6410,6 +6922,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	{
 	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free3);
 	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free3, sTypeApi);
+	    	}
+	    	if(!sIdTIU_Free4.equals(""))
+	    	{
+	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free4);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free4, sTypeApi);
+	    	}
+	    	if(!sIdTIU_Free5.equals(""))
+	    	{
+	    		wLog.WriteString(1, "Удаляем объявление с ID = " + sIdTIU_Free5);
+	    		DeleteAdvert(sHost, sAuth_token, sIdTIU_Free5, sTypeApi);
 	    	}
 	    	if(!sIdTIU_Paid.equals(""))
 	    	{
