@@ -2846,10 +2846,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nШАГ 2");
 	    	print("Проверяем статус объявлений подданых в платную рубрику и неоплаченных".toUpperCase());
 	    	
+	    	/*
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто", sTypeApi);
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после подачи объявления");
 	    	ValidateStatus("2", jData, sIdAdvert, " после подачи объявления");
+	    	*/
 	    	
 	    	print("\r\nПолучаем объявление с ID = " + sIdAdvert2 + " Проверяем значение статуса объявления");
 	    	jData = GetAdvert(sHost, sIdAdvert,  "Авто - Новые авто", sTypeApi);
@@ -3145,7 +3147,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Получаем листинг объявлений пользователя".toUpperCase());
 	    	print("\r\nПолучаем листинг объявлений для пользователя " + sLogin + " и проверяем статус активности объявлений в листинге");
 	    	print("\r\nПолучаем листинг объявлени для для пользователя " + sLogin);
-	    	jData = GetListUserAdvert(sHost, sDataForSearchUserAdvert, sTypeApi);
+	    	sTempData = (sHost.equals("irr.ru") ? sDataForSearchUserAdvert2 : sDataForSearchUserAdvert);
+	    	jData = GetListUserAdvert(sHost, sTempData, sTypeApi);
 	    	print("\r\nПроверяем статус объявлений в листинге");
 	    	ValidateListUser(sHost, jData, sIdAdvert2, sIdAdvert3, 2, sTypeApi);
 		}
