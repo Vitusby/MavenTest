@@ -4073,9 +4073,13 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
 		//Js = new JString(smas); // запись рубрикаторов в файл
-		//SaveJson(Js, "Rubricators.txt");
+		//SaveJson(Js, "RubricatorsIrr.txt");
 		
-		String sIdealRubricator[] = LoadJson("Rubricators.txt");
+		String sIdealRubricator[];
+		if(sHost.toLowerCase().equals("irr.ru"))
+			sIdealRubricator = LoadJson("RubricatorsIrr.txt");	
+		else
+			sIdealRubricator = LoadJson("Rubricators.txt");
 		
 		print("\r\nШАГ 2");
 		print("Сравниваем основной рубрикатор сайта полученный запросом с основным рубрикатором сайта из сохранения".toUpperCase());

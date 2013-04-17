@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="none">
   <test name="Test">
-   <parameter name="sBaseHost" value="master.prontosoft.by"/>
+   <parameter name="sBaseHost" value="irr.ru"/>
    <parameter name="sLogin" value="timon2181"/> 
    <parameter name="sPassword" value="retry2"/> 
    <parameter name="sIdAdvert" value="257190269"/> 
@@ -15,10 +15,10 @@
    <parameter name="sNewPassword" value="retry2"/>
    <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, list=table, region=russia/moskovskaya-obl/ruzskiy-r_n/kapan-derevnya/, include_region=false, offset=0, limit=25, include_privates=true, include_companies=true}"/>
    <parameter name="sCategory" value="/"/> 
-   <parameter name="sTypeApi" value="sr71_api"/> 
+   <parameter name="sTypeApi" value="mobile_api"/> 
   <groups>
     <run>
-      <include name="Super_ChooseRegion"/>
+      <include name="AutoTest_15"/>
     </run>
   </groups>
     <classes>
