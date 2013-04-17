@@ -316,7 +316,6 @@ public class Test_Mobile
 		cM.PostAdvert_2_1(sBaseHost, sLogin, sPassword, sParam, sParam1, sParam2, sVideoUrl, sPathImageNew, bAuthFlag, sTypeApi);
 	}
 	
-	@Test (groups = { "GetAdvert_2_2" })
 	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi"})
 	public void Test6(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
