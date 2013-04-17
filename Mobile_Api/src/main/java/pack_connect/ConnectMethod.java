@@ -42,7 +42,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			"walltype", "house-series", "kitchen", "internet", "telephone", "state"};
 	String mas_TIY2[] = {"make_vacuum", "used-or-new", "vacuumclean_wash", "offertype", "model"};
 	String mas_TIY_Mobile[] = {"make_mobile", "used-or-new", "offertype", "model", "corpus_type", "mobile_two_sim_card"};
-	String mas_Darom[] = {"mapStreet", "mapHouseNr", "used-or-new", "otdam_za", "pochti_darom", "goodorpet"};
+	String mas_Darom[] = {"used-or-new", "otdam_za", "pochti_darom", "goodorpet"};
 	String mas_Job[] = {"schedule", "car", "language_type-1", "study_level-1"};
 	
 	class InnerDataHM // вннутренний класс храним здесь значения для объявлений после того как они созданы для проверки
@@ -981,6 +981,23 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jD = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Adv.length; i++)
 		{
+			if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone2"))  // костыль на телефоны так как подаем мы как номер 1111 а получаем ["1111"]
+			{
+				String sPhoneInAdvert =  jD.getString(mas_Adv[i]).replaceAll("\\[\"", "").replaceAll("\"\\]", "");
+				if(obj_Adv.GetValue(mas_Adv[i]).equals(sPhoneInAdvert))
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + sPhoneInAdvert);		
+				}
+				else
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + sPhoneInAdvert);	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+				continue;
+			}
 			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
 				continue;
 			// теперь эти данные могут меняться
@@ -1162,6 +1179,24 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jD = jTemp; // для проверки и сравнения данных
 		for(int i=0; i<mas_Adv.length; i++)
 		{
+			if(mas_Adv[i].equals("phone") || mas_Adv[i].equals("phone2"))  // костыль на телефоны так как подаем мы как номер 1111 а получаем ["1111"]
+			{
+				String sPhoneInAdvert =  jD.getString(mas_Adv[i]).replaceAll("\\[\"", "").replaceAll("\"\\]", "");
+				if(obj_Adv.GetValue(mas_Adv[i]).equals(sPhoneInAdvert))
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + sPhoneInAdvert);		
+				}
+				else
+				{
+					print("Значение " + mas_Adv[i] +" = " + obj_Adv.GetValue(mas_Adv[i]) + " указанное для при подаче объявления," +
+							" не совпало со значение после получения данного объявления " + mas_Adv[i] + " = " + sPhoneInAdvert);	
+					print("Тест провален".toUpperCase());
+		    		throw new ExceptFailTest("Тест провален");
+				}
+				continue;
+			}
+			
 			if(mas_Adv[i].equals("price") || mas_Adv[i].equals("currency"))
 				continue;
 			else
