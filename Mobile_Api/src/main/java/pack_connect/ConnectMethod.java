@@ -2066,8 +2066,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", sTypeApi);
 	    	sIdAdvert2 = objRealt.GetID();
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	// проверка их появления в листинге и коректного расположения 
 	    	print("\r\nШАГ 2");
@@ -2111,9 +2119,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после деактивации объявления");
 	    	ValidateStatus("2", jData, sIdAdvert, " после деактивации объявления");
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
 	    	
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
 	    	jData = GetListCategory(sHost, sDataForList, "", sTypeApi);
@@ -2132,8 +2148,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert + " после активации объявления");
 	    	ValidateStatus("1", jData, sIdAdvert, " после активации объявления");
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nИщем активированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
@@ -2146,8 +2170,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " без передачи ключа оплаты");
 	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, false, 2, sTypeApi);
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
@@ -2169,8 +2201,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert +  " для пользователя " + sLogin + " передаем ключ оплаты");
 	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert, true, 1, sTypeApi);
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Недвижимость - Вторичный рынок");
@@ -2905,8 +2945,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert3 + " после активации с оплатой");
 	    	ValidateStatus("1", jData, sIdAdvert3, " после активации с оплатой");
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	// проверка их появления в листинге и коректного расположения 
 	    	print("\r\nШАГ 5");
@@ -2960,8 +3008,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПытаемся поднять  объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " без передачи ключа оплаты");
 	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert2, false, 2, sTypeApi);
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert2 + " не было поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
@@ -2984,8 +3040,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПодымаем  объявление с ID = " + sIdAdvert2 +  " для пользователя " + sLogin + " передаем ключ оплаты");
 	    	PushUpAdvert(sHost, sAuth_token, sIdAdvert2, true, 1, sTypeApi);
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nПроверяем что объявление с ID = " + sIdAdvert2 + " поднято");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
@@ -3064,8 +3128,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("\r\nПроверяем статус объявление с ID = " + sIdAdvert2 + " после деактивации объявления");
 	    	ValidateStatus("2", jData, sIdAdvert2, " после деактивации объявления");
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	print("\r\nИщем деактивированное объявление в листинге категории");
 	    	print("\r\nПолучаем листинг категории объявлений рубрики Авто - Новые авто");
@@ -3128,8 +3200,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token, "category_realt", "image4", sTypeApi);
 	    	sIdAdvert3 = objRealt.GetID();
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
 	    	print("\r\nШАГ 2");
@@ -3149,8 +3229,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	print("Удаляем объявлени с ID = " + sIdAdvert3);
 	    	DeleteAdvert(sHost, sAuth_token, sIdAdvert3, sTypeApi);
 	    	
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	// получаем листинг объявлений пользователя и проверяем статус объявлений в нем
 	    	print("\r\nШАГ 4");
@@ -3394,8 +3482,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			hObj_Job2 = objJob.GetCustomfieldData();
 	    	
 			
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	// получаем фильтрованный листинг для  рубрик и региона
 	    	print("\r\nШАГ 2");
@@ -3822,8 +3918,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sIdJob = objJob.GetID();    
 			
 			
-	    	print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	
 	    	// получение листинга, проверка что объявления появились, проверка что все другие активны и принадлежат этому листингу	
@@ -7251,8 +7355,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			objRealt = PostAdvert(sHost, mas_Advertisment, mas_Realt2, sAuth_token2, "category_realt", "image2", sTypeApi);
 			sId = objRealt.GetID();  // сюда сохраняем значение id
 			
-			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 			
 	    	print("\r\nШАГ №2");
 			print("Авторизация пользователем - ".toUpperCase() + sLogin);
@@ -7395,8 +7507,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			objTIY_Moskva = PostAdvert(sHost, mas_Advertisment, mas_TIY2, sAuth_token, "category_magicTIY_MoskvaObl", "image3", sTypeApi);
 			sIdTIY_Moskva = objTIY_Moskva.GetID();  // сюда сохраняем значение id
 		
-			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 	    	
 	    	
 	    	////////////////////////////Питер//////////////////////////////////////////
@@ -8200,8 +8320,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			//часть 2
 			
-			print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
-	    	Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+			if(sHost.equals("irr.ru"))
+	    	{	
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWait"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWait")));
+	    	}
+	    	else
+	    	{
+	    		print("\r\nОжидаем индексации, время ожидания ".toUpperCase() + Integer.parseInt(Proper.GetProperty("timeWaitTest"))/(1000*60) + " минут(ы)".toUpperCase());
+	    		Sleep(Integer.parseInt(Proper.GetProperty("timeWaitTest")));
+	    	}
 
 			print("\r\nПолучение листинга своих объявлений".toUpperCase());
 			jTemp = GetListOwnAdvert(sHost, sAuth_token, sTypeApi);
