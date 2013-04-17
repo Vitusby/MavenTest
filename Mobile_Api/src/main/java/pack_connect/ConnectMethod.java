@@ -5255,8 +5255,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 			
 			//Раскоментить если надо будет обновить значения и закомментить после обновления
-			//Js = new JString(smas); // запись рубрикаторов в файл
-			//SaveJson(Js, "Suggest.txt");
+			Js = new JString(smas); // запись рубрикаторов в файл
+			SaveJson(Js, "Suggest.txt");
 			
 			String sIdealSuggest[] = LoadJson("Suggest.txt");
 			

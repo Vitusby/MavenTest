@@ -18,7 +18,7 @@
    <parameter name="sTypeApi" value="mobile_api"/> 
   <groups>
     <run>
-      <include name="AutoTest_5"/>
+      <include name="AutoTest_22"/>
     </run>
   </groups>
     <classes>
