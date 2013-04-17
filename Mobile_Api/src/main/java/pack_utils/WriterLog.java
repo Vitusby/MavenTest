@@ -116,7 +116,7 @@ public class WriterLog
 		WriteString(0, "</td><td>");
 		WriteString(0, "<div class=\"wrap\"><label for=\"toggle-" + nToogle2 + "\">"+ sName2 +"</label>");
 		WriteString(0, "<input type=\"checkbox\" id=\"toggle-" + nToogle2 + "\">");
-		WriteString(0, "<div class=\"text\"><pre style=\"color:black\">" + sLeftText + "</pre></div></div>");
+		WriteString(0, "<div class=\"text\"><pre style=\"color:black\">" + sRightText + "</pre></div></div>");
 		WriteString(0, "</td></tr></table>");
 	}
 	
