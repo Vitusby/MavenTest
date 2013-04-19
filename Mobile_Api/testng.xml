@@ -13,12 +13,13 @@
    <parameter name="bAuthFlag" value="true"/>
    <parameter name="bApp_token" value="true"/>
    <parameter name="sNewPassword" value="retry2"/>
-   <parameter name="sParam" value="{category=real-estate/apartments-sale/new/, list=table, region=russia/moskovskaya-obl/ruzskiy-r_n/kapan-derevnya/, include_region=false, offset=0, limit=25, include_privates=true, include_companies=true}"/>
+   <parameter name="sParam" value="{region=russia/, search_string=карьер}"/>
    <parameter name="sCategory" value="/"/> 
    <parameter name="sTypeApi" value="mobile_api"/> 
+   <parameter name="sRegion" value="russia/krasnoyarskiy-kray/birilyusskiy-r_n/"/> 
   <groups>
     <run>
-      <include name="AutoTest_17"/>
+      <include name="GetCitiesSuggest_4_3"/>
     </run>
   </groups>
     <classes>

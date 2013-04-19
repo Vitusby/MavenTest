@@ -228,7 +228,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		finally
 		{
 			CaptureScreenshot("StopWord");
-			//driver.quit();
+			driver.quit();
 		}
 	}
 	
@@ -280,4 +280,28 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			driver.quit();
 		}
 	}
+	
+	
+	
+	@Test (groups = { "AutoTest_11" })
+	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
+	public void Test_FindSuggestCutLast(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, UnsupportedEncodingException
+	{
+		try
+		{
+			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
+			print("\r\nПроверка отображения саджеста когда обрезка с конца".toUpperCase());
+			
+			pageIrrMain.OpenPage(sUrl);
+			pageIrrMain.CloseWindowRegion();
+			pageIrrMain.GetListSuggest(sParam1);
+		}	
+		finally
+		{
+			CaptureScreenshot("FindSuggestCutLast");
+			//driver.quit();
+		}
+	}
+	
+	
 }

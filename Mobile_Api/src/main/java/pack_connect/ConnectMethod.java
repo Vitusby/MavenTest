@@ -10290,6 +10290,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("sVideoUrl = " + sVideoUrl);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
+		print("sPathImageNew = " + sPathImageNew);
 		if(sUrlImage.equals("false"))
 		{
 			print("В объявлении нет изображений ");
