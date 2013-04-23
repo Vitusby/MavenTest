@@ -4747,7 +4747,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//SaveJson(Js, "CustomfieldsForSearch2.txt");
 		
 		String sIdealSearchFields[];
-		if(sHost.equals("irr.ru"))
+		if(sHost.toLowerCase().equals("irr.ru"))
 			sIdealSearchFields = LoadJson("CustomfieldsForSearchIrr2.txt");
 		else
 			sIdealSearchFields = LoadJson("CustomfieldsForSearch2.txt");
