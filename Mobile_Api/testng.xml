@@ -19,7 +19,7 @@
    <parameter name="sRegion" value="russia/krasnoyarskiy-kray/birilyusskiy-r_n/"/> 
   <groups>
     <run>
-      <include name="AutoTest_20"/>
+      <include name="AutoTest_17"/>
     </run>
   </groups>
     <classes>
