@@ -4741,10 +4741,16 @@ public class ConnectMethod extends Connect_Request_Abstract
 
 		//Раскоментить если надо будет обновить значения и закомментить после обновления
 		//Js = new JString(smas); // запись полей для рубрик в файл
-		//SaveJson(Js, "CustomfieldsForSearch2.txt");
+		//if(sHost.equals("irr.ru"))
+			//SaveJson(Js, "CustomfieldsForSearchIrr2.txt");
+		//else
+			//SaveJson(Js, "CustomfieldsForSearch2.txt");
 		
-		
-		String sIdealSearchFields[] = LoadJson("CustomfieldsForSearch2.txt");
+		String sIdealSearchFields[];
+		if(sHost.equals("irr.ru"))
+			sIdealSearchFields = LoadJson("CustomfieldsForSearchIrr2.txt");
+		else
+			sIdealSearchFields = LoadJson("CustomfieldsForSearch2.txt");
 		
 		print("\r\nШАГ 2");
 		print("Сравниваем список полей рубрики для фильтрации Авто - Главная. Регион Москва, полученных запросом, со списком полей из сохранения".toUpperCase());
