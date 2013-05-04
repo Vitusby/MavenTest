@@ -8706,7 +8706,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}	
 		}
 		print("Список полей их возможные значения получены");
-		objHM.PrintKeyAndValue();
+		//objHM.PrintKeyAndValue();
 		return objHM;
 	}
 	private String Super_GetRandomString(int nLenght)
