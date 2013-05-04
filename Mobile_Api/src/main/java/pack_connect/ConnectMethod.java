@@ -5,9 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8284,6 +8287,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		try
 		{
 			//часть 1
+			
 			print("------------------------------------------------------------------------------------------------------------");
 			print("Авторизуемся".toUpperCase());
 			sAuth_token = Authorization(sHost, sLogin, sPassword, wLog, sTypeApi);
@@ -8302,11 +8306,17 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 			
 			print("\r\nПолучаем поля для подачи объявления рубрики в категорию ".toUpperCase() + sCategory + " и регион ".toUpperCase() + sRegion);
+			
+			
 			sTemp = "{category="+sCategory+", region="+sRegion+", advert_type="+sAdvertType+"}";
+			//sTemp = "{category=cars/passenger/new/, region=russia/moskva-gorod/, advert_type=auto_new}";
 			sParam = sTemp;
 			jTemp = Super_GetCastomfieldsForAddAdvert(sAuth_token, sHost, sTemp, sTypeApi);
 			print("\r\nПолучаем возможные значения для полей".toUpperCase());
 			hDataAdvert = Super_GetCustom(jTemp);
+			
+			
+			
 			hAdressCust = Super_GetAdressCustom(hDataAdvert); 
 			print("Адресные кастомфилды и их возможные типы(значения)".toUpperCase());
 			hAdressCust.PrintKeyAndValue();
@@ -8668,35 +8678,35 @@ public class ConnectMethod extends Connect_Request_Abstract
 	}
 	private HM<String, String> Super_GetCustom(JSONObject jTemp) throws JSONException
 	{
-		String value = "";
-		JSONObject  jD, jD2, jD3;
+		String value = "", key="";
+		JSONObject  jD, jD2;
 		HM<String, String> objHM = new HM<String, String>();
 		jTemp = jTemp.getJSONObject("group_custom_fields");
 		JSONArray ar = jTemp.names(), ar2;
+		
 		for(int i=0; i<ar.length(); i++)
 		{
 			jD = jTemp.getJSONObject(ar.getString(i));
 			if(!jD.getString("custom_fields").equals("[]"))
 			{
-				jD2 = jD.getJSONObject("custom_fields");
-				ar2 = jD2.names();
+				ar2 = jD.getJSONArray("custom_fields");
 				
 				for(int j=0; j<ar2.length(); j++)
 				{
-					String key = ar2.getString(j);
-					jD3 = jD2.getJSONObject(ar2.getString(j));
-					if(jD3.getString("field_values").equals("[]"))
+					jD2 = ar2.getJSONObject(j);
+					key = jD2.getString("name");
+					if(jD2.getString("field_values").equals("[]"))
 					{
-						value = jD3.getString("type");		
+						value = jD2.getString("type");		
 					}
 					else
-						value = jD3.getString("field_values");
+						value = jD2.getString("field_values");
 					objHM.SetValue(key, value);
 				}
 			}	
 		}
 		print("Список полей их возможные значения получены");
-		//objHM.PrintKeyAndValue();
+		objHM.PrintKeyAndValue();
 		return objHM;
 	}
 	private String Super_GetRandomString(int nLenght)
@@ -11918,6 +11928,9 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
     	
     	String sResponse = HttpGetRequest(uri);
+    	//print(sResponse);
+    	//PrintStream ps  = new PrintStream(System.out,true, "cp1251");
+    	//ps.print(URLDecoder.decode(sResponse, "utf8"));
     	print("Парсим ответ....");
     	
     	jsonObject = ParseResponse(sResponse);
