@@ -15,7 +15,9 @@ import pack_utils.ExceptFailTest;
 public class Test_Mobile
 {
 	ConnectMethod cM = new ConnectMethod();
-	// Автотесты Helllooooo
+
+	// Автоте
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
 	@Test (groups = { "AutoTest_1" })
 	@Parameters({"sBaseHost", "sTypeApi"})
