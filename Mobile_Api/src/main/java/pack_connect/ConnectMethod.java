@@ -5,12 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -1176,7 +1173,7 @@ public class ConnectMethod extends Connect_Request_Abstract
  	// валидация данных сравнение что подавалось с тем что было получено после подачи для автотестов
  	private String ValidateDataFromAdvertAfterPost(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust, JSONObject jObj) throws JSONException, ExceptFailTest
 	{
-		JSONObject jTemp, jD, jD2, jD3;
+		JSONObject jTemp, jD;
 		HM<String, String> objHM = new HM<String, String>();
 		jTemp = jObj.getJSONObject("advertisement"); 
 		jD = jTemp; // для проверки и сравнения данных
@@ -1219,25 +1216,27 @@ public class ConnectMethod extends Connect_Request_Abstract
 			}
 		}
 		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
-		jTemp = jTemp.getJSONObject("group_custom_fields");
-		JSONArray ar = jTemp.names(), ar2;
+		//------------------------------------------------------------------------------
+		
+		JSONArray ar, ar2, ar3;
+		ar = jTemp.getJSONArray("group_custom_fields");
+		
 		for(int i=0; i<ar.length(); i++)
 		{
-			jD = jTemp.getJSONObject(ar.getString(i));
+			jD = ar.getJSONObject(i);
 			if(!jD.getString("custom_fields").equals("[]"))
 			{
-				jD2 = jD.getJSONObject("custom_fields");
-				ar2 = jD2.names();
+				ar2 = jD.getJSONArray("custom_fields");
 				for(int j=0; j<ar2.length(); j++)
 				{
-					String key = ar2.getString(j);
-					jD3 = jD2.getJSONObject(ar2.getString(j));
-					String value = jD3.getString("value");
+					jD = ar2.getJSONObject(j);
+					String key = jD.getString("name");
+					String value = jD.getString("value");
 					objHM.SetValue(key, value);
 				}
-			}
-				
+			}		
 		}
+	
 		// Сравниваем значения
 		for(int i=0; i<mas_Cust.length; i++)
 		{
@@ -8676,21 +8675,20 @@ public class ConnectMethod extends Connect_Request_Abstract
     		throw new ExceptFailTest("Тест провален");
     	}
 	}
-	private HM<String, String> Super_GetCustom(JSONObject jTemp) throws JSONException
+	private HM<String, String> Super_GetCustom(JSONObject jTemp) throws JSONException, ExceptFailTest
 	{
 		String value = "", key="";
 		JSONObject  jD, jD2;
 		HM<String, String> objHM = new HM<String, String>();
-		jTemp = jTemp.getJSONObject("group_custom_fields");
-		JSONArray ar = jTemp.names(), ar2;
-		
+		JSONArray ar, ar2;
+		ar = jTemp.getJSONArray("group_custom_fields");
+	
 		for(int i=0; i<ar.length(); i++)
 		{
-			jD = jTemp.getJSONObject(ar.getString(i));
+			jD = ar.getJSONObject(i);
 			if(!jD.getString("custom_fields").equals("[]"))
 			{
 				ar2 = jD.getJSONArray("custom_fields");
-				
 				for(int j=0; j<ar2.length(); j++)
 				{
 					jD2 = ar2.getJSONObject(j);
@@ -8702,12 +8700,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 					else
 						value = jD2.getString("field_values");
 					objHM.SetValue(key, value);
-				}
+				}	
 			}	
 		}
 		print("Список полей их возможные значения получены");
-		//objHM.PrintKeyAndValue();
 		return objHM;
+		
 	}
 	private String Super_GetRandomString(int nLenght)
 	{
@@ -11406,8 +11404,8 @@ public class ConnectMethod extends Connect_Request_Abstract
 	    	
 	    	print("--------------------------------------------------------------------------------------------------------------");
 			print("group_custom_fields");
-			jsonTemp = jsonObject.getJSONObject("group_custom_fields");
-			print(jsonTemp.toString(10));
+			JSONArray ar2 = jsonObject.getJSONArray("group_custom_fields");
+			print(ar2.toString(10));
 			
 			
 			JSONArray ar = jsonObject.getJSONArray("video");
