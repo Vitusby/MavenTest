@@ -1218,7 +1218,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
 		//------------------------------------------------------------------------------
 		
-		JSONArray ar, ar2, ar3;
+		JSONArray ar, ar2;
 		ar = jTemp.getJSONArray("group_custom_fields");
 		
 		for(int i=0; i<ar.length(); i++)
