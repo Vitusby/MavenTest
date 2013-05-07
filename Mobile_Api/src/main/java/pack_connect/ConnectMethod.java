@@ -975,7 +975,7 @@ public class ConnectMethod extends Connect_Request_Abstract
  	// валидация  сравнение данных объявления что было, с тем что стало, после редактирования для автотестов
  	private void ValidateDataFromAdvertAfterEdit(String mas_Adv[], String mas_Cust[], HM<String, String> obj_Adv, HM<String, String> obj_Cust) throws JSONException, ExceptFailTest
  	{
- 		JSONObject jTemp, jD, jD2, jD3;
+ 		JSONObject jTemp, jD;
 		HM<String, String> objHM = new HM<String, String>();
 		jTemp = jsonObject.getJSONObject("advertisement");  // используем общий jsonObject указанный для всего класса(при редактировании ответ приходит в него)
 		jD = jTemp; // для проверки и сравнения данных
@@ -1041,7 +1041,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 		}		
 		// получаем название и значения кастомфилдов, найденных в объявлении  и  заливаем их в HashMap
-		jTemp = jTemp.getJSONObject("group_custom_fields");
+		/*jTemp = jTemp.getJSONObject("group_custom_fields");
 		JSONArray ar = jTemp.names(), ar2;
 		for(int i=0; i<ar.length(); i++)
 		{
@@ -1059,7 +1059,28 @@ public class ConnectMethod extends Connect_Request_Abstract
 				}
 			}
 				
+		}*/
+		/////
+		JSONArray ar, ar2;
+		ar = jTemp.getJSONArray("group_custom_fields");
+		
+		for(int i=0; i<ar.length(); i++)
+		{
+			jD = ar.getJSONObject(i);
+			if(!jD.getString("custom_fields").equals("[]"))
+			{
+				ar2 = jD.getJSONArray("custom_fields");
+				for(int j=0; j<ar2.length(); j++)
+				{
+					jD = ar2.getJSONObject(j);
+					String key = jD.getString("name");
+					String value = jD.getString("value");
+					objHM.SetValue(key, value);
+				}
+			}		
 		}
+		
+		/////
 		// Сравниваем значения
 		for(int i=0; i<mas_Cust.length; i++)
 		{
