@@ -1,5 +1,6 @@
 package pack_test;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import pack_page.Page_IrrMain;
 import pack_page.Page_Search;
 import pack_utils.ExceptFailTest;
+import pack_utils.FileReaderSuggest;
 
 public class Test_Irr_Search_FullTextTest extends Test_Construct
 {
@@ -285,21 +287,27 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	
 	@Test (groups = { "AutoTest_11" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
-	public void Test_FindSuggestCutLast(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, UnsupportedEncodingException
+	public void Test_FindSuggestCutLast(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, IOException
 	{
+		ArrayList<String> list;
 		try
 		{
 			pageIrrMain = PageFactory.initElements(GetWebDriver(Integer.parseInt(sImageEnable)), Page_IrrMain.class);
-			print("\r\nПроверка отображения саджеста когда обрезка с конца".toUpperCase());
+			print("\r\nПроверка отображения саджеста с обрезкой ".toUpperCase());
 			
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			pageIrrMain.GetListSuggest(sParam1);
+			list = FileReaderSuggest.ReadFile();
+			for(int i=0; i<list.size(); i++)
+			{
+				pageIrrMain.GetListSuggest(list.get(i));
+				pageIrrMain.CheckSizeSuggest(list.get(i));
+			}
 		}	
 		finally
 		{
 			CaptureScreenshot("FindSuggestCutLast");
-			//driver.quit();
+			driver.quit();
 		}
 	}
 	
