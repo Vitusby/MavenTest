@@ -304,5 +304,5 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	}
 	
 	// Hello
-	
+	// Hello 2
 }
