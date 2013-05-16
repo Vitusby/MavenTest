@@ -33,31 +33,30 @@ public class TestjUnit extends Print
 		print("Координаты третей точки. X3 = " + x3 + " : Y3 = " + y3);
 	}
 	
-	// передача параметров (коордтнаты точек)
+	// передача параметров (координаты точек)
 	@Parameters 
 	public static Collection<Object[]> data()
 	{
 		Object[][] data = new Object[][]
 				{
 					{ 2,1,2,4,6,1 }, // прямоугольный
-					{ 4,5,7,1,6,3 },  // не прямоугольный
-					{ 1,2,3,4,5,6 }
+					{ 4,5,7,1,6,3 }, // не прямоугольный
+					{ 1,2,3,4,5,6 }	 // не прямоугольный	
 				};
 	    return Arrays.asList(data);
 	}
 
-	
 	@Test
 	public void test()
 	{
 		RtriangleProvider.GetParamsForTest(masP);  // передаем координаты из параметров 
-		Rtriangle r = RtriangleProvider.getRtriangle();
-		trChecker = new TriangleChecker();
-		trChecker.GetSidesTriangle(r);
-		trChecker.CheckTriangle();
+		Rtriangle r = RtriangleProvider.getRtriangle(); // получаем объект Rtriangle   
+		trChecker = new TriangleChecker(); // создаем объект который будет проверять на треугольник Rtriangle
+		trChecker.GetSidesTriangle(r); // получаем длину сторон треугольника Rtriangle
+		trChecker.CheckTriangle(); // проверяем с помощью теоремы пифагора
 		try
 		{
-			assertEquals(trChecker.getAb(), trChecker.getC(), 0);   
+			assertEquals(trChecker.getAb(), trChecker.getC(), 0);   // если квадрат суммы наименьших по длинне сторон не равен квадрату наибольшей стороны то валим тест
 		}
 		catch (Error e) {verificationErrors.append("Теорема Пифагора не выполняется, объект не является прямоугольным треугольником."); }
 		
