@@ -307,8 +307,8 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		
 	
 	@Test (groups = { "AutoTest_11" })
-	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
-	public void Test_FindSuggestCutLast(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, IOException
+	@Parameters({ "sUrl", "sImageEnable"})
+	public void Test_FindSuggestCutLast(String sUrl, String sImageEnable) throws ExceptFailTest, IOException
 	{
 		ArrayList<String> list;
 		try
@@ -318,7 +318,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			
 			pageIrrMain.OpenPage(sUrl);
 			pageIrrMain.CloseWindowRegion();
-			list = FileReaderSuggest.ReadFile();
+			list = FileReaderSuggest.ReadFile(); // подгружаем список саджестов для провеки
 			for(int i=0; i<list.size(); i++)
 			{
 				pageIrrMain.GetListSuggest(list.get(i));
