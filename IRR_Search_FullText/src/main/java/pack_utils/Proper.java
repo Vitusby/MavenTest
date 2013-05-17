@@ -1,5 +1,6 @@
 package pack_utils;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -11,7 +12,8 @@ public class Proper
 		prop = new Properties();
 		try
 		{
-			prop.load(ClassLoader.getSystemResourceAsStream("config.properties"));
+			//prop.load(ClassLoader.getSystemResourceAsStream("./src/main/resource/config.properties"));
+            prop.load(new FileReader("./src/main/resource/config.properties"));
 		}
 		catch(IOException exc)
 		{
@@ -25,4 +27,5 @@ public class Proper
 		return prop.getProperty(sKey);
 	}
 }
+
 
