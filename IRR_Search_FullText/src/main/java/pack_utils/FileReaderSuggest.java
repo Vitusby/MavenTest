@@ -1,5 +1,7 @@
 package pack_utils;
 
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -29,7 +31,7 @@ public class FileReaderSuggest
 	{
 		ArrayList<String> ar = new ArrayList<String>();
 		String s;
-		try(InputStream is = ClassLoader.getSystemResourceAsStream("SuggestList.txt"))
+		try(FileInputStream is = new FileInputStream("SuggestList.txt"))
 		{
 			byte b[] = new byte[is.available()];
 			is.read(b, 0, b.length);
