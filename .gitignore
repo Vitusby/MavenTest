@@ -1,3 +1,14 @@
 /jbehave-core
 /jbehave-web
 /HeadHunterPrice
+IRR_128/.idea/
+IRR_128/IRR_128.iml
+IRR_Search_FullText/.idea/
+IRR_Search_FullText/IRR_Search_FullText.iml
+IRR_Search_FullText/out/
+IRR_Search_FullText/src/main/main.iml
+IRR_Search_FullText/src/test/test.iml
+IRR_Search_FullText/src/main/java/pack_page/MyMainPageService.java
+IRR_Search_FullText/src/main/java/pack_page/MyMainScreen.java
+IRR_Search_FullText/src/main/java/pack_page/MyTest.java
+
