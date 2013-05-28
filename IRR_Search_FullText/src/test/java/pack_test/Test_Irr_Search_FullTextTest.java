@@ -331,8 +331,5 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			driver.quit();
 		}
 	}
-	
-	
+
 }
-
-
