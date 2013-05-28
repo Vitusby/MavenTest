@@ -335,7 +335,4 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	
 }
 
-// test add
-// add conflict master
-// + conflict
 
