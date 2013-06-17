@@ -21,7 +21,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	ArrayList<String> listSecondSuggest;
 	ArrayList<String> listLinksSuggest;
 	
-	
+
 	@Test (groups = { "AutoTest_1" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1", "sParam2"})
 	public void Test_FindBmw(String sUrl, String sImageEnable, String sParam1, String sParam2) throws ExceptFailTest
@@ -127,7 +127,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	
+
 	@Test (groups = { "AutoTest_5" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
 	public void Test_SuggestBMW(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest
@@ -151,9 +151,9 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 			driver.quit();
 		}
 	}
-	
+
 	@Test (groups = { "AutoTest_6" })
-	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
+    @Parameters({ "sUrl", "sImageEnable", "sParam1"})
 	public void Test_SuggestBlockInterest(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, UnsupportedEncodingException
 	{
 		try
@@ -176,7 +176,7 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 		}
 	}
 	
-	
+
 	@Test (groups = { "AutoTest_7" })
 	@Parameters({ "sUrl", "sImageEnable", "sParam1"})
 	public void Test_SuggestAbsentBlockInterest(String sUrl, String sImageEnable, String sParam1) throws ExceptFailTest, UnsupportedEncodingException
@@ -333,3 +333,5 @@ public class Test_Irr_Search_FullTextTest extends Test_Construct
 	}
 
 }
+
+//test

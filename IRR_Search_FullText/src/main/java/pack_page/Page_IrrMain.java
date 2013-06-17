@@ -152,7 +152,7 @@ public class Page_IrrMain extends Page {
 		//$('li[role$="menuitem"]').eq(1).data('item.autocomplete').title; получить 1 элемент его тайтл
 		for(int i=0; i<list.size(); i++)
 		{
-			lTemp.add(sUrl.toLowerCase() + URLDecoder.decode(list.get(i), "utf-8").toLowerCase());
+			lTemp.add(URLDecoder.decode(list.get(i), "utf-8").toLowerCase());
 		}
 		
 		print("\r\nСписок ссылок саджестов получен");
