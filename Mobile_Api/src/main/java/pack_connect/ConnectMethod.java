@@ -84,7 +84,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
     	
     	String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     	
@@ -174,7 +174,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
     			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -228,7 +228,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
     			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -280,7 +280,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotExist"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authNotExist") + "&password=" + Proper.GetProperty("password");
     	
@@ -309,7 +309,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
     	
@@ -338,7 +338,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
 		
@@ -415,7 +415,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
     		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;
@@ -504,7 +504,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/restore");
     	
     	String sE = "email=" + Proper.GetProperty("login_authOP");
     
@@ -538,7 +538,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/activationkey");
     	
     	String sE = "login=" + Proper.GetProperty("login_authNotActive");
     
@@ -581,7 +581,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + Proper.GetProperty("password") + "&new_password=" + "retry1";
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -615,7 +615,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sE = "auth_token=" + sAuth_token + "&old_password=" + "retry1" + "&new_password=" + Proper.GetProperty("password");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -870,7 +870,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust_New.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/"+ obj_old.GetID());
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/"+ obj_old.GetID());
 		
 		String sE="";
     	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
@@ -940,7 +940,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert");
     		
     	String sE="";
     	if(sCategoryData.equals("category_jobs")) // для проверки [0], [1] массивов
@@ -1363,7 +1363,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры запроса");
 		print("ID = " + sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/"+ sIdAdvert);
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/"+ sIdAdvert);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -1572,7 +1572,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sRequest2 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields",  hObj_Cust.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert");
     	
     	String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
     	
@@ -1626,7 +1626,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest1 = CreateArrayRequestForPostAndPut("advertisement" , sAdvertisement);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/"+ sIdAdvert);
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/"+ sIdAdvert);
     	
     	String sE = "auth_token=" + sAuth_token + sRequest1 + sRequest;
     	
@@ -1659,7 +1659,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("sIdAdvert = " + sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert)
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert)
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -1741,7 +1741,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("sIdAdvert = " + sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert)
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert)
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -1840,7 +1840,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchOwnAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/personal")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/personal")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -1954,7 +1954,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = " + sAuth_token);
 		print("sIdAdvert = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert +"/favorite");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -1984,7 +1984,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForFavourite);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/favorites")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/favorites")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -2037,7 +2037,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert +"/favorite")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -2067,7 +2067,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = " + sAuth_token);
 		print("sIdAdvert = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert +"/favorite");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -2352,7 +2352,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/deactivate");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/deactivate");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -2456,7 +2456,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/activate");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/activate");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -2531,7 +2531,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/prolong");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/prolong");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -2605,7 +2605,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/pushup");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -2660,7 +2660,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForList);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/category")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/category")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -2736,7 +2736,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/highlight");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -2827,7 +2827,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/premium");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/premium");
     	
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token + "&number=7" ;
     	
@@ -3337,7 +3337,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			
 		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/user")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/user")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -3719,7 +3719,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/search")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -3848,7 +3848,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/vote");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/vote");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -3879,7 +3879,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/vote")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/vote")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -4118,7 +4118,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();
@@ -4304,7 +4304,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("category = "+ sRubricator);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories")
     		.setParameter("category", sRubricator);
     	
     	uri = builder.build();
@@ -4504,7 +4504,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories/fields/post")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -4679,7 +4679,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/edit")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories/fields/edit")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -4886,7 +4886,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories/fields/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -4968,7 +4968,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение списка субъектов РФ".toUpperCase());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -5048,7 +5048,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Получение списка городов, для которых заведены поддомены".toUpperCase());
 		print("Параметры для запроса");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/popular_cities");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/popular_cities");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -5174,7 +5174,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();
@@ -5475,7 +5475,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5513,7 +5513,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/streets")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/streets")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5551,7 +5551,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHousesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/houses")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/houses")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5589,7 +5589,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/districts")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/districts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5628,7 +5628,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/microdistricts")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/microdistricts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5666,7 +5666,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sAOSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/ao")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/ao")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5704,7 +5704,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/directions")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/directions")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5742,7 +5742,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/highway")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/highway")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5780,7 +5780,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/regions/metro")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/regions/metro")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -5871,7 +5871,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 	
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/currencies");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/currencies");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -6021,7 +6021,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		wLog.WriteString(1, "NameDictinary = "+ sNameDict);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/dictionary/" + sNameDict);
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/dictionary/" + sNameDict);
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -7157,7 +7157,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("Получение списка платных продуктов для объявления доступных на этапе подачи объявления".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/products")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -7189,7 +7189,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("Получение списка платных продуктов для объявления доступных в личном кабинете пользователя".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -7221,7 +7221,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("Получение списка бесплатных действий над объявлением".toUpperCase());
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/actions")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/actions")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -7415,7 +7415,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/logout");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/logout");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -7755,7 +7755,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
     			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -7818,7 +7818,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
     			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -7875,7 +7875,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + sEmail);
 		print("password = " + sPassword);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + sEmail + "&password=" + sPassword;
     	
@@ -7903,7 +7903,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     		print("od_id = "+ sOD_Id);
     		builder = new URIBuilder();
     		
-        	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
+        	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
         	
         	sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
         	
@@ -7938,7 +7938,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
     	
@@ -7968,7 +7968,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authOP"));
 		print("password = asdfdfgfg") ;
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + "asdfdfgfg";
 		
@@ -8002,7 +8002,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
 		
@@ -8052,7 +8052,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
     		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;
@@ -8145,7 +8145,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + Proper.GetProperty("password") + "&new_password=" + "retry1";
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -8175,7 +8175,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		sE = "auth_token=" + sAuth_token + "&old_password=" + "retry1" + "&new_password=" + Proper.GetProperty("password");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -8234,7 +8234,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("login = "+ Proper.GetProperty("login_authNotActive"));
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/activationkey");
     	
     	String sE = "login=" + Proper.GetProperty("login_authNotActive");
     
@@ -8262,7 +8262,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("email = "+ Proper.GetProperty("login_authOP"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/restore");
     	
     	String sE = "email=" + Proper.GetProperty("login_authOP");
     
@@ -8527,7 +8527,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("category = "+ sCategory);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories")
     		.setParameter("category", sCategory);
     	
     	uri = builder.build();
@@ -8669,7 +8669,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/categories/fields/post")
     		.setQuery(sQuery + "&auth_token=" + sAuth_token);
     	
     	uri = builder.build();
@@ -9300,7 +9300,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest1_1 + sRequest2 + sRequest2_1 + sVideo;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert");
     		
     	uri = builder.build();
  
@@ -9327,7 +9327,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	{
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/advert/" + sIdAdvert + "/products")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -9374,7 +9374,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sRequest2_1 = CreateDoubleArrayRequestForPostAndPut("advertisement", "custom_fields", sParamCustom);
 		
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.0/advertisements/" + sId);
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/advertisements/" + sId);
 		
 		String sE="";
     	sE = "auth_token=" + sAuth_token + sRequest1 + sRequest2 + sRequest2_1;
@@ -9872,7 +9872,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account");
     		
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -9916,7 +9916,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//print("password = "+ sPassword);
 			String sE = "username=" + sUsername + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;;
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/login");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/login");
 	    	uri = builder.build();
 	    	if(uri.toString().indexOf("%25") != -1)
 	    	{
@@ -10007,7 +10007,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.0/account")
+    	builder.setScheme("http").setHost(sHost).setPath("/mobile_api/1.1/account")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -10058,7 +10058,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			sQuery = sQuery + "&auth_token=" + sAuth_token;
 			
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account"); 
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account");
 	    	uri = builder.build();
 	   
 	    	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -10092,7 +10092,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "email="+sEmail;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/restore");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/restore");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -10129,7 +10129,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token + "&old_password=" + sPassword + "&new_password=" + sNewPassword;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/changepassword");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/changepassword");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -10156,7 +10156,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sE = "login=" + sUsername;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/activationkey");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/activationkey");
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
@@ -10198,7 +10198,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "auth_token=" + sAuth_token;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/logout");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/logout");
     	uri = builder.build();
     	
     	print("Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -10258,7 +10258,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			String sE = "auth_token=" + sAuth_token + sRequest + sRequest1 + sRequest2 + sVideo;
 		
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert");
 	    		
 	    	uri = builder.build();
 	    	wLog.WriteString(1,"Отправляем запрос. Uri Запроса: "+uri.toString());
@@ -10305,7 +10305,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("2.2.	Получение объявления");
 		print("sAuth_token = " + sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/"+ sIdAdvert)
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/"+ sIdAdvert)
     		.setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
@@ -10392,12 +10392,12 @@ public class ConnectMethod extends Connect_Request_Abstract
 				sDel = "";
 			}
 			
-			builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/"+ sIdAdvert);
+			builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/"+ sIdAdvert);
 			sQuery = "auth_token=" + sAuth_token + sVideo + sRequest1 + sRequest + sDel;
     	}
     	else
     	{
-    		builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/"+ sIdAdvert);
+    		builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/"+ sIdAdvert);
     		sQuery = "auth_token=" + sAuth_token + sRequest1 + sRequest + sVideo;
     	}
     	uri = builder.build();
@@ -10433,7 +10433,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert)
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert)
     			.setParameter("auth_token", sAuth_token);
     	
     	uri = builder.build();
@@ -10471,7 +10471,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("auth_token = "+ sAuth_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert +"/favorite");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert +"/favorite");
 
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -10504,7 +10504,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert +"/favorite")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert +"/favorite")
     			.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -10538,7 +10538,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("2.7.	Получение списка платных продуктов для объявления доступных на этапе подачи объявления");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/products")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/products")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -10576,7 +10576,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("2.8.	Получение списка платных продуктов для объявления доступных в личном кабинете пользователя");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/products/pers_acc")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -10612,7 +10612,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		print("2.9.	Получение списка бесплатных действий над объявлением");
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/actions")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/actions")
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -10656,7 +10656,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/activate");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/activate");
     	
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -10693,7 +10693,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/deactivate");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/deactivate");
     	
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -10735,7 +10735,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/prolong");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/prolong");
 
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -10781,7 +10781,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/pushup");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/pushup");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -10828,7 +10828,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/highlight");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/highlight");
     		
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token;
     	
@@ -10874,7 +10874,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		print("sApp_token = "+ sApp_token);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/premium");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/premium");
     	
     	String sE = "auth_token=" + sAuth_token + "&app_token=" + sApp_token + "&number=" + sNumberDays;
     	
@@ -10914,7 +10914,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/vote");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/vote");
 
     	String sE = "auth_token=" + sAuth_token;
     	
@@ -10949,7 +10949,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("auth_token = "+ sAuth_token);
 		print("ADVERTISEMENT_ID = "+ sIdAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/vote")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/vote")
     		.setParameter("auth_token", sAuth_token);
 
     	uri = builder.build();
@@ -10990,7 +10990,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sAuth_token = "+ sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/category")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/category")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -11048,7 +11048,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/search")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -11100,7 +11100,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchFavourite);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/favorites")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/favorites")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -11176,7 +11176,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchOwnAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/personal")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/personal")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -11245,7 +11245,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sDataForSearchUserAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/user")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/user")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11313,7 +11313,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("category = "+ sCategory);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/categories")
     		.setParameter("category", sCategory);
     	
     	uri = builder.build();
@@ -11356,7 +11356,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsAdvert = "+ sDataCustomfieldsAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/post")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/categories/fields/post")
     		.setQuery(sQuery + "&auth_token=" + sAuth_token);
     	
     	uri = builder.build();
@@ -11402,7 +11402,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/edit")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/categories/fields/edit")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11467,7 +11467,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("DataCustomfieldsEditAdvert = "+ sDataCustomfieldsEditAdvert);
 		String sQuery = CreateSimpleRequest(sDataCustomfieldsEditAdvert);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/fields/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/categories/fields/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11503,7 +11503,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("4.1.	Получение списка субъектов РФ");
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -11537,7 +11537,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("Параметры для запроса");
 		print("region = "+ sRegion);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/cities")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/cities")
     	.setParameter("region", sRegion);
     	
     	uri = builder.build();
@@ -11570,7 +11570,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			print("4.2.	Получение списка городов, для которых заведены поддомены".toUpperCase());
 			print("Параметры для запроса");
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/popular_cities");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/popular_cities");
 	    	
 	    	uri = builder.build();
 	    	if(uri.toString().indexOf("%25") != -1)
@@ -11605,7 +11605,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataCitiesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/search")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/search")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11642,7 +11642,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataStreetsSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/streets")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/streets")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11679,7 +11679,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHousesSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/houses")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/houses")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11716,7 +11716,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/districts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/districts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11754,7 +11754,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMicroDistrictSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/microdistricts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/microdistricts")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11790,7 +11790,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sAOSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/ao")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/ao")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11827,7 +11827,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataDirectionSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/directions")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/directions")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11864,7 +11864,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataHighwaySuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/highway")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/highway")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11901,7 +11901,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 	
 		String sQuery = CreateSimpleRequest(sDataMetroSuggest);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/regions/metro")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/regions/metro")
     		.setQuery(sQuery);
     	
     	uri = builder.build();
@@ -11936,7 +11936,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("5.1.	Получение списка валют");
 	
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/currencies");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/currencies");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -11976,7 +11976,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/dictionary/" + sNameDict)
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/dictionary/" + sNameDict)
     		.setParameter("value", sParam);
     	
     	uri = builder.build();
@@ -12014,7 +12014,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		String sQuery = CreateSimpleRequest(sParam);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/promo").setQuery(sQuery);
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/promo").setQuery(sQuery);
     	
     	
     	uri = builder.build();
@@ -12050,7 +12050,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sParam = "+ sParam);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/categories/navigation").setParameter("category", sParam);
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/categories/navigation").setParameter("category", sParam);
     	
     	
     	uri = builder.build();
@@ -12098,7 +12098,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sParam) + sParam1;
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/friends")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/friends")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	
@@ -12140,7 +12140,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = CreateSimpleRequestForPostAndPut(sParam) + "&reason=" + sParam1;	
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/complain");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/complain");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -12186,7 +12186,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/" + sIdAdvert + "/similar")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/" + sIdAdvert + "/similar")
     		.setParameter("auth_token", sAuth_token);
     	
     	
@@ -12225,7 +12225,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/geolocation")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/geolocation")
     		.setParameter("lat", sParam)
     		.setParameter("lng", sParam1);
     	
@@ -12260,7 +12260,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("8.6.	Получение информации о местоположении пользователя по IP-адресу");
 	
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/iplocation");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/iplocation");
     	
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -12305,7 +12305,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/current_location")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/current_location")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -12358,7 +12358,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/nearby_regions")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/nearby_regions")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -12404,7 +12404,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/stairsup")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/stairsup")
     		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -12449,7 +12449,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/promo_multiadverts")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/promo_multiadverts")
     		.setQuery(sQuery);
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -12500,7 +12500,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("sAuth_token = "+ sAuth_token);
 		String sQuery = CreateSimpleRequest(sDataForListing);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements")
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements")
     		.setQuery(sQuery)
     		.setParameter("auth_token", sAuth_token);
     	uri = builder.build();
@@ -12556,7 +12556,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/advertisements/advert/"+ sIdAdvert +"/view_history");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/advertisements/advert/"+ sIdAdvert +"/view_history");
     
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
@@ -12599,7 +12599,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		//print("password = "+ sPassword);
 		String sE = "username=" + sUsername + "&password=" + sPassword;
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.0/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/login");
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
     	{
