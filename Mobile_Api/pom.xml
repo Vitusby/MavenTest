@@ -51,6 +51,7 @@
 						<sOD_Id>${sOD_Id}</sOD_Id>
 						<sPathImageNew>${sPathImageNew}</sPathImageNew>
 						<bDeleteImage>${bDeleteImage}</bDeleteImage>
+                        <sVersion>${sVersion}</sVersion>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

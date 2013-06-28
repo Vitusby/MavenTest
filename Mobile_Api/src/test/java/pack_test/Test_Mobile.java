@@ -20,10 +20,10 @@ public class Test_Mobile
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// 	
 	@Test (groups = { "AutoTest_1" })
-	@Parameters({"sBaseHost", "sTypeApi"})
-	public void AutoTest_CreateProfile(String sBaseHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sTypeApi", "sVersion"})
+	public void AutoTest_CreateProfile(String sBaseHost, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-			cM.CreateProfileReqeust(sBaseHost, sTypeApi); // Создание профиля
+			cM.CreateProfileReqeust(sBaseHost, sTypeApi, sVersion); // Создание профиля
 	}
 	
 	@Test (groups = { "AutoTest_2" })

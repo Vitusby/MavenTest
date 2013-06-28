@@ -65,7 +65,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 // автотесты	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля АвтоТест с указанием mm_id и od_id.
-	public void CreateProfileReqeust(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void CreateProfileReqeust(String sHost, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		String sMM_Id = RamdomData.GetRamdomString(10);
 		String sOD_Id = RamdomData.GetRamdomString(10);
@@ -84,7 +84,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/"+sVersion+"/account");
     	
     	String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
     	
