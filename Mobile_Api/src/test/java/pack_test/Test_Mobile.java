@@ -256,10 +256,10 @@ public class Test_Mobile
 	// Параметризированные тесты
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@Test (groups = { "CreateProfileRequest_1" })
-	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id", "sTypeApi"})
-	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	@Parameters({"sBaseHost", "sLogin", "sPassword", "sMM_Id", "sOD_Id", "sTypeApi", "sVersion"})
+	public void Test(String sBaseHost, String sLogin, String sPassword, @Optional("") String sMM_Id, @Optional("") String sOD_Id, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
-		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id, sTypeApi);
+		cM.CreateProfileRequest_1(sBaseHost, sLogin, sPassword, sMM_Id, sOD_Id, sTypeApi, sVersion);
 	}
 
 	@Test (groups = { "Authorization_1_1" })

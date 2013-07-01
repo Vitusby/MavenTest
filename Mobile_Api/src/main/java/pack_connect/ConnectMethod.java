@@ -9859,7 +9859,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 // Параметризированные тесты
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	// Создание профиля	
-	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword, String sMM_Id, String sOD_Id, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest
+	public void CreateProfileRequest_1(String sHost, String sEmail, String sPassword, String sMM_Id, String sOD_Id, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest
 	{
 		print("1.	Создание профиля");
 		print("Параметры для запроса");
@@ -9872,7 +9872,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		String sE = "email=" + sEmail + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
 		builder = new URIBuilder();
 		
-    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/"+sVersion+"/account");
     		
     	uri = builder.build();
     	if(uri.toString().indexOf("%25") != -1)
