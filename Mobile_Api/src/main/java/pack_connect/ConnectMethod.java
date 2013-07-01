@@ -9897,7 +9897,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	}
 	}	
 	// Авторизация
-	public String Authorization_1_1(String sHost, String sUsername, String sPassword, String sMM_Id, String sOD_Id, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public String Authorization_1_1(String sHost, String sUsername, String sPassword, String sMM_Id, String sOD_Id, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
 		wLog.SetUpWriterLog("LogResult.html");
@@ -9916,7 +9916,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 			//print("password = "+ sPassword);
 			String sE = "username=" + sUsername + "&password=" + sPassword + "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;;
 			builder = new URIBuilder();
-	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/1.1/account/login");
+	    	builder.setScheme("http").setHost(sHost).setPath("/" + sTypeApi + "/"+sVersion+"/account/login");
 	    	uri = builder.build();
 	    	if(uri.toString().indexOf("%25") != -1)
 	    	{
