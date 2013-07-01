@@ -365,7 +365,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	
 	}
 	// Редактирование профиля Автотест
-	public void GetAndEditProfile(String sHost, String sTypeApi) throws URISyntaxException, IOException, JSONException, ExceptFailTest
+	public void GetAndEditProfile(String sHost, String sTypeApi, String sVersion) throws URISyntaxException, IOException, JSONException, ExceptFailTest
 	{
 		wLog.SetUpWriterLog("LogResult.html");
 		JSONObject jTemp, jData;
@@ -415,7 +415,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("user_info = "+ hObj.GetStringFromAllHashMap());
 		
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/"+sVersion+"/account");
     		
     	
     	String sE = "auth_token=" + sAuth_token + sQuery;
