@@ -157,7 +157,7 @@ public class ConnectMethod extends Connect_Request_Abstract
     	print("Тест завершен успешно".toUpperCase());
 	}
 	// Авторизация c указанием mm_id и od_id АвтоТест 
-	public void Authorization(String sHost, String sTypeApi) throws URISyntaxException, IOException, ExceptFailTest, JSONException
+	public void Authorization(String sHost, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		
 		String sMM_Id = RamdomData.GetRamdomString(10);
@@ -174,7 +174,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/" + sVersion + "/account/login");
     	
     	String sE =  "username=" + Proper.GetProperty("login_authOP") + "&password=" + Proper.GetProperty("password") +
     			 "&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -228,7 +228,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("mm_id = "+ sMM_Id);
 		print("od_id = "+ sOD_Id);
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/" + sVersion + "/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authIP") + "&password=" + Proper.GetProperty("password") +
     			"&mm_id=" + sMM_Id + "&od_id=" + sOD_Id;
@@ -280,7 +280,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotExist"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/" + sVersion + "/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authNotExist") + "&password=" + Proper.GetProperty("password");
     	
@@ -309,7 +309,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authBan"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
+    	builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/" + sVersion + "/account/login");
     	
     	sE =  "username=" + Proper.GetProperty("login_authBan") + "&password=" + Proper.GetProperty("password");
     	
@@ -338,7 +338,7 @@ public class ConnectMethod extends Connect_Request_Abstract
 		print("email = " + Proper.GetProperty("login_authNotActive"));
 		print("password = " + Proper.GetProperty("password"));
 		builder = new URIBuilder();
-		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/1.1/account/login");
+		builder.setScheme("http").setHost(sHost).setPath("/"+sTypeApi+"/" + sVersion + "/account/login");
 		
 		sE =  "username=" + Proper.GetProperty("login_authNotActive") + "&password=" + Proper.GetProperty("password");
 		
