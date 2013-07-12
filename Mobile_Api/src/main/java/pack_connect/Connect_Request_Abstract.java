@@ -112,9 +112,12 @@ public abstract class Connect_Request_Abstract
         String smas[] =  sBodyRequest.split("&");
         for(String s : smas)
         {
+            print(s);
         	String smas2[] = s.split("=", 2);
         	for(int j=0; j<smas2.length; j++)
+            {
         		reqEntity.addPart(smas2[0], new StringBody(smas2[1] ,"application/x-www-form-urlencoded",Charset.forName("utf-8")));
+            }
         }
         post.setEntity(reqEntity);
         ////////////////////////////////// получение тела запроса
