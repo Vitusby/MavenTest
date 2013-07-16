@@ -9765,8 +9765,10 @@ public class ConnectMethod extends Connect_Request_Abstract
 		jTemp = GetListCategory(sHost, sSearch, sAuth_token, sTypeApi, sVersion);
 		
 		print("\r\nПолучаем ID первого объявления в листинге".toUpperCase());
-		if(jTemp.getString("advertisements").equals("[]"))
+		if(jTemp.getString("advertisements").equals("[]")) {
 			print("В листинге нету неодного объявления");
+            throw new ExceptFailTest("В листинге нету неодного объявления, нечего добавлять в избранное, поэтому тест дальше работать не будет");
+        }
 		else
 		{
 			jArr = jTemp.getJSONArray("advertisements");
