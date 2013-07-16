@@ -320,7 +320,7 @@ public class Test_Mobile
 	}
 	
 	@Test (groups = { "GetAdvert_2_2" })
-	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi", "sVersion", "sVersion"})
+	@Parameters({"sBaseHost", "sIdAdvert", "sLogin", "sPassword", "bAuthFlag", "sTypeApi", "sVersion"})
 	public void Test6(String sBaseHost, String sIdAdvert, String sLogin, String sPassword, boolean bAuthFlag, String sTypeApi, String sVersion) throws URISyntaxException, IOException, ExceptFailTest, JSONException
 	{
 		cM.GetAdvert_2_2(sBaseHost, sIdAdvert, sLogin, sPassword, bAuthFlag, sTypeApi, sVersion);
