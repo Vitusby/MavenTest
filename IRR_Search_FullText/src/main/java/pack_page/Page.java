@@ -1,5 +1,8 @@
 package pack_page;
 
+import java.awt.AWTException;
+import org.openqa.selenium.JavascriptExecutor;
+import java.awt.Robot;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +22,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -108,6 +113,38 @@ public abstract class Page {
 		cClick.perform();
 	}
 
+	// Клик по элементу с помощью Java Script
+	protected void ClickElementViaJS(WebElement wElement) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();",
+				wElement);
+	}
+
+	/**
+	 * Переходим на предыдущую страницу
+	 */
+	protected void BrowserBack() {
+		driver.navigate().back();
+	}
+
+	/**
+	 * Возвращает текст по локатору
+	 * @param locator XPath локатор
+	 * @return
+	 */
+	protected String GetText(String locator) {
+		print(driver.findElement(By.xpath(locator)).getText());
+		return driver.findElement(By.xpath(locator)).getText();
+	}
+
+	/**
+	 * Scrolls page to the given Y coordinate
+	 * @param coordinate  Y coordinate
+	 */
+	public void scrollTo(final int coordinate) {
+		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,"
+				+ coordinate + ");");
+	}
+
 	// Нажатие клавиши
 	protected void KeyPress(WebElement wElement, Keys key, int n) {
 		while (n > 0) {
@@ -132,14 +169,15 @@ public abstract class Page {
 	protected void CaptureScreenshot(String sName) {
 		File screenshot = ((TakesScreenshot) driver)
 				.getScreenshotAs(OutputType.FILE);
-		//String path = "src\\" + screenshot.getName();
-		//System.out.println(path);
+		// String path = "src\\" + screenshot.getName();
+		// System.out.println(path);
 
-		try
-		{
-			FileUtils.copyFile(screenshot, new File(/*"src\\" + */  sName + ".png"));
-		} 
-		catch (IOException e) { print("Не удалось сохранить скриншот");}
+		try {
+			FileUtils.copyFile(screenshot, new File(/* "src\\" + */sName
+					+ ".png"));
+		} catch (IOException e) {
+			print("Не удалось сохранить скриншот");
+		}
 	}
 
 	// Проверка значения текста элемента
@@ -230,23 +268,20 @@ public abstract class Page {
 	}
 
 	// проверка видимости элемента с ожиданием
-	protected void CheckVisibleElement(WebElement wElement, String sName) throws ExceptFailTest 
-	{
+	protected void CheckVisibleElement(WebElement wElement, String sName)
+			throws ExceptFailTest {
 		WebDriverWait wait = new WebDriverWait(driver, nTimeWait);
-		try 
-		{
+		try {
 			wait.until(ExpectedConditions.visibilityOf(wElement));
-		} 
-		catch (TimeoutException exc)
-		{
+		} catch (TimeoutException exc) {
 			print("Элемент " + sName + "не виден.");
 			throw new ExceptFailTest("Элемент \"" + sName + "\" не виден.");
 		}
 	}
 
 	// Поиск и возврат списков элементов по xpath
-	protected WebElement[] GetAllWebElements(final String sLocator) throws ExceptFailTest 
-	{
+	protected WebElement[] GetAllWebElements(final String sLocator)
+			throws ExceptFailTest {
 
 		WebElement wTemp[];
 		ArrayList<WebElement> list;
@@ -279,9 +314,22 @@ public abstract class Page {
 		return wTemp;
 	}
 
+	/**
+	 * Получаем элемент по локатору
+	 * 
+	 * @param locator
+	 *            Локатор
+	 * @return WebElement
+	 * @throws ExceptFailTest
+	 *             Exception
+	 */
+	protected WebElement GetElement(String locator) throws ExceptFailTest {
+		return GetAllWebElements(locator)[0];
+	}
+
 	// Проверка выбран или нет элемент
-	protected void CheckIsSelectedElement(final WebElement wElement,final Boolean bResult, String sName) throws ExceptFailTest
-	{
+	protected void CheckIsSelectedElement(final WebElement wElement,
+			final Boolean bResult, String sName) throws ExceptFailTest {
 		WebDriverWait wait = new WebDriverWait(driver, nTimeWait);
 		try {
 			wait.until(ExpectedConditions.elementSelectionStateToBe(wElement,
@@ -294,8 +342,8 @@ public abstract class Page {
 	}
 
 	// получение числа из текста элементов (получение цены продукта)
-	protected int GetIntFromTextInWebElement(WebElement wElement) throws ExceptFailTest
-	{
+	protected int GetIntFromTextInWebElement(WebElement wElement)
+			throws ExceptFailTest {
 		int nTemp;
 		String sTemp;
 
@@ -314,23 +362,16 @@ public abstract class Page {
 	}
 
 	// проверка существует ли элемент (поиск по xpath)
-	protected boolean CheckElement(final String sLocator, String sName)
-	{
+	protected boolean CheckElement(final String sLocator, String sName) {
 		WebElement wElement = null;
 		WebDriverWait wWaitDriver = new WebDriverWait(driver, 2);
-		try
-		{
-			wElement = wWaitDriver.until(new ExpectedCondition<WebElement>()
-					{
-				public WebElement apply(WebDriver wd)
-				{
+		try {
+			wElement = wWaitDriver.until(new ExpectedCondition<WebElement>() {
+				public WebElement apply(WebDriver wd) {
 					return wd.findElement(By.xpath(sLocator));
 				}
-					}
-										);
-		}
-		catch (TimeoutException exc)
-		{
+			});
+		} catch (TimeoutException exc) {
 			System.out.println("Элемент " + sName + " не найден");
 		}
 		if (wElement == null)
@@ -340,28 +381,22 @@ public abstract class Page {
 	}
 
 	// Метод вывода в консоль
-	public <T> void print(T obj)
-	{
+	public <T> void print(T obj) {
 		PrintWriter pw = new PrintWriter(System.out, true);
 		pw.println(obj);
 	}
 
 	// Метод остановки процесса
-	public void Sleep(int i) 
-	{
-		try 
-		{
+	public void Sleep(int i) {
+		try {
 			Thread.sleep(i);
-		}
-		catch (InterruptedException exc) 
-		{
+		} catch (InterruptedException exc) {
 			exc.printStackTrace();
 		}
 	}
 
 	// Рандомное число
-	protected int GetRandomNumber(int nLimit)
-	{
+	protected int GetRandomNumber(int nLimit) {
 		Random r = new Random();
 		return r.nextInt(nLimit);
 	}

@@ -33,6 +33,12 @@ public class Page_IrrMain extends Page {
 	@FindBy(xpath = "//div[contains(@class,'wrSearch')]//a")
 	private WebElement wButtonSearch;
 	
+	// элемены меню
+	@FindBy(xpath = "//li/a[contains(@href, 'cars')]")
+	private WebElement lnkAuto;
+	
+	@FindBy(id="blocknote")
+	
 	// список саджестов
 	private WebElement wLinkSuggestText[];
 	String sXpathSuggest = "//ul[@class='ui-autocomplete ui-menu ui-widget ui-widget-content ui-corner-all']/li[@class='ui-menu-item']/a";
@@ -40,7 +46,6 @@ public class Page_IrrMain extends Page {
 	
 	String sF; // слово по которому ищем здесь храним
 	
-	@SuppressWarnings("unused")
 	private JavascriptExecutor js;
 
 	
@@ -215,6 +220,11 @@ public class Page_IrrMain extends Page {
 	}
 	//ArrayList<String> list = (ArrayList<String>)js.executeScript(" var dd = new Array(); $('li[role$=\"menuitem\"]').each(function(i) { dd[i] = $(this).data('item.autocomplete').url });return dd;");
 	//$('li[role$="menuitem"]').eq(1).data('item.autocomplete').title; получить 1 элемент его тайтл
+
 	
+	public Page_Auto GoToAuto(){
+		lnkAuto.click();
+		return PageFactory.initElements(driver, Page_Auto.class);
+	}
 	
 }

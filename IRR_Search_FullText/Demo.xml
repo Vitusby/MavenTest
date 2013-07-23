@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Demo Suite" parallel="false">
+	<test name="Demo test">
+		<parameter name="sImageEnable" value="1" />
+		<parameter name="sUrl" value="http://russia.master.prontosoft.by" />
+		<parameter name="sIndex" value="3" />
+		<parameter name="sValue" value="В избранном" />
+		<parameter name="sName" value="Audi 100,  лимузин,  2011 г. в.,  механическая" />
+
+		<groups>
+			<run>
+				<include name="Demo_1" />
+			</run>
+		</groups>
+		<classes>
+			<class name="demo.Test_Add_To_FavoritesTest" />
+		</classes>
+	</test> 
+</suite> 
